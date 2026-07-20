@@ -153,14 +153,17 @@ class ManifestRepository(
     private fun failure(reasons: List<String>): Result<Nothing> =
         Result.failure(ManifestLoadException(AppErrorCode.MANIFEST_INVALID, reasons))
 
-    private fun parentDir(path: String): String {
-        val normalized = path.replace('\\', '/')
-        val idx = normalized.lastIndexOf('/')
-        return if (idx >= 0) normalized.substring(0, idx) else ""
-    }
+    private fun parentDir(path: String): String = parentDirOf(path)
 
     companion object {
         /** 全局清单在资源根的固定路径（计划书 §5.1）。 */
         const val GLOBAL_MANIFEST_PATH = "global_manifest.json"
+
+        /** 提取相对路径的父目录（"scenes/scene_S1/scene.json" -> "scenes/scene_S1"）。 */
+        fun parentDirOf(path: String): String {
+            val normalized = path.replace('\\', '/')
+            val idx = normalized.lastIndexOf('/')
+            return if (idx >= 0) normalized.substring(0, idx) else ""
+        }
     }
 }
