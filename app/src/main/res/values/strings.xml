@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">红色电波</string>
+    <string name="app_version_label">版本</string>
+    <string name="home_title">永不消逝的红色电波</string>
+    <string name="home_subtitle">AR 触发式移动端 VR 研学</string>
+    <string name="home_status_initializing">正在初始化场景索引…</string>
+    <string name="home_status_ready">已就绪</string>
+    <string name="home_status_error">资源初始化失败</string>
+    <string name="entry_manual">手动选择场景</string>
+    <string name="entry_qr">扫描二维码</string>
+    <string name="entry_image">识别触发图</string>
+    <string name="diag_title">诊断</string>
+    <string name="diag_copy">复制诊断摘要</string>
+    <string name="diag_copied">已复制到剪贴板</string>
+    <string name="error_unknown">未知错误</string>
+</resources>
