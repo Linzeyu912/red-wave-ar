@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 简化“电波”图形：同心弧线代表无线电波。占位图标，正式美术在内容组就位后替换。 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 发射点 -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M52,56 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0" />
+    <!-- 内弧 -->
+    <path
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M44,48 A14,14 0 0,1 60,48" />
+    <!-- 中弧 -->
+    <path
+        android:strokeColor="#FFE0E0E0"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M38,44 A24,24 0 0,1 66,44" />
+    <!-- 外弧 -->
+    <path
+        android:strokeColor="#FFBDBDBD"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M32,40 A34,34 0 0,1 72,40" />
+</vector>

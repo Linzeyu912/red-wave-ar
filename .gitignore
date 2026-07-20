@@ -28,3 +28,11 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+
+# === Python（建模白盒生成脚本缓存）===
+__pycache__/
+*.pyc
+
+# === Gradle / 构建产物 ===
+.gradle/
+*.apk.tmp
