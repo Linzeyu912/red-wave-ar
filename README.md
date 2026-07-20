@@ -93,12 +93,25 @@ sdk.dir=D:/AndroidDev/sdk
 - 固定横屏（§2.3）、AR Optional（§6.4）
 - 首页 UI 骨架 + 版本信息页
 - 错误码表 `AppErrorCode` 与恢复文案 `AppErrorMessages`（§6.18，覆盖 UT-014）
-- 单元测试基础设施就绪，5 个测试通过
+- 单元测试基础设施就绪
 
-**已知限制（CODE-00）**：
+### CODE-01：数据契约与资源仓库 ✅
+
+- 三个 manifest data class（`GlobalManifest` / `SceneManifest` / `ContentManifest`），snake_case↔camelCase（§6.7）
+- JSON 解析（kotlinx.serialization，§6.7）
+- 路径安全 `ResourcePathSafety`：拒绝绝对路径 / 盘符 / UNC / `..` 穿越与控制字符（§5.6-4）
+- `ManifestValidator`：Schema 字段约束（§5.5）+ 7 条跨文件校验（§5.6），Debug 宽松 / Release 严格
+- `EntryResolver`：二维码 / 触发图 / 手动三入口映射，重复值判失败（§6.8）
+- `ManifestRepository`：读取 + 解析 + 校验 + 资源存在性，错误码稳定为 `MANIFEST_INVALID`
+- `AndroidAssetResourceRoot` / `FileResourceRoot`：assets 与已安装场景包的统一抽象
+- S1 白盒 assets：`global_manifest.json` + 建模交付的 `scene.json` + `content.json`（文案取自 research/ draft，review_status=draft）+ 占位 thumbnail
+- **45 个单元测试全部通过**，覆盖 UT-001~007、014 + 真实资源集成测试
+
+**已知限制（CODE-00/01）**：
 - 首页三个入口按钮（二维码/触发图/手动）当前不跳转，逻辑在 CODE-08/09/10 接入。
 - 未接入 Filament、ARCore、Media3、ZXing（后续 CODE 任务）。
 - Release 变体未启用 minify 与签名（CODE-11）。
+- content.json 文案为 draft，音频文件未制作（CODE-07），白盒阶段软检查。
 - 目标机型清单待用户提供（计划书 §15.4、§6.4），ABI 暂按通用 arm64-v8a + armeabi-v7a。
 
 ---
@@ -113,20 +126,33 @@ red-wave-ar/
 │   └── src/
 │       ├── main/
 │       │   ├── AndroidManifest.xml
+│       │   ├── assets/                       # §5.1 运行时资产
+│       │   │   ├── global_manifest.json
+│       │   │   └── scenes/scene_S1/
+│       │   │       ├── scene.json            # 建模白盒交付
+│       │   │       ├── content.json          # research/ draft 文案
+│       │   │       ├── environment_whitebox.glb
+│       │   │       ├── props/*.glb
+│       │   │       └── thumbnail.png         # 占位
 │       │   ├── java/cn/bistu/redwave/
 │       │   │   ├── MainActivity.kt
-│       │   │   ├── AppErrorCode.kt          # §6.18 错误码
-│       │   │   ├── AppErrorMessages.kt      # §6.18 恢复文案
-│       │   │   ├── AppInfo.kt               # BuildConfig 访问器
-│       │   │   ├── SceneCoreTypes.kt        # EntrySource / SensorMode / EntryResult
-│       │   │   ├── SceneUiState.kt          # §3.4 状态机
+│       │   │   ├── AppErrorCode.kt           # §6.18 错误码
+│       │   │   ├── AppErrorMessages.kt       # §6.18 恢复文案
+│       │   │   ├── SceneCoreTypes.kt         # EntrySource / SensorMode / EntryResult
+│       │   │   ├── SceneUiState.kt           # §3.4 状态机
+│       │   │   ├── data/                     # CODE-01 数据契约
+│       │   │   │   ├── ManifestModels.kt     # §5.4/§6.7 三 manifest data class
+│       │   │   │   ├── ManifestJson.kt       # JSON 解析
+│       │   │   │   ├── ManifestValidator.kt  # §5.5/§5.6 校验
+│       │   │   │   ├── ResourcePathSafety.kt # §5.6-4 路径安全
+│       │   │   │   ├── EntryResolver.kt      # §6.8 入口映射
+│       │   │   │   ├── ManifestRepository.kt # 资源仓库
+│       │   │   │   └── AssetResourceRoot.kt  # 资源根抽象
 │       │   │   └── ui/
-│       │   │       ├── RedWaveApp.kt
-│       │   │       ├── home/HomeScreen.kt
-│       │   │       └── theme/Theme.kt
 │       │   └── res/
 │       └── test/java/cn/bistu/redwave/
-│           └── AppErrorCodeCoverageTest.kt
+│           ├── AppErrorCodeCoverageTest.kt
+│           └── data/                         # CODE-01 测试 (UT-001~007,014)
 ├── gradle/
 │   ├── libs.versions.toml
 │   └── wrapper/
