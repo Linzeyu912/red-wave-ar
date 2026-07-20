@@ -13,6 +13,7 @@ single-sided rendering is safe.
 from __future__ import annotations
 
 import json
+import math
 import struct
 from dataclasses import dataclass, field
 
@@ -61,9 +62,9 @@ class MeshBuilder:
             c1, s1 = float(np.cos(a1)), float(np.sin(a1))
             v = [
                 (cx + radius * c0, cy - h2, cz + radius * s0),
-                (cx + radius * c1, cy - h2, cz + radius * s1),
-                (cx + radius * c1, cy + h2, cz + radius * s1),
                 (cx + radius * c0, cy + h2, cz + radius * s0),
+                (cx + radius * c1, cy + h2, cz + radius * s1),
+                (cx + radius * c1, cy - h2, cz + radius * s1),
             ]
             base = len(self.positions)
             self.positions.extend(v)
@@ -85,6 +86,84 @@ class MeshBuilder:
                     self.indices.extend([base, i1, i0])  # CCW from +Y
                 else:
                     self.indices.extend([base, i0, i1])  # CCW from -Y
+
+    def add_tube(self, p0, p1, radius: float, segments: int = 10, cap: bool = True) -> None:
+        """Round tube of arbitrary axis from p0 to p1. Flat-shaded, outward
+        normals, optional end caps. Degenerate (zero-length) tubes are skipped."""
+        p0 = np.asarray(p0, dtype=float)
+        p1 = np.asarray(p1, dtype=float)
+        axis = p1 - p0
+        length = float(np.linalg.norm(axis))
+        if length < 1e-9:
+            return
+        a = axis / length
+        ref = np.array([0.0, 1.0, 0.0]) if abs(a[1]) < 0.9 else np.array([1.0, 0.0, 0.0])
+        u = np.cross(a, ref)
+        u = u / np.linalg.norm(u)
+        v = np.cross(a, u)  # (u, v, a) is right-handed
+        for i in range(segments):
+            t0 = 2.0 * math.pi * i / segments
+            t1 = 2.0 * math.pi * (i + 1) / segments
+            d0 = math.cos(t0) * u + math.sin(t0) * v
+            d1 = math.cos(t1) * u + math.sin(t1) * v
+            nm = d0 + d1
+            nm = nm / np.linalg.norm(nm)
+            quad = [tuple(p0 + radius * d0), tuple(p0 + radius * d1),
+                    tuple(p1 + radius * d1), tuple(p1 + radius * d0)]
+            base = len(self.positions)
+            self.positions.extend(quad)
+            self.normals.extend([tuple(nm)] * 4)
+            self.indices.extend([base, base + 1, base + 2, base, base + 2, base + 3])
+        if cap:
+            # p1 cap: winding gives normal +a; p0 cap: normal -a
+            for at_p1, pt, nrm in ((True, p1, a), (False, p0, -a)):
+                base = len(self.positions)
+                self.positions.append(tuple(pt))
+                self.normals.append(tuple(nrm))
+                for i in range(segments):
+                    t = 2.0 * math.pi * i / segments
+                    d = math.cos(t) * u + math.sin(t) * v
+                    self.positions.append(tuple(pt + radius * d))
+                    self.normals.append(tuple(nrm))
+                for i in range(segments):
+                    i0 = base + 1 + i
+                    i1 = base + 1 + (i + 1) % segments
+                    if at_p1:
+                        self.indices.extend([base, i0, i1])
+                    else:
+                        self.indices.extend([base, i1, i0])
+
+    def add_rbox(self, center, size, rot_x_deg: float) -> None:
+        """Box rotated about the X axis through `center` by +rot_x_deg
+        (right-hand rule about +X: top tilts toward +Z, i.e. "leans back").
+        Outward normals, same face ordering as add_box."""
+        th = math.radians(rot_x_deg)
+        c, s = math.cos(th), math.sin(th)
+        cx, cy, cz = center
+        hx, hy, hz = size[0] / 2.0, size[1] / 2.0, size[2] / 2.0
+
+        def rot(p):
+            x, y, z = p
+            return (cx + x, cy + c * y - s * z, cz + s * y + c * z)
+
+        def rotn(p):
+            x, y, z = p
+            return (x, c * y - s * z, s * y + c * z)
+
+        faces = [
+            ((0.0, 0.0, 1.0), [(-hx, -hy, hz), (hx, -hy, hz), (hx, hy, hz), (-hx, hy, hz)]),
+            ((0.0, 0.0, -1.0), [(-hx, -hy, -hz), (-hx, hy, -hz), (hx, hy, -hz), (hx, -hy, -hz)]),
+            ((0.0, 1.0, 0.0), [(-hx, hy, -hz), (-hx, hy, hz), (hx, hy, hz), (hx, hy, -hz)]),
+            ((0.0, -1.0, 0.0), [(-hx, -hy, -hz), (hx, -hy, -hz), (hx, -hy, hz), (-hx, -hy, hz)]),
+            ((1.0, 0.0, 0.0), [(hx, -hy, -hz), (hx, hy, -hz), (hx, hy, hz), (hx, -hy, hz)]),
+            ((-1.0, 0.0, 0.0), [(-hx, -hy, -hz), (-hx, -hy, hz), (-hx, hy, hz), (-hx, hy, -hz)]),
+        ]
+        for normal, corners in faces:
+            base = len(self.positions)
+            self.positions.extend(rot(p) for p in corners)
+            n = rotn(normal)
+            self.normals.extend([n] * 4)
+            self.indices.extend([base, base + 1, base + 2, base, base + 2, base + 3])
 
 
 # ---------------------------------------------------------------- glTF scene

@@ -1,7 +1,8 @@
-"""S1 whitebox review self-check (M3D-01 review round, per 02_MODELING_HANDOFF §3).
+"""S1 whitebox review self-check (M3D-01R compact-cellar round).
 
-Numeric verification of: units/scale, visitor start, camera-facing evidence,
-corridor widths, collider containment, prop visibility / interaction distances.
+Numeric verification of: units/scale, visitor start, scene.json<->layout
+consistency, clearances, line of sight, interaction distances, corridors,
+props-on-desk, collider coverage, movement bounds containment.
 Prints PASS/WARN/FAIL lines; exit 0 unless a hard FAIL exists.
 
 Run from repo root:  python modeling_delivery/S1/source/whitebox/whitebox_selfcheck.py
@@ -58,28 +59,32 @@ def main():
 
     # -- 1. units & scale ----------------------------------------------------
     room = L.ROOM
-    ok = (room["x"], room["z"]) == (8.0, 8.0)
-    check("PASS" if ok else "FAIL", "room interior 8.0 x 8.0 m",
-          f"{room['x']} x {room['z']} m, height {room['h']} m (product whitebox scale, non-historical)")
+    ok = (room["x"], room["z"], room["h"]) == (5.3, 4.7, 2.25)
+    check("PASS" if ok else "FAIL", "room interior 5.3 x 4.7 x 2.25 m",
+          f"{room['x']} x {room['z']} x {room['h']} m, wall_t {room['wall_t']} m "
+          "(compact cellar, product whitebox scale, non-historical; M3D-01R)")
     desk_w = L.DESK["x1"] - L.DESK["x0"]
     desk_d = L.DESK["z1"] - L.DESK["z0"]
     desk_h = L.DESK["top_y1"]
     ok = abs(desk_w - 1.80) < 1e-9 and abs(desk_d - 0.75) < 1e-9 and abs(desk_h - 0.78) < 1e-9
     check("PASS" if ok else "FAIL", "desk frozen baseline 1.80 x 0.75 x 0.78 m",
-          f"{desk_w:.2f} x {desk_d:.2f} x {desk_h:.2f} m (style_reference_board §6 ZONE-B)")
+          f"{desk_w:.2f} x {desk_d:.2f} x {desk_h:.2f} m, center [0, 0, 0.10]")
 
     # -- 2. scene.json consistency ------------------------------------------
     vs = scene["visitor_start"]
-    ok = vs["position_m"] == [0.0, 1.6, 3.0]
-    check("PASS" if ok else "FAIL", "visitor_start position [0, 1.6, 3.0]", str(vs["position_m"]))
+    ok = vs["position_m"] == [0.0, 1.55, 1.65]
+    check("PASS" if ok else "FAIL", "visitor_start position [0, 1.55, 1.65]", str(vs["position_m"]))
     check("WARN", "visitor_start rotation convention (OQ-I-04)",
           f"scene.json rotation_deg={vs['rotation_deg']} claimed = facing -Z (plan §5.2); "
-          "plan §5.4 example + scene_layout_brief P0 use [0,180,0] for the same facing. "
-          "Unresolved axis convention — joint-debug with coding model before device test.")
+          "plan §5.4 example uses [0,180,0] for the same facing. "
+          "Unresolved axis convention — joint-debug on device before locking.")
+    ok = scene["scene_id"] == "S1" and scene["environment_glb"] == "environment_whitebox.glb"
+    check("PASS" if ok else "FAIL", "scene contract: scene_id / environment_glb",
+          f"{scene['scene_id']} / {scene['environment_glb']}")
     prop_ids = [p["id"] for p in scene["props"]]
     ok = prop_ids == ["p_s1_radio", "p_s1_key", "p_s1_codebook"]
     check("PASS" if ok else "FAIL", "asset IDs preserved", ", ".join(prop_ids))
-    # scene.json vs layout single source
+    # scene.json vs layout single source (deep compare, keys & types unchanged)
     mism = []
     for p in scene["props"]:
         lp = L.PROPS[p["id"]]
@@ -87,18 +92,28 @@ def main():
             mism.append(p["id"] + " position")
         if p["interaction_radius_m"] != lp["interaction_radius_m"]:
             mism.append(p["id"] + " radius")
+        if p["highlight_anchor_m"] != [float(v) for v in lp["highlight_anchor_m"]]:
+            mism.append(p["id"] + " anchor")
+        if p["rotation_deg"] != [float(v) for v in lp["rotation_deg"]]:
+            mism.append(p["id"] + " rotation")
+        if p["glb"] != lp["file"]:
+            mism.append(p["id"] + " glb path")
+    if scene["movement"] != L.MOVEMENT:
+        mism.append("movement")
+    if scene["colliders"] != L.COLLIDERS:
+        mism.append("colliders")
+    if scene["move_points"] != L.MOVE_POINTS:
+        mism.append("move_points")
+    if scene["visitor_start"] != L.VISITOR_START:
+        mism.append("visitor_start")
     check("PASS" if not mism else "FAIL", "scene.json matches layout_s1.py",
           "mismatch: " + ", ".join(mism) if mism else "identical")
 
     # -- 3. start point clearances ------------------------------------------
     start = vs["position_m"]
-    for c in scene["colliders"]:
-        inside = aabb_contains(start, c["min_m"], c["max_m"], pad=0.6)
-        if inside:
-            check("FAIL", f"start 0.6 m clearance vs {c['id']}", "start within 0.6 m of collider")
-    else:
-        check("PASS", "start 0.6 m clearance vs all colliders",
-              "no collider within 0.6 m of visitor_start (scene_layout_brief P0)")
+    hit = [c["id"] for c in scene["colliders"] if aabb_contains(start, c["min_m"], c["max_m"], pad=0.6)]
+    check("PASS" if not hit else "FAIL", "start 0.6 m clearance vs all colliders",
+          "too close: " + ", ".join(hit) if hit else "no collider within 0.6 m of visitor_start")
 
     # -- 4. line of sight: start -> radio anchor -----------------------------
     radio = scene["props"][0]
@@ -109,44 +124,39 @@ def main():
                if seg_hits_aabb(start, target, c["min_m"], c["max_m"])]
     check("PASS" if not blocked else "FAIL", "start direct sight of p_s1_radio anchor",
           "blocked by: " + ", ".join(blocked) if blocked else
-          f"clear; anchor world y={target[1]:.2f} above desk top 0.78")
+          f"clear; anchor world {[round(v, 3) for v in target]} above desk top 0.78")
 
     # -- 5. interaction distances --------------------------------------------
-    # Requirement: each MVP prop triggerable within the 1.0-2.5 m click band
-    # from at least one sensible viewing spot (visitor_start / mp_radio).
-    # mp_info_wall is the far info-wall viewpoint; distances there are info-only.
-    spots = {"visitor_start": start} | {mp["id"]: mp["position_m"] for mp in scene["move_points"]}
+    # Every MVP prop: horizontal distance from visitor_start AND mp_radio in
+    # the 1.0-2.5 m click band and <= its interaction radius. The radio should
+    # additionally sit in the 1.4-1.9 m suggested band from visitor_start.
+    spots = {"visitor_start": start, "mp_radio": scene["move_points"][0]["position_m"]}
     for p in scene["props"]:
-        dists = {sid: hdist(sp, p["position_m"]) for sid, sp in spots.items()}
-        for sid, d in dists.items():
+        for sid, sp in spots.items():
+            d = hdist(sp, p["position_m"])
+            in_band = 1.0 <= d <= 2.5
             reach = d <= p["interaction_radius_m"] + 1e-9
-            in_band = 1.0 <= d <= 2.5 or sid != "mp_info_wall"
-            if sid == "mp_info_wall":
-                check("PASS" if True else "FAIL", f"{p['id']} distance from {sid} (info only)",
-                      f"horizontal {d:.2f} m — not a required trigger spot")
-            else:
-                status = "PASS" if (reach and d <= 2.5) else "WARN"
-                check(status, f"{p['id']} reachable from {sid}",
-                      f"horizontal {d:.2f} m vs interaction_radius {p['interaction_radius_m']} m; "
-                      f"click band 1.0-2.5 m -> {'in band' if 1.0 <= d <= 2.5 else 'outside band'}")
-        ok_any = any(dists[s] <= p["interaction_radius_m"] + 1e-9 and dists[s] <= 2.5
-                     for s in ("visitor_start", "mp_radio"))
-        check("PASS" if ok_any else "FAIL", f"{p['id']} triggerable within band from >=1 spot",
-              "visitor_start/mp_radio distances: "
-              + ", ".join(f"{s}={dists[s]:.2f} m" for s in ("visitor_start", "mp_radio")))
+            check("PASS" if (in_band and reach) else "FAIL",
+                  f"{p['id']} click-band from {sid}",
+                  f"horizontal {d:.2f} m; band 1.0-2.5 {'OK' if in_band else 'VIOLATED'}; "
+                  f"radius {p['interaction_radius_m']} m {'OK' if reach else 'VIOLATED'}")
+    d_radio_start = hdist(start, radio["position_m"])
+    ok = 1.4 <= d_radio_start <= 1.9
+    check("PASS" if ok else "FAIL", "p_s1_radio suggested band 1.4-1.9 m from visitor_start",
+          f"horizontal {d_radio_start:.2f} m (M3D-01R first-look band)")
+    d_radio_mp = hdist(spots["mp_radio"], radio["position_m"])
+    check("PASS" if 1.4 <= d_radio_mp <= 1.9 else "WARN", "p_s1_radio suggested band from mp_radio",
+          f"horizontal {d_radio_mp:.2f} m — mp_radio is a close-inspection point outside the "
+          "1.4-1.9 m first-look band (suggested band is anchored at visitor_start per M3D-01R §3)")
 
     # -- 6. corridors ---------------------------------------------------------
-    # gaps around desk along the main route (start -> info wall)
-    west_gap = L.DESK["x0"] - (-4.0)
-    east_gap = 4.0 - L.DESK["x1"]
-    check("PASS" if min(west_gap, east_gap) >= 1.2 else "FAIL", "main corridor >= 1.2 m around desk",
-          f"west gap {west_gap:.2f} m, east gap {east_gap:.2f} m")
-    # straight line start -> info panel crosses desk AABB? (expected: detour exists)
-    panel_c = [0.0, 1.55, (L.INFO_PANEL["z0"] + L.INFO_PANEL["z1"]) / 2]
-    cross = seg_hits_aabb(start, panel_c, scene["colliders"][4]["min_m"], scene["colliders"][4]["max_m"])
-    check("PASS", "route start -> info panel",
-          "straight line crosses desk AABB; walkable detour on both sides (>=1.2 m) confirmed"
-          if cross else "straight line clear")
+    side_gap = 2.65 - 0.9          # desk side to inner wall (both sides, symmetric)
+    back_gap = -0.275 - (-2.35)    # desk back (-Z) to north inner wall
+    front_gap = 2.35 - 0.475       # desk front (+Z) to south inner wall
+    ok = side_gap >= 1.2 and back_gap >= 1.2 and front_gap >= 1.2
+    check("PASS" if ok else "FAIL", "corridors around desk >= 1.2 m",
+          f"desk side {side_gap:.3f} m, desk back {back_gap:.3f} m, desk front {front_gap:.3f} m "
+          "(spec: 1.75 / 2.075 / 1.875)")
 
     # -- 7. props rest on desk ------------------------------------------------
     for p in scene["props"]:
@@ -160,25 +170,54 @@ def main():
         check("PASS" if inside else "FAIL", f"{p['id']} footprint inside desk top",
               f"center [{px:.2f}, {pz:.2f}] dims {dims[0]:.2f}x{dims[2]:.2f}")
 
-    # -- 8. observations (not auto-fixed) -------------------------------------
+    # -- 8. collider coverage --------------------------------------------------
+    want = {"wall_north", "wall_south", "wall_east", "wall_west", "desk_radio", "stool", "crate", "guide_plate"}
+    have = {c["id"] for c in scene["colliders"]}
+    missing = want - have
+    check("PASS" if not missing else "FAIL", "colliders cover walls/desk/stool/crate/guide_plate",
+          "missing: " + ", ".join(sorted(missing)) if missing else f"all {len(want)} present")
+    spans = {
+        "wall_north": (5.8, 2.25, 0.25), "wall_south": (5.8, 2.25, 0.25),
+        "wall_east": (0.25, 2.25, 4.7), "wall_west": (0.25, 2.25, 4.7),
+        "desk_radio": (1.8, 0.78, 0.75), "stool": (0.42, 0.45, 0.42),
+        "crate": (0.60, 0.42, 0.50), "guide_plate": (0.06, 0.65, 0.70),
+    }
+    bad = []
+    for c in scene["colliders"]:
+        exp = spans[c["id"]]
+        got = tuple(round(c["max_m"][i] - c["min_m"][i], 6) for i in range(3))
+        if got != exp:
+            bad.append(f"{c['id']} {got} != {exp}")
+    check("PASS" if not bad else "FAIL", "collider spans match layout geometry",
+          "; ".join(bad) if bad else "all spans exact")
+
+    # -- 9. movement bounds -----------------------------------------------------
+    mv = scene["movement"]
+    ok = (mv["type"] == "bounds" and mv["x_min_m"] == -2.25 and mv["x_max_m"] == 2.25
+          and mv["z_min_m"] == -1.95 and mv["z_max_m"] == 1.95 and mv["speed_mps"] == 1.2)
+    check("PASS" if ok else "FAIL", "movement bounds x[+-2.25] z[+-1.95] speed 1.2", str(mv))
+    pts = [("visitor_start", start)] + [(mp["id"], mp["position_m"]) for mp in scene["move_points"]]
+    for name, p in pts:
+        inside = mv["x_min_m"] <= p[0] <= mv["x_max_m"] and mv["z_min_m"] <= p[2] <= mv["z_max_m"]
+        check("PASS" if inside else "FAIL", f"{name} inside movement bounds", f"[{p[0]}, {p[2]}]")
+        in_col = [c["id"] for c in scene["colliders"] if aabb_contains(p, c["min_m"], c["max_m"])]
+        check("PASS" if not in_col else "FAIL", f"{name} not inside any collider",
+              "inside: " + ", ".join(in_col) if in_col else "clear")
+
+    # -- 10. observations --------------------------------------------------------
     anchor_top = radio["highlight_anchor_m"][1]
     radio_h = L.PROPS["p_s1_radio"]["dims_m"][1]
-    check("WARN" if anchor_top > radio_h else "PASS", "p_s1_radio highlight_anchor vs prop height",
-          f"anchor y={anchor_top} > prop height {radio_h} (look-target above body; confirm with coding model)")
-    panel_w = L.INFO_PANEL["x1"] - L.INFO_PANEL["x0"]
-    check("WARN", "info panel width vs layout-brief recommendation",
-          f"current {panel_w:.2f} m; scene_layout_brief ZONE-C recommends 2.8-3.6 m — decision item, not changed this round")
-    has_panel_collider = any(c["id"] == "info_panel" for c in scene["colliders"])
-    check("WARN" if not has_panel_collider else "PASS", "info panel thin collider",
-          "not present; movement bounds z>=-3.6 keep player 0.33 m away — recommend adding if coding model wants closer approach")
-    desk_c = [(L.DESK["x0"] + L.DESK["x1"]) / 2, (L.DESK["z0"] + L.DESK["z1"]) / 2]
-    check("WARN", "desk zone vs scene_layout_brief recommendation",
-          f"whitebox desk center [{desk_c[0]:.2f}, {desk_c[1]:.2f}] (sight {hdist(start, [desk_c[0], 0, desk_c[1]]):.2f} m); "
-          "brief PROPOSED center [1.20, -1.00] (sight 3.5-4.5 m). Kept per 02_MODELING_HANDOFF §6 "
-          "(keep scene.json main coordinates) — decision item for owner/PM.")
-    door_c = (L.DOOR["x0"] + L.DOOR["x1"]) / 2
-    check("WARN", "door position vs ZONE-A",
-          f"door center x={door_c:.2f}; ZONE-A recommended x[-3.6,-1.3] — partial overlap only; review item")
+    check("PASS" if anchor_top <= radio_h else "WARN", "p_s1_radio highlight_anchor vs prop height",
+          f"anchor y={anchor_top} within prop height {radio_h}" if anchor_top <= radio_h else
+          f"anchor y={anchor_top} > prop height {radio_h}")
+    door_w = L.DOOR["x1"] - L.DOOR["x0"]
+    check("PASS" if abs(door_w - 0.8) < 1e-9 and L.DOOR["h"] == 1.85 else "FAIL",
+          "low cellar door 0.80 x 1.85 m, south wall offset west",
+          f"opening {door_w:.2f} x {L.DOOR['h']:.2f} m at x[{L.DOOR['x0']}, {L.DOOR['x1']}]")
+    gp = L.GUIDE_PLATE
+    check("PASS", "guide layer = small plate only (no full-wall panel)",
+          f"guide_plate {gp['x1']-gp['x0']:.2f}x{gp['y1']-gp['y0']:.2f}x{gp['z1']-gp['z0']:.2f} m on west wall; "
+          "old INFO_PANEL removed (M3D-01R §2)")
 
     # -- report ---------------------------------------------------------------
     nfail = sum(1 for r in results if r[0] == "FAIL")
