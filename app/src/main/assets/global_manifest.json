@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "content_version": "2026.07.20.1",
+  "scenes": [
+    {
+      "scene_id": "S1",
+      "scene_name": "地下情报电台",
+      "qr_payload": "REDWAVE-S1",
+      "image_name": "trigger_S1",
+      "scene_manifest": "scenes/scene_S1/scene.json",
+      "content_manifest": "scenes/scene_S1/content.json",
+      "thumbnail": "scenes/scene_S1/thumbnail.png",
+      "package_version": 1,
+      "bundled": true
+    }
+  ]
+}

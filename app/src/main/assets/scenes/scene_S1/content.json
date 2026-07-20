@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "scene_id": "S1",
+  "items": [
+    {
+      "id": "p_s1_radio",
+      "title": "秘密电台",
+      "text": "1943 年冬，党组织在妙峰山涧沟村建立秘密电台。工作人员以普通农家生活作掩护，夜间在山洞中收发信息，使平津地下工作与平西根据地之间保持电讯联系。场景中的设备为通用复原，具体历史型号仍待馆方资料确认。",
+      "audio": "audio/p_s1_radio_zh.mp3",
+      "audio_duration_sec": 70,
+      "sources": [
+        {
+          "title": "北京日报（涧沟村秘密电台报道）",
+          "type": "news",
+          "locator": "research/S1_pingxi_intelligence_station/source_register.md#SRC-005"
+        },
+        {
+          "title": "人民网党史频道 / 检察日报（平西情报系统）",
+          "type": "party_history",
+          "locator": "research/S1_pingxi_intelligence_station/source_register.md#SRC-006"
+        }
+      ],
+      "author": "文创组",
+      "reviewer": "项目负责人",
+      "review_status": "draft"
+    },
+    {
+      "id": "p_s1_key",
+      "title": "发报键与电讯联络",
+      "text": "发报键把人工按压转换为长短不同的电信号，是无线电通信操作的一部分。平西情报系统拥有电讯联络任务，但现有公开资料尚不能确认涧沟村所用发报键的具体型号，因此这里展示的是通用结构复原。",
+      "audio": "audio/p_s1_key_zh.mp3",
+      "audio_duration_sec": 55,
+      "sources": [
+        {
+          "title": "中国军网 / 中国国防报",
+          "type": "military",
+          "locator": "research/S1_pingxi_intelligence_station/source_register.md#SRC-004"
+        },
+        {
+          "title": "北京日报",
+          "type": "news",
+          "locator": "research/S1_pingxi_intelligence_station/source_register.md#SRC-005"
+        },
+        {
+          "title": "中国新闻网 / 中新视频",
+          "type": "news",
+          "locator": "research/S1_pingxi_intelligence_station/source_register.md#SRC-007"
+        }
+      ],
+      "author": "文创组",
+      "reviewer": "项目负责人",
+      "review_status": "draft"
+    },
+    {
+      "id": "p_s1_codebook",
+      "title": "电文与保密通信资料包",
+      "text": "隐蔽通信需要严格的保密纪律。公开史料能够确认情报、电文、报刊和文件传递活动，但尚未找到与涧沟村场景直接对应的密码本实物资料。场景以无铭文资料包作为通用载体，不代表历史原件。",
+      "audio": "audio/p_s1_codebook_zh.mp3",
+      "audio_duration_sec": 60,
+      "sources": [
+        {
+          "title": "人民网党史频道 / 检察日报",
+          "type": "party_history",
+          "locator": "research/S1_pingxi_intelligence_station/source_register.md#SRC-006"
+        },
+        {
+          "title": "北京日报",
+          "type": "news",
+          "locator": "research/S1_pingxi_intelligence_station/source_register.md#SRC-005"
+        }
+      ],
+      "author": "文创组",
+      "reviewer": "项目负责人",
+      "review_status": "draft"
+    }
+  ]
+}
