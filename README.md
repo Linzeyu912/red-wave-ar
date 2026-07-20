@@ -144,22 +144,32 @@ sdk.dir=D:/AndroidDev/sdk
 
 ### CODE-05：移动、碰撞与热点 ✅
 
-- `MovementMath`（interaction，§6.13 纯数学）：
-  - 摇杆死区 + 归一化 + 单位圆钳制（UT-010）
-  - 视线水平投影 forward/right × 摇杆 × speed × dt
-  - movement bounds 钳制（0.25m 圆形代理边缘不越界）
-  - 圆形代理 × AABB collider 分轴滑动碰撞（UT-011，碰墙允许沿墙移动）
-- `MovementController`（§6.6 interaction）：维护 visitorPosition，摇杆 dt 上限 50ms 防穿墙，热点移动 0.3s 淡出/淡入切换位置，热点期间禁用摇杆
-- 渲染页接入：相机位置由 MovementController 管理（§6.13-7），左半屏拖动=摇杆移动，右半屏拖动=环视
-- **88 个单元测试通过**（+19 移动算法：死区、bounds、分轴滑动、热点、dt 截断、角落处理）
+- `MovementMath`（interaction，§6.13 纯数学）：摇杆死区、视线投影、bounds 钳制、AABB 分轴滑动（UT-010/011）
+- `MovementController`：visitorPosition 维护，dt 上限防穿墙，热点 0.3s 淡入淡出
+- 渲染页接入：相机位置由 MovementController 管理，左半屏摇杆/右半屏环视
 
-**已知限制（CODE-00..05）**：
-- 首页"手动选择"按钮（Debug）进入渲染测试页；二维码/触发图/正式入口在 CODE-08/09/10 接入。
-- 交互（拾取/信息卡）、音频在 CODE-06/07 接入。
-- 移动/环视的视觉效果在 headless 模拟器无法截图验证（SwiftShader screencap 限制）；算法已通过严格单元测试，待真机验收。
-- 模拟器无真实陀螺仪/ARCore；陀螺仪真实姿态、触发图入口待真机/备用机。
+### CODE-06：拾取、信息卡和高亮 ✅
+
+- `PickingMath`（§6.14 纯逻辑）：触摸→viewport Y 翻转、游客↔文物距离判定、entity→propId 解析、UI 区域穿透判定
+- `PickingController`：Scene token 防旧回调（UT-012）、距离限制（interaction_radius_m）、选中状态、点击空白取消
+- `InfoSheet` Compose 信息卡（§6.16）：标题、正文、来源摘要、音频控制（CODE-07 接播放），音频失败仍展示文字（§6.18）
+- 渲染页接入：单击触发 View.pick（异步），回调核对 token + 距离，命中可交互文物开信息卡
+- GltfAssetStore 暴露 entityToPropIdSnapshot 供拾取查表；同一文物多 mesh 映射同一 propId
+- **98 个单元测试通过**（+10 拾取：token、距离、坐标转换、多 mesh、UI 穿透、选中/取消/过远）
+
+### ADR-0001：归档 F2 触发图入口 ✅
+
+- 主展示机不支持 ARCore → F2 归档，仅保留二维码（F1）+ 手动列表（F3）
+- 不触及核心边界（入口仍只返回 scene_id）
+- 见 `docs/decisions/ADR-0001-archive-image-trigger-entry.md`
+
+**已知限制（CODE-00..06）**：
+- 首页"手动选择"按钮（Debug）进入渲染测试页；二维码入口 CODE-08、手动列表 CODE-10。
+- 音频在 CODE-07 接入；当前信息卡音频控件为占位。
+- 拾取/移动/环视视觉效果在 headless 模拟器无法截图验证（SwiftShader screencap 限制）；算法已通过严格单元测试，待真机验收。
+- 模拟器无真实陀螺仪；陀螺仪真实姿态待真机。
 - Release 变体未启用 minify 与签名（CODE-11）。
-- 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）**不支持 ARCore**；备用/低配机待补充（见 docs/device_matrix.md）。
+- 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）**不支持 ARCore**（F2 已归档）；备用/低配机待补充（见 docs/device_matrix.md）。
 
 ---
 
