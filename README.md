@@ -113,17 +113,25 @@ sdk.dir=D:/AndroidDev/sdk
 - `FilamentHost`：Engine/Renderer/Scene/View/Camera/SwapChain 生命周期，创建销毁顺序固定（§6.10）
 - `SceneRenderer`：Choreographer 帧循环，dt 截断（§6.13），Surface 不可用/后台不提交帧（§6.10）
 - `FilamentSurfaceView`：专用渲染线程，Surface 生命周期→SwapChain，前后台暂停/恢复
-- `MainActivity.onCreate` 显式 `Filament.init()` 加载 native lib
+- `MainActivity.onCreate` 显式 `Filament.init()` + `Gltfio.init()` 加载 native lib
 - **模拟器验证通过**：Engine 创建成功（OpenGL 后端）、渲染页运行、前后台切换无崩溃
-- 49 个单元测试通过（CODE-02 的 Filament native 部分由模拟器 instrumented 验证）
 
-**已知限制（CODE-00/01/02）**：
-- 首页三个入口按钮（二维码/触发图/手动）当前：Debug 下"手动选择"进入渲染测试页；正式入口在 CODE-08/09/10 接入。
-- 真实 GLB 加载、姿态、移动、交互、音频在 CODE-03~07 接入；当前渲染页只有纯色背景。
+### CODE-03：GLB 场景加载与释放 ✅
+
+- `GltfAssetStore`（render/asset）：AssetLoader + UbershaderProvider + ResourceLoader 生命周期，GLB 字节加载，entity→propId 映射（CODE-06 拾取用），显式释放（§6.10、§6.21）
+- `SceneAssetLoader`：单场景加载状态机（Idle→Loading→Ready/Failed），环境致命/P2 文物可降级，进度按 §6.11 权重（配置10%+环境40%+文物35%+资源15%），场景 token 防旧回调（§6.14）
+- `TransformMath`：scene.json 的 position/rotation_deg/scale → 4x4 行主序矩阵（§5.2、§5.5）
+- 接入渲染页：ManifestRepository 读 scene.json → SceneAssetLoader 加载 S1 白盒（environment + 3 文物）→ attach + transform
+- **模拟器验证通过**：状态显示"就绪：资产已加载"，6 次进出渲染页无崩溃、内存无单调增长（§6.21）
+- 56 个单元测试通过（含 TransformMath 矩阵转换 7 项）
+
+**已知限制（CODE-00/01/02/03）**：
+- 首页"手动选择"按钮（Debug）进入渲染测试页；二维码/触发图/正式入口在 CODE-08/09/10 接入。
+- 姿态、移动、交互、音频在 CODE-04~07 接入；当前渲染页能看到加载的白盒 GLB 但视角固定。
 - Release 变体未启用 minify 与签名（CODE-11）。
-- 模拟器无真实陀螺仪/ARCore，渲染性能不代表真机（待目标机型清单补充后真机验收）。
+- 模拟器无真实陀螺仪/ARCore，渲染性能不代表真机（主展示机 nubia Z70 Ultra 待真机验收）。
 - content.json 文案为 draft，音频文件未制作（CODE-07）。
-- 目标机型清单待用户提供（计划书 §15.4、§6.4）。
+- 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）已确认**不支持 ARCore**；备用/低配机待补充（见 docs/device_matrix.md）。
 
 ---
 
