@@ -1,0 +1,30 @@
+# === 敏感/隐私资料（含队员身份证号、手机号等，禁止入库）===
+*.pdf
+_source.*
+
+# === 构建 / IDE ===
+/build/
+/app/build/
+/.gradle/
+/local.properties
+*.iml
+.idea/
+.vscode/
+
+# === Kotlin / Java ===
+*.class
+hs_err_pid*
+
+# === Android ===
+*.apk
+*.aab
+*.ap_
+*.dex
+captures/
+
+# === 系统 / 临时 ===
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
