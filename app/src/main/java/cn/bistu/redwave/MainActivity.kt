@@ -22,6 +22,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Filament 的 Java 层不会自动加载 native lib，必须显式 init()
+        // （否则 Engine.create() 抛 UnsatisfiedLinkError）。
+        // 在进入 VR 页（创建 Engine）前完成加载。
+        com.google.android.filament.Filament.init()
         // 沉浸式边到边渲染（VR 铺满屏幕做准备）。
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(Color.Transparent.hashCode(), Color.Transparent.hashCode()),
