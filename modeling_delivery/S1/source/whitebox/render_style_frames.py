@@ -283,11 +283,14 @@ def render_frame(path, eye, target, fov, caption, size=(16.0, 9.0)):
                               edgecolors=[tuple(np.array(ecols[i]) * 0.85) for i in order],
                               linewidths=0.15)
         ax.add_collection(coll)
-    ax.set_xlim(-1.02, 1.02)
-    ax.set_ylim(-1.02, 1.02)
-    ax.set_aspect("equal")
+    # M3D-01R-P: fill the whole canvas — sx already carries the 1/aspect
+    # normalization, so a non-equal axes aspect maps NDC ±1 onto the 16:9
+    # frame with correct proportions and no pillar-box bars. Captions are
+    # no longer burned in; camera/metric details live in style_review_report.md.
+    ax.set_xlim(-1.0, 1.0)
+    ax.set_ylim(-1.0, 1.0)
+    ax.set_aspect("auto")
     ax.axis("off")
-    fig.text(0.012, 0.018, caption, fontsize=8, color="#C9CDC9", ha="left", va="bottom")
     fig.savefig(path)
     # ---- metrics on the rendered pixels
     fig.canvas.draw()
