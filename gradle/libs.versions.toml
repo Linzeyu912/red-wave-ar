@@ -24,6 +24,8 @@ filament = "1.56.0"
 # Media3 ExoPlayer：单实例音频播放（计划书 §3.2、§6.15）
 # 用 1.4.1：1.7.0 要求 compileSdk 35 + AGP 8.6+；当前 AGP 8.5.2 / compileSdk 34。
 media3 = "1.4.1"
+# ZXing Android Embedded：二维码扫描入口（计划书 §3.2、CODE-08）
+zxingAndroidEmbedded = "4.3.0"
 
 [libraries]
 # Core / Lifecycle
@@ -56,6 +58,9 @@ filament-utils = { group = "com.google.android.filament", name = "filament-utils
 androidx-media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
 androidx-media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "media3" }
 androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3" }
+
+# ZXing 二维码（计划书 §3.2、CODE-08）
+zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
