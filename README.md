@@ -142,13 +142,24 @@ sdk.dir=D:/AndroidDev/sdk
 - **69 个单元测试通过**（+13 姿态算法：四元数、回正、去roll、pitch限幅、slerp、屏幕补偿、平滑收敛）
 - 模拟器验证：渲染页运行、App 不崩溃、Filament Engine 正常
 
-**已知限制（CODE-00/01/02/03/04）**：
+### CODE-05：移动、碰撞与热点 ✅
+
+- `MovementMath`（interaction，§6.13 纯数学）：
+  - 摇杆死区 + 归一化 + 单位圆钳制（UT-010）
+  - 视线水平投影 forward/right × 摇杆 × speed × dt
+  - movement bounds 钳制（0.25m 圆形代理边缘不越界）
+  - 圆形代理 × AABB collider 分轴滑动碰撞（UT-011，碰墙允许沿墙移动）
+- `MovementController`（§6.6 interaction）：维护 visitorPosition，摇杆 dt 上限 50ms 防穿墙，热点移动 0.3s 淡出/淡入切换位置，热点期间禁用摇杆
+- 渲染页接入：相机位置由 MovementController 管理（§6.13-7），左半屏拖动=摇杆移动，右半屏拖动=环视
+- **88 个单元测试通过**（+19 移动算法：死区、bounds、分轴滑动、热点、dt 截断、角落处理）
+
+**已知限制（CODE-00..05）**：
 - 首页"手动选择"按钮（Debug）进入渲染测试页；二维码/触发图/正式入口在 CODE-08/09/10 接入。
-- 移动、交互、音频在 CODE-05~07 接入；当前相机位置固定在 visitor_start。
-- **触屏环视的视觉效果在 headless 模拟器上无法通过截图可靠验证**（SwiftShader + 无窗口 screencap 限制）；姿态算法已通过严格单元测试，真实视觉效果待真机验收。
-- 模拟器无真实陀螺仪，陀螺仪模式真实姿态待真机/备用机验收。
+- 交互（拾取/信息卡）、音频在 CODE-06/07 接入。
+- 移动/环视的视觉效果在 headless 模拟器无法截图验证（SwiftShader screencap 限制）；算法已通过严格单元测试，待真机验收。
+- 模拟器无真实陀螺仪/ARCore；陀螺仪真实姿态、触发图入口待真机/备用机。
 - Release 变体未启用 minify 与签名（CODE-11）。
-- 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）已确认**不支持 ARCore**；备用/低配机待补充（见 docs/device_matrix.md）。
+- 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）**不支持 ARCore**；备用/低配机待补充（见 docs/device_matrix.md）。
 
 ---
 
