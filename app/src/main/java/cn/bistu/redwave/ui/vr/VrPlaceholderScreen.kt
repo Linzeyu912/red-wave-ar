@@ -107,25 +107,39 @@ fun VrPlaceholderScreen(
     }
 }
 
-// 触屏拖动：通过 GestureDetector 把 scroll 转成 yaw/pitch 增量。
+// 触屏分区：右半屏拖动环视（yaw/pitch），左半屏拖动作摇杆（移动）。
+// 这是 CODE-05 占位交互；CODE-10 接入正式摇杆组件。
 private fun attachTouchLook(sv: FilamentSurfaceView, context: Context) {
     val detector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
         override fun onScroll(
             e1: MotionEvent?, e2: MotionEvent, dx: Float, dy: Float
         ): Boolean {
-            // 触屏灵敏度（度/像素），CODE-10 设置页可调
-            val sensitivity = 0.3f
-            // 在渲染线程更新姿态（OrientationController 状态非 native，但为线程一致统一切线程）
+            val startX = e1?.x ?: return false
+            val screenW = sv.width.coerceAtLeast(1)
+            val sensitivity = 0.3f // 度/像素
             sv.postToRenderThread {
-                // cleanupRef 在 Composable 里，这里通过 tag 取
-                val cleanup = (sv.tag as? SceneCleanup)
-                cleanup?.orientation?.onTouchDrag(dx, dy, sensitivity)
+                val cleanup = (sv.tag as? SceneCleanup) ?: return@postToRenderThread
+                if (startX > screenW / 2) {
+                    // 右半屏：环视
+                    cleanup.orientation.onTouchDrag(dx, dy, sensitivity)
+                } else {
+                    // 左半屏：摇杆移动（dx,dy 归一化为 [-1,1]，按屏幕高度归一）
+                    val norm = 1f / (screenW / 3f)
+                    cleanup.movement.setJoystick(dx * norm * 5f, -dy * norm * 5f)
+                }
             }
             return true
         }
     })
     sv.setOnTouchListener { _, e ->
-        detector.onTouchEvent(e); true
+        detector.onTouchEvent(e)
+        // 抬起时清零摇杆，停止移动
+        if (e.action == MotionEvent.ACTION_UP || e.action == MotionEvent.ACTION_CANCEL) {
+            sv.postToRenderThread {
+                (sv.tag as? SceneCleanup)?.movement?.setJoystick(0f, 0f)
+            }
+        }
+        true
     }
 }
 
@@ -152,11 +166,16 @@ private fun loadSceneS1Whitebox(
     val orientation = OrientationController(context)
     orientation.initDefaultMode()
 
-    // 游客起点（CODE-05 移动控制器接管前用 scene.json 的 visitor_start）
+    // CODE-05：移动控制器，位置由它维护；姿态只改视线方向（§6.13）
     val vs = bundle.sceneManifest.visitorStart
-    val eyeX = vs.positionM.getOrElse(0) { 0f }.toDouble()
-    val eyeY = vs.positionM.getOrElse(1) { 1.6 }.toDouble()
-    val eyeZ = vs.positionM.getOrElse(2) { 0f }.toDouble()
+    val eyeY = vs.positionM.getOrElse(1) { 1.6f }.toDouble() // 眼高固定
+    val movement = cn.bistu.redwave.interaction.MovementController(
+        movement = bundle.sceneManifest.movement,
+        colliders = bundle.sceneManifest.colliders,
+        movePoints = bundle.sceneManifest.movePoints,
+        startX = vs.positionM.getOrElse(0) { 0f },
+        startZ = vs.positionM.getOrElse(2) { 0f }
+    )
 
     loader.beginLoading(bundle.sceneManifest, host.scene, sceneDir)
     onStatus("加载中… 环境 + ${bundle.sceneManifest.props.size} 文物")
@@ -179,19 +198,35 @@ private fun loadSceneS1Whitebox(
         }
 
         override fun onUpdateOrientation(dtSec: Float) {
-            // 每帧更新姿态并把朝向写入相机（位置暂用 visitor_start，CODE-05 接管）
+            // 每帧更新姿态并把朝向写入相机；位置取自 MovementController（§6.13-7）
             if (loader.update().state != SceneAssetLoader.State.READY) return
             val q = orientation.updateAndGetCurrent(dtSec)
-            val lookAt = cn.bistu.redwave.sensor.OrientationMath.lookAtParams(q, eyeX, eyeY, eyeZ)
-            host.camera.lookAt(
-                lookAt[0], lookAt[1], lookAt[2],   // eye
-                lookAt[3], lookAt[4], lookAt[5],   // center
-                lookAt[6], lookAt[7], lookAt[8]    // up
+            val pos = movement.visitorPosition
+            val lookAt = cn.bistu.redwave.sensor.OrientationMath.lookAtParams(
+                q, pos[0].toDouble(), eyeY, pos[1].toDouble()
             )
+            host.camera.lookAt(
+                lookAt[0], lookAt[1], lookAt[2],
+                lookAt[3], lookAt[4], lookAt[5],
+                lookAt[6], lookAt[7], lookAt[8]
+            )
+        }
+
+        override fun onUpdateMovement(dtSec: Float) {
+            if (loader.update().state != SceneAssetLoader.State.READY) return
+            // 用当前相机 forward 的 XZ 投影作为移动方向基准
+            val q = orientation.updateAndGetCurrent(0f)
+            val forwardXZ = cn.bistu.redwave.sensor.OrientationMath.forwardVector(q)
+                .let { f -> floatArrayOf(f[0], f[2]) }
+            // 归一化
+            val len = kotlin.math.sqrt(forwardXZ[0] * forwardXZ[0] + forwardXZ[1] * forwardXZ[1])
+            val unit = if (len > 1e-4f) floatArrayOf(forwardXZ[0] / len, forwardXZ[1] / len)
+                       else floatArrayOf(0f, -1f)
+            movement.update(unit, dtSec)
         }
     }
 
-    val cleanup = SceneCleanup(assetStore, loader, orientation)
+    val cleanup = SceneCleanup(assetStore, loader, orientation, movement)
     sv.tag = cleanup // 供触屏 handler 取
     orientation.resume()
     return cleanup
@@ -200,5 +235,6 @@ private fun loadSceneS1Whitebox(
 internal data class SceneCleanup(
     val assetStore: GltfAssetStore,
     val loader: SceneAssetLoader,
-    val orientation: OrientationController
+    val orientation: OrientationController,
+    val movement: cn.bistu.redwave.interaction.MovementController
 )
