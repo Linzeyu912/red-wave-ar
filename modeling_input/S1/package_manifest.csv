@@ -1,9 +1,9 @@
 item_id,path,item_type,required_for_current_round,canonical,status,purpose
-ENTRY,modeling_input/S1/00_START_HERE.md,handoff,true,true,READY,"用户与模型唯一入口"
-OWNER_REVIEW,modeling_input/S1/01_OWNER_REVIEW.md,review,true,true,OWNER_REVIEW_REQUIRED,"图片权利、识图和三图闸门确认"
+ENTRY,modeling_input/S1/00_START_HERE.md,handoff,true,true,STYLE_FRAMES_DELIVERED,"用户与模型唯一入口"
+OWNER_REVIEW,modeling_input/S1/01_OWNER_REVIEW.md,review,true,true,OWNER_APPROVED_INTERNAL_ONLY,"图片权利、识图和三图闸门确认"
 MODEL_HANDOFF,modeling_input/S1/02_MODELING_HANDOFF.md,handoff,true,true,READY,"建模任务边界、输出和完整提示词"
 MATERIAL_GUIDE,modeling_input/S1/03_MATERIALS_GUIDE.md,guide,true,true,READY,"两张用户图片的用途和禁用规则"
-MATERIAL_MANIFEST,modeling_input/S1/material_manifest.csv,manifest,true,true,RIGHTS_PENDING,"用户原图文件元数据、哈希和权限状态"
+MATERIAL_MANIFEST,modeling_input/S1/material_manifest.csv,manifest,true,true,OWNER_APPROVED_INTERNAL_ONLY,"用户原图文件元数据、哈希和权限状态"
 USER_VIS_001,modeling_input/S1/local_reference/USER-VIS-001_current_entrance.jpg,local_image,true,true,LOCAL_ONLY_GIT_IGNORED,"当前入口材料和门洞关系参考"
 USER_VIS_002,modeling_input/S1/local_reference/USER-VIS-002_relief_wall.jpg,local_image,true,true,LOCAL_ONLY_GIT_IGNORED,"当前浮雕墙周边材质与叙事层级参考"
 PLAN,红色电波AR产品计划书.md,product_spec,true,true,APPROVED_BASELINE,"产品形态、场景、性能、数据契约和任务卡"
