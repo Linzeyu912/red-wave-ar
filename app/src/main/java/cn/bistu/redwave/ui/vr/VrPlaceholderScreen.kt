@@ -41,6 +41,7 @@ fun VrPlaceholderScreen(
     val surfaceViewRef = remember { mutableStateOf<FilamentSurfaceView?>(null) }
     val cleanupRef = remember { mutableStateOf<SceneCleanup?>(null) }
     var status by remember { mutableStateOf("初始化中…") }
+    var selectedPropId by remember { mutableStateOf<String?>(null) }
 
     Box(modifier = modifier.fillMaxSize()) {
         AndroidView(
@@ -55,8 +56,10 @@ fun VrPlaceholderScreen(
                         }
                         if (cleanup != null) cleanupRef.value = cleanup
                     }
-                    // CODE-04：触屏拖动改 yaw/pitch
-                    attachTouchLook(sv, ctx)
+                    // CODE-04/06：触屏拖动环视/移动 + 单击拾取
+                    attachTouchHandlers(sv, ctx) { propId ->
+                        selectedPropId = propId
+                    }
                 }
             },
             update = { /* CODE-05 viewport 重配 */ },
@@ -68,10 +71,33 @@ fun VrPlaceholderScreen(
                 .align(Alignment.TopStart)
                 .padding(12.dp)
         ) {
-            Text("CODE-04 白盒 + 触屏环视", color = Color.White,
+            Text("CODE-06 白盒 + 环视 + 拾取", color = Color.White,
                 style = MaterialTheme.typography.labelSmall)
             Text(status, color = Color.White.copy(alpha = 0.85f),
                 style = MaterialTheme.typography.labelSmall)
+        }
+
+        // CODE-06：底部信息卡（选中文物时显示）
+        val cleanup = cleanupRef.value
+        val selectedContent = if (selectedPropId != null && cleanup != null) {
+            cleanup.contentManifest.items.firstOrNull { it.id == selectedPropId }
+        } else null
+        if (selectedContent != null) {
+            InfoSheet(
+                content = selectedContent,
+                audioState = AudioControlState(
+                    available = false, // CODE-07 接入实际播放
+                    isPlaying = false,
+                    positionLabel = "0:00",
+                    durationLabel = "${selectedContent.audioDurationSec / 60}:${(selectedContent.audioDurationSec % 60).toString().padStart(2, '0')}"
+                ),
+                onClose = {
+                    selectedPropId = null
+                    cleanupRef.value?.picking?.deselect()
+                },
+                onToggleAudio = { /* CODE-07 */ },
+                modifier = Modifier.align(Alignment.BottomCenter)
+            )
         }
     }
 
@@ -94,6 +120,7 @@ fun VrPlaceholderScreen(
             val cleanup = cleanupRef.value
             if (sv != null && cleanup != null) {
                 sv.postToRenderThread {
+                    cleanup.picking.exitScene()
                     cleanup.orientation.pause()
                     cleanup.loader.reset()
                     cleanup.assetStore.destroyAll(sv.host.scene)
@@ -107,33 +134,71 @@ fun VrPlaceholderScreen(
     }
 }
 
-// 触屏分区：右半屏拖动环视（yaw/pitch），左半屏拖动作摇杆（移动）。
-// 这是 CODE-05 占位交互；CODE-10 接入正式摇杆组件。
-private fun attachTouchLook(sv: FilamentSurfaceView, context: Context) {
+// 触屏分区：右半屏拖动环视、左半屏拖动摇杆移动、单击触发拾取（§6.14）。
+// CODE-10 接入正式摇杆组件后替换。
+private fun attachTouchHandlers(
+    sv: FilamentSurfaceView,
+    context: Context,
+    onPropSelected: (String?) -> Unit
+) {
     val detector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
         override fun onScroll(
             e1: MotionEvent?, e2: MotionEvent, dx: Float, dy: Float
         ): Boolean {
             val startX = e1?.x ?: return false
             val screenW = sv.width.coerceAtLeast(1)
-            val sensitivity = 0.3f // 度/像素
+            val sensitivity = 0.3f
             sv.postToRenderThread {
                 val cleanup = (sv.tag as? SceneCleanup) ?: return@postToRenderThread
                 if (startX > screenW / 2) {
-                    // 右半屏：环视
                     cleanup.orientation.onTouchDrag(dx, dy, sensitivity)
                 } else {
-                    // 左半屏：摇杆移动（dx,dy 归一化为 [-1,1]，按屏幕高度归一）
                     val norm = 1f / (screenW / 3f)
                     cleanup.movement.setJoystick(dx * norm * 5f, -dy * norm * 5f)
                 }
             }
             return true
         }
+
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            // §6.14：单击触发 View.pick（异步）
+            val screenH = sv.height.coerceAtLeast(1)
+            val viewport = cn.bistu.redwave.interaction.PickingMath.touchToViewport(
+                e.x, e.y, screenH
+            )
+            val cleanup = (sv.tag as? SceneCleanup) ?: return false
+            val token = cleanup.picking.currentToken()
+            sv.postToRenderThread {
+                // View.pick 回调在 Filament 线程；用 handler 投回渲染线程处理
+                sv.host.view.pick(
+                    viewport[0].toInt(), viewport[1].toInt(),
+                    null,
+                    com.google.android.filament.View.OnPickCallback { result ->
+                        val entity = result.renderable
+                        val decision = cleanup.picking.handlePickResult(
+                            callbackToken = token,
+                            pickedEntity = entity,
+                            entityToPropId = cleanup.assetStore.entityToPropIdSnapshot(),
+                            props = cleanup.sceneManifest.props,
+                            visitorXZ = cleanup.movement.visitorPosition
+                        )
+                        when (decision) {
+                            is cn.bistu.redwave.interaction.PickingController.PickingDecision.SelectProp ->
+                                sv.post { onPropSelected(decision.propId) }
+                            is cn.bistu.redwave.interaction.PickingController.PickingDecision.Deselect ->
+                                sv.post { onPropSelected(null) }
+                            is cn.bistu.redwave.interaction.PickingController.PickingDecision.TooFar ->
+                                sv.post { statusHint(sv, "靠近 ${decision.propId} 后再查看") }
+                            else -> { /* Stale 忽略 */ }
+                        }
+                    }
+                )
+            }
+            return true
+        }
     })
     sv.setOnTouchListener { _, e ->
         detector.onTouchEvent(e)
-        // 抬起时清零摇杆，停止移动
         if (e.action == MotionEvent.ACTION_UP || e.action == MotionEvent.ACTION_CANCEL) {
             sv.postToRenderThread {
                 (sv.tag as? SceneCleanup)?.movement?.setJoystick(0f, 0f)
@@ -141,6 +206,10 @@ private fun attachTouchLook(sv: FilamentSurfaceView, context: Context) {
         }
         true
     }
+}
+
+private fun statusHint(sv: FilamentSurfaceView, text: String) {
+    // 简易提示；CODE-10 接 Toast/Snackbar
 }
 
 // 在渲染线程加载 S1 白盒并接入姿态更新。
@@ -226,7 +295,14 @@ private fun loadSceneS1Whitebox(
         }
     }
 
-    val cleanup = SceneCleanup(assetStore, loader, orientation, movement)
+    val picking = cn.bistu.redwave.interaction.PickingController()
+    picking.enterScene()
+
+    val cleanup = SceneCleanup(
+        assetStore, loader, orientation, movement, picking,
+        sceneManifest = bundle.sceneManifest,
+        contentManifest = bundle.contentManifest
+    )
     sv.tag = cleanup // 供触屏 handler 取
     orientation.resume()
     return cleanup
@@ -236,5 +312,8 @@ internal data class SceneCleanup(
     val assetStore: GltfAssetStore,
     val loader: SceneAssetLoader,
     val orientation: OrientationController,
-    val movement: cn.bistu.redwave.interaction.MovementController
+    val movement: cn.bistu.redwave.interaction.MovementController,
+    val picking: cn.bistu.redwave.interaction.PickingController,
+    val sceneManifest: cn.bistu.redwave.data.SceneManifest,
+    val contentManifest: cn.bistu.redwave.data.ContentManifest
 )

@@ -131,6 +131,10 @@ class GltfAssetStore(
     /** 查询 entity 对应的 propId（CODE-06 拾取用）；环境/未知实体返回 null。 */
     fun propIdForEntity(entity: Int): String? = entityToPropId[entity]
 
+    /** entity → propId 映射的只读快照（CODE-06 PickingController 用）。 */
+    fun entityToPropIdSnapshot(): Map<Int, String> =
+        java.util.Collections.unmodifiableMap(HashMap(entityToPropId))
+
     /** 已加载 asset 数量（诊断用）。 */
     fun loadedCount(): Int = loaded.size
 
