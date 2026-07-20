@@ -40,7 +40,9 @@ INFO_PANEL = {"x0": -2.2, "x1": 2.2, "y0": 0.7, "y1": 2.3, "z0": -3.99, "z1": -3
 
 # ---------------------------------------------------------------- furniture
 # Operation desk: hand-reachable height band 0.72-0.82 m (modeling_brief §4.3).
-DESK = {"x0": 0.0, "x1": 1.6, "z0": 1.15, "z1": 1.85, "top_y0": 0.74, "top_y1": 0.78}
+# Footprint 1.80 x 0.75 m per style_reference_board.md §6 ZONE-B frozen baseline
+# ("保持桌宽 1.8 m、深 0.75 m、高 0.78 m 的已定占位基准"), same center as v0.1.
+DESK = {"x0": -0.1, "x1": 1.7, "z0": 1.125, "z1": 1.875, "top_y0": 0.74, "top_y1": 0.78}
 DESK_SURFACE_Y = 0.78
 
 STOOL = {"cx": 0.55, "cz": 0.55, "w": 0.42, "seat_y0": 0.42, "seat_y1": 0.47}
@@ -115,7 +117,7 @@ COLLIDERS = [
     {"id": "wall_south", "min_m": [-4.2, 0.0, 4.0], "max_m": [4.2, 2.6, 4.2]},   # door leaf is closed geometry; exit is handled by UI
     {"id": "wall_east", "min_m": [4.0, 0.0, -4.0], "max_m": [4.2, 2.6, 4.0]},
     {"id": "wall_west", "min_m": [-4.2, 0.0, -4.0], "max_m": [-4.0, 2.6, 4.0]},
-    {"id": "desk_radio", "min_m": [0.0, 0.0, 1.15], "max_m": [1.6, 0.78, 1.85]},
+    {"id": "desk_radio", "min_m": [-0.1, 0.0, 1.125], "max_m": [1.7, 0.78, 1.875]},
     {"id": "stool", "min_m": [0.34, 0.0, 0.34], "max_m": [0.76, 0.47, 0.76]},
     {"id": "crates", "min_m": [-3.7, 0.0, -1.9], "max_m": [-3.0, 0.8, -0.7]},
 ]
@@ -152,10 +154,10 @@ def build_env_parts(make_box, make_cyl):
                              (INFO_PANEL["x1"], INFO_PANEL["y1"], INFO_PANEL["z1"]))),
         # operation desk
         ("desk_top", g, B((DESK["x0"], DESK["top_y0"], DESK["z0"]), (DESK["x1"], DESK["top_y1"], DESK["z1"]))),
-        ("desk_leg_a", g, B((0.05, 0.0, 1.20), (0.11, 0.74, 1.26))),
-        ("desk_leg_b", g, B((1.49, 0.0, 1.20), (1.55, 0.74, 1.26))),
-        ("desk_leg_c", g, B((0.05, 0.0, 1.74), (0.11, 0.74, 1.80))),
-        ("desk_leg_d", g, B((1.49, 0.0, 1.74), (1.55, 0.74, 1.80))),
+        ("desk_leg_a", g, B((-0.05, 0.0, 1.175), (0.01, 0.74, 1.235))),
+        ("desk_leg_b", g, B((1.59, 0.0, 1.175), (1.65, 0.74, 1.235))),
+        ("desk_leg_c", g, B((-0.05, 0.0, 1.765), (0.01, 0.74, 1.825))),
+        ("desk_leg_d", g, B((1.59, 0.0, 1.765), (1.65, 0.74, 1.825))),
         # stool (wooden stool per brief; not a chair)
         ("stool_seat", g, B((STOOL["cx"] - 0.21, 0.42, STOOL["cz"] - 0.21), (STOOL["cx"] + 0.21, 0.47, STOOL["cz"] + 0.21))),
         ("stool_leg_a", g, B((0.36, 0.0, 0.36), (0.41, 0.42, 0.41))),
