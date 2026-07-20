@@ -17,6 +17,10 @@ junitExt = "1.2.1"
 espresso = "3.6.1"
 robolectric = "4.13"
 truth = "1.4.4"
+# Filament：纯虚拟 VR 渲染引擎（计划书 §3.2、§6.10）。
+# 固定到 Maven Central 实际可用稳定版（§3.5-7：M1 后固定版本）。
+# 注：Filament 的 1.7x GitHub release 未发布到 Maven Central，1.56.0 是 Central 最新。
+filament = "1.56.0"
 
 [libraries]
 # Core / Lifecycle
@@ -39,6 +43,11 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 # Kotlinx
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+
+# Filament 渲染引擎（计划书 §3.2、§6.10）
+filament-android = { group = "com.google.android.filament", name = "filament-android", version.ref = "filament" }
+filament-gltfio = { group = "com.google.android.filament", name = "gltfio-android", version.ref = "filament" }
+filament-utils = { group = "com.google.android.filament", name = "filament-utils-android", version.ref = "filament" }
 
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }

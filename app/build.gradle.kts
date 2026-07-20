@@ -109,6 +109,11 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
 
+    // Filament 渲染引擎（计划书 §3.2、§6.10，CODE-02+）
+    implementation(libs.filament.android)
+    implementation(libs.filament.gltfio)
+    implementation(libs.filament.utils)
+
     // Test
     testImplementation(libs.junit)
     testImplementation(libs.truth)

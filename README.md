@@ -107,12 +107,44 @@ sdk.dir=D:/AndroidDev/sdk
 - S1 白盒 assets：`global_manifest.json` + 建模交付的 `scene.json` + `content.json`（文案取自 research/ draft，review_status=draft）+ 占位 thumbnail
 - **45 个单元测试全部通过**，覆盖 UT-001~007、014 + 真实资源集成测试
 
-**已知限制（CODE-00/01）**：
-- 首页三个入口按钮（二维码/触发图/手动）当前不跳转，逻辑在 CODE-08/09/10 接入。
-- 未接入 Filament、ARCore、Media3、ZXing（后续 CODE 任务）。
+### CODE-02：Filament Host ✅
+
+- Filament 1.56.0（filament-android + gltfio-android + filament-utils-android，固定版本）
+- `FilamentHost`：Engine/Renderer/Scene/View/Camera/SwapChain 生命周期，创建销毁顺序固定（§6.10）
+- `SceneRenderer`：Choreographer 帧循环，dt 截断（§6.13），Surface 不可用/后台不提交帧（§6.10）
+- `FilamentSurfaceView`：专用渲染线程，Surface 生命周期→SwapChain，前后台暂停/恢复
+- `MainActivity.onCreate` 显式 `Filament.init()` 加载 native lib
+- **模拟器验证通过**：Engine 创建成功（OpenGL 后端）、渲染页运行、前后台切换无崩溃
+- 49 个单元测试通过（CODE-02 的 Filament native 部分由模拟器 instrumented 验证）
+
+**已知限制（CODE-00/01/02）**：
+- 首页三个入口按钮（二维码/触发图/手动）当前：Debug 下"手动选择"进入渲染测试页；正式入口在 CODE-08/09/10 接入。
+- 真实 GLB 加载、姿态、移动、交互、音频在 CODE-03~07 接入；当前渲染页只有纯色背景。
 - Release 变体未启用 minify 与签名（CODE-11）。
-- content.json 文案为 draft，音频文件未制作（CODE-07），白盒阶段软检查。
-- 目标机型清单待用户提供（计划书 §15.4、§6.4），ABI 暂按通用 arm64-v8a + armeabi-v7a。
+- 模拟器无真实陀螺仪/ARCore，渲染性能不代表真机（待目标机型清单补充后真机验收）。
+- content.json 文案为 draft，音频文件未制作（CODE-07）。
+- 目标机型清单待用户提供（计划书 §15.4、§6.4）。
+
+---
+
+## 运行验证（模拟器）
+
+本机已配置 Android 模拟器（AVD `redwave_test`，API 34，x86_64，SwiftShader 软件渲染）用于无真机时验证基础运行：
+
+```bash
+export ANDROID_HOME="/d/AndroidDev/sdk"
+export PATH="/d/AndroidDev/sdk/platform-tools:$PATH"
+# 启动模拟器（headless）
+"$ANDROID_HOME/emulator/emulator.exe" -avd redwave_test -no-window -no-audio -gpu swiftshader_indirect &
+adb wait-for-device && adb shell 'while [[ "$(getprop sys.boot_completed)" != "1" ]]; do sleep 2; done'
+# 安装并启动
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb shell am start -n cn.bistu.redwave/.MainActivity
+# 查看渲染日志
+adb logcat -d | grep -i filament
+```
+
+> 模拟器限制：无真实陀螺仪（CODE-04 姿态需真机）、无 ARCore（CODE-09 需真机）、SwiftShader 性能不代表真机帧率。计划书 §6.4 的性能指标以真机 Release 构建为准。
 
 ---
 
