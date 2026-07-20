@@ -72,3 +72,20 @@
 - 用户审核、建模交接、素材说明、素材清单和两张本地参考图统一收口；原图由 Git 忽略，不进入远程仓库。
 - 重写 `references/index.md`、`open_questions.md` 和 `asset_priority.md`，删除“输入包不存在”“用户决策未确认”等已过期口径。
 - 当前正式状态：允许白盒审核和 STYLE-01/02/03；具体电台/发报键、精确建筑、路线、人物和图片发布继续保持阻塞。
+
+## 2026-07-20 ｜ M3D-01 审核轮 ｜ 白盒审核 + STYLE-01/02/03 风格图（按交接闸门停止）
+
+**依据**：`modeling_input/S1/02_MODELING_HANDOFF.md`（状态 READY_FOR_WHITEBOX_REVIEW_AND_STYLE_FRAMES）§3–§5；本轮只做白盒审核与三张简单材质风格图，不改 scene.json 数据契约与运行时 GLB。
+
+**白盒审核**：新增 `source/whitebox/whitebox_selfcheck.py` 数值自检——**25 PASS / 8 WARN / 0 FAIL**（单位比例、起点净空、起点→radio 视线、点击带 1.0–2.5 m、通道 ≥1.2 m、文物落桌、碰撞仅在 scene.json）；Khronos 校验器复核 4 个 GLB 0 错 0 警；`layout_s1.py` 与 scene.json 一致。8 条 WARN 全部列为决策项（见 style_review_report §1.2 W1–W6），其中 W5 桌区位置/W6 门位置与 `scene_layout_brief` PROPOSED 坐标存在差异，按交接 §6 保持现状并上报，不静默处理。
+
+**风格图**：新增 `source/whitebox/render_style_frames.py`（numpy 软件渲染；0.5 m 面细分修正画家算法；自发光信息层最后绘制；程序色板 + 冷暖三层灯光近似），输出 `preview/style/` 六图（1600×900 + 1280×720 各自重渲，未拉伸）：
+- `STYLE-01_visitor_start.png`：起点第一眼暖光电台桌 + 背景灰蓝信息层边缘；
+- `STYLE-02_operator_45deg.png`：radio/key/资料包轮廓互不遮挡；
+- `STYLE-03_route_to_entry.png`：历史层（灰砖/粗石/旧木/暗红门框）与灰蓝信息层分离；含一个**预览候选元素**（导览蓝地点卡，不在运行时 GLB/scene.json，报告中已声明 D-02）。
+
+**测量结论**（style_review_report §4）：红色面积 0.00%/0.00%/0.11%（≤8–12%）；三图最亮格均为桌面格（暖光第一焦点）；暗部 p02 明度 0.109–0.134 无纯黑。第三方资产：无。
+
+**上报决策项**（需用户/项目负责人定夺，详见报告 §1.2/§4/§6）：W1 起点 yaw 基准（OQ-I-04）、W5 桌区位置（现行 vs 布局任务书 PROPOSED，含计划书 §4.3「2 m 首目标」与任务书 3.5–4.5 m 张力）、W6+D-01 门位置导致 STYLE-01 无入口意象、W3/W4 信息面宽度与薄 collider、D-02 地点卡是否补入白盒。
+
+**状态**：⏸ 按交接 §5 停止。三张图 + `style_review_report.md` 已交付，等待用户审核与资料复核；未自动进入中模/正式环境。白盒仍未通过真机联调，不标记为完成。
