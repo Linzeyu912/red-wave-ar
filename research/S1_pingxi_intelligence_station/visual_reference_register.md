@@ -131,8 +131,8 @@
 
 ### USER-VIS-001 当前纪念馆入口
 
-- 来源：USRC-001；文件元数据见 `user_materials/material_manifest.csv`。
-- 本地参考：`user_materials/local_pending/USER-VIS-001_current_entrance.jpg`，由 Git 忽略，不随仓库发布。
+- 来源：USRC-001；文件元数据见 `modeling_input/S1/material_manifest.csv`。
+- 本地参考：`modeling_input/S1/local_reference/USER-VIS-001_current_entrance.jpg`，由 Git 忽略，不随仓库发布。
 - 尺寸：1440 × 996。
 - 可观察特征：灰砖墙体和砖缝尺度、瓦檐层次、暗红木门框、门洞向院落和山体延伸的视线、入口尺度关系。
 - 建模用途：补强 `R-01` 的构造观察；只提取灰砖/石基/旧木/深入口的关系。
@@ -141,8 +141,8 @@
 
 ### USER-VIS-002 当前纪念馆浮雕墙
 
-- 来源：USRC-001；文件元数据见 `user_materials/material_manifest.csv`。
-- 本地参考：`user_materials/local_pending/USER-VIS-002_relief_wall.jpg`，由 Git 忽略，不随仓库发布。
+- 来源：USRC-001；文件元数据见 `modeling_input/S1/material_manifest.csv`。
+- 本地参考：`modeling_input/S1/local_reference/USER-VIS-002_relief_wall.jpg`，由 Git 忽略，不随仓库发布。
 - 尺寸：5724 × 4032。
 - 可观察特征：灰砖色差、瓦当排列、石基拼接、单色浮雕粗糙度，以及当前展陈的路线—人员—通信叙事层级。
 - 建模用途：只补充普通建筑材质和现代信息层的层次判断。

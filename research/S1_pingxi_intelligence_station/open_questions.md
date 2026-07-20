@@ -67,20 +67,20 @@
 
 - 已知：用户已提交两张图并要求整理素材包；因此内部研究与抽象风格提取可以继续。
 - 待确认：摄影者、拍摄时间/地点、App 展示、识图数据库、触发卡、宣传和署名范围。
-- 未确认前：原图只在 Git 忽略的 `user_materials/local_pending/` 中使用，不进入远程仓库和运行包。
-- 用户填写：`owner_review_checklist.md` REV-01 至 REV-03。
+- 未确认前：原图只在 Git 忽略的 `modeling_input/S1/local_reference/` 中使用，不进入远程仓库和运行包。
+- 用户填写：`modeling_input/S1/01_OWNER_REVIEW.md` REV-01 至 REV-03。
 
 ### Q-012 是否把当前浮雕墙作为现场识图对象
 
 - 技术判断：`USER-VIS-002` 特征丰富，理论上比入口照片更适合图像识别。
 - 推荐：MVP 仍使用原创触发卡 + 二维码兜底，不把浮雕墙加入识图数据库。
 - 解锁条件：用户明确选择、场馆/图片权利允许、完成透视校正、`arcoreimg` 评分和现场多设备实测。
-- 用户填写：`owner_review_checklist.md` REV-04。
+- 用户填写：`modeling_input/S1/01_OWNER_REVIEW.md` REV-04。
 
 ### Q-013 三张风格图闸门
 
 - 推荐：白盒审核后只制作 `STYLE-01/02/03`，用户确认后才进入 M3D-02/M3D-03。
-- 用户填写：`owner_review_checklist.md` REV-05。
+- 用户填写：`modeling_input/S1/01_OWNER_REVIEW.md` REV-05。
 
 ## 3. 用户后续素材最有价值的顺序
 

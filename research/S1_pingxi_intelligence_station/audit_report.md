@@ -1,7 +1,7 @@
 # S1 资料与视觉约束审核报告
 
 > 审核日期：2026-07-20  
-> 审核对象：`research/S1_pingxi_intelligence_station/` v0.4
+> 审核对象：S1 研究包 v0.5 + `modeling_input/S1/` v1.0
 > 结论：`OWNER_APPROVED_FOR_WHITEBOX`  
 > 正式资产状态：`NOT_APPROVED`
 > 用户决策：Q-001、Q-002、Q-003、Q-004 已于 2026-07-20 同意推荐方案
@@ -97,7 +97,16 @@
 
 - `USER-VIS-001` 可补强入口材料与门洞关系判断，但不应成为 MVP 首选识图图案。
 - `USER-VIS-002` 具有较强识图特征，但完整浮雕是现代艺术化展陈，只能观察材质和叙事层级，不能作为战时史料或直接重建。
-- 原图哈希、尺寸、字节数和用途状态已经写入 `user_materials/material_manifest.csv`。
-- 原图只保存在 `user_materials/local_pending/`，目录由 Git 忽略；远程仓库只提交文字化清单和规则。
-- 用户需要填写 `owner_review_checklist.md`；不影响建模模型先进行白盒审核和三张内部风格图。
-- 建模模型的必读顺序、输出文件、停止条件和可复制提示词见 `modeling_handoff.md`。
+- 原图哈希、尺寸、字节数和用途状态已经写入 `modeling_input/S1/material_manifest.csv`。
+- 原图只保存在 `modeling_input/S1/local_reference/`，目录由 Git 忽略；远程仓库只提交文字化清单和规则。
+- 用户需要填写 `modeling_input/S1/01_OWNER_REVIEW.md`；不影响建模模型先进行白盒审核和三张内部风格图。
+- 建模模型唯一入口、必读顺序、输出文件、停止条件和可复制提示词见 `modeling_input/S1/00_START_HERE.md`。
+
+## 8. 统一交接包审核结论
+
+- 用户审核、模型提示词、素材说明、素材清单和本地原图已经统一收口到 `modeling_input/S1/`。
+- `00_START_HERE.md` 是唯一入口；`package_manifest.csv` 逐项索引计划书、史实、风格、权利、当前白盒和用户图片。
+- 研究正文没有复制到输入包，避免两个权威版本；建模模型通过清单读取 `research/` 的单一事实来源。
+- `modeling_delivery/S1/references/index.md`、`open_questions.md` 和 `asset_priority.md` 已同步当前决策，旧的“输入包不存在”“密码本待用户决定”等口径已移除。
+- 两张原图只在 `modeling_input/S1/local_reference/` 存一份工作副本，并继续由 Git 忽略。
+- 交接放行：用户可立即把 `00_START_HERE.md` 的启动语句交给建模模型；当前仅放行白盒审核和三张内部风格图。
