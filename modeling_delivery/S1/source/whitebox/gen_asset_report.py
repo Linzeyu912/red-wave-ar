@@ -2,9 +2,9 @@
 
 Recomputes stats directly from the delivered GLBs (never from memory).
 validator_errors / validator_warnings columns come from the Khronos
-glTF-Validator (npm gltf-validator 2.0.0-dev.3.10, run 2026-07-20,
-0 errors / 0 warnings on all four files); check_glb.py structural
-self-check is re-run here as the in-repo gate.
+glTF-Validator (npm gltf-validator 2.0.0-dev.3.10, re-run 2026-07-20 for
+the M3D-01R compact-cellar revision, 0 errors / 0 warnings on all four
+files); check_glb.py structural self-check is re-run here as the in-repo gate.
 
 Usage: python gen_asset_report.py
 """
@@ -20,10 +20,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 S1 = os.path.normpath(os.path.join(HERE, "..", ".."))
 
 ASSETS = [
-    ("env_s1_room", "environment_whitebox.glb", (8.40, 2.70, 8.40), "白盒 v0.1；含桌椅/木箱/灯具/信息面占位；碰撞仅在 scene.json"),
-    ("p_s1_radio", "props/radio_station_whitebox.glb", (0.600, 0.280, 0.200), "主箱体+辅助箱体占位；无铭文；场景化复原方向待审"),
-    ("p_s1_key", "props/telegraph_key_whitebox.glb", (0.150, 0.072, 0.100), "通用直键占位；key_lever 独立节点于枢轴，供 interact 动画"),
-    ("p_s1_codebook", "props/code_book_whitebox.glb", (0.150, 0.035, 0.210), "无纹理合拢占位（FINAL_MODEL_BLOCKED）；不得加任何文字"),
+    ("env_s1_room", "environment_whitebox.glb", (5.80, 2.35, 5.20), "紧凑储洞小室白盒 v0.3（M3D-01R）；5.8×2.35×5.2 含墙厚/地板/顶板；桌椅/单箱/原创煤油灯/导览牌/粗石裙边/灰砖补片；碰撞仅在 scene.json"),
+    ("p_s1_radio", "props/radio_station_whitebox.glb", (0.420, 0.280, 0.320), "审核级通用箱式电台：倾斜控制面/无字表窗/6旋钮/4接线端/单根线缆；无铭文无品牌无序列号"),
+    ("p_s1_key", "props/telegraph_key_whitebox.glb", (0.150, 0.072, 0.100), "通用直键（占位）；key_lever 独立节点于枢轴，供 interact 动画"),
+    ("p_s1_codebook", "props/code_book_whitebox.glb", (0.150, 0.035, 0.210), "无纹理合拢（占位，FINAL_MODEL_BLOCKED）；不得加任何文字"),
 ]
 
 HEADER = ["asset_id", "file", "size_bytes", "triangles", "vertices", "materials", "textures",

@@ -5,8 +5,8 @@
   "visitor_start": {
     "position_m": [
       0.0,
-      1.6,
-      3.0
+      1.55,
+      1.65
     ],
     "rotation_deg": [
       0.0,
@@ -17,101 +17,114 @@
   "movement": {
     "type": "bounds",
     "speed_mps": 1.2,
-    "x_min_m": -3.6,
-    "x_max_m": 3.6,
-    "z_min_m": -3.6,
-    "z_max_m": 3.6
+    "x_min_m": -2.25,
+    "x_max_m": 2.25,
+    "z_min_m": -1.95,
+    "z_max_m": 1.95
   },
   "colliders": [
     {
       "id": "wall_north",
       "min_m": [
-        -4.2,
+        -2.9,
         0.0,
-        -4.2
+        -2.6
       ],
       "max_m": [
-        4.2,
-        2.6,
-        -4.0
+        2.9,
+        2.25,
+        -2.35
       ]
     },
     {
       "id": "wall_south",
       "min_m": [
-        -4.2,
+        -2.9,
         0.0,
-        4.0
+        2.35
       ],
       "max_m": [
-        4.2,
-        2.6,
-        4.2
+        2.9,
+        2.25,
+        2.6
       ]
     },
     {
       "id": "wall_east",
       "min_m": [
-        4.0,
+        2.65,
         0.0,
-        -4.0
+        -2.35
       ],
       "max_m": [
-        4.2,
-        2.6,
-        4.0
+        2.9,
+        2.25,
+        2.35
       ]
     },
     {
       "id": "wall_west",
       "min_m": [
-        -4.2,
+        -2.9,
         0.0,
-        -4.0
+        -2.35
       ],
       "max_m": [
-        -4.0,
-        2.6,
-        4.0
+        -2.65,
+        2.25,
+        2.35
       ]
     },
     {
       "id": "desk_radio",
       "min_m": [
-        -0.1,
+        -0.9,
         0.0,
-        1.125
+        -0.275
       ],
       "max_m": [
-        1.7,
+        0.9,
         0.78,
-        1.875
+        0.475
       ]
     },
     {
       "id": "stool",
       "min_m": [
-        0.34,
+        0.09,
         0.0,
-        0.34
+        -0.91
       ],
       "max_m": [
-        0.76,
-        0.47,
-        0.76
+        0.51,
+        0.45,
+        -0.49
       ]
     },
     {
-      "id": "crates",
+      "id": "crate",
       "min_m": [
-        -3.7,
+        1.65,
         0.0,
-        -1.9
+        -2.1
       ],
       "max_m": [
-        -3.0,
-        0.8,
-        -0.7
+        2.25,
+        0.42,
+        -1.6
+      ]
+    },
+    {
+      "id": "guide_plate",
+      "min_m": [
+        -2.66,
+        1.1,
+        1.5
+      ],
+      "max_m": [
+        -2.6,
+        1.75,
+        2.2
       ]
     }
   ],
@@ -119,27 +132,27 @@
     {
       "id": "mp_radio",
       "position_m": [
-        1.15,
-        1.6,
-        0.75
+        0.75,
+        1.55,
+        0.95
       ],
       "look_at_m": [
-        0.55,
+        0.32,
         1.0,
-        1.55
+        0.04
       ]
     },
     {
-      "id": "mp_info_wall",
+      "id": "mp_guide",
       "position_m": [
-        0.0,
-        1.6,
-        -1.6
+        -1.5,
+        1.55,
+        1.15
       ],
       "look_at_m": [
-        0.0,
-        1.5,
-        -3.96
+        -2.63,
+        1.42,
+        1.85
       ]
     }
   ],
@@ -148,30 +161,30 @@
       "id": "p_s1_radio",
       "glb": "props/radio_station_whitebox.glb",
       "position_m": [
-        0.55,
+        0.32,
         0.78,
-        1.6
+        0.04
       ],
       "rotation_deg": [
         0.0,
-        0.0,
+        180.0,
         0.0
       ],
       "scale": 1.0,
       "interaction_radius_m": 1.8,
       "highlight_anchor_m": [
         0.0,
-        0.42,
-        0.0
+        0.15,
+        -0.1
       ]
     },
     {
       "id": "p_s1_key",
       "glb": "props/telegraph_key_whitebox.glb",
       "position_m": [
-        0.15,
+        -0.34,
         0.78,
-        1.28
+        0.34
       ],
       "rotation_deg": [
         0.0,
@@ -179,7 +192,7 @@
         0.0
       ],
       "scale": 1.0,
-      "interaction_radius_m": 1.5,
+      "interaction_radius_m": 1.6,
       "highlight_anchor_m": [
         0.0,
         0.12,
@@ -190,9 +203,9 @@
       "id": "p_s1_codebook",
       "glb": "props/code_book_whitebox.glb",
       "position_m": [
-        1.32,
+        -0.58,
         0.78,
-        1.35
+        -0.1
       ],
       "rotation_deg": [
         0.0,
@@ -200,7 +213,7 @@
         0.0
       ],
       "scale": 1.0,
-      "interaction_radius_m": 1.5,
+      "interaction_radius_m": 1.9,
       "highlight_anchor_m": [
         0.0,
         0.1,

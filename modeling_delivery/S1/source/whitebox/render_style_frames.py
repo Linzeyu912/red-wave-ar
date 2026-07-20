@@ -1,16 +1,13 @@
-"""S1 style review frames STYLE-01/02/03 (M3D-01 review round).
+"""S1 style review frames STYLE-01/02/03 (M3D-01R compact-cellar round).
 
-Simple original-material previews per modeling_input/S1/02_MODELING_HANDOFF §4
-and research/S1_pingxi_intelligence_station/style_reference_board.md §10:
-- procedural palette only (style board §4 working colors); no external
-  textures, no HDRI, no copied imagery;
-- warm desk task light + cool ambient + weak self-lit info layer;
+Per modeling_input/S1/04_COMPACT_CELLAR_REVISION.md (M3D-01R):
+- procedural palette only (style board working colors); no external textures,
+  no HDRI, no copied imagery, no inscriptions;
+- original kerosene lamp as the warm desk light + cool low ambient so the
+  dark corners stay readable (克制、干燥、安静，不阴森);
+- the only red accent in the room is the old wooden entry frame;
 - every frame rendered at exactly 1600x900 and again at 1280x720
   (re-rendered, never stretched).
-
-STYLE-03 contains ONE preview-only candidate element (guide-blue location
-card beside the door, ZONE-A) that is NOT in the runtime GLB / scene.json;
-it exists so the review can judge history-layer vs info-layer separation.
 
 Outputs: modeling_delivery/S1/preview/style/STYLE-0X_*.png
 Run from repo root:  python modeling_delivery/S1/source/whitebox/render_style_frames.py
@@ -40,7 +37,8 @@ from render_previews import camera, make_box, make_cyl, shape_tris
 
 STYLE_DIR = os.path.normpath(os.path.join(HERE, "..", "..", "preview", "style"))
 
-# ------------------------------------------------------------ palette (style board §4)
+
+# ------------------------------------------------------------ palette (style board working colors)
 def hexrgb(h):
     h = h.lstrip("#")
     return tuple(int(h[i:i + 2], 16) / 255 for i in (0, 2, 4))
@@ -50,46 +48,75 @@ C_STONE_DARK = hexrgb("#3F4542")   # 山石深灰
 C_BRICK = hexrgb("#626965")        # 灰砖
 C_STONE = hexrgb("#898A80")        # 粗石
 C_WOOD = hexrgb("#49392E")         # 旧木深褐
-C_EARTH = hexrgb("#6F5842")        # 土褐
+C_EARTH = hexrgb("#6F5842")        # 土褐（夯土）
 C_GREEN = hexrgb("#4D5643")        # 低饱和军绿
 C_RED = hexrgb("#78352F")          # 暗朱红（仅入口木框）
 C_WARM = hexrgb("#C58B4A")         # 暖灯琥珀
 C_INFO = hexrgb("#708489")         # 信息层灰蓝
 C_PAPER = hexrgb("#B8AA91")        # 纸张暖灰
+C_METER = hexrgb("#10161A")        # 表窗近黑
+C_METAL = hexrgb("#3A3D3A")        # 暗金属
+C_CABLE = hexrgb("#141312")        # 线缆近黑
 
 NODE_COLORS = {
     "floor": (C_STONE, 0.025), "ceiling": (C_STONE_DARK, 0.02),
-    "wall_north": (C_BRICK, 0.025), "wall_east": (C_BRICK, 0.025), "wall_west": (C_BRICK, 0.025),
-    "wall_south_a": (C_BRICK, 0.025), "wall_south_b": (C_BRICK, 0.025),
-    "wall_south_lintel": (C_BRICK, 0.025),
+    "wall_north": (C_EARTH, 0.025), "wall_east": (C_EARTH, 0.025), "wall_west": (C_EARTH, 0.025),
+    "wall_south_a": (C_EARTH, 0.025), "wall_south_b": (C_EARTH, 0.025),
+    "wall_south_lintel": (C_EARTH, 0.025),
+    "skirt_north": (C_STONE, 0.03), "skirt_east": (C_STONE, 0.03),
+    "skirt_south": (C_STONE, 0.03), "skirt_west": (C_STONE, 0.03),
+    "brick_patch_a": (C_BRICK, 0.02),
     "entry_frame_left": (C_RED, 0.0), "entry_frame_right": (C_RED, 0.0), "entry_frame_top": (C_RED, 0.0),
     "door_leaf": (C_WOOD, 0.02),
-    "info_panel": (C_INFO, 0.0),
+    "guide_plate": (C_INFO, 0.0),
     "desk_top": (C_WOOD, 0.02), "desk_leg_a": (C_WOOD, 0.02), "desk_leg_b": (C_WOOD, 0.02),
     "desk_leg_c": (C_WOOD, 0.02), "desk_leg_d": (C_WOOD, 0.02),
     "stool_seat": (C_WOOD, 0.02), "stool_leg_a": (C_WOOD, 0.02), "stool_leg_b": (C_WOOD, 0.02),
     "stool_leg_c": (C_WOOD, 0.02), "stool_leg_d": (C_WOOD, 0.02),
-    "crate_a": (C_EARTH, 0.03), "crate_b": (C_EARTH, 0.03), "crate_c": (C_EARTH, 0.03),
-    "lamp_cord": (C_STONE_DARK, 0.0), "lamp_base": (C_STONE_DARK, 0.0), "lamp_stem": (C_STONE_DARK, 0.0),
-    "lamp_shade": (C_WARM, 0.0), "lamp_shade_desk": (C_WARM, 0.0),
+    "crate_a": (C_WOOD, 0.03),
+    "lamp_base": (C_STONE_DARK, 0.0), "lamp_stem": (C_STONE_DARK, 0.0),
+    "lamp_glass": (C_WARM, 0.0), "lamp_cap": (C_STONE_DARK, 0.0),
 }
-EMISSIVE = {"lamp_shade": 1.9, "lamp_shade_desk": 1.7, "info_panel": 1.12, "zone_a_card": 1.12}
+EMISSIVE = {"lamp_glass": 1.8, "guide_plate": 1.12}
 
-PROP_COLORS = {"p_s1_radio": C_GREEN, "p_s1_key": C_STONE_DARK, "p_s1_codebook": C_PAPER}
+# review-grade radio: per-node colors; placeholders keep flat colors
+RADIO_NODE_COLORS = {
+    "radio_body": C_GREEN,
+    "dial_main": C_STONE_DARK,
+    "meter_window": C_METER, "meter_window_face": C_METER,
+    "knob_01": C_METAL, "knob_02": C_METAL, "knob_03": C_METAL,
+    "knob_04": C_METAL, "knob_05": C_METAL, "knob_06": C_METAL,
+    "cable_socket_01": C_METAL, "cable_socket_02": C_METAL,
+    "cable_socket_03": C_METAL, "cable_socket_04": C_METAL,
+    "cable_main": C_CABLE,
+}
+PROP_COLORS = {"p_s1_key": C_STONE_DARK, "p_s1_codebook": C_PAPER}
 
-# preview-only candidate (NOT in runtime GLB / scene.json): ZONE-A location card
-ZONE_A_CARD = ("zone_a_card", make_box((0.30, 1.20, 3.955), (0.95, 1.80, 3.985)))
+# painter-sort layers: appliqué faces (skirts / patch / frames / plate) sit a
+# few cm proud of the shell, so mean-depth sort interleaves them ("zebra").
+# Sort by (layer, depth) instead of depth alone.
+NODE_LAYER = {}
+for _n in ("floor", "ceiling", "wall_north", "wall_east", "wall_west",
+           "wall_south_a", "wall_south_b", "wall_south_lintel"):
+    NODE_LAYER[_n] = 0
+for _n in ("skirt_north", "skirt_east", "skirt_south", "skirt_west", "brick_patch_a",
+           "guide_plate", "entry_frame_left", "entry_frame_right", "entry_frame_top", "door_leaf"):
+    NODE_LAYER[_n] = 1
+for _n in ("desk_top", "desk_leg_a", "desk_leg_b", "desk_leg_c", "desk_leg_d",
+           "stool_seat", "stool_leg_a", "stool_leg_b", "stool_leg_c", "stool_leg_d",
+           "crate_a", "lamp_base", "lamp_stem", "lamp_glass", "lamp_cap"):
+    NODE_LAYER[_n] = 2
 
 # ------------------------------------------------------------ lighting
-AMB = np.array([0.34, 0.36, 0.40]) * 0.95          # cool neutral ambient (暗部可辨)
+AMB = np.array([0.34, 0.36, 0.40]) * 0.90          # cool low ambient (暗部可辨)
 FILL_DIR = np.array([0.15, 0.9, -0.2]); FILL_DIR /= np.linalg.norm(FILL_DIR)
-FILL_COL = np.array([0.50, 0.56, 0.64]) * 0.30     # cool sky-ish fill from above
+FILL_COL = np.array([0.50, 0.56, 0.64]) * 0.28     # cool sky-ish fill from above
 WARM_COL = np.array(C_WARM)
 COOL_COL = np.array([0.55, 0.62, 0.70])
 WARM_LIGHTS = [
-    (np.array([L.LAMP_HANGING["x"], 2.02, L.LAMP_HANGING["z"]]), 2.4, 1.15, WARM_COL),   # hanging, over desk
-    (np.array([L.LAMP_DESK["x"], 1.12, L.LAMP_DESK["z"]]), 1.2, 0.55, WARM_COL),         # desk oil lamp
-    (np.array([0.0, 2.30, -2.5]), 0.9, 2.2, COOL_COL),                                   # dim cool fill, route area
+    (np.array([0.72, 0.95, 0.32]), 1.6, 0.9, WARM_COL),    # kerosene lamp on the desk
+    (np.array([0.0, 1.9, 0.1]), 0.8, 1.2, WARM_COL),       # warm pool above the desk
+    (np.array([-1.5, 2.0, 2.2]), 0.5, 1.5, COOL_COL),      # cool spill at the doorway
 ]
 
 
@@ -98,7 +125,6 @@ def box_tris_sub(lo, hi, max_seg=0.5):
     lo = np.asarray(lo, float)
     hi = np.asarray(hi, float)
     tris = []
-    # faces: (fixed axis, fixed value, var axis u, var axis v, flip)
     faces = [
         (2, hi[2], 0, 1, False), (2, lo[2], 0, 1, True),
         (1, hi[1], 0, 2, True), (1, lo[1], 0, 2, False),
@@ -153,24 +179,40 @@ def jitter(seed, amp):
     return 1.0 + amp * (2.0 * ((seed * 2654435761 % 2**31) / 2**31) - 1.0)
 
 
-def soup(include_card=False):
-    """Return list of (tri_array, [per-face base colors], [emissive boosts])."""
+def _as_list(shape):
+    return shape if isinstance(shape, list) else [shape]
+
+
+def _yaw_rot(deg):
+    """Right-handed Y-up yaw rotation matrix matching scene.json rotation_deg[1]."""
+    r = np.radians(deg)
+    c, s = np.cos(r), np.sin(r)
+    return np.array([[c, 0.0, s], [0.0, 1.0, 0.0], [-s, 0.0, c]])
+
+
+def soup():
+    """Return list of (tri_array, [per-face base colors], [emissive boosts], layer)."""
     groups = []
     seed = 0
     for name, _mat, shape in L.build_env_parts(make_box, make_cyl):
-        t = shape_tris_sub(shape)
         color, amp = NODE_COLORS[name]
-        cols, ems = [], []
-        for i in range(len(t)):
-            seed += 1
-            cols.append(tuple(np.array(color) * jitter(seed, amp)))
-            ems.append(EMISSIVE.get(name, 0.0))
-        groups.append((t, cols, ems))
-    if include_card:
-        name, shape = ZONE_A_CARD
-        t = shape_tris_sub(shape)
-        groups.append((t, [C_INFO] * len(t), [EMISSIVE[name]] * len(t)))
+        layer = NODE_LAYER[name]
+        for sp in _as_list(shape):
+            t = shape_tris_sub(sp)
+            cols, ems = [], []
+            for i in range(len(t)):
+                seed += 1
+                cols.append(tuple(np.array(color) * jitter(seed, amp)))
+                ems.append(EMISSIVE.get(name, 0.0))
+            groups.append((t, cols, ems, layer))
     for pid, spec in L.PROPS.items():
+        rot = _yaw_rot(spec.get("rotation_deg", [0, 0, 0])[1])
+        pos = np.array(spec["position_m"], float)
+        if pid == "p_s1_radio":
+            for nname, shapes_, _mkey in L.build_radio_nodes():
+                arr = np.concatenate([shape_tris(sp) for sp in shapes_]) @ rot.T + pos
+                groups.append((arr, [RADIO_NODE_COLORS[nname]] * len(arr), [0.0] * len(arr), 3))
+            continue
         tris = []
         if pid == "p_s1_key":
             specs = [make_box((-0.075, 0.0, -0.05), (0.075, 0.025, 0.05)),
@@ -182,13 +224,13 @@ def soup(include_card=False):
             specs = [s for _, s in L.build_prop_meshes(pid, make_box, make_cyl)]
         for sp in specs:
             tris.append(shape_tris(sp))
-        arr = np.concatenate(tris) + np.array(spec["position_m"], float)
-        groups.append((arr, [PROP_COLORS[pid]] * len(arr), [0.0] * len(arr)))
+        arr = np.concatenate(tris) @ rot.T + pos
+        groups.append((arr, [PROP_COLORS[pid]] * len(arr), [0.0] * len(arr), 3))
     return groups
 
 
 # ------------------------------------------------------------ render
-def render_frame(path, eye, target, fov, caption, include_card=False, size=(16.0, 9.0)):
+def render_frame(path, eye, target, fov, caption, size=(16.0, 9.0)):
     w_in, h_in = size
     fig = plt.figure(figsize=(w_in, h_in), dpi=100)
     ax = fig.add_axes([0, 0, 1, 1])
@@ -196,9 +238,9 @@ def render_frame(path, eye, target, fov, caption, include_card=False, size=(16.0
     fig.patch.set_facecolor("#1A1C1B")
     cam = camera(eye, target)
     aspect = w_in / h_in
-    polys, cols, depth = [], [], []          # lit pass
+    polys, cols, depth, layers = [], [], [], []   # lit pass
     epolys, ecols, edepth = [], [], []       # emissive pass (always drawn last)
-    for arr, base_cols, ems in soup(include_card=include_card):
+    for arr, base_cols, ems, layer in soup():
         n = len(arr)
         flat = arr.reshape(-1, 3)
         rel = flat - np.asarray(cam[0])
@@ -216,17 +258,29 @@ def render_frame(path, eye, target, fov, caption, include_card=False, size=(16.0
         for i in range(n):
             if not keep[i]:
                 continue
-            target_lists = (epolys, ecols, edepth) if ems[i] else (polys, cols, depth)
-            target_lists[0].append(np.stack([sx[i], sy[i]], axis=1))
-            target_lists[1].append(tuple(shade(base_cols[i], cent[i], norms[i], ems[i])))
-            target_lists[2].append(z[i].mean())
-    for pl, cl, dl in ((polys, cols, depth), (epolys, ecols, edepth)):
-        if not pl:
-            continue
-        order = np.argsort(dl)[::-1]
-        coll = PolyCollection([pl[i] for i in order],
-                              facecolors=[cl[i] for i in order],
-                              edgecolors=[tuple(np.array(cl[i]) * 0.85) for i in order],
+            if ems[i]:
+                epolys.append(np.stack([sx[i], sy[i]], axis=1))
+                ecols.append(tuple(shade(base_cols[i], cent[i], norms[i], ems[i])))
+                edepth.append(z[i].mean())
+            else:
+                polys.append(np.stack([sx[i], sy[i]], axis=1))
+                cols.append(tuple(shade(base_cols[i], cent[i], norms[i], ems[i])))
+                depth.append(z[i].mean())
+                layers.append(layer)
+    # lit pass: painter within painter-sort layers (shell -> appliqué ->
+    # furniture -> props) so thin appliqué faces never zebra-fight the shell
+    if polys:
+        order = sorted(range(len(polys)), key=lambda i: (layers[i], -depth[i]))
+        coll = PolyCollection([polys[i] for i in order],
+                              facecolors=[cols[i] for i in order],
+                              edgecolors=[tuple(np.array(cols[i]) * 0.85) for i in order],
+                              linewidths=0.15)
+        ax.add_collection(coll)
+    if epolys:
+        order = np.argsort(edepth)[::-1]
+        coll = PolyCollection([epolys[i] for i in order],
+                              facecolors=[ecols[i] for i in order],
+                              edgecolors=[tuple(np.array(ecols[i]) * 0.85) for i in order],
                               linewidths=0.15)
         ax.add_collection(coll)
     ax.set_xlim(-1.02, 1.02)
@@ -263,23 +317,20 @@ def render_frame(path, eye, target, fov, caption, include_card=False, size=(16.0
 
 def main():
     os.makedirs(STYLE_DIR, exist_ok=True)
-    radio = L.PROPS["p_s1_radio"]["position_m"]
-    desk_c = [(L.DESK["x0"] + L.DESK["x1"]) / 2, (L.DESK["z0"] + L.DESK["z1"]) / 2]
-    door_c = [(L.DOOR["x0"] + L.DOOR["x1"]) / 2, 1.25, 4.0]
     views = [
-        ("STYLE-01_visitor_start", [0.0, 1.6, 3.0], [desk_c[0], 1.05, desk_c[1]], 55, False,
-         "STYLE-01 游客起点 [0,1.6,3.0] 眼高1.6m · 暖光电台桌第一眼 · 背景灰蓝信息层 · 程序色板审核图 2026-07-20"),
-        ("STYLE-02_operator_45deg", [-0.50, 1.55, 2.85], [0.72, 0.95, 1.42], 52, False,
-         "STYLE-02 操作区前左45° · radio/key/资料包互不遮挡 · 桌面暖光任务区 · 程序色板审核图 2026-07-20"),
-        ("STYLE-03_route_to_entry", [0.4, 1.6, -2.4], door_c, 65, True,
-         "STYLE-03 路线区回望入口 · 灰砖/粗石/旧木历史层 vs 灰蓝信息层 · 含预览候选元素(导览蓝地点卡,未入运行时GLB) · 2026-07-20"),
+        ("STYLE-01_visitor_start", [0.0, 1.55, 1.65], [0.05, 1.0, 0.1], 60,
+         "STYLE-01 游客起点 [0,1.55,1.65] 眼高1.55m · 暖光电台桌第一眼 · 紧凑储洞小室 5.3×4.7×2.25m · M3D-01R 程序色板审核图"),
+        ("STYLE-02_operator_45deg", [-1.10, 1.45, 1.20], [0.05, 0.95, 0.12], 55,
+         "STYLE-02 操作区前左45° · radio/key/codebook互不遮挡 · 煤油灯暖池 · M3D-01R 程序色板审核图"),
+        ("STYLE-03_route_to_entry", [0.9, 1.55, -1.55], [-1.5, 1.15, 2.35], 65,
+         "STYLE-03 室内回望入口 · 全场唯一红色=旧木门框 · 灰蓝导览牌(信息层) · 夯土/粗石历史层 · M3D-01R 程序色板审核图"),
     ]
     all_metrics = {}
-    for name, eye, tgt, fov, card, caption in views:
+    for name, eye, tgt, fov, caption in views:
         all_metrics[name] = {}
         for tag, size in (("", (16.0, 9.0)), ("_720p", (12.8, 7.2))):
             out = os.path.join(STYLE_DIR, f"{name}{tag}.png")
-            m = render_frame(out, eye, tgt, fov, caption, include_card=card, size=size)
+            m = render_frame(out, eye, tgt, fov, caption, size=size)
             all_metrics[name][tag or "_1600"] = m
             print(f"wrote {out}")
     for name, sizes in all_metrics.items():
