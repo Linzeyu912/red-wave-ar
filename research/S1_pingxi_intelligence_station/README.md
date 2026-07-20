@@ -1,7 +1,7 @@
 # S1 平西情报联络站资料包
 
 > 状态：`OWNER_APPROVED_FOR_WHITEBOX`  
-> 版本：0.4
+> 版本：0.5
 > 首轮检索与整理日期：2026-07-20  
 > 用户决策确认日期：2026-07-20  
 > 对应场景：`S1` / 地下情报电台  
@@ -41,9 +41,10 @@
 | `source_register.md` | 来源台账和事实—来源矩阵 | 内容、审核 |
 | `visual_reference_register.md` | 外观、内景、设备视觉参考及版权限制 | 建模、审核 |
 | `style_reference_board.md` | 已冻结的色彩、材质、灯光、构图、禁用元素和风格图验收规则 | 建模、审核 |
-| `user_materials/` | 用户补充图片的本地待授权包、哈希和用途清单 | 建模、权利审核 |
-| `owner_review_checklist.md` | 用户需要确认的图片来源、用途、识图和建模闸门 | 用户、项目负责人 |
-| `modeling_handoff.md` | 建模模型必读顺序、输出、停止条件和可复制提示词 | 用户、建模模型 |
+| `../../modeling_input/S1/00_START_HERE.md` | S1 建模输入包唯一入口和全量索引 | 用户、建模模型 |
+| `../../modeling_input/S1/01_OWNER_REVIEW.md` | 用户需要确认的图片来源、用途、识图和建模闸门 | 用户、项目负责人 |
+| `../../modeling_input/S1/02_MODELING_HANDOFF.md` | 建模模型必读顺序、输出、停止条件和可复制提示词 | 用户、建模模型 |
+| `../../modeling_input/S1/03_MATERIALS_GUIDE.md` | 用户补充图片的本地待授权包、哈希和用途说明 | 建模、权利审核 |
 | `modeling_brief.md` | 资产级建模规则、可做/不可做、交付门槛 | 建模模型 |
 | `content_brief.md` | 叙事结构、文物文案草案、音频边界 | 内容、编码 |
 | `scene_layout_brief.md` | 8 m × 8 m 白盒布局、坐标、碰撞和灯光建议 | 建模、编码 |
@@ -82,4 +83,4 @@
 - 继续禁止：具体密码本、精确电台型号、未授权历史地图/照片、人物肖像、馆藏照片、战时房间 1:1 复原。
 - Q-001、Q-002、Q-003 已由用户确认；剩余 P1 问题随补充素材逐项关闭。
 - 第二轮 Chrome 图片核验已完成；`style_reference_board.md` 可用于白盒审查和下一轮风格图，但不解除正式资产与图片版权门槛。
-- 两张用户补充图片已复制到 Git 忽略的本地待授权目录；内部研究和抽象风格提取已放行，App 展示、识图、触发卡和宣传仍等待 `owner_review_checklist.md` 确认。
+- S1 建模输入已经统一收口到 `modeling_input/S1/`；两张用户补充图片位于其 Git 忽略的 `local_reference/`。内部研究和抽象风格提取已放行，App 展示、识图、触发卡和宣传仍等待 `01_OWNER_REVIEW.md` 确认。

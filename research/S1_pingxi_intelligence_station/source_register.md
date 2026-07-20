@@ -108,7 +108,7 @@
 
 - 素材：`USER-VIS-001` 当前纪念馆入口、`USER-VIS-002` 当前纪念馆浮雕墙。
 - 提供：项目负责人/用户，2026-07-20 提交给本项目。
-- 原文件：见 `user_materials/material_manifest.csv`，已记录文件名、尺寸、字节数和 SHA-256。
+- 原文件：见 `modeling_input/S1/material_manifest.csv`，已记录文件名、尺寸、字节数和 SHA-256。
 - 等级：`USER_PROVIDED / VISUAL_REFERENCE_ONLY / RIGHTS_PENDING`
 - 可支持内容：当前入口的砖、瓦、石基、木门和空间关系；当前浮雕墙周边建筑材料，以及现代展陈如何组织路线、人物和通信主题。
 - 不能支持：战时建筑原貌、具体人物姿态和服装、精确路线、题字来源、设备型号或任何原件身份。

@@ -7,15 +7,19 @@
 ## 1. 包内结构
 
 ```text
-user_materials/
-├── README.md
+modeling_input/S1/
+├── 00_START_HERE.md
+├── 01_OWNER_REVIEW.md
+├── 02_MODELING_HANDOFF.md
+├── 03_MATERIALS_GUIDE.md
+├── package_manifest.csv
 ├── material_manifest.csv
-└── local_pending/
+└── local_reference/
     ├── USER-VIS-001_current_entrance.jpg
     └── USER-VIS-002_relief_wall.jpg
 ```
 
-`local_pending/` 中的两张原图只存在于当前本地工作区，并由目录内 `.gitignore` 排除。这样建模模型可以在同一工作区观察原图，但文件不会在权限未确认时被推送到远程仓库。
+`local_reference/` 中的两张原图只存在于当前本地工作区，并由目录内 `.gitignore` 排除。这样建模模型可以在同一工作区观察原图，但文件不会在权限未确认时被推送到远程仓库。
 
 ## 2. 当前许可口径
 
@@ -40,7 +44,7 @@ user_materials/
 ### USER-VIS-001 当前纪念馆入口
 
 - 原文件名：`6d7e3f423df289cfa6e4eff77c35859e.jpg`
-- 本地文件：`local_pending/USER-VIS-001_current_entrance.jpg`
+- 本地文件：`local_reference/USER-VIS-001_current_entrance.jpg`
 - 尺寸：1440 × 996，约 202 KiB；无可用 EXIF 作者、时间或设备字段。
 - 可提取：灰砖与石基关系、瓦檐层次、暗红木门框、门洞纵深、院落与山体的连续视线。
 - 必须排除：国旗、金属栏杆、摄像头、真实牌匾与楹联、现代导视、现馆精确尺寸和 1:1 立面。
@@ -49,7 +53,7 @@ user_materials/
 ### USER-VIS-002 当前纪念馆浮雕墙
 
 - 原文件名：`微信图片_20260706194753_382_1.jpg`
-- 本地文件：`local_pending/USER-VIS-002_relief_wall.jpg`
+- 本地文件：`local_reference/USER-VIS-002_relief_wall.jpg`
 - 尺寸：5724 × 4032，约 9.01 MiB；无可用 EXIF 作者、时间或设备字段。
 - 可提取：灰砖色差、瓦当排列、粗石基拼接、单色浮雕的粗糙度层级；可帮助理解现馆如何把路线、人员与通信主题组织在同一叙事面。
 - 必须排除：浮雕人物姿态、服装、地图路线、地点文字、题字、烽火台、马队和完整构图；这些都是现代艺术化展陈，不能作为战时史料或直接重建对象。
