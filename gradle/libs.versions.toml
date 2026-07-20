@@ -21,6 +21,9 @@ truth = "1.4.4"
 # 固定到 Maven Central 实际可用稳定版（§3.5-7：M1 后固定版本）。
 # 注：Filament 的 1.7x GitHub release 未发布到 Maven Central，1.56.0 是 Central 最新。
 filament = "1.56.0"
+# Media3 ExoPlayer：单实例音频播放（计划书 §3.2、§6.15）
+# 用 1.4.1：1.7.0 要求 compileSdk 35 + AGP 8.6+；当前 AGP 8.5.2 / compileSdk 34。
+media3 = "1.4.1"
 
 [libraries]
 # Core / Lifecycle
@@ -48,6 +51,11 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 filament-android = { group = "com.google.android.filament", name = "filament-android", version.ref = "filament" }
 filament-gltfio = { group = "com.google.android.filament", name = "gltfio-android", version.ref = "filament" }
 filament-utils = { group = "com.google.android.filament", name = "filament-utils-android", version.ref = "filament" }
+
+# Media3 音频（计划书 §3.2、§6.15，CODE-07）
+androidx-media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
+androidx-media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "media3" }
+androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3" }
 
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }

@@ -114,6 +114,11 @@ dependencies {
     implementation(libs.filament.gltfio)
     implementation(libs.filament.utils)
 
+    // Media3 音频（计划书 §3.2、§6.15，CODE-07）
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.common)
+    implementation(libs.androidx.media3.session)
+
     // Test
     testImplementation(libs.junit)
     testImplementation(libs.truth)
