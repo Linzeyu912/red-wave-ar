@@ -125,12 +125,29 @@ sdk.dir=D:/AndroidDev/sdk
 - **模拟器验证通过**：状态显示"就绪：资产已加载"，6 次进出渲染页无崩溃、内存无单调增长（§6.21）
 - 56 个单元测试通过（含 TransformMath 矩阵转换 7 项）
 
-**已知限制（CODE-00/01/02/03）**：
+### CODE-04：姿态与触屏相机 ✅
+
+- `Quaternion` + `slerp` + `smoothingAlpha`：纯四元数运算（单位四元数、逆、乘积、球面插值、与帧率无关平滑系数）
+- `OrientationMath`（§6.12 算法规格）：
+  - TYPE_GAME_ROTATION_VECTOR → 四元数（§6.12-1）
+  - 屏幕方向重映射（§6.12-2，ROTATION_0/90/180/270）
+  - 回正 q_relative = inverse(q_reference)*q_screen（§6.12-3/4，UT-008）
+  - 默认去 roll，只保留 yaw/pitch（§6.12-5）
+  - slerp 平滑 alpha=1-exp(-dt/tau)，tau=0.12（§6.12-6）
+  - 触屏 pitch 限幅 ±80°（§6.12，UT-009）
+  - yaw/pitch 提取用旋转矩阵 forward 向量法（避免象限歧义）
+  - lookAtParams：四元数+眼点 → Filament Camera.lookAt 9 参数
+- `OrientationController`：SensorManager 桥接，陀螺仪/触屏双模式，切换不跳变，无传感器降级触屏（§6.18 SENSOR_UNAVAILABLE）
+- 渲染页接入：触屏拖动改 yaw/pitch，每帧 onUpdateOrientation 写相机朝向
+- **69 个单元测试通过**（+13 姿态算法：四元数、回正、去roll、pitch限幅、slerp、屏幕补偿、平滑收敛）
+- 模拟器验证：渲染页运行、App 不崩溃、Filament Engine 正常
+
+**已知限制（CODE-00/01/02/03/04）**：
 - 首页"手动选择"按钮（Debug）进入渲染测试页；二维码/触发图/正式入口在 CODE-08/09/10 接入。
-- 姿态、移动、交互、音频在 CODE-04~07 接入；当前渲染页能看到加载的白盒 GLB 但视角固定。
+- 移动、交互、音频在 CODE-05~07 接入；当前相机位置固定在 visitor_start。
+- **触屏环视的视觉效果在 headless 模拟器上无法通过截图可靠验证**（SwiftShader + 无窗口 screencap 限制）；姿态算法已通过严格单元测试，真实视觉效果待真机验收。
+- 模拟器无真实陀螺仪，陀螺仪模式真实姿态待真机/备用机验收。
 - Release 变体未启用 minify 与签名（CODE-11）。
-- 模拟器无真实陀螺仪/ARCore，渲染性能不代表真机（主展示机 nubia Z70 Ultra 待真机验收）。
-- content.json 文案为 draft，音频文件未制作（CODE-07）。
 - 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）已确认**不支持 ARCore**；备用/低配机待补充（见 docs/device_matrix.md）。
 
 ---
