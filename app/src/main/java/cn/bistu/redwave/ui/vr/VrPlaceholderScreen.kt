@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,8 +41,34 @@ fun VrPlaceholderScreen(
     val context = LocalContext.current
     val surfaceViewRef = remember { mutableStateOf<FilamentSurfaceView?>(null) }
     val cleanupRef = remember { mutableStateOf<SceneCleanup?>(null) }
+    // CODE-07：单实例音频控制器
+    val narration = remember { cn.bistu.redwave.audio.NarrationController(context) }
+    val narrationState by narration.state.collectAsState()
     var status by remember { mutableStateOf("初始化中…") }
     var selectedPropId by remember { mutableStateOf<String?>(null) }
+
+    // CODE-07：选中/取消文物时播放/停止音频（§6.15）
+    LaunchedEffect(selectedPropId) {
+        val cleanup = cleanupRef.value
+        val propId = selectedPropId
+        if (propId == null || cleanup == null) {
+            narration.stop(cn.bistu.redwave.audio.StopReason.CLOSED)
+        } else {
+            val item = cleanup.contentManifest.items.firstOrNull { it.id == propId }
+            if (item != null) {
+                val source = cn.bistu.redwave.audio.AudioSource.Asset(item.audio)
+                narration.play(propId, source)
+            }
+        }
+    }
+
+    // CODE-07：进度轮询（§6.15 UI 显示进度）
+    LaunchedEffect(narration) {
+        while (true) {
+            narration.pollPosition()
+            kotlinx.coroutines.delay(500)
+        }
+    }
 
     Box(modifier = modifier.fillMaxSize()) {
         AndroidView(
@@ -86,16 +113,19 @@ fun VrPlaceholderScreen(
             InfoSheet(
                 content = selectedContent,
                 audioState = AudioControlState(
-                    available = false, // CODE-07 接入实际播放
-                    isPlaying = false,
-                    positionLabel = "0:00",
-                    durationLabel = "${selectedContent.audioDurationSec / 60}:${(selectedContent.audioDurationSec % 60).toString().padStart(2, '0')}"
+                    available = !narrationState.hasError && narrationState.itemId == selectedContent.id,
+                    isPlaying = narrationState.isPlaying,
+                    positionLabel = formatTime(narrationState.positionMs),
+                    durationLabel = if (narrationState.durationMs > 0) formatTime(narrationState.durationMs)
+                                    else "${selectedContent.audioDurationSec / 60}:${(selectedContent.audioDurationSec % 60).toString().padStart(2, '0')}"
                 ),
                 onClose = {
                     selectedPropId = null
                     cleanupRef.value?.picking?.deselect()
                 },
-                onToggleAudio = { /* CODE-07 */ },
+                onToggleAudio = {
+                    if (narrationState.isPlaying) narration.pause() else narration.resume()
+                },
                 modifier = Modifier.align(Alignment.BottomCenter)
             )
         }
@@ -113,9 +143,11 @@ fun VrPlaceholderScreen(
         }
     }
 
-    // 退出按 §6.21 释放
+    // 退出按 §6.21 释放（音频按 §6.15 切场景停止）
     DisposableEffect(Unit) {
         onDispose {
+            narration.stop(cn.bistu.redwave.audio.StopReason.SCENE_CHANGED)
+            narration.release()
             val sv = surfaceViewRef.value
             val cleanup = cleanupRef.value
             if (sv != null && cleanup != null) {
@@ -317,3 +349,11 @@ internal data class SceneCleanup(
     val sceneManifest: cn.bistu.redwave.data.SceneManifest,
     val contentManifest: cn.bistu.redwave.data.ContentManifest
 )
+
+// 毫秒 → "M:SS" 显示
+private fun formatTime(ms: Long): String {
+    val totalSec = (ms / 1000).coerceAtLeast(0L)
+    val m = totalSec / 60
+    val s = totalSec % 60
+    return "$m:${s.toString().padStart(2, '0')}"
+}

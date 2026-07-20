@@ -150,12 +150,23 @@ sdk.dir=D:/AndroidDev/sdk
 
 ### CODE-06：拾取、信息卡和高亮 ✅
 
-- `PickingMath`（§6.14 纯逻辑）：触摸→viewport Y 翻转、游客↔文物距离判定、entity→propId 解析、UI 区域穿透判定
-- `PickingController`：Scene token 防旧回调（UT-012）、距离限制（interaction_radius_m）、选中状态、点击空白取消
-- `InfoSheet` Compose 信息卡（§6.16）：标题、正文、来源摘要、音频控制（CODE-07 接播放），音频失败仍展示文字（§6.18）
-- 渲染页接入：单击触发 View.pick（异步），回调核对 token + 距离，命中可交互文物开信息卡
-- GltfAssetStore 暴露 entityToPropIdSnapshot 供拾取查表；同一文物多 mesh 映射同一 propId
-- **98 个单元测试通过**（+10 拾取：token、距离、坐标转换、多 mesh、UI 穿透、选中/取消/过远）
+- `PickingMath`（§6.14 纯逻辑）：触摸→viewport Y 翻转、距离判定、entity→propId 解析、UI 穿透
+- `PickingController`：Scene token 防旧回调（UT-012）、interaction_radius_m 距离限制
+- `InfoSheet` Compose 信息卡（§6.16）：标题、正文、来源、音频控制
+- 渲染页接入：单击 View.pick，回调核对 token+距离，命中开信息卡
+
+### CODE-07：内容绑定与单实例 Media3 音频 ✅
+
+- Media3 1.4.1（1.7.0 要求 compileSdk 35+AGP 8.6，当前 AGP 8.5.2/SDK 34，用 1.4.1）
+- `NarrationController`（§6.15）：全应用单实例 ExoPlayer
+  - 打开新文物停止旧讲解从头播新音频（§6.15）
+  - stop(reason)：SCENE_CHANGED/ERROR/SWITCHED 清空 MediaItem；CLOSED 暂停；TRANSIENT 焦点/耳机暂停
+  - 音频焦点丢失暂停（AudioManager.requestAudioFocus）；耳机拔出暂停（ACTION_AUDIO_BECOMING_NOISY + ExoPlayer 内置）
+  - 状态 StateFlow<NarrationState>：itemId/isPlaying/isReady/hasError/positionMs/durationMs
+  - 不做后台播放与通知栏（§6.15 MVP）
+- `AudioSource` 抽象：Asset（file:///android_asset/）/ File，UI 不关心 URI
+- 渲染页接入：选中文物自动播放，信息卡音频控件接实际状态（播放/暂停/进度/时长），音频失败仍展示文字（§6.18）
+- **103 个单元测试通过**（+5 音频源/状态契约，Robolectric）
 
 ### ADR-0001：归档 F2 触发图入口 ✅
 
@@ -163,10 +174,10 @@ sdk.dir=D:/AndroidDev/sdk
 - 不触及核心边界（入口仍只返回 scene_id）
 - 见 `docs/decisions/ADR-0001-archive-image-trigger-entry.md`
 
-**已知限制（CODE-00..06）**：
+**已知限制（CODE-00..07）**：
 - 首页"手动选择"按钮（Debug）进入渲染测试页；二维码入口 CODE-08、手动列表 CODE-10。
-- 音频在 CODE-07 接入；当前信息卡音频控件为占位。
-- 拾取/移动/环视视觉效果在 headless 模拟器无法截图验证（SwiftShader screencap 限制）；算法已通过严格单元测试，待真机验收。
+- 真实音频文件未制作（content.json 引用占位路径）；ExoPlayer 实际播放需真机音频资产。
+- 拾取/移动/环视/音频视觉效果在 headless 模拟器无法可靠验证；算法已通过严格单元测试，待真机验收。
 - 模拟器无真实陀螺仪；陀螺仪真实姿态待真机。
 - Release 变体未启用 minify 与签名（CODE-11）。
 - 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）**不支持 ARCore**（F2 已归档）；备用/低配机待补充（见 docs/device_matrix.md）。
