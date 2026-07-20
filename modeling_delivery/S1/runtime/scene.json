@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "scene_id": "S1",
+  "environment_glb": "environment_whitebox.glb",
+  "visitor_start": {
+    "position_m": [
+      0.0,
+      1.6,
+      3.0
+    ],
+    "rotation_deg": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "movement": {
+    "type": "bounds",
+    "speed_mps": 1.2,
+    "x_min_m": -3.6,
+    "x_max_m": 3.6,
+    "z_min_m": -3.6,
+    "z_max_m": 3.6
+  },
+  "colliders": [
+    {
+      "id": "wall_north",
+      "min_m": [
+        -4.2,
+        0.0,
+        -4.2
+      ],
+      "max_m": [
+        4.2,
+        2.6,
+        -4.0
+      ]
+    },
+    {
+      "id": "wall_south",
+      "min_m": [
+        -4.2,
+        0.0,
+        4.0
+      ],
+      "max_m": [
+        4.2,
+        2.6,
+        4.2
+      ]
+    },
+    {
+      "id": "wall_east",
+      "min_m": [
+        4.0,
+        0.0,
+        -4.0
+      ],
+      "max_m": [
+        4.2,
+        2.6,
+        4.0
+      ]
+    },
+    {
+      "id": "wall_west",
+      "min_m": [
+        -4.2,
+        0.0,
+        -4.0
+      ],
+      "max_m": [
+        -4.0,
+        2.6,
+        4.0
+      ]
+    },
+    {
+      "id": "desk_radio",
+      "min_m": [
+        0.0,
+        0.0,
+        1.15
+      ],
+      "max_m": [
+        1.6,
+        0.78,
+        1.85
+      ]
+    },
+    {
+      "id": "stool",
+      "min_m": [
+        0.34,
+        0.0,
+        0.34
+      ],
+      "max_m": [
+        0.76,
+        0.47,
+        0.76
+      ]
+    },
+    {
+      "id": "crates",
+      "min_m": [
+        -3.7,
+        0.0,
+        -1.9
+      ],
+      "max_m": [
+        -3.0,
+        0.8,
+        -0.7
+      ]
+    }
+  ],
+  "move_points": [
+    {
+      "id": "mp_radio",
+      "position_m": [
+        1.15,
+        1.6,
+        0.75
+      ],
+      "look_at_m": [
+        0.55,
+        1.0,
+        1.55
+      ]
+    },
+    {
+      "id": "mp_info_wall",
+      "position_m": [
+        0.0,
+        1.6,
+        -1.6
+      ],
+      "look_at_m": [
+        0.0,
+        1.5,
+        -3.96
+      ]
+    }
+  ],
+  "props": [
+    {
+      "id": "p_s1_radio",
+      "glb": "props/radio_station_whitebox.glb",
+      "position_m": [
+        0.55,
+        0.78,
+        1.6
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "interaction_radius_m": 1.8,
+      "highlight_anchor_m": [
+        0.0,
+        0.42,
+        0.0
+      ]
+    },
+    {
+      "id": "p_s1_key",
+      "glb": "props/telegraph_key_whitebox.glb",
+      "position_m": [
+        0.15,
+        0.78,
+        1.28
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "interaction_radius_m": 1.5,
+      "highlight_anchor_m": [
+        0.0,
+        0.12,
+        0.0
+      ]
+    },
+    {
+      "id": "p_s1_codebook",
+      "glb": "props/code_book_whitebox.glb",
+      "position_m": [
+        1.32,
+        0.78,
+        1.35
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "interaction_radius_m": 1.5,
+      "highlight_anchor_m": [
+        0.0,
+        0.1,
+        0.0
+      ]
+    }
+  ]
+}
