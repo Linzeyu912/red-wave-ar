@@ -174,11 +174,22 @@ sdk.dir=D:/AndroidDev/sdk
 - 不触及核心边界（入口仍只返回 scene_id）
 - 见 `docs/decisions/ADR-0001-archive-image-trigger-entry.md`
 
-**已知限制（CODE-00..07）**：
-- 首页"手动选择"按钮（Debug）进入渲染测试页；二维码入口 CODE-08、手动列表 CODE-10。
-- 真实音频文件未制作（content.json 引用占位路径）；ExoPlayer 实际播放需真机音频资产。
+### CODE-08：二维码入口 ✅
+
+- ZXing Android Embedded 4.3.0（DecoratedBarcodeView 嵌入 Compose）
+- `QrScannerController`（entry/qr）：decodeContinuous、结果去重（§6.8-3）、识别后冻结、手电筒接口
+- `QrScanScreen`（ui/scan，§6.16 二维码页）：
+  - CAMERA 权限请求，拒绝返回首页突出手动入口（§6.18 CAMERA_PERMISSION_DENIED，不循环弹框）
+  - 扫描 payload → EntryResolver.resolveQr（CODE-01）
+  - 未知码"不是本项目卡片，继续扫描"（§6.8-4，不把任意 URL 当 scene_id）
+  - 识别成功冻结→释放相机→导航 VR（onResolved 只带 scene_id + EntrySource.QR，§6.8-6）
+- 路由接入：首页"扫描二维码"→ QR_SCAN → VR
+
+**已知限制（CODE-00..08）**：
+- 首页"手动选择"按钮（Debug）直接进 VR；正式手动列表 CODE-10。
+- 真实音频文件未制作；ExoPlayer 实际播放需真机音频资产。
+- 二维码实际扫描需真机摄像头验证（模拟器无真实相机预览）。
 - 拾取/移动/环视/音频视觉效果在 headless 模拟器无法可靠验证；算法已通过严格单元测试，待真机验收。
-- 模拟器无真实陀螺仪；陀螺仪真实姿态待真机。
 - Release 变体未启用 minify 与签名（CODE-11）。
 - 目标机型：主展示机 nubia Z70 Ultra（NX736, Android 15）**不支持 ARCore**（F2 已归档）；备用/低配机待补充（见 docs/device_matrix.md）。
 

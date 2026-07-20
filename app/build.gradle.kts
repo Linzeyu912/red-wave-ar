@@ -119,6 +119,9 @@ dependencies {
     implementation(libs.androidx.media3.common)
     implementation(libs.androidx.media3.session)
 
+    // ZXing 二维码扫描（计划书 §3.2、CODE-08）
+    implementation(libs.zxing.android.embedded)
+
     // Test
     testImplementation(libs.junit)
     testImplementation(libs.truth)
