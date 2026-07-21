@@ -78,6 +78,14 @@ class QrScannerController(
         barcodeView.pause()
     }
 
+    /**
+     * 当前 payload 不是项目入口时继续扫描其他码。
+     * 保留 [lastPayload]，避免镜头仍对着同一未知码时反复刷提示。
+     */
+    fun resumeAfterRejectedResult() {
+        frozen = false
+    }
+
     /** 当前是否已冻结（识别成功，等待导航）。 */
     fun isFrozen(): Boolean = frozen
 

@@ -19,14 +19,15 @@ class AppErrorCodeCoverageTest {
         AppErrorCode.entries.forEach { code ->
             val recovery = AppErrorMessages.recoveryFor(code)
             assertThat(recovery.shortMessage).isNotEmpty()
+            assertThat(recovery.actionLabel).isNotEmpty()
         }
     }
 
     @Test
-    fun manifestInvalid_hasNullActionLabel_becauseOnlyDiagnosticsCanProceed() {
-        // MANIFEST_INVALID 是诊断页错误，没有用户可直接点击的下一步（计划书 §6.18）。
+    fun manifestInvalid_routesToDiagnostics() {
+        // MANIFEST_INVALID 不进入场景，但必须给出可执行的诊断入口（CODE-10）。
         val recovery = AppErrorMessages.recoveryFor(AppErrorCode.MANIFEST_INVALID)
-        assertThat(recovery.actionLabel).isNull()
+        assertThat(recovery.actionLabel).contains("诊断")
         assertThat(recovery.shortMessage).contains("资源配置")
     }
 

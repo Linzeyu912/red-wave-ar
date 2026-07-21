@@ -20,11 +20,17 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,21 +39,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cn.bistu.redwave.AppInfo
 import cn.bistu.redwave.R
+import cn.bistu.redwave.data.SceneIndexItem
 
 /**
  * 首页（计划书 §6.16）。
  *
- * CODE-00 阶段：展示应用标题、版本信息与三个入口按钮。
- * 入口按钮的实际导航在 CODE-08（二维码）、CODE-09（触发图）、CODE-10（场景列表）接入。
- * 此时点击按钮仅回调给上层，由上层在后续 CODE 任务中实现跳转。
+ * CODE-10：展示二维码、已归档的识图入口、由 global_manifest 驱动的手动场景列表，
+ * 并提供诊断页入口。具体页面状态由上层 SceneCoordinator 管理。
  */
 @Composable
 fun HomeScreen(
+    scenes: List<SceneIndexItem>,
+    isIndexReady: Boolean,
     onScanQr: () -> Unit,
-    onScanImage: () -> Unit,
-    onManualSelect: () -> Unit,
+    onManualSelect: (String) -> Unit,
+    onDiagnostics: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var showManualDialog by rememberSaveable { mutableStateOf(false) }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -82,26 +92,75 @@ fun HomeScreen(
                 HorizontalDivider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
                 Spacer(Modifier.height(20.dp))
 
-                EntryButton(
-                    label = stringResource(R.string.entry_qr),
-                    icon = { Icon(Icons.Filled.QrCodeScanner, contentDescription = null) },
-                    onClick = onScanQr
-                )
-                EntryButton(
-                    label = stringResource(R.string.entry_image),
-                    icon = { Icon(Icons.Filled.Image, contentDescription = null) },
-                    onClick = onScanImage
-                )
-                EntryButton(
-                    label = stringResource(R.string.entry_manual),
-                    icon = { Icon(Icons.Filled.TouchApp, contentDescription = null) },
-                    onClick = onManualSelect
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    EntryButton(
+                        label = stringResource(R.string.entry_qr),
+                        icon = { Icon(Icons.Filled.QrCodeScanner, contentDescription = null) },
+                        onClick = onScanQr,
+                        enabled = isIndexReady,
+                        modifier = Modifier.weight(1f)
+                    )
+                    EntryButton(
+                        label = "识别图片（已归档）",
+                        icon = { Icon(Icons.Filled.Image, contentDescription = null) },
+                        onClick = {},
+                        enabled = false,
+                        modifier = Modifier.weight(1f)
+                    )
+                    EntryButton(
+                        label = stringResource(R.string.entry_manual),
+                        icon = { Icon(Icons.Filled.TouchApp, contentDescription = null) },
+                        onClick = { showManualDialog = true },
+                        enabled = isIndexReady && scenes.isNotEmpty(),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
+                if (!isIndexReady) {
+                    Text(
+                        text = "正在读取场景索引…",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f)
+                    )
+                }
 
                 Spacer(Modifier.height(24.dp))
                 VersionFooter()
+                TextButton(onClick = onDiagnostics) {
+                    Text(stringResource(R.string.diag_title))
+                }
             }
         }
+    }
+
+    if (showManualDialog) {
+        AlertDialog(
+            onDismissRequest = { showManualDialog = false },
+            title = { Text("选择虚拟展馆") },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    scenes.forEach { scene ->
+                        Button(
+                            onClick = {
+                                showManualDialog = false
+                                onManualSelect(scene.sceneId)
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("${scene.sceneName}（${scene.sceneId}）")
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showManualDialog = false }) {
+                    Text("取消")
+                }
+            }
+        )
     }
 }
 
@@ -109,13 +168,14 @@ fun HomeScreen(
 private fun EntryButton(
     label: String,
     icon: @Composable () -> Unit,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp),
+        enabled = enabled,
+        modifier = modifier.height(56.dp),
         shape = RoundedCornerShape(14.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,

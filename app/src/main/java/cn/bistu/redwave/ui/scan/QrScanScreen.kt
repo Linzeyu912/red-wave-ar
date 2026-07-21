@@ -2,6 +2,8 @@ package cn.bistu.redwave.ui.scan
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import cn.bistu.redwave.EntrySource
+import cn.bistu.redwave.EntryResult
+import cn.bistu.redwave.AppErrorCode
 import cn.bistu.redwave.data.AndroidAssetResourceRoot
 import cn.bistu.redwave.data.ManifestRepository
 import cn.bistu.redwave.entry.qr.QrScannerController
@@ -39,19 +44,23 @@ import cn.bistu.redwave.entry.qr.QrScannerController
  * 二维码扫描页（计划书 §6.16、§6.9、CODE-08）。
  *
  * 流程：
- * 1. 检查 CAMERA 权限；拒绝→返回首页并突出手动入口（§6.18 CAMERA_PERMISSION_DENIED）；
+ * 1. 检查 CAMERA 权限；拒绝→统一错误页，可返回首页使用手动入口；
  * 2. 扫描得到 payload（去重由 QrScannerController）；
  * 3. EntryResolver 解析：未知码显示"不是本项目卡片"继续扫描（§6.8-4）；
  * 4. 识别成功→冻结→释放相机→导航到 VR（onResolved 回调，只带 scene_id + source）。
  *
  * 边界：onResolved 只带 scene_id + EntrySource.QR，不带相机帧/Bitmap（§6.8-6）。
  *
- * @param onResolved 识别成功，释放相机后回调（scene_id, source）
+ * @param onResolved 识别成功，释放相机前提交仅含 scene_id/source 的 EntryResult
+ * @param onError 权限或清单错误，交给统一错误恢复页
+ * @param onManualSelect 放弃扫描，返回首页使用正式手动列表
  * @param onBack 返回首页（取消/权限拒绝/手动入口引导）
  */
 @Composable
 fun QrScanScreen(
-    onResolved: (sceneId: String, source: EntrySource) -> Unit,
+    onResolved: (EntryResult) -> Unit,
+    onError: (AppErrorCode) -> Unit,
+    onManualSelect: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -69,9 +78,8 @@ fun QrScanScreen(
     ) { granted ->
         hasCameraPermission = granted
         if (!granted) {
-            // §6.18 CAMERA_PERMISSION_DENIED：返回首页突出手动入口
-            // 不循环弹权限框（§6.9），直接返回
-            onBack()
+            // §6.18 CAMERA_PERMISSION_DENIED：不循环弹权限框，进入统一错误恢复。
+            onError(AppErrorCode.CAMERA_PERMISSION_DENIED)
         }
     }
 
@@ -92,22 +100,25 @@ fun QrScanScreen(
                     ).buildEntryResolver().getOrNull()
                     if (resolver == null) {
                         scanStatus = "资源初始化失败，请用手动入口"
-                        return@QrScannerContent
+                        onError(AppErrorCode.MANIFEST_INVALID)
+                        return@QrScannerContent true
                     }
                     val result = resolver.resolveQr(payload)
                     result.fold(
                         onSuccess = { entry ->
                             scanStatus = "已识别：${entry.sceneId}，正在进入…"
-                            // onResolved 由调用方在释放相机后调用
-                            onResolved(entry.sceneId, EntrySource.QR)
+                            onResolved(entry)
+                            true
                         },
                         onFailure = {
                             // §6.8-4：不是本项目卡片，继续扫描
                             scanStatus = "不是本项目卡片，继续扫描…"
+                            false
                         }
                     )
                 },
                 scanStatus = scanStatus,
+                onManualSelect = onManualSelect,
                 onBack = onBack
             )
         } else {
@@ -125,6 +136,9 @@ fun QrScanScreen(
                 Button(onClick = onBack, modifier = Modifier.padding(top = 16.dp)) {
                     Text("返回首页")
                 }
+                TextButton(onClick = onManualSelect) {
+                    Text("手动选择场景")
+                }
             }
         }
     }
@@ -132,19 +146,30 @@ fun QrScanScreen(
 
 @Composable
 private fun BoxScope.QrScannerContent(
-    onPayload: (String) -> Unit,
+    onPayload: (String) -> Boolean,
     scanStatus: String,
+    onManualSelect: () -> Unit,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
     var controller by remember { mutableStateOf<QrScannerController?>(null) }
+    var torchOn by remember { mutableStateOf(false) }
 
     AndroidView(
         factory = { ctx ->
-            val ctrl = QrScannerController(ctx) { payload ->
+            lateinit var createdController: QrScannerController
+            createdController = QrScannerController(ctx) { payload ->
                 // 在 ZXing 回调线程，投回主线程
-                (ctx as? android.app.Activity)?.runOnUiThread { onPayload(payload) }
+                Handler(Looper.getMainLooper()).post {
+                    if (onPayload(payload)) {
+                        // 有效入口：先明确释放相机，再由状态切换卸载扫描页。
+                        createdController.release()
+                    } else {
+                        createdController.resumeAfterRejectedResult()
+                    }
+                }
             }
+            val ctrl = createdController
             controller = ctrl
             ctrl.resume()
             // AndroidView factory 必须返回 View：DecoratedBarcodeView 是 FrameLayout
@@ -161,7 +186,14 @@ private fun BoxScope.QrScannerContent(
             .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextButton(onClick = onBack) { Text("返回", color = Color.White) }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            TextButton(onClick = onBack) { Text("返回", color = Color.White) }
+            TextButton(onClick = {
+                torchOn = !torchOn
+                controller?.setTorch(torchOn)
+            }) { Text(if (torchOn) "关闭手电筒" else "打开手电筒", color = Color.White) }
+            TextButton(onClick = onManualSelect) { Text("手动选择", color = Color.White) }
+        }
         Text(scanStatus, color = Color.White,
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.padding(top = 4.dp))
