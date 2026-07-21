@@ -30,7 +30,7 @@ object AppErrorMessages {
         ),
         AppErrorCode.MANIFEST_INVALID to Recovery(
             shortMessage = "资源配置损坏",
-            actionLabel = null
+            actionLabel = "查看诊断"
         ),
         AppErrorCode.SCENE_PACKAGE_MISSING to Recovery(
             shortMessage = "该场景资源尚未安装",
@@ -54,7 +54,7 @@ object AppErrorMessages {
         ),
         AppErrorCode.RENDER_SURFACE_LOST to Recovery(
             shortMessage = "正在恢复画面",
-            actionLabel = null
+            actionLabel = "返回首页"
         ),
         AppErrorCode.OUT_OF_MEMORY_RISK to Recovery(
             shortMessage = "场景过大，无法稳定加载",

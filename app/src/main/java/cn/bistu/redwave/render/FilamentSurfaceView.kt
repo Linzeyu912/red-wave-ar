@@ -21,11 +21,10 @@ import android.view.SurfaceView
  * - 进入 VR 页：attach → surfaceCreated → resume
  * - 退出 VR 页：pause → surfaceDestroyed → detach → destroyAll（由 SceneCoordinator 调用）
  */
-class FilamentSurfaceView(
-    context: Context,
-    val host: FilamentHost = FilamentHost(),
+class FilamentSurfaceView(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
+
+    val host: FilamentHost = FilamentHost()
     private val renderer: SceneRenderer = SceneRenderer(host)
-) : SurfaceView(context), SurfaceHolder.Callback {
 
     private val renderThread = HandlerThread("FilamentRenderThread").apply { start() }
     private val renderHandler = Handler(renderThread.looper)
@@ -40,6 +39,11 @@ class FilamentSurfaceView(
     }
 
     val sceneRenderer: SceneRenderer get() = renderer
+
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
+    }
 
     /**
      * 页面 resume：在渲染线程创建场景对象并启动帧循环。

@@ -1,8 +1,8 @@
 # 编码侧交接：S1 真机联调前收口
 
-> 交接日期：2026-07-20
-> 当前主分支基线：`f816ba9`（交接提交前的冻结状态）
-> 当前状态：**暂停开发；建模白盒已冻结，等待编码侧完成打包资产同步、CODE-10 和真机联调。**
+> 交接更新：2026-07-21
+> 建模冻结基线：`f816ba9` ｜ S1 资产同步：`37ceb02` ｜ CODE-10：与本交接更新同批提交
+> 当前状态：**S1 打包资产同步与 CODE-10 已完成自动化/模拟器验证；建模白盒继续冻结，下一步是真机联调。**
 
 ## 1. 本次会话已完成的只读核对
 
@@ -34,34 +34,36 @@
 
 除非真机联调给出明确复现证据，否则不得改动该目录下的 GLB、坐标、碰撞、相机构图或文物 ID。任何建议修改必须先记录为联调结论，再交回建模侧处理。
 
-## 3. 第一优先级阻塞：Android 包内 S1 资产仍是旧版
+## 3. 已解决：Android 包内 S1 资产同步
 
-Android 实际从 `app/src/main/assets/scenes/scene_S1/` 加载资产，但该目录仍是旧的 8 m × 8 m 版本：
+Android 实际从 `app/src/main/assets/scenes/scene_S1/` 加载资产；该目录现已与冻结源同步：
 
 | 文件 | 建模冻结版 | 当前 App 包内版本 | 结论 |
 |---|---:|---:|---|
-| `scene.json` | 3485 bytes，SHA-256 `DB82CDAA…` | 3270 bytes，SHA-256 `374F867D…` | 不一致 |
-| `environment_whitebox.glb` | 49744 bytes | 47768 bytes | 不一致 |
-| `props/radio_station_whitebox.glb` | 126352 bytes | 3032 bytes | 不一致 |
-| `props/code_book_whitebox.glb` | 4392 bytes | 4392 bytes | 当前一致 |
-| `props/telegraph_key_whitebox.glb` | 10612 bytes | 10612 bytes | 当前一致 |
+| `scene.json` | 3485 bytes，`DB82CDAA…` | 3485 bytes，`DB82CDAA…` | 一致 |
+| `environment_whitebox.glb` | 49744 bytes，`F9D96CD9…` | 49744 bytes，`F9D96CD9…` | 一致 |
+| `props/radio_station_whitebox.glb` | 126352 bytes，`EDF99A72…` | 126352 bytes，`EDF99A72…` | 一致 |
+| `props/code_book_whitebox.glb` | 4392 bytes，`AAFFF4BA…` | 4392 bytes，`AAFFF4BA…` | 一致 |
+| `props/telegraph_key_whitebox.glb` | 10612 bytes，`F11628A9…` | 10612 bytes，`F11628A9…` | 一致 |
 
-下一位编码模型必须先完成“打包资产同步”并添加自动防护：
+提交 `37ceb02` 已完成“打包资产同步”并添加自动防护：
 
-1. 以 `modeling_delivery/S1/runtime/` 为源，将冻结的环境、文物 GLB 和 `scene.json` 同步到 APK 的 S1 assets；
-2. 在 Gradle 构建前增加校验任务，确保包内运行时文件与建模冻结源逐字节一致；
-3. 不修改 `modeling_delivery/S1/runtime/` 中的任何内容；
-4. 用资产集成测试和 Debug APK 验证实际加载的是紧凑小室，不是旧 8 m × 8 m 版本。
+1. 已将冻结的环境、三件文物 GLB 和 `scene.json` 同步到 APK 的 S1 assets；
+2. `verifyS1RuntimeAssets` 已挂到 `preBuild`，逐字节核对冻结源；
+3. 建模运行时源未修改；
+4. 单元测试和 APK 内 SHA-256 均确认加载紧凑小室，不再是旧 8 m × 8 m 版本。
 
-## 4. 紧随其后的 CODE-10 范围
+## 4. 已完成：CODE-10 范围
 
-CODE-00 至 CODE-08 已有基础实现；CODE-09 已由 `docs/decisions/ADR-0001-archive-image-trigger-entry.md` 正式归档。下一步是 CODE-10（完整 UI 与错误恢复），优先补齐以下缺口：
+CODE-00 至 CODE-08 已有基础实现；CODE-09 已由 `docs/decisions/ADR-0001-archive-image-trigger-entry.md` 正式归档。CODE-10 已补齐：
 
-1. `RedWaveApp` 已保存二维码解析出的 `resolvedSceneId`，但没有传入 `VrPlaceholderScreen`；`loadSceneS1Whitebox()` 仍把 `"S1"` 写死；必须改为传递已解析的 `scene_id`。
-2. 首页“手动选择场景”目前只在 Debug 中直接进入 S1；要改为基于 `global_manifest.json` 的正式场景列表，并只输出 `EntryResult(sceneId, EntrySource.MANUAL)`。
-3. VR 页需要可见的返回首页、视角回正、陀螺仪/触屏切换和 Loading 取消入口；不能让用户困在渲染页。
-4. `SceneUiState` 已定义 `Home / Scanning / Loading / Exploring / Error`，但尚未成为统一协调器；实现时用它避免 UI 直接耦合 QR、Filament、音频和传感器生命周期。
-5. 所有错误继续经 `AppErrorCode` 和 `AppErrorMessages` 映射；相机拒绝、资源无效、GLB 加载失败和音频失败都必须有可执行的返回/重试/手动入口。
+1. `scene_id` 已从二维码/手动列表端到端传入 `VrSceneScreen`，加载器不再硬编码 S1；
+2. 首页正式列表来自 `global_manifest.json`，手动入口只输出 `EntryResult(sceneId, MANUAL)`；
+3. VR 页已有返回、回正、输入模式切换、Loading 进度和取消；
+4. `SceneCoordinator` 已统一驱动 Home / Scanning / Loading / Exploring / Error / Diagnostics；
+5. 错误页、诊断页和降级提示已接入 `AppErrorCode` / `AppErrorMessages`；未知二维码可恢复扫描，加载 30 秒超时。
+
+验证结果：108 个单元测试、Debug Lint、Debug APK 构建通过；headless 模拟器已走通手动进入 S1、场景就绪、模式切换、回正和返回首页，未出现致命日志。模拟器结果不等于真机通过。
 
 保持边界：二维码/手动入口只产生 `scene_id`，成功进入 VR 前相机已释放；不得重新引入 ARCore 图像识别、Anchor、Pose 或现实相机画面。
 
@@ -76,12 +78,12 @@ CODE-00 至 CODE-08 已有基础实现；CODE-09 已由 `docs/decisions/ADR-0001
 5. 验证二维码成功后相机释放、返回后相机/渲染/音频/传感器生命周期正确；
 6. 记录设备型号、Android 版本、帧率、错误码和复现步骤；没有真实设备时不能标记“真机通过”。
 
-## 6. 明日继续工作的推荐提示词
+## 6. 下一次继续工作的推荐提示词
 
 ```text
-继续 red-wave-ar 的编码工作。先完整阅读 docs/CODE_HANDOFF.md、modeling_delivery/S1/integration_checklist.md、modeling_delivery/S1/runtime/scene.json、红色电波AR产品计划书.md 的 CODE-10 和真机验收部分。
+继续 red-wave-ar 的 S1 真机联调。先完整阅读 docs/CODE_HANDOFF.md 和 modeling_delivery/S1/integration_checklist.md，确认 main 工作区干净并重新运行 testDebugUnitTest、lintDebug、assembleDebug。
 
-先完成“Android S1 打包资产同步与构建前一致性校验”：以 modeling_delivery/S1/runtime/ 为唯一模型源，确保 app 包内实际加载紧凑地下储洞小室的 scene.json、environment_whitebox.glb 与 radio_station_whitebox.glb；不得修改建模源文件。写自动测试/Gradle 校验，并运行构建和单元测试。
+在 nubia Z70 Ultra 上安装 Debug APK，按清单逐项验证：二维码成功后相机释放、首帧面向电台控制面、visitor_start/yaw、陀螺仪与触屏切换/回正、bounds 与 8 个 collider、三件文物拾取和高亮、信息卡文字、返回首页后的渲染/音频/传感器释放。至少执行 20 次进入 S1→返回首页循环并记录设备、Android、帧率、错误码和复现步骤。
 
-资产同步验证通过后，再实现 CODE-10：scene_id 端到端传递、正式手动场景列表、VR 返回/回正/输入模式切换、Loading 取消和错误恢复。不要重启 ARCore 识图；二维码与手动入口只输出 scene_id。每一步先说明准备修改的文件，完成后构建、测试、提交并推送 main。
+不得修改 modeling_delivery/S1/runtime/；若坐标或朝向有问题，只记录真机证据并回填 modeling_delivery/S1/open_questions.md，交由建模侧决定。不要重启 ARCore 识图。完成后提交并推送 main。
 ```

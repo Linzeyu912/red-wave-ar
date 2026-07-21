@@ -185,8 +185,18 @@ sdk.dir=D:/AndroidDev/sdk
   - 识别成功冻结→释放相机→导航 VR（onResolved 只带 scene_id + EntrySource.QR，§6.8-6）
 - 路由接入：首页"扫描二维码"→ QR_SCAN → VR
 
-**已知限制（CODE-00..08）**：
-- 首页"手动选择"按钮（Debug）直接进 VR；正式手动列表 CODE-10。
+### CODE-10：完整 UI、状态协调与错误恢复 ✅
+
+- `SceneCoordinator` 统一驱动 Home / Scanning / Loading / Exploring / Error / Diagnostics；入口边界仍只有 `EntryResult(sceneId, source)`。
+- 首页从 `global_manifest.json` 展示正式手动场景列表；F2 识图入口明确显示“已归档”，不再保留无响应按钮。
+- 二维码页补齐手电筒、手动入口和权限错误恢复；未知码可继续扫描其他二维码。
+- `VrSceneScreen` 按实际 `sceneId` 加载场景，提供 Loading 进度与取消、返回首页、视角回正、陀螺仪/触屏切换。
+- GLB 致命错误进入统一错误页；部分文物、无传感器和音频失败均有可继续使用的降级提示；加载 30 秒超时，避免无限 Loading。
+- 新增诊断页，可复制 App/内容版本、设备、Android、场景数和最近错误码。
+- S1 APK 运行时资产已与 `modeling_delivery/S1/runtime/` 冻结源同步；每次 `preBuild` 自动逐字节校验 5 个文件。
+- **108 个单元测试、Debug Lint、Debug APK 构建全部通过**；模拟器已走通“首页→手动列表→S1→模式切换/回正→返回首页”。
+
+**已知限制（CODE-00..10）**：
 - 真实音频文件未制作；ExoPlayer 实际播放需真机音频资产。
 - 二维码实际扫描需真机摄像头验证（模拟器无真实相机预览）。
 - 拾取/移动/环视/音频视觉效果在 headless 模拟器无法可靠验证；算法已通过严格单元测试，待真机验收。
@@ -212,7 +222,7 @@ adb shell am start -n cn.bistu.redwave/.MainActivity
 adb logcat -d | grep -i filament
 ```
 
-> 模拟器限制：无真实陀螺仪（CODE-04 姿态需真机）、无 ARCore（CODE-09 需真机）、SwiftShader 性能不代表真机帧率。计划书 §6.4 的性能指标以真机 Release 构建为准。
+> 模拟器限制：无真实陀螺仪（CODE-04 姿态需真机），F2 ARCore 识图已按 ADR-0001 归档；SwiftShader 性能不代表真机帧率。计划书 §6.4 的性能指标以真机 Release 构建为准。
 
 ---
 

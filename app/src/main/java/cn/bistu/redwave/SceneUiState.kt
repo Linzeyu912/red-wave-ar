@@ -16,6 +16,11 @@ sealed interface SceneUiState {
     data object Home : SceneUiState
 
     /**
+     * 设置/诊断页：展示设备、App、资源版本和最近错误码。
+     */
+    data object Diagnostics : SceneUiState
+
+    /**
      * 扫描中（二维码 / 触发图）。
      * 计划书 §6.8：成功后只携带 scene_id 和入口类型，不携带任何相机数据。
      */
