@@ -5,6 +5,53 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+val s1RuntimeSourceDir = rootProject.layout.projectDirectory.dir("modeling_delivery/S1/runtime")
+val s1PackagedAssetsDir = layout.projectDirectory.dir("src/main/assets/scenes/scene_S1")
+
+val verifyS1RuntimeAssets by tasks.registering {
+    group = "verification"
+    description = "Verifies packaged S1 runtime assets match the frozen modeling delivery byte-for-byte."
+
+    inputs.dir(s1RuntimeSourceDir)
+    inputs.dir(s1PackagedAssetsDir)
+
+    doLast {
+        val sourceRoot = s1RuntimeSourceDir.asFile
+        val packagedRoot = s1PackagedAssetsDir.asFile
+        val sourceFiles = sourceRoot.walkTopDown()
+            .filter { it.isFile && it.name != ".gitkeep" }
+            .sortedBy { it.relativeTo(sourceRoot).invariantSeparatorsPath }
+            .toList()
+
+        if (sourceFiles.isEmpty()) {
+            throw GradleException("S1 frozen runtime source is empty: ${sourceRoot.absolutePath}")
+        }
+
+        val mismatches = sourceFiles.mapNotNull { sourceFile ->
+            val relativePath = sourceFile.relativeTo(sourceRoot).invariantSeparatorsPath
+            val packagedFile = packagedRoot.resolve(relativePath)
+            when {
+                !packagedFile.isFile -> "$relativePath (missing from app assets)"
+                !sourceFile.readBytes().contentEquals(packagedFile.readBytes()) ->
+                    "$relativePath (content differs from frozen modeling delivery)"
+                else -> null
+            }
+        }
+
+        if (mismatches.isNotEmpty()) {
+            throw GradleException(
+                buildString {
+                    appendLine("S1 packaged runtime asset verification failed:")
+                    mismatches.forEach { appendLine("- $it") }
+                    append("Source of truth: ${sourceRoot.absolutePath}")
+                }
+            )
+        }
+
+        logger.lifecycle("Verified ${sourceFiles.size} S1 runtime files against frozen modeling delivery.")
+    }
+}
+
 android {
     namespace = "cn.bistu.redwave"
     compileSdk = 34
@@ -130,4 +177,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
+}
+
+tasks.named("preBuild").configure {
+    dependsOn(verifyS1RuntimeAssets)
 }

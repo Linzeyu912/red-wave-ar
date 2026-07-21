@@ -1,6 +1,7 @@
 package cn.bistu.redwave.data
 
 import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import org.junit.Test
 import java.io.File
 
@@ -18,6 +19,8 @@ import java.io.File
 class RealAssetsIntegrationTest {
 
     private val assetsDir = File("src/main/assets")
+    private val frozenS1RuntimeDir = File("../modeling_delivery/S1/runtime")
+    private val packagedS1RuntimeDir = File(assetsDir, "scenes/scene_S1")
 
     @Test
     fun realGlobalManifest_parsesAndValidates() {
@@ -42,6 +45,56 @@ class RealAssetsIntegrationTest {
             .containsExactly("p_s1_radio", "p_s1_key", "p_s1_codebook")
         // 白盒 scene.json 必须通过 Schema 校验
         assertThat(issues.snapshot()).isEmpty()
+    }
+
+    @Test
+    fun realSceneManifest_matchesFrozenCompactCellarContract() {
+        val text = File(packagedS1RuntimeDir, "scene.json").readText()
+        val scene = ManifestJson.parseSceneManifest(text)
+
+        assertThat(scene.visitorStart.positionM).containsExactly(0.0f, 1.55f, 1.65f).inOrder()
+        assertThat(scene.visitorStart.rotationDeg).containsExactly(0.0f, 0.0f, 0.0f).inOrder()
+        assertThat(scene.movement.type).isEqualTo("bounds")
+        assertThat(scene.movement.xMinM).isEqualTo(-2.25f)
+        assertThat(scene.movement.xMaxM).isEqualTo(2.25f)
+        assertThat(scene.movement.zMinM).isEqualTo(-1.95f)
+        assertThat(scene.movement.zMaxM).isEqualTo(1.95f)
+        assertThat(scene.colliders).hasSize(8)
+
+        val radio = scene.props.single { it.id == "p_s1_radio" }
+        assertThat(radio.glb).isEqualTo("props/radio_station_whitebox.glb")
+        assertThat(radio.positionM).containsExactly(0.32f, 0.78f, 0.04f).inOrder()
+        assertThat(radio.rotationDeg).containsExactly(0.0f, 180.0f, 0.0f).inOrder()
+    }
+
+    @Test
+    fun packagedS1Runtime_isByteIdenticalToFrozenModelingDelivery() {
+        assertThat(frozenS1RuntimeDir.isDirectory).isTrue()
+
+        val frozenFiles = frozenS1RuntimeDir.walkTopDown()
+            .filter { it.isFile && it.name != ".gitkeep" }
+            .sortedBy { it.relativeTo(frozenS1RuntimeDir).invariantSeparatorsPath }
+            .toList()
+
+        assertThat(frozenFiles.map { it.relativeTo(frozenS1RuntimeDir).invariantSeparatorsPath })
+            .containsExactly(
+                "environment_whitebox.glb",
+                "props/code_book_whitebox.glb",
+                "props/radio_station_whitebox.glb",
+                "props/telegraph_key_whitebox.glb",
+                "scene.json"
+            )
+
+        frozenFiles.forEach { frozenFile ->
+            val relativePath = frozenFile.relativeTo(frozenS1RuntimeDir).invariantSeparatorsPath
+            val packagedFile = File(packagedS1RuntimeDir, relativePath)
+            assertWithMessage("Packaged S1 asset is missing: %s", relativePath)
+                .that(packagedFile.isFile)
+                .isTrue()
+            assertWithMessage("Packaged S1 asset differs from frozen source: %s", relativePath)
+                .that(packagedFile.readBytes().contentEquals(frozenFile.readBytes()))
+                .isTrue()
+        }
     }
 
     @Test
