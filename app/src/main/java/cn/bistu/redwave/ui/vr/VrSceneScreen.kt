@@ -10,9 +10,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -166,7 +170,11 @@ fun VrSceneScreen(
         )
 
         Column(
-            modifier = Modifier.align(Alignment.TopStart).padding(12.dp),
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .statusBarsPadding()
+                .displayCutoutPadding()
+                .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -270,13 +278,25 @@ fun VrSceneScreen(
         }
     }
 
-    LaunchedEffect(surfaceViewRef.value) {
+    // 屏幕方向变化时（fullSensor 允许横竖旋转）重新配置视口/投影 + 传感器补偿。
+    // LocalConfiguration.orientation 作为 key：旋转时 orientation 变化，重新触发。
+    val currentOrientation = LocalConfiguration.current.orientation
+    LaunchedEffect(surfaceViewRef.value, currentOrientation) {
         val sv = surfaceViewRef.value ?: return@LaunchedEffect
         sv.post {
-            val width = sv.width.coerceAtLeast(1)
-            val height = sv.height.coerceAtLeast(1)
-            sv.postToRenderThread {
-                FilamentSceneConfig.configureBaseline(sv.host, width, height)
+            // 等 Surface 尺寸更新到新方向（旋转后宽高交换）
+            sv.post {
+                val width = sv.width.coerceAtLeast(1)
+                val height = sv.height.coerceAtLeast(1)
+                sv.postToRenderThread {
+                    FilamentSceneConfig.configureBaseline(sv.host, width, height)
+                    // 更新传感器屏幕旋转补偿（§6.12-2）
+                    (sv.tag as? SceneCleanup)?.orientation?.let { oc ->
+                        oc.pause()
+                        oc.screenRotationDeg = context.screenRotationDegrees()
+                        if (oc.mode == SensorMode.GYROSCOPE) oc.resume()
+                    }
+                }
             }
         }
     }

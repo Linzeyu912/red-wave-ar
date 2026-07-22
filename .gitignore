@@ -28,6 +28,7 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+.zcode/
 
 # === Python（建模白盒生成脚本缓存）===
 __pycache__/
