@@ -23,10 +23,12 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:exported="true"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustResize">
 
-            <!-- 计划书 §2.3：MVP 全应用固定横屏。VR、扫描、Loading 共用横屏。 -->
+            <!-- 适配：横竖屏均可（fullSensor），跟随重力传感器。
+                 计划书 §2.3 原“固定横屏”调整为“可旋转，VR 推荐横屏但不强制”。
+                 Activity 自行处理 configChanges，旋转不重建，UI 与传感器补偿在 Compose 层响应。 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
