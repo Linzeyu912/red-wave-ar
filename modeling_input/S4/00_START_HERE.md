@@ -5,7 +5,7 @@
 
 ## 本地素材
 
-原始资料包的 8 个文件已原样复制到 `local_reference/source_folder_20260727/`：一张主图、六张参考图和一份 `居庸关文字素材.docx`。Word 文件大小为 0 字节，未提供可提取的文字建模要求。
+原始资料包的 8 个文件已复制到 `local_reference/source_folder_20260727/`：一张手绘触发图、六张参考图和一份 `居庸关文字素材.docx`。手绘图已重命名为 `trigger_hand_drawn.jpg`；Word 文件大小为 0 字节，未提供可提取的文字建模要求。
 
 ## 当前边界
 

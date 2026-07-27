@@ -14,7 +14,7 @@ USER_VIS_005,modeling_input/S1/local_reference/USER-VIS-005_gate_plaque_closeup.
 USER_VIS_006,modeling_input/S1/local_reference/USER-VIS-006_gate_front_flags.png,local_image,true,true,LOCAL_ONLY_GIT_IGNORED,"门楼正面、门洞、栏杆与可关闭旗帜装饰参考"
 USER_VIS_007,modeling_input/S1/local_reference/USER-VIS-007_gate_front_full.png,local_image,true,true,LOCAL_ONLY_GIT_IGNORED,"门楼正面、右侧廊房和树木接口参考"
 USER_SRC_008,modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站2.jpg,local_image,false,true,LOCAL_REFERENCE_ONLY,"桌面资料包主图；未核验、仅内部参考"
-USER_SRC_009,modeling_input/S1/local_reference/source_folder_20260727/平息西情报联络站.jpg,local_image,false,true,LOCAL_REFERENCE_ONLY,"桌面资料包补充主图；文件名按原样保留"
+USER_SRC_009,modeling_input/S1/local_reference/source_folder_20260727/trigger_hand_drawn.jpg,local_image,false,true,LOCAL_REFERENCE_ONLY,"S1 手绘触发图；原文件名 平息西情报联络站.jpg"
 USER_SRC_010,modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站建模参考素材/69e9b8c3d5de886d89e76e62.jpg,local_image,false,true,LOCAL_REFERENCE_ONLY,"桌面资料包补充参考图"
 USER_SRC_011,modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站建模参考素材/69e9b8c5d5de886d89e76e65.jpg,local_image,false,true,LOCAL_REFERENCE_ONLY,"桌面资料包补充参考图"
 USER_SRC_012,modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站建模参考素材/W020210201589175363289.jpg,local_image,false,true,LOCAL_REFERENCE_ONLY,"桌面资料包补充参考图"
