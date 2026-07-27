@@ -1,16 +1,64 @@
 <resources>
     <string name="app_name">红色电波</string>
     <string name="app_version_label">版本</string>
+
+    <!-- 首页 -->
     <string name="home_title">永不消逝的红色电波</string>
     <string name="home_subtitle">AR 触发式移动端 VR 研学</string>
     <string name="home_status_initializing">正在初始化场景索引…</string>
     <string name="home_status_ready">已就绪</string>
     <string name="home_status_error">资源初始化失败</string>
-    <string name="entry_manual">手动选择场景</string>
     <string name="entry_qr">扫描二维码</string>
     <string name="entry_image">识别触发图</string>
+    <string name="entry_image_archived">识别图片（已归档）</string>
+    <string name="entry_manual">手动选择场景</string>
+
+    <!-- 手动选择 -->
+    <string name="manual_dialog_title">选择虚拟展馆</string>
+    <string name="manual_dialog_cancel">取消</string>
+
+    <!-- 二维码扫描 -->
+    <string name="scan_title">扫描项目卡片</string>
+    <string name="scan_hint">对准项目卡片上的二维码</string>
+    <string name="scan_status_initial">对准项目卡片二维码</string>
+    <string name="scan_status_recognized_format">已识别：%1$s，正在进入…</string>
+    <string name="scan_status_unknown">不是本项目卡片，继续扫描…</string>
+    <string name="scan_permission_title">需要相机权限才能扫描二维码</string>
+    <string name="scan_permission_subtitle">可在设置中开启，或使用手动选择场景</string>
+    <string name="scan_back">返回</string>
+    <string name="scan_torch_on">关闭手电筒</string>
+    <string name="scan_torch_off">打开手电筒</string>
+    <string name="scan_manual">手动选择</string>
+
+    <!-- VR 展馆 -->
+    <string name="vr_back_home">返回首页</string>
+    <string name="vr_recenter">视角回正</string>
+    <string name="vr_switch_touch">切到触屏</string>
+    <string name="vr_switch_gyro">切到陀螺仪</string>
+    <string name="vr_status_ready">场景已就绪</string>
+    <string name="vr_status_recentered">视角已回正</string>
+    <string name="vr_loading_cancel">取消加载</string>
+    <string name="vr_loading_format">正在加载 %1$s</string>
+    <string name="vr_progress_format">%1$d%% · %2$s</string>
+    <string name="vr_hint_too_far">请靠近展品后再查看</string>
+
+    <!-- 信息卡 -->
+    <string name="info_close">关闭</string>
+    <string name="info_source_prefix">来源：</string>
+    <string name="info_audio_unavailable">音频暂不可用</string>
+    <string name="info_audio_fallback">音频暂不可用，可继续阅读文字</string>
+    <string name="info_audio_play">播放讲解</string>
+    <string name="info_audio_pause">暂停讲解</string>
+    <string name="info_author_reviewer_format">撰稿：%1$s · 审核：%2$s</string>
+
+    <!-- 诊断 -->
     <string name="diag_title">诊断</string>
     <string name="diag_copy">复制诊断摘要</string>
     <string name="diag_copied">已复制到剪贴板</string>
+
+    <!-- 错误页 -->
+    <string name="error_code_format">错误码：%1$s</string>
+    <string name="error_diag">查看诊断</string>
+    <string name="error_home">返回首页</string>
     <string name="error_unknown">未知错误</string>
 </resources>

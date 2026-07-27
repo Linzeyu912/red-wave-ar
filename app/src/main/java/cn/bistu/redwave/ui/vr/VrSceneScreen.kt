@@ -5,6 +5,9 @@ import android.content.Context
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.Surface
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,11 +18,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.CenterFocusStrong
+import androidx.compose.material.icons.filled.ScreenRotation
+import androidx.compose.material.icons.filled.TouchApp
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface as ComposeSurface
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -32,9 +43,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
@@ -42,6 +56,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import cn.bistu.redwave.AppErrorCode
 import cn.bistu.redwave.AppErrorMessages
+import cn.bistu.redwave.R
 import cn.bistu.redwave.SceneUiState
 import cn.bistu.redwave.SensorMode
 import cn.bistu.redwave.audio.AudioSource
@@ -84,8 +99,9 @@ fun VrSceneScreen(
     val cleanupRef = remember(sceneId) { mutableStateOf<SceneCleanup?>(null) }
     val narration = remember(sceneId) { NarrationController(context.applicationContext) }
     val narrationState by narration.state.collectAsState()
-    var status by remember(sceneId) { mutableStateOf("正在读取场景配置…") }
+    var status by remember(sceneId) { mutableStateOf(context.getString(R.string.home_status_initializing)) }
     var selectedPropId by remember(sceneId) { mutableStateOf<String?>(null) }
+    var hotspotTransition by remember(sceneId) { mutableStateOf(false) }
     val exploring = uiState as? SceneUiState.Exploring
 
     LaunchedEffect(selectedPropId) {
@@ -111,8 +127,7 @@ fun VrSceneScreen(
 
     LaunchedEffect(narrationState.hasError) {
         if (narrationState.hasError) {
-            status = AppErrorMessages.recoveryFor(AppErrorCode.AUDIO_LOAD_FAILED).shortMessage +
-                "，可继续阅读文字"
+            status = context.getString(R.string.info_audio_fallback)
         }
     }
 
@@ -149,7 +164,7 @@ fun VrSceneScreen(
                                                 AppErrorCode.SENSOR_UNAVAILABLE
                                             ).shortMessage
                                         } else if (failedProps.isEmpty()) {
-                                            "场景已就绪"
+                                            context.getString(R.string.vr_status_ready)
                                         } else {
                                             AppErrorMessages.recoveryFor(
                                                 AppErrorCode.PARTIAL_PROP_FAILED
@@ -158,7 +173,10 @@ fun VrSceneScreen(
                                         onReady(cleanup.orientation.mode)
                                     }
                                 },
-                                onFatalError = { code -> sv.post { onFatalError(code) } }
+                                onFatalError = { code -> sv.post { onFatalError(code) } },
+                                onHotspotTransitionChanged = { transition ->
+                                    sv.post { hotspotTransition = transition }
+                                }
                             )
                         }.onFailure {
                             sv.post { onFatalError(it.toVrErrorCode()) }
@@ -169,56 +187,17 @@ fun VrSceneScreen(
             modifier = Modifier.fillMaxSize()
         )
 
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .statusBarsPadding()
-                .displayCutoutPadding()
-                .padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Button(onClick = onExit) { Text("返回首页") }
-                Button(
-                    onClick = {
-                        surfaceViewRef.value?.postToRenderThread {
-                            (surfaceViewRef.value?.tag as? SceneCleanup)?.orientation?.recalibrate()
-                            surfaceViewRef.value?.post { status = "视角已回正" }
-                        }
-                    },
-                    enabled = exploring != null
-                ) { Text("视角回正") }
-                Button(
-                    onClick = {
-                        val target = if (exploring?.sensorMode == SensorMode.GYROSCOPE) {
-                            SensorMode.TOUCH
-                        } else {
-                            SensorMode.GYROSCOPE
-                        }
-                        requestSensorMode(
-                            sv = surfaceViewRef.value,
-                            target = target,
-                            onChanged = { actual, gyroUnavailable ->
-                                if (gyroUnavailable) {
-                                    status = AppErrorMessages.recoveryFor(
-                                        AppErrorCode.SENSOR_UNAVAILABLE
-                                    ).shortMessage
-                                }
-                                onSensorModeChanged(actual)
-                            }
-                        )
-                    },
-                    enabled = exploring != null
-                ) {
-                    Text(if (exploring?.sensorMode == SensorMode.GYROSCOPE) "切到触屏" else "切到陀螺仪")
-                }
-            }
-            Text(
-                text = "$sceneId · $status",
-                color = Color.White,
-                style = MaterialTheme.typography.labelSmall
-            )
-        }
+        // 顶部 HUD
+        HudToolbar(
+            sceneId = sceneId,
+            status = status,
+            exploring = exploring,
+            surfaceViewRef = surfaceViewRef,
+            cleanupRef = cleanupRef,
+            onSensorModeChanged = onSensorModeChanged,
+            onStatusChange = { status = it },
+            onExit = onExit
+        )
 
         val cleanup = cleanupRef.value
         val selectedContent = if (selectedPropId != null && cleanup != null) {
@@ -249,48 +228,40 @@ fun VrSceneScreen(
             )
         }
 
+        // 热点移动淡入淡出遮罩
+        AnimatedVisibility(
+            visible = hotspotTransition,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+            )
+        }
+
         val loading = uiState as? SceneUiState.Loading
         if (loading != null) {
-            ComposeSurface(
-                modifier = Modifier.fillMaxSize(),
-                color = Color.Black.copy(alpha = 0.76f)
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxSize().padding(32.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text("正在加载 ${loading.sceneId}", color = Color.White)
-                    LinearProgressIndicator(
-                        progress = { loading.progress },
-                        modifier = Modifier.fillMaxWidth(0.6f).padding(top = 16.dp)
-                    )
-                    Text(
-                        "${(loading.progress * 100).toInt()}% · $status",
-                        color = Color.White.copy(alpha = 0.8f),
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                    TextButton(onClick = onExit, modifier = Modifier.padding(top = 12.dp)) {
-                        Text("取消加载", color = Color.White)
-                    }
-                }
-            }
+            LoadingOverlay(
+                sceneId = loading.sceneId,
+                progress = loading.progress,
+                status = status,
+                onCancel = onExit
+            )
         }
     }
 
-    // 屏幕方向变化时（fullSensor 允许横竖旋转）重新配置视口/投影 + 传感器补偿。
-    // LocalConfiguration.orientation 作为 key：旋转时 orientation 变化，重新触发。
+    // 屏幕方向变化时重新配置视口/投影 + 传感器补偿。
     val currentOrientation = LocalConfiguration.current.orientation
     LaunchedEffect(surfaceViewRef.value, currentOrientation) {
         val sv = surfaceViewRef.value ?: return@LaunchedEffect
         sv.post {
-            // 等 Surface 尺寸更新到新方向（旋转后宽高交换）
             sv.post {
                 val width = sv.width.coerceAtLeast(1)
                 val height = sv.height.coerceAtLeast(1)
                 sv.postToRenderThread {
                     FilamentSceneConfig.configureBaseline(sv.host, width, height)
-                    // 更新传感器屏幕旋转补偿（§6.12-2）
                     (sv.tag as? SceneCleanup)?.orientation?.let { oc ->
                         oc.pause()
                         oc.screenRotationDeg = context.screenRotationDegrees()
@@ -333,6 +304,7 @@ fun VrSceneScreen(
                     cleanup.picking.exitScene()
                     cleanup.orientation.pause()
                     cleanup.loader.reset()
+                    cleanup.lightEntities.forEach { sv.host.engine.destroyEntity(it) }
                     cleanup.assetStore.destroyAll(sv.host.scene)
                     cleanup.assetStore.destroy()
                     sv.tag = null
@@ -341,6 +313,186 @@ fun VrSceneScreen(
             sv?.shutdown()
             surfaceViewRef.value = null
             cleanupRef.value = null
+        }
+    }
+}
+
+@Composable
+private fun HudToolbar(
+    sceneId: String,
+    status: String,
+    exploring: SceneUiState.Exploring?,
+    surfaceViewRef: androidx.compose.runtime.MutableState<FilamentSurfaceView?>,
+    cleanupRef: androidx.compose.runtime.MutableState<SceneCleanup?>,
+    onSensorModeChanged: (SensorMode) -> Unit,
+    onStatusChange: (String) -> Unit,
+    onExit: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .statusBarsPadding()
+            .displayCutoutPadding()
+            .padding(12.dp),
+        color = Color.Black.copy(alpha = 0.35f),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = onExit,
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Black.copy(alpha = 0.4f),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.vr_back_home)
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        surfaceViewRef.value?.postToRenderThread {
+                            (surfaceViewRef.value?.tag as? SceneCleanup)?.orientation?.recalibrate()
+                            surfaceViewRef.value?.post {
+                                onStatusChange(
+                                    surfaceViewRef.value?.context?.getString(
+                                        R.string.vr_status_recentered
+                                    ) ?: ""
+                                )
+                            }
+                        }
+                    },
+                    enabled = exploring != null,
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Black.copy(alpha = 0.4f),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Icon(
+                        Icons.Filled.CenterFocusStrong,
+                        contentDescription = stringResource(R.string.vr_recenter)
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        val target = if (exploring?.sensorMode == SensorMode.GYROSCOPE) {
+                            SensorMode.TOUCH
+                        } else {
+                            SensorMode.GYROSCOPE
+                        }
+                        requestSensorMode(
+                            sv = surfaceViewRef.value,
+                            target = target,
+                            onChanged = { actual, gyroUnavailable ->
+                                if (gyroUnavailable) {
+                                    onStatusChange(
+                                        AppErrorMessages.recoveryFor(
+                                            AppErrorCode.SENSOR_UNAVAILABLE
+                                        ).shortMessage
+                                    )
+                                }
+                                onSensorModeChanged(actual)
+                            }
+                        )
+                    },
+                    enabled = exploring != null,
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Black.copy(alpha = 0.4f),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Icon(
+                        imageVector = if (exploring?.sensorMode == SensorMode.GYROSCOPE) {
+                            Icons.Filled.TouchApp
+                        } else {
+                            Icons.Filled.ScreenRotation
+                        },
+                        contentDescription = stringResource(
+                            if (exploring?.sensorMode == SensorMode.GYROSCOPE) {
+                                R.string.vr_switch_touch
+                            } else {
+                                R.string.vr_switch_gyro
+                            }
+                        )
+                    )
+                }
+            }
+            Text(
+                text = "$sceneId · $status",
+                color = Color.White,
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun LoadingOverlay(
+    sceneId: String,
+    progress: Float,
+    status: String,
+    onCancel: () -> Unit
+) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = Color.Black.copy(alpha = 0.82f)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.radialGradient(
+                            colors = listOf(
+                                MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+                                Color.Transparent
+                            )
+                        )
+                    )
+            )
+            Column(
+                modifier = Modifier.padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = stringResource(R.string.vr_loading_format, sceneId),
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                LinearProgressIndicator(
+                    progress = { progress },
+                    modifier = Modifier
+                        .fillMaxWidth(0.6f)
+                        .padding(top = 20.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = Color.White.copy(alpha = 0.2f)
+                )
+                Text(
+                    text = stringResource(
+                        R.string.vr_progress_format,
+                        (progress * 100).toInt(),
+                        status
+                    ),
+                    color = Color.White.copy(alpha = 0.85f),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(top = 10.dp)
+                )
+                TextButton(onClick = onCancel, modifier = Modifier.padding(top = 16.dp)) {
+                    Text(stringResource(R.string.vr_loading_cancel), color = Color.White)
+                }
+            }
         }
     }
 }
@@ -415,7 +567,7 @@ private fun attachTouchHandlers(
                             is PickingController.PickingDecision.Deselect ->
                                 sv.post { onPropSelected(null) }
                             is PickingController.PickingDecision.TooFar ->
-                                sv.post { onHint("请靠近展品后再查看") }
+                                sv.post { onHint(sv.context.getString(R.string.vr_hint_too_far)) }
                             else -> Unit
                         }
                     }
@@ -443,8 +595,10 @@ private fun loadScene(
     sceneId: String,
     onProgress: (Float, String) -> Unit,
     onReady: (SceneCleanup, List<String>) -> Unit,
-    onFatalError: (AppErrorCode) -> Unit
+    onFatalError: (AppErrorCode) -> Unit,
+    onHotspotTransitionChanged: (Boolean) -> Unit
 ): SceneCleanup? {
+    hotspotTransitionLocal = false
     val repository = ManifestRepository(
         AndroidAssetResourceRoot.fromContext(context),
         strict = false
@@ -457,6 +611,10 @@ private fun loadScene(
     val assetStore = GltfAssetStore(host.engine, context.assets)
     val loader = SceneAssetLoader(host.engine, assetStore)
     val assetBaseDir = ManifestRepository.parentDirOf(bundle.indexItem.sceneManifest)
+
+    // 默认光照：主光 + 补光，让白盒也有明暗层次
+    val lightEntities = FilamentSceneConfig.addDefaultLighting(host.scene, host.engine)
+
     val orientation = OrientationController(context).apply {
         initDefaultMode()
         screenRotationDeg = context.screenRotationDegrees()
@@ -479,7 +637,8 @@ private fun loadScene(
         picking = picking,
         sceneManifest = bundle.sceneManifest,
         contentManifest = bundle.contentManifest,
-        assetBaseDir = assetBaseDir
+        assetBaseDir = assetBaseDir,
+        lightEntities = lightEntities
     )
     sv.tag = cleanup
     loader.beginLoading(bundle.sceneManifest, host.scene, assetBaseDir)
@@ -504,7 +663,7 @@ private fun loadScene(
                     when (result.state) {
                         SceneAssetLoader.State.READY -> if (!readyReported) {
                             readyReported = true
-                            onProgress(1f, "场景资源加载完成")
+                            onProgress(1f, context.getString(R.string.home_status_ready))
                             onReady(cleanup, result.failedProps)
                         }
                         SceneAssetLoader.State.FAILED -> if (!fatalReported) {
@@ -513,7 +672,10 @@ private fun loadScene(
                         }
                         else -> onProgress(
                             result.progress,
-                            "正在加载环境与 ${bundle.sceneManifest.props.size} 件展品"
+                            context.getString(
+                                R.string.vr_loading_format,
+                                bundle.sceneManifest.sceneId
+                            )
                         )
                     }
                 }
@@ -552,11 +714,18 @@ private fun loadScene(
                 floatArrayOf(0f, -1f)
             }
             movement.update(forwardXZ, dtSec)
+            val transition = movement.inHotspotTransition
+            if (transition != hotspotTransitionLocal) {
+                hotspotTransitionLocal = transition
+                onHotspotTransitionChanged(transition)
+            }
         }
     }
-    onProgress(0.1f, "场景配置校验通过")
+    onProgress(0.1f, context.getString(R.string.home_status_initializing))
     return cleanup
 }
+
+private var hotspotTransitionLocal = false
 
 @Suppress("DEPRECATION")
 private fun Context.screenRotationDegrees(): Int {
@@ -584,8 +753,36 @@ internal data class SceneCleanup(
     val picking: PickingController,
     val sceneManifest: SceneManifest,
     val contentManifest: ContentManifest,
-    val assetBaseDir: String
-)
+    val assetBaseDir: String,
+    val lightEntities: IntArray = intArrayOf()
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is SceneCleanup) return false
+        return assetStore == other.assetStore &&
+            loader == other.loader &&
+            orientation == other.orientation &&
+            movement == other.movement &&
+            picking == other.picking &&
+            sceneManifest == other.sceneManifest &&
+            contentManifest == other.contentManifest &&
+            assetBaseDir == other.assetBaseDir &&
+            lightEntities.contentEquals(other.lightEntities)
+    }
+
+    override fun hashCode(): Int {
+        var result = assetStore.hashCode()
+        result = 31 * result + loader.hashCode()
+        result = 31 * result + orientation.hashCode()
+        result = 31 * result + movement.hashCode()
+        result = 31 * result + picking.hashCode()
+        result = 31 * result + sceneManifest.hashCode()
+        result = 31 * result + contentManifest.hashCode()
+        result = 31 * result + assetBaseDir.hashCode()
+        result = 31 * result + lightEntities.contentHashCode()
+        return result
+    }
+}
 
 private fun formatTime(ms: Long): String {
     val totalSeconds = (ms / 1000).coerceAtLeast(0L)

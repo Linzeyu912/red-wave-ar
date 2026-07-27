@@ -1,6 +1,10 @@
 package cn.bistu.redwave.render
 
 import com.google.android.filament.Camera
+import com.google.android.filament.Engine
+import com.google.android.filament.EntityManager
+import com.google.android.filament.LightManager
+import com.google.android.filament.Scene
 import com.google.android.filament.View
 
 /**
@@ -57,5 +61,32 @@ object FilamentSceneConfig {
         val cx = 0.0; val cy = 1.6; val cz = -1.0
         val upX = 0.0; val upY = 1.0; val upZ = 0.0
         camera.lookAt(eyeX, eyeY, eyeZ, cx, cy, cz, upX, upY, upZ)
+    }
+
+    /**
+     * 为没有 IBL 的场景添加默认方向光 + 补光，让白盒模型也能呈现明暗层次。
+     * 返回创建的光源 entity 数组，调用方负责在场景销毁时 [Engine.destroyEntity]。
+     */
+    fun addDefaultLighting(scene: Scene, engine: Engine): IntArray {
+        val em = engine.entityManager
+        val keyLight = em.create()
+        LightManager.Builder(LightManager.Type.DIRECTIONAL)
+            .color(1.0f, 0.96f, 0.90f)
+            .intensity(80_000.0f)
+            .direction(-0.3f, -1.0f, -0.5f)
+            .castShadows(false)
+            .build(engine, keyLight)
+        scene.addEntity(keyLight)
+
+        val fillLight = em.create()
+        LightManager.Builder(LightManager.Type.DIRECTIONAL)
+            .color(0.75f, 0.80f, 0.90f)
+            .intensity(25_000.0f)
+            .direction(0.5f, -0.8f, 0.4f)
+            .castShadows(false)
+            .build(engine, fillLight)
+        scene.addEntity(fillLight)
+
+        return intArrayOf(keyLight, fillLight)
     }
 }

@@ -6,17 +6,33 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.FlashlightOff
+import androidx.compose.material.icons.filled.FlashlightOn
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -28,14 +44,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import cn.bistu.redwave.EntrySource
-import cn.bistu.redwave.EntryResult
 import cn.bistu.redwave.AppErrorCode
+import cn.bistu.redwave.EntryResult
+import cn.bistu.redwave.R
 import cn.bistu.redwave.data.AndroidAssetResourceRoot
 import cn.bistu.redwave.data.ManifestRepository
 import cn.bistu.redwave.entry.qr.QrScannerController
@@ -62,6 +85,7 @@ fun QrScanScreen(
     onError: (AppErrorCode) -> Unit,
     onManualSelect: () -> Unit,
     onBack: () -> Unit,
+    resolver: cn.bistu.redwave.data.EntryResolver? = null,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -71,7 +95,7 @@ fun QrScanScreen(
                 PackageManager.PERMISSION_GRANTED
         )
     }
-    var scanStatus by remember { mutableStateOf("对准项目卡片二维码") }
+    var scanStatus by remember { mutableStateOf(context.getString(R.string.scan_status_initial)) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -94,25 +118,28 @@ fun QrScanScreen(
         if (hasCameraPermission) {
             QrScannerContent(
                 onPayload = { payload ->
-                    // 用 EntryResolver 解析（CODE-01）
-                    val resolver = ManifestRepository(
+                    // 优先使用上层已构建的 EntryResolver，避免每次识别都重建仓库。
+                    val activeResolver = resolver ?: ManifestRepository(
                         AndroidAssetResourceRoot.fromContext(context), strict = false
                     ).buildEntryResolver().getOrNull()
-                    if (resolver == null) {
-                        scanStatus = "资源初始化失败，请用手动入口"
+                    if (activeResolver == null) {
+                        scanStatus = context.getString(R.string.home_status_error)
                         onError(AppErrorCode.MANIFEST_INVALID)
                         return@QrScannerContent true
                     }
-                    val result = resolver.resolveQr(payload)
+                    val result = activeResolver.resolveQr(payload)
                     result.fold(
                         onSuccess = { entry ->
-                            scanStatus = "已识别：${entry.sceneId}，正在进入…"
+                            scanStatus = context.getString(
+                                R.string.scan_status_recognized_format,
+                                entry.sceneId
+                            )
                             onResolved(entry)
                             true
                         },
                         onFailure = {
                             // §6.8-4：不是本项目卡片，继续扫描
-                            scanStatus = "不是本项目卡片，继续扫描…"
+                            scanStatus = context.getString(R.string.scan_status_unknown)
                             false
                         }
                     )
@@ -128,16 +155,22 @@ fun QrScanScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("需要相机权限才能扫描二维码", color = Color.White)
-                Text("可在设置中开启，或使用手动选择场景",
+                Text(
+                    stringResource(R.string.scan_permission_title),
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    stringResource(R.string.scan_permission_subtitle),
                     color = Color.White.copy(alpha = 0.7f),
-                    style = MaterialTheme.typography.labelSmall,
-                    modifier = Modifier.padding(top = 8.dp))
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
                 Button(onClick = onBack, modifier = Modifier.padding(top = 16.dp)) {
-                    Text("返回首页")
+                    Text(stringResource(R.string.scan_back))
                 }
                 TextButton(onClick = onManualSelect) {
-                    Text("手动选择场景")
+                    Text(stringResource(R.string.entry_manual))
                 }
             }
         }
@@ -178,25 +211,83 @@ private fun BoxScope.QrScannerContent(
         modifier = Modifier.fillMaxSize()
     )
 
-    // 顶部状态条 + 返回（BoxScope.align）
-    Column(
+    // 扫描框与激光动画
+    ScanFrameOverlay(
+        modifier = Modifier
+            .align(Alignment.Center)
+            .fillMaxWidth(0.55f)
+            .padding(horizontal = 32.dp)
+    )
+
+    // 顶部工具栏
+    Row(
         modifier = Modifier
             .align(Alignment.TopCenter)
             .fillMaxWidth()
             .padding(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            TextButton(onClick = onBack) { Text("返回", color = Color.White) }
-            TextButton(onClick = {
-                torchOn = !torchOn
-                controller?.setTorch(torchOn)
-            }) { Text(if (torchOn) "关闭手电筒" else "打开手电筒", color = Color.White) }
-            TextButton(onClick = onManualSelect) { Text("手动选择", color = Color.White) }
+        IconButton(
+            onClick = onBack,
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = Color.Black.copy(alpha = 0.4f),
+                contentColor = Color.White
+            )
+        ) {
+            Icon(
+                Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(R.string.scan_back)
+            )
         }
-        Text(scanStatus, color = Color.White,
-            style = MaterialTheme.typography.labelSmall,
-            modifier = Modifier.padding(top = 4.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            IconButton(
+                onClick = {
+                    torchOn = !torchOn
+                    controller?.setTorch(torchOn)
+                },
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = Color.Black.copy(alpha = 0.4f),
+                    contentColor = Color.White
+                )
+            ) {
+                Icon(
+                    imageVector = if (torchOn) Icons.Filled.FlashlightOff else Icons.Filled.FlashlightOn,
+                    contentDescription = stringResource(
+                        if (torchOn) R.string.scan_torch_on else R.string.scan_torch_off
+                    )
+                )
+            }
+            IconButton(
+                onClick = onManualSelect,
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = Color.Black.copy(alpha = 0.4f),
+                    contentColor = Color.White
+                )
+            ) {
+                Text(
+                    stringResource(R.string.scan_manual),
+                    color = Color.White,
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
+        }
+    }
+
+    // 底部提示
+    Surface(
+        modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .padding(bottom = 48.dp, start = 32.dp, end = 32.dp)
+            .clip(RoundedCornerShape(16.dp)),
+        color = Color.Black.copy(alpha = 0.55f)
+    ) {
+        Text(
+            scanStatus,
+            color = Color.White,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)
+        )
     }
 
     // 退出时释放相机（§6.9 onDestroy）
@@ -206,4 +297,98 @@ private fun BoxScope.QrScannerContent(
             controller = null
         }
     }
+}
+
+@Composable
+private fun ScanFrameOverlay(modifier: Modifier = Modifier) {
+    val frameColor = MaterialTheme.colorScheme.primary
+    val laserColor = MaterialTheme.colorScheme.secondary
+    val infiniteTransition = rememberInfiniteTransition(label = "laser")
+    val laserProgress by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1800, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "laserProgress"
+    )
+
+    Box(
+        modifier = modifier
+            .size(260.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .drawWithCache {
+                val cornerLength = size.minDimension * 0.18f
+                val strokeWidth = 6f
+                val cornerRadius = CornerRadius(20.dp.toPx(), 20.dp.toPx())
+                onDrawBehind {
+                    // 四角 L 形标记
+                    val path = androidx.compose.ui.graphics.Path().apply {
+                        // 左上
+                        moveTo(0f, cornerLength)
+                        lineTo(0f, cornerRadius.y)
+                        arcTo(
+                            rect = androidx.compose.ui.geometry.Rect(
+                                0f, 0f, cornerRadius.x * 2, cornerRadius.y * 2
+                            ),
+                            startAngleDegrees = 180f,
+                            sweepAngleDegrees = 90f,
+                            forceMoveTo = false
+                        )
+                        lineTo(cornerLength, 0f)
+                        // 右上
+                        moveTo(size.width - cornerLength, 0f)
+                        lineTo(size.width - cornerRadius.x, 0f)
+                        arcTo(
+                            rect = androidx.compose.ui.geometry.Rect(
+                                size.width - cornerRadius.x * 2, 0f,
+                                size.width, cornerRadius.y * 2
+                            ),
+                            startAngleDegrees = 270f,
+                            sweepAngleDegrees = 90f,
+                            forceMoveTo = false
+                        )
+                        lineTo(size.width, cornerLength)
+                        // 右下
+                        moveTo(size.width, size.height - cornerLength)
+                        lineTo(size.width, size.height - cornerRadius.y)
+                        arcTo(
+                            rect = androidx.compose.ui.geometry.Rect(
+                                size.width - cornerRadius.x * 2,
+                                size.height - cornerRadius.y * 2,
+                                size.width, size.height
+                            ),
+                            startAngleDegrees = 0f,
+                            sweepAngleDegrees = 90f,
+                            forceMoveTo = false
+                        )
+                        lineTo(size.width - cornerLength, size.height)
+                        // 左下
+                        moveTo(cornerLength, size.height)
+                        lineTo(cornerRadius.x, size.height)
+                        arcTo(
+                            rect = androidx.compose.ui.geometry.Rect(
+                                0f, size.height - cornerRadius.y * 2,
+                                cornerRadius.x * 2, size.height
+                            ),
+                            startAngleDegrees = 90f,
+                            sweepAngleDegrees = 90f,
+                            forceMoveTo = false
+                        )
+                        lineTo(0f, size.height - cornerLength)
+                    }
+                    drawPath(path, color = frameColor, style = Stroke(width = strokeWidth))
+
+                    // 激光线
+                    val laserY = size.height * laserProgress
+                    drawLine(
+                        color = laserColor,
+                        start = Offset(cornerLength * 0.5f, laserY),
+                        end = Offset(size.width - cornerLength * 0.5f, laserY),
+                        strokeWidth = strokeWidth * 0.6f
+                    )
+                }
+            }
+    )
 }

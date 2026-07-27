@@ -44,11 +44,15 @@ fun RedWaveApp() {
         )
     }
     var globalManifest by remember { mutableStateOf<GlobalManifest?>(null) }
+    var qrResolver by remember { mutableStateOf<cn.bistu.redwave.data.EntryResolver?>(null) }
 
     LaunchedEffect(repository) {
         val result = withContext(Dispatchers.IO) { repository.loadGlobalManifest() }
         result.fold(
-            onSuccess = { globalManifest = it },
+            onSuccess = {
+                globalManifest = it
+                qrResolver = repository.buildEntryResolver().getOrNull()
+            },
             onFailure = { coordinator.showError(it.toAppErrorCode(), recoverable = false) }
         )
     }
@@ -88,6 +92,7 @@ fun RedWaveApp() {
                     onError = { coordinator.showError(it) },
                     onManualSelect = coordinator::goHome,
                     onBack = coordinator::goHome,
+                    resolver = qrResolver,
                     modifier = Modifier.fillMaxSize()
                 )
             } else {
