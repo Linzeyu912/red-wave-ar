@@ -6,12 +6,12 @@
 
 ## 1. 已归档内容
 
-用户提供的 7 个原始文件已原样复制到：
+用户提供的 7 个原始文件已复制到：
 
 ```text
 modeling_input/S1/local_reference/source_folder_20260727/
 ├── 平西情报联络站2.jpg
-├── 平息西情报联络站.jpg
+├── trigger_hand_drawn.jpg
 ├── 平西情报联络站文字素材.docx
 └── 平西情报联络站建模参考素材/
     ├── 69e9b8c3d5de886d89e76e62.jpg
@@ -20,7 +20,7 @@ modeling_input/S1/local_reference/source_folder_20260727/
     └── W020210201589175571155.jpg
 ```
 
-原图和 Word 文件均为本地受控素材，由 `local_reference/.gitignore` 排除；它们不会进入 Git、App、GLB、纹理、识图或宣传目录。
+其中 `trigger_hand_drawn.jpg` 是手绘触发图，原文件名为 `平息西情报联络站.jpg`；其余文件名与原始资料包保持一致。原图和 Word 文件均为本地受控素材，由 `local_reference/.gitignore` 排除；它们不会进入 Git、App、GLB、纹理、识图或宣传目录。
 
 ## 2. 文字素材的结构化读取结果
 
