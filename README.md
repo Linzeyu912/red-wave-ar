@@ -198,6 +198,12 @@ sdk.dir=D:/AndroidDev/sdk
 
 **已知限制（CODE-00..10）**：
 - 真实音频文件未制作；ExoPlayer 实际播放需真机音频资产。
+
+### S1 门楼资产归档 ✅
+
+- `modeling_delivery/S1/gate/` 已归档门楼 `GATE-01 v2` 的 GLB、正交预览和程序化生成脚本。
+- 该模型是独立、待审核资产：尚未接入 `app/` 或 `scene.json`，不会替换当前地下储洞白盒。
+- 集成前必须处理不确定文字/书法、旗帜变体、参考来源与移动端网格/纹理预算；完整要求见 `modeling_input/S1/02_MODELING_HANDOFF.md` §8。
 - 二维码实际扫描需真机摄像头验证（模拟器无真实相机预览）。
 - 拾取/移动/环视/音频视觉效果在 headless 模拟器无法可靠验证；算法已通过严格单元测试，待真机验收。
 - Release 变体未启用 minify 与签名（CODE-11）。
@@ -266,6 +272,10 @@ red-wave-ar/
 ├── gradle/
 │   ├── libs.versions.toml
 │   └── wrapper/
+├── modeling_input/S1/                # S1 需求、许可清单与本地参考索引
+├── modeling_delivery/S1/
+│   ├── runtime/                       # 当前 App 冻结白盒源
+│   └── gate/                          # 独立门楼 GATE-01 v2（未接入运行时）
 ├── settings.gradle.kts
 ├── build.gradle.kts
 ├── gradle.properties
