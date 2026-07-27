@@ -273,6 +273,7 @@ red-wave-ar/
 │   ├── libs.versions.toml
 │   └── wrapper/
 ├── modeling_input/S1/                # S1 需求、许可清单与本地参考索引
+├── modeling_input/reference_sites/    # 未分配场景 ID 的地点建模参考库（本地受控素材）
 ├── modeling_delivery/S1/
 │   ├── runtime/                       # 当前 App 冻结白盒源
 │   └── gate/                          # 独立门楼 GATE-01 v2（未接入运行时）
