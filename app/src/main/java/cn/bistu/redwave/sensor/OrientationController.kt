@@ -32,13 +32,20 @@ class OrientationController(private val context: Context) : SensorEventListener 
     var mode: SensorMode = SensorMode.TOUCH
         private set
 
-    // 陀螺仪模式状态
+    // 陀螺仪模式状态（被 Sensor 线程与渲染线程同时读写，需保证可见性）
+    @Volatile
     private var qReference: Quaternion = Quaternion.IDENTITY
+    @Volatile
     private var qSmoothed: Quaternion = Quaternion.IDENTITY
+    @Volatile
     private var hasReference: Boolean = false
+    @Volatile
+    private var lastSensorTimestampNs: Long = 0L
 
     // 触屏模式状态：累积 yaw/pitch（度）
+    @Volatile
     private var touchYawDeg: Float = 0f
+    @Volatile
     private var touchPitchDeg: Float = 0f
 
     /** 设备是否支持陀螺仪（TYPE_GAME_ROTATION_VECTOR 存在）。 */
@@ -141,9 +148,14 @@ class OrientationController(private val context: Context) : SensorEventListener 
         val qRelative = OrientationMath.relativeTo(qScreen, qReference)
         // §6.12-5 去 roll
         val (_, noRoll) = OrientationMath.removeRoll(qRelative)
-        // §6.12-6 slerp 平滑（用估计的传感器采样间隔）
-        val dt = 1f / 60f.coerceAtLeast(1f) // 保守默认；SensorManager 不直接给 dt
-        qSmoothed = OrientationMath.smooth(qSmoothed, noRoll, dt, tauSec)
+        // §6.12-6 slerp 平滑：优先用传感器事件时间戳差，不可用则回退到 1/60s
+        val dtSec = if (lastSensorTimestampNs != 0L) {
+            ((event.timestamp - lastSensorTimestampNs) / 1_000_000_000f).coerceIn(0.001f, 0.1f)
+        } else {
+            1f / 60f
+        }
+        lastSensorTimestampNs = event.timestamp
+        qSmoothed = OrientationMath.smooth(qSmoothed, noRoll, dtSec, tauSec)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
