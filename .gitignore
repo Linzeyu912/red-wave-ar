@@ -28,12 +28,14 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+*.blend1
 .zcode/
 
 # === Python（建模白盒生成脚本缓存）===
 __pycache__/
 *.pyc
 /.venv/
+/lkivivube_delivery/source/.build/
 
 # === Gradle / 构建产物 ===
 .gradle/

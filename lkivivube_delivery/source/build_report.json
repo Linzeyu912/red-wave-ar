@@ -1,0 +1,103 @@
+{
+  "assets": [
+    {
+      "asset_id": "s1a_pingxi_gate",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1A_pingxi_gate_v001.glb",
+      "size_bytes": 250292,
+      "triangles": 1864,
+      "vertices": 3722,
+      "meshes": 5,
+      "materials": 5,
+      "textures": 1,
+      "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v001.glb"
+    },
+    {
+      "asset_id": "s1b_radio_operator_statue",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1B_radio_operator_statue_v001.glb",
+      "size_bytes": 93696,
+      "triangles": 1392,
+      "vertices": 2554,
+      "meshes": 3,
+      "materials": 3,
+      "textures": 0,
+      "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v001.glb"
+    },
+    {
+      "asset_id": "s2a_telegraph_building",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S2_telegraph_building\\model\\S2A_telegraph_building_v001.glb",
+      "size_bytes": 119008,
+      "triangles": 1712,
+      "vertices": 3228,
+      "meshes": 5,
+      "materials": 5,
+      "textures": 0,
+      "relative_file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v001.glb"
+    },
+    {
+      "asset_id": "s3a_shortwave_station_building",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3A_shortwave_station_building_v001.glb",
+      "size_bytes": 133304,
+      "triangles": 2124,
+      "vertices": 3624,
+      "meshes": 4,
+      "materials": 4,
+      "textures": 0,
+      "relative_file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v001.glb"
+    },
+    {
+      "asset_id": "s3b_shortwave_antenna_array",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3B_shortwave_antenna_array_v001.glb",
+      "size_bytes": 313160,
+      "triangles": 4876,
+      "vertices": 8760,
+      "meshes": 3,
+      "materials": 3,
+      "textures": 0,
+      "relative_file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v001.glb"
+    },
+    {
+      "asset_id": "s4a_juyong_pass_tower",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S4_juyong_pass\\model\\S4A_juyong_pass_tower_v001.glb",
+      "size_bytes": 103832,
+      "triangles": 1172,
+      "vertices": 2182,
+      "meshes": 5,
+      "materials": 5,
+      "textures": 1,
+      "relative_file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v001.glb"
+    },
+    {
+      "asset_id": "s5a_memorial_sculpture",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S5_memorial_plaza\\model\\S5A_memorial_sculpture_v001.glb",
+      "size_bytes": 300856,
+      "triangles": 4246,
+      "vertices": 8086,
+      "meshes": 4,
+      "materials": 4,
+      "textures": 1,
+      "relative_file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v001.glb"
+    },
+    {
+      "asset_id": "s6a_zhenfang_lou",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S6_zhenfang_lou\\model\\S6A_zhenfang_lou_v001.glb",
+      "size_bytes": 103524,
+      "triangles": 1490,
+      "vertices": 2786,
+      "meshes": 5,
+      "materials": 5,
+      "textures": 0,
+      "relative_file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v001.glb"
+    },
+    {
+      "asset_id": "s7a_telecom_museum",
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S7_telecom_museum\\model\\S7A_telecom_museum_v001.glb",
+      "size_bytes": 129240,
+      "triangles": 1304,
+      "vertices": 2332,
+      "meshes": 5,
+      "materials": 5,
+      "textures": 1,
+      "relative_file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v001.glb"
+    }
+  ]
+}

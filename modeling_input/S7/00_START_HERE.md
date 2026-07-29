@@ -1,6 +1,6 @@
 # S7 建模输入包：中国电信博物馆
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / SINGLE_VIEW_ACCEPTED / FACADE_STATE_PENDING / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_IMPLEMENTED_V1 / SINGLE_VIEW_ACCEPTED / PRIMARY_SIGNAGE_STATE_SELECTED / NARRATION_PENDING / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S7 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S7_telecom_museum/asset_card.md`
@@ -19,5 +19,5 @@
 - 现有照片是本轮完整视觉输入，不再等待其他角度；侧后立面和屋顶按 `INFERRED_LOW_DETAIL` 保守处理，不虚构馆名或企业标识。
 - 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；在取得真实照片公开展示许可前，不得进入 App、Kivicube、宣传或公开交付。
 - 银白体块、弧形立面、入口馆名、高塔标识年代差异和提示词片段见 [`visual_constraints.md`](visual_constraints.md)。
-- 高塔竖向企业标识必须作为可替换贴花，最终模型只采用一个年代状态，不与无标识的新状态混合；主体身份核验见 [`../SUBJECT_IDENTITY_VERIFICATION.md`](../SUBJECT_IDENTITY_VERIFICATION.md)。
+- V1 已选择主要真实照片和触发图共同出现的高塔竖向馆名状态；贴花在 `.blend` 中保持可替换，且不与无标识的新状态混合。主体身份核验见 [`../SUBJECT_IDENTITY_VERIFICATION.md`](../SUBJECT_IDENTITY_VERIFICATION.md)。
 - 最终 GLB 目标 ≤5 MB、验收 ≤10 MB。文件级对应见 [`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。

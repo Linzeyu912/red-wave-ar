@@ -1,6 +1,6 @@
 # S1 平西情报联络站：Kivicube 资产卡
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / TWO_MODEL_UNITS / RIGHTS_PENDING`
+> 状态：`TWO_MODEL_UNITS / MODEL_V1_BUILT / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / RIGHTS_PENDING / PLATFORM_UPLOAD_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 ## 模型范围
@@ -13,7 +13,12 @@
 | S1A | 入口门楼 | `model/S1A_pingxi_gate_v001.glb` | `INFERRED_LOW_DETAIL` |
 | S1B | 女报务员雕塑及发报设备 | `model/S1B_radio_operator_statue_v001.glb` | `INFERRED_LOW_DETAIL` |
 
-每个 GLB 目标 ≤5 MB、验收 ≤10 MB。
+每个 GLB 目标 ≤5 MB、验收 ≤10 MB。两个 V1 模型均已通过本地预算与 Blender 回读检查。
+
+| 单元 | 大小 | 网格 | 三角面 | 材质 | 贴图 | 可编辑源文件 | 预览 |
+|---|---:|---:|---:|---:|---:|---|---|
+| S1A | 250,292 B | 5 | 1,864 | 5 | 1 | `../../source/blend/S1A_pingxi_gate_v001_source.blend` | `images/S1A_pingxi_gate_preview_v001.png` |
+| S1B | 93,696 B | 3 | 1,392 | 3 | 0 | `../../source/blend/S1B_radio_operator_statue_v001_source.blend` | `images/S1B_radio_operator_statue_preview_v001.png` |
 
 ## AR 呈现流程
 
@@ -28,9 +33,9 @@
 - S1A 触发图/照片：`images/S1A_pingxi_gate_trigger_v001.jpg`、`images/S1A_pingxi_gate_reference_reveal_v001.jpg`。
 - S1B 触发图/照片：`images/S1B_radio_operator_statue_trigger_v001.jpg`、`images/S1B_radio_operator_statue_reference_reveal_v001.jpg`。
 - S1B 照片：需缩至 ≤4096、≤5 MB，并处理背景人物；不得直接复制 12 MB 原图。
-- 形象与真实配色约束：参考图已收到，下一步整理；不可见面不再索要补图。
-- GLB 性能：目标 ≤5 网格、≤30,000 三角面、≤5 材质、≤10 贴图，待检测。
+- 形象与真实配色约束：已用于 V1 建模；不可见面采用 `INFERRED_LOW_DETAIL`，不再索要补图。
+- GLB 性能：两个模型均通过 `../../source/validation_report.json`，并经 Blender 5.1.2 实际导入。
 - 旁白文字参考：已收到、待审核；成稿放 `narration/narration_v001.md`。
-- 平台预览图：待补充，放 `images/`。
+- 平台预览图：两张 V1 预览已生成，见上表。
 - “触发图—真实照片—模型—旁白”流程：网页端与微信小程序端均待验证。
 - 上传字段和平台回执：记录到 `upload/`。
