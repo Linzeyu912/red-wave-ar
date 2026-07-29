@@ -1,6 +1,6 @@
 # 红色电波（red-wave-ar）
 
-《永不消逝的红色电波》项目工作区。当前采用双线并行：保留并优化已有自研 Android 体验，同时以 LKIVIVUBE 为主要 AR 呈现平台，制作“红色电波实践路线”七个地点的轻量模型、图片和旁白素材。
+《永不消逝的红色电波》项目工作区。当前采用双线并行：保留并优化已有自研 Android 体验，同时以 Kivicube 为主要 AR 呈现平台，制作“红色电波实践路线”七个地点的轻量模型、图片和旁白素材。
 
 > 当前项目方向以 [`docs/PROJECT_DIRECTION.md`](docs/PROJECT_DIRECTION.md) 为准。旧地下电台白盒和自研虚拟展馆计划已归档，不再作为新平台建模入口。
 
@@ -9,8 +9,9 @@
 | 你要做的事 | 唯一入口 |
 |---|---|
 | 查看当前项目范围与双线边界 | [`docs/PROJECT_DIRECTION.md`](docs/PROJECT_DIRECTION.md) |
+| 查看 Kivicube 建模、触发图和素材约束 | [`docs/KIVICUBE_ASSET_CONSTRAINTS.md`](docs/KIVICUBE_ASSET_CONSTRAINTS.md) |
 | 补充某个地点的图片、文字或建模约束 | [`modeling_input/README.md`](modeling_input/README.md) |
-| 查看或交付 LKIVIVUBE 模型、图片与旁白 | [`lkivivube_delivery/README.md`](lkivivube_delivery/README.md) |
+| 查看或交付 Kivicube 模型、图片与旁白 | [`lkivivube_delivery/README.md`](lkivivube_delivery/README.md) |
 | 维护已有 Android / Filament 程序 | [`docs/CODE_HANDOFF.md`](docs/CODE_HANDOFF.md) |
 | 构建或测试自研程序 | [`docs/BUILD.md`](docs/BUILD.md) |
 | 查阅旧地下电台任务与产品计划 | [`archive/self_built_app/README.md`](archive/self_built_app/README.md) |
@@ -19,10 +20,10 @@
 
 | 工作线 | 目标 | 活动目录 | 状态 |
 |---|---|---|---|
-| LKIVIVUBE 平台素材 | 七个地点的 GLB、预览图片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 等待逐地点形象约束 |
+| Kivicube 平台素材 | 七个地点的 GLB、触发图、真实照片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 等待逐地点形象约束 |
 | 自研程序 | 维护和优化已有 Android / Filament 虚拟研学体验 | `app/`、`modeling_delivery/`、`docs/` | 保留维护，不以真机 AR 连接为当前主阻塞项 |
 
-两条线不得自动混用模型。平台 GLB 不直接复制到 `app/src/main/assets/`；自研 S1 地下电台白盒和门楼也不直接上传到 LKIVIVUBE。
+两条线不得自动混用模型。平台 GLB 不直接复制到 `app/src/main/assets/`；自研 S1 地下电台白盒和门楼也不直接上传到 Kivicube。
 
 ## 当前地点
 
@@ -45,6 +46,7 @@ red-wave-ar/
 ├── README.md                         # 当前总入口
 ├── docs/
 │   ├── PROJECT_DIRECTION.md          # 项目级单一事实来源
+│   ├── KIVICUBE_ASSET_CONSTRAINTS.md # 平台建模与素材技术约束
 │   ├── CODE_HANDOFF.md               # 自研程序交接
 │   └── BUILD.md                      # 构建与测试
 ├── modeling_input/
@@ -52,7 +54,7 @@ red-wave-ar/
 │   ├── SCENE_INDEX.md                # S1–S7 场景索引
 │   └── S1/ ... S7/                   # 逐地点受控输入
 ├── lkivivube_delivery/
-│   ├── README.md                     # 平台交付规范
+│   ├── README.md                     # Kivicube 平台交付规范（目录名沿用旧拼写）
 │   ├── asset_manifest.csv            # 七地点状态总表
 │   └── scenes/                       # GLB、图片、旁白、上传记录
 ├── app/                              # 自研 Android 代码
@@ -63,10 +65,11 @@ red-wave-ar/
 
 ## 当前交付规则
 
-- 每个地点最终交付一个独立 GLB，单文件 5–10 MB。
+- 每个地点最终交付一个独立 GLB；目标不超过 5 MB，验收上限为 10 MB，不设文件大小下限。
+- 统一呈现顺序为“红白手绘触发图识别 → 展示获准的真实参考照片 → 展示真实配色 GLB 模型 → 旁白”。
 - 未收到地点形象约束前，不生成模型或虚构建筑细节。
 - 原始参考图片和含隐私的材料不提交 Git；只提交约束摘要、来源状态和获准的交付素材。
-- 平台未确认的动画、纹理、坐标、封面和上传字段保持“待确认”。
+- 平台约束以 [`docs/KIVICUBE_ASSET_CONSTRAINTS.md`](docs/KIVICUBE_ASSET_CONSTRAINTS.md) 为准；场景特有的未确认项保持“待确认”。
 - 旁白必须有事实来源和审核状态，不能把未核验参考文字直接作为正式讲解。
 
 ## 自研程序快速入口
