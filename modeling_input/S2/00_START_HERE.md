@@ -2,6 +2,8 @@
 
 > 状态：`SOURCE_ARCHIVED / MODEL_BRIEF_NOT_CREATED / NOT_RUNTIME_INTEGRATED`
 > 导入日期：2026-07-27
+> 当前角色：LKIVIVUBE 平台 S2 唯一输入入口
+> 平台资产卡：`../../lkivivube_delivery/scenes/S2_telegraph_building/asset_card.md`
 
 ## 本地素材
 
@@ -11,4 +13,4 @@
 
 - 可在项目内部观察建筑轮廓、材料、比例和环境层级；原图只作参考，不得作为贴图、照片投影或 1:1 复刻依据。
 - 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；不得进入 App、识图、宣传或公开交付。
-- 本包尚未定义运行时 `scene_id`、GLB、坐标、预算、文字内容或验收图。开始建模前必须先补齐任务书和权利登记。
+- 本包尚未定义模型范围、形象约束、旁白文字或平台图片。补齐后才可将状态改为 `MODELING_READY`；最终 GLB 为 5–10 MB，只输出到平台资产卡指定目录。

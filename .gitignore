@@ -33,6 +33,7 @@ Thumbs.db
 # === Python（建模白盒生成脚本缓存）===
 __pycache__/
 *.pyc
+/.venv/
 
 # === Gradle / 构建产物 ===
 .gradle/

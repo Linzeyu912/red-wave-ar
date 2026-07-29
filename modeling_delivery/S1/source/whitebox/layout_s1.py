@@ -1,6 +1,6 @@
 """S1 whitebox layout — single source of truth (compact cellar revision).
 
-依据 modeling_input/S1/04_COMPACT_CELLAR_REVISION.md（M3D-01R，2026-07-20）。
+依据 archive/self_built_app/modeling_input/S1/04_COMPACT_CELLAR_REVISION.md（M3D-01R，2026-07-20）。
 旧 8.0 x 8.0 m 白盒口径作废（用户已否决）；唯一基准为原创"地下储洞门内侧
 小工作室"：内净 5.3 m(X) x 4.7 m(Z) x 2.25 m(净高)。
 

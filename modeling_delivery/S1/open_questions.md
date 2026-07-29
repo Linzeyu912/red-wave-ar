@@ -1,7 +1,7 @@
 # S1 建模当前待确认项
 
 > 更新日期：2026-07-20
-> 唯一输入入口：`modeling_input/S1/00_START_HERE.md`
+> 历史输入入口：`archive/self_built_app/modeling_input/S1/00_START_HERE.md`
 > 原则：只保留仍然有效的问题；已关闭的早期阻塞不再重复列出。
 
 ## 1. 已关闭
@@ -35,7 +35,7 @@
 
 ## 4. 用户当前只需审核
 
-用户已于 2026-07-20 完成 `modeling_input/S1/01_OWNER_REVIEW.md`；批准内部研究与抽象建模用途，并同意三张风格图闸门。随后用户否决旧版 8 m × 8 m 白盒的空间尺度和粗略 radio；当前必须执行 `modeling_input/S1/04_COMPACT_CELLAR_REVISION.md` 的 M3D-01R，再审核新的三图。旧版 W1–W8/D-01–D-03 只保留为问题来源对照，不得据此进入正式资产。
+用户于 2026-07-20 完成的旧审核归档在 `archive/self_built_app/modeling_input/S1/01_OWNER_REVIEW.md`；旧 M3D-01R 基准也已归档。上述结论仅解释现有自研资产，不得据此启动当前平台模型。
 
 ## 5. 下一次更新
 
