@@ -75,7 +75,7 @@
 
 ## 2026-07-20 ｜ M3D-01 审核轮 ｜ 白盒审核 + STYLE-01/02/03 风格图（按交接闸门停止）
 
-**依据**：`modeling_input/S1/02_MODELING_HANDOFF.md`（状态 READY_FOR_WHITEBOX_REVIEW_AND_STYLE_FRAMES）§3–§5；本轮只做白盒审核与三张简单材质风格图，不改 scene.json 数据契约与运行时 GLB。
+**历史依据**：`archive/self_built_app/modeling_input/S1/02_MODELING_HANDOFF.md`（状态 READY_FOR_WHITEBOX_REVIEW_AND_STYLE_FRAMES）§3–§5；本轮只做白盒审核与三张简单材质风格图，不改 scene.json 数据契约与运行时 GLB。
 
 **白盒审核**：新增 `source/whitebox/whitebox_selfcheck.py` 数值自检——**25 PASS / 8 WARN / 0 FAIL**（单位比例、起点净空、起点→radio 视线、点击带 1.0–2.5 m、通道 ≥1.2 m、文物落桌、碰撞仅在 scene.json）；Khronos 校验器复核 4 个 GLB 0 错 0 警；`layout_s1.py` 与 scene.json 一致。8 条 WARN 全部列为决策项（见 style_review_report §1.2 W1–W6），其中 W5 桌区位置/W6 门位置与 `scene_layout_brief` PROPOSED 坐标存在差异，按交接 §6 保持现状并上报，不静默处理。
 

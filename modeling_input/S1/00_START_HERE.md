@@ -1,104 +1,24 @@
-# S1 建模输入包：唯一入口
+# S1 平西情报联络站：平台输入入口
 
-> 状态：`USER_REVISION_REQUESTED / M3D-01R_COMPACT_CELLAR_REVIEW / GATE-01_REGISTERED`
-> 包版本：1.1
-> 整理日期：2026-07-27
-> 适用场景：S1 平西情报联络站 / 涧沟村隐蔽通信主题展馆
+> 状态：`AWAITING_VISUAL_CONSTRAINTS / AWAITING_NARRATION_REFERENCE`
 
-## 1. 只从这里开始
+## 当前目标
 
-用户、建模模型和审核模型统一从本文件进入。不要再从聊天记录、桌面散图、旧提示词或 `modeling_delivery/S1/open_questions.md` 的历史段落自行拼接输入。
+为 LKIVIVUBE 制作一个“平西情报联络站”轻量地点模型，并配套预览图片、旁白文字和上传记录。模型文件最终为 `S1_pingxi_intelligence_station_v001.glb`，单文件 5–10 MB。
 
-本目录负责“收口与交接”，史实和风格的权威正文仍只维护在 `research/S1_pingxi_intelligence_station/`，白盒成品仍只维护在 `modeling_delivery/S1/`。本文件和 `package_manifest.csv` 已把它们逐项索引，不复制正文，避免出现两个不同版本。
+## 当前不得开始建模
 
-## 2. 当前已经整理好的内容
+尚未确认地点模型应表现的具体建筑主体、外观轮廓、材质、配色、周边范围和禁止复制元素。后续用户图片到位后，先形成文字化形象约束，再把本文件状态改为 `MODELING_READY`。
 
-| 类别 | 当前结论 | 入口 |
-|---|---|---|
-| 用户审核 | 已批准内部研究范围、MVP 不识别浮雕、三图闸门 | `01_OWNER_REVIEW.md` |
-| 建模模型交接 | 必读顺序、边界、输出和完整提示词 | `02_MODELING_HANDOFF.md` |
-| 七张用户原图 | 本地归档、哈希校验、仅限内部研究与抽象参考 | `03_MATERIALS_GUIDE.md`、`material_manifest.csv` |
-| 桌面补充资料包 | 6 张图与 1 份 Word 文字素材；未核验、不改变当前任务边界 | `05_SOURCE_FOLDER_IMPORT.md` |
-| 门楼外观要求 | 四图归纳的 `GATE-01` 独立门楼资产规格与可复制提示词 | `02_MODELING_HANDOFF.md` §8 |
-| 门楼模型交付 | 已接收的 GATE-01 v2 GLB、预览、归档脚本和集成限制 | `../../modeling_delivery/S1/gate/` |
-| 紧凑小室修订 | 用户指定的尺度、布局、电台审核级优化与验收 | `04_COMPACT_CELLAR_REVISION.md` |
-| 全部输入索引 | 产品、史实、风格、权利、白盒和本地图片 | `package_manifest.csv` |
-| 本地原图 | 只在当前工作区，Git 忽略 | `local_reference/` |
-| 已核史实与风格 | 单一权威版本 | `../../research/S1_pingxi_intelligence_station/` |
-| 当前白盒 | v0.2、三个占位文物、预览和报告 | `../../modeling_delivery/S1/` |
+旧自研任务中的地下电台小室、发报设备和门楼 GLB 不构成本任务的外形依据，不得直接复制、改名或上传到 LKIVIVUBE。
 
-## 3. 当前冻结与未冻结
+## 素材放置
 
-### 已冻结，可以交给建模模型
+- 原始图片和文字：`local_reference/`，仅限本地受控使用。
+- 可追踪形象约束：后续在本目录新增 `visual_constraints.md`。
+- 旁白参考与事实来源：后续在本目录新增 `narration_reference.md`。
+- 平台交付与验收：[`../../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/asset_card.md`](../../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/asset_card.md)。
 
-- 产品形态：扫描/识图只负责进入，随后为纯虚拟、陀螺仪环视的类 VR 展馆；
-- 场景身份：有史料依据的原创虚拟主题展馆，不做现馆或战时原址 1:1；
-- 物理核心：1943 年冬涧沟村秘密电台；1947 年清风店战役只进入结果信息层；
-- 三层风格：普通山村掩护层 + 紧凑秘密电台行动层 + 克制现代信息层；
-- 白盒基准：地下储洞门内侧的紧凑小室，约 5.3 m × 4.7 m × 2.25 m；桌面保持 1.80 × 0.75 × 0.78 m；
-- 核心对象：`p_s1_radio`、`p_s1_key`、技术 ID 保留的 `p_s1_codebook`；后者用户可见名称为“电文与保密通信资料包”；
-- 下一步只做白盒审核和三张简单材质风格图。
-- `GATE-01`：已归档四张门楼参考图和完整外观建模要求；它是待单独下达的门楼外观资产，不纳入当前 `M3D-01R` 紧凑小室白盒交付或 App 资源契约。
-- `GATE-01 v2`：已作为独立交付存入 `modeling_delivery/S1/gate/`；尚未通过文字、旗帜、来源和移动端预算审核，不能替换当前运行时白盒。
+## 历史资料
 
-### 未冻结，建模模型不得自行补全
-
-- 电台与发报键的具体型号、尺寸、铭牌和内部结构；
-- 战时山洞、院落和建筑的精确尺寸；
-- 供电设备、精确路线、人物肖像、姓名墙、历史地图和可读电文；
-- 三张用户图片的摄影者、原始来源、拍摄地点和日期；
-- 当前纪念馆门楼、牌匾、楹联、旗阵、栏杆和浮雕作品的复制权。
-
-## 4. 用户素材审核结果
-
-用户已于 2026-07-20 确认：
-
-1. 三张图只用于内部研究与抽象建模参考；
-2. 不进入 App、识图数据库、触发卡或宣传，不作完整临摹/重建；
-3. 浮雕墙不作为 MVP 识图对象；
-4. 同意 `STYLE-01/02/03` 三张风格图审核闸门；
-5. 将 S1 从 8 m × 8 m 大空间改为紧凑地下储洞小室，并要求审核级优化电台外观。
-
-用户于 2026-07-27 要求将四张门楼图片及其建模要求迁入本仓库。它们已登记为 `USER-VIS-004` 至 `USER-VIS-007` 和 `GATE-01`；在摄影者、原始来源及发布/完整复刻许可明确前，仍只能作为内部研究和原创资产规格的依据，不能作为 App 原图、纹理或公开素材。
-
-用户同日导入桌面资料包中的平西情报联络站子目录。该批 6 张图片与 1 份文字素材已登记为 `USER-SRC-008` 至 `USER-SRC-014`；只作为未核验、内部受控补充输入，不能推翻当前史实、权利、风格或运行时约束。
-
-摄影者/来源、拍摄地点和日期仍未知，但不阻塞上述内部用途。任何公开或产品内用途都必须重新审核。
-
-## 5. 当前如何与建模模型对接
-
-建模模型已在主分支提交 `dd9c5a5`，完成旧版 8 m × 8 m 白盒自检和 `STYLE-01/02/03` 六张图片（1600×900 + 1280×720）。该版因用户认为场景过大、资产过粗而不再作为审核基准；不得只做交付核对或重复旧版图片。
-
-当前只发送 `M3D-01R` 紧凑小室修订提示词：
-
-```text
-请在当前 main 上执行 S1 的 M3D-01R 修订，不新建分支。先完整读取 modeling_input/S1/00_START_HERE.md、02_MODELING_HANDOFF.md、03_MATERIALS_GUIDE.md、04_COMPACT_CELLAR_REVISION.md 与 research/S1_pingxi_intelligence_station/ 全部文件。旧版 8 m × 8 m 白盒和风格图已被用户否决，不要沿用其空间尺寸或构图。
-
-本轮只允许把 S1 重做为约 5.3 m × 4.7 m × 2.25 m 的原创地下储洞小室，重做白盒环境、scene.json 坐标/碰撞、审核级 radio，并重新交付 STYLE-01/02/03。保持 scene_id、三件文物 ID、JSON schema 和 App 资源契约不变。USER-VIS-003 只能内部观察，用于抽取箱式电台、发报键、线缆、木桌和局部暖光的高层特征；不得复制图片、文字、品牌、仪表读数、展陈布局或具体设备型号。
-
-完成更新后的 GLB、scene.json、六张风格图、顶视图、报告和变更记录后立即停止。不得进入最终高模、最终 PBR、人物、地图或正式资产；等待用户审核。
-```
-
-如用户单独要求建模门楼外观，只发送 `02_MODELING_HANDOFF.md` §8 的 `GATE-01` 提示词和 `03_MATERIALS_GUIDE.md`。不得把它与 `M3D-01R` 混为一个交付，除非用户明确要求将门楼接入运行时场景、资源清单和 App。
-
-## 6. 建模模型完成后怎么回交
-
-建模模型应只返回：
-
-- 更新后的 `environment_whitebox.glb`、三个占位/审核级文物 GLB 与 `scene.json`；
-- `STYLE-01_visitor_start.png` 与 720p 版；
-- `STYLE-02_operator_45deg.png` 与 720p 版；
-- `STYLE-03_route_to_entry.png` 与 720p 版；
-- `modeling_delivery/S1/style_review_report.md`；
-- 顶视布局图、尺寸/三角面报告和本轮修改文件清单；
-- 本轮修改文件清单和提交哈希。
-
-用户把三张图和报告交回资料审核模型。资料审核通过、用户明确确认后，才生成 M3D-02/M3D-03 正式资产提示词。
-
-## 7. 目录规则
-
-- 新增用户图片：统一放 `local_reference/`，并更新 `material_manifest.csv`；
-- 新增权利或来源：更新 `01_OWNER_REVIEW.md` 与研究包的来源/权利文件；
-- 新增建模要求：更新 `02_MODELING_HANDOFF.md`，不要另建聊天版提示词；
-- 新增史实：只更新 `research/S1_pingxi_intelligence_station/`，再更新 `package_manifest.csv` 状态；
-- 新增模型输出：只进入 `modeling_delivery/S1/`。
+旧地下电台白盒、紧凑小室和 GATE-01 建模口令已归档到 [`../../archive/self_built_app/modeling_input/S1/00_START_HERE.md`](../../archive/self_built_app/modeling_input/S1/00_START_HERE.md)。只有明确处理自研程序线历史资产时才可读取该入口。

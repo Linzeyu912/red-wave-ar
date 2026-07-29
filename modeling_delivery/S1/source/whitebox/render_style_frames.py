@@ -1,6 +1,6 @@
 """S1 style review frames STYLE-01/02/03 (M3D-01R compact-cellar round).
 
-Per modeling_input/S1/04_COMPACT_CELLAR_REVISION.md (M3D-01R):
+Per archive/self_built_app/modeling_input/S1/04_COMPACT_CELLAR_REVISION.md (M3D-01R):
 - procedural palette only (style board working colors); no external textures,
   no HDRI, no copied imagery, no inscriptions;
 - original kerosene lamp as the warm desk light + cool low ambient so the

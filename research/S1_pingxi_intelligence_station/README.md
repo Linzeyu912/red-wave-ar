@@ -1,5 +1,7 @@
 # S1 平西情报联络站资料包
 
+> **当前角色**：旧自研 S1 的研究与事实核验档案，可供旁白复核参考；不是 LKIVIVUBE 建模入口。
+
 > 状态：`USER_APPROVED_M3D_01R_COMPACT_CELLAR`
 > 版本：0.5
 > 首轮检索与整理日期：2026-07-20  
@@ -41,11 +43,11 @@
 | `source_register.md` | 来源台账和事实—来源矩阵 | 内容、审核 |
 | `visual_reference_register.md` | 外观、内景、设备视觉参考及版权限制 | 建模、审核 |
 | `style_reference_board.md` | 已冻结的色彩、材质、灯光、构图、禁用元素和风格图验收规则 | 建模、审核 |
-| `../../modeling_input/S1/00_START_HERE.md` | S1 建模输入包唯一入口和全量索引 | 用户、建模模型 |
-| `../../modeling_input/S1/01_OWNER_REVIEW.md` | 用户需要确认的图片来源、用途、识图和建模闸门 | 用户、项目负责人 |
-| `../../modeling_input/S1/02_MODELING_HANDOFF.md` | 建模模型必读顺序、输出、停止条件和可复制提示词 | 用户、建模模型 |
-| `../../modeling_input/S1/03_MATERIALS_GUIDE.md` | 用户补充图片的本地待授权包、哈希和用途说明 | 建模、权利审核 |
-| `../../modeling_input/S1/04_COMPACT_CELLAR_REVISION.md` | 用户指定的小室尺度、电台审核级优化和本轮验收 | 建模、编码、审核 |
+| `../../archive/self_built_app/modeling_input/S1/00_START_HERE.md` | 旧 S1 建模任务归档入口 | 自研程序维护者 |
+| `../../archive/self_built_app/modeling_input/S1/01_OWNER_REVIEW.md` | 旧任务图片用途与审核记录 | 权利审核 |
+| `../../archive/self_built_app/modeling_input/S1/02_MODELING_HANDOFF.md` | 旧地下电台/门楼提示词 | 历史追溯 |
+| `../../archive/self_built_app/modeling_input/S1/03_MATERIALS_GUIDE.md` | 旧任务素材使用规则 | 历史追溯 |
+| `../../archive/self_built_app/modeling_input/S1/04_COMPACT_CELLAR_REVISION.md` | 旧紧凑小室修订 | 自研程序维护者 |
 | `modeling_brief.md` | 资产级建模规则、可做/不可做、交付门槛 | 建模模型 |
 | `content_brief.md` | 叙事结构、文物文案草案、音频边界 | 内容、编码 |
 | `scene_layout_brief.md` | 旧版 8 m × 8 m 白盒布局历史对照；不得作为当前输出依据 | 建模、编码 |

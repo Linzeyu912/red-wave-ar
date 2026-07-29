@@ -1,8 +1,8 @@
 # S1 资产优先级与当前闸门
 
 > 更新日期：2026-07-20
-> 输入入口：`modeling_input/S1/00_START_HERE.md`
-> 当前阶段：白盒 v0.2 已交付，下一步为 STYLE-01/02/03
+> 历史输入入口：`archive/self_built_app/modeling_input/S1/00_START_HERE.md`
+> 归档阶段：自研白盒与 STYLE-01/02/03 已交付；不再由本文件下达下一步平台任务
 
 ## 1. 顺序
 
