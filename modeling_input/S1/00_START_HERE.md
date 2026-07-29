@@ -1,6 +1,6 @@
 # S1 平西情报联络站：平台输入入口
 
-> 状态：`VISUAL_INPUT_RECEIVED / NARRATION_REFERENCE_RECEIVED / RIGHTS_PENDING / MODELING_NOT_STARTED`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / NARRATION_REFERENCE_RECEIVED / RIGHTS_PENDING / MODELING_NOT_STARTED`
 
 ## 当前目标
 
@@ -29,7 +29,7 @@
 - 手绘触发图：候选文件 `local_reference/**/trigger_hand_drawn.jpg`；经权利和真机识别审核后，才生成平台交付版本。
 - 真实照片展示图：必须登记与触发图的对应关系及公开展示许可；未经许可不得复制到平台 `images/`。
 - 文件级对应关系：[`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。
-- 可追踪形象约束：下一步在本目录新增 `visual_constraints.md`，分别记录 S1A、S1B。
+- 可追踪形象约束：[`visual_constraints.md`](visual_constraints.md)，已分别记录 S1A、S1B 的逐图依据、主体特征、推断边界和提示词片段。
 - 旁白参考与事实来源：从已收到的 Word 整理到 `narration_reference.md`，原文件保持受控。
 - 平台交付与验收：[`../../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/asset_card.md`](../../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/asset_card.md)。
 - 平台统一规范：[`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。

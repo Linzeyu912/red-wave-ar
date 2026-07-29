@@ -1,6 +1,6 @@
 # S2 建模输入包：电报大楼
 
-> 状态：`VISUAL_INPUT_RECEIVED / SINGLE_VIEW_ACCEPTED / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / SINGLE_VIEW_ACCEPTED / NARRATION_PENDING / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S2 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S2_telegraph_building/asset_card.md`
@@ -19,4 +19,5 @@
 - 现有照片是本轮完整视觉输入，不再等待侧面、背面或更多细节照片；不可见面按 `INFERRED_LOW_DETAIL` 保守闭合。
 - 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；在取得真实照片公开展示许可前，不得进入 App、Kivicube、宣传或公开交付。
 - 主要照片约 5.16 MB，展示副本需压至 ≤5 MB，并裁除车牌等无关信息。最终 GLB 目标 ≤5 MB、验收 ≤10 MB。
+- 图片特征、主体边界、年代差异和提示词片段见 [`visual_constraints.md`](visual_constraints.md)。
 - 文件级对应见 [`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。

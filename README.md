@@ -12,6 +12,8 @@
 | 查看 Kivicube 建模、触发图和素材约束 | [`docs/KIVICUBE_ASSET_CONSTRAINTS.md`](docs/KIVICUBE_ASSET_CONSTRAINTS.md) |
 | 补充某个地点的图片、文字或建模约束 | [`modeling_input/README.md`](modeling_input/README.md) |
 | 查看 9 个触发图、真实照片与模型对应关系 | [`modeling_input/REFERENCE_INVENTORY.md`](modeling_input/REFERENCE_INVENTORY.md) |
+| 查看 62 张图片提取出的主体特征与提示词素材 | [`modeling_input/VISUAL_CONSTRAINTS_INDEX.md`](modeling_input/VISUAL_CONSTRAINTS_INDEX.md) |
+| 查看主体身份、同地点一致性与公开资料核验 | [`modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](modeling_input/SUBJECT_IDENTITY_VERIFICATION.md) |
 | 查看或交付 Kivicube 模型、图片与旁白 | [`lkivivube_delivery/README.md`](lkivivube_delivery/README.md) |
 | 维护已有 Android / Filament 程序 | [`docs/CODE_HANDOFF.md`](docs/CODE_HANDOFF.md) |
 | 构建或测试自研程序 | [`docs/BUILD.md`](docs/BUILD.md) |
@@ -21,7 +23,7 @@
 
 | 工作线 | 目标 | 活动目录 | 状态 |
 |---|---|---|---|
-| Kivicube 平台素材 | 七个地点、九个触发单元的 GLB、触发图、真实照片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 视觉素材已收到，等待权利确认与后续文字 |
+| Kivicube 平台素材 | 七个地点、九个触发单元的 GLB、触发图、真实照片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 图片特征首轮提取完成，等待人工确认、权利确认与后续文字 |
 | 自研程序 | 维护和优化已有 Android / Filament 虚拟研学体验 | `app/`、`modeling_delivery/`、`docs/` | 保留维护，不以真机 AR 连接为当前主阻塞项 |
 
 两条线不得自动混用模型。平台 GLB 不直接复制到 `app/src/main/assets/`；自研 S1 地下电台白盒和门楼也不直接上传到 Kivicube。
@@ -32,7 +34,7 @@
 |---|---|---|
 | S1 | 平西情报联络站 | 2 个单元：入口门楼、女报务员雕塑；图片和文字已收到 |
 | S2 | 电报大楼 | 1 个单元；图片已收到，文字待补 |
-| S3 | 短波通信局 | 2 个单元：通信楼、天线阵列；图片已收到，文字待补 |
+| S3 | “短波通信局”（项目暂定名） | 2 个单元：通信楼、天线阵列；图片已收到，外部身份与文字待核验 |
 | S4 | 居庸关 | 1 个单元；图片已收到，文字待补 |
 | S5 | 西山无名英雄纪念广场 | 1 个单元；图片已收到，文字待补 |
 | S6 | 香山镇芳楼 | 1 个单元；图片已收到，文字待补 |
@@ -54,6 +56,8 @@ red-wave-ar/
 │   ├── README.md                     # 当前建模输入总入口
 │   ├── SCENE_INDEX.md                # S1–S7 场景索引
 │   ├── REFERENCE_INVENTORY.md         # 9 个触发/照片/模型单元清单
+│   ├── VISUAL_CONSTRAINTS_INDEX.md    # 62 张图片的主体特征与提示词索引
+│   ├── SUBJECT_IDENTITY_VERIFICATION.md # 主体一致性与公开资料核验
 │   └── S1/ ... S7/                   # 逐地点受控输入
 ├── lkivivube_delivery/
 │   ├── README.md                     # Kivicube 平台交付规范（目录名沿用旧拼写）

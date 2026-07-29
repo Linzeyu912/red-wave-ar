@@ -1,11 +1,12 @@
 # S1 平西情报联络站：Kivicube 资产卡
 
-> 状态：`VISUAL_INPUT_RECEIVED / TWO_MODEL_UNITS / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / TWO_MODEL_UNITS / RIGHTS_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 ## 模型范围
 
 - 交付目标：两件独立轻量模型，不从旧地下电台白盒、旧虚拟展馆或待审门楼 GLB 推导外形。
+- 图片特征约束：[`../../../modeling_input/S1/visual_constraints.md`](../../../modeling_input/S1/visual_constraints.md)。
 
 | 单元 | 对象 | GLB | 不可见面 |
 |---|---|---|---|
