@@ -1,15 +1,20 @@
 # S3 短波通信局：Kivicube 资产卡
 
-> 状态：`AWAITING_CONSTRAINTS`
+> 状态：`VISUAL_INPUT_RECEIVED / TWO_MODEL_UNITS / NARRATION_PENDING / RIGHTS_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 - 当前输入入口：[`../../../modeling_input/S3/00_START_HERE.md`](../../../modeling_input/S3/00_START_HERE.md)。
-- 交付目标：一件轻量地点模型；范围和外形等待用户图片约束。
-- 呈现顺序：红白手绘触发图 → 获准的真实参考照片 → 真实配色模型 → 旁白。
-- 手绘触发图：`images/S3_shortwave_station_trigger_hand_drawn_v001.jpg`，评分与印刷真机测试待完成。
-- 真实照片展示图：`images/S3_shortwave_station_reference_reveal_v001.jpg`，来源、公开展示许可和隐私检查待完成。
-- 模型真实配色依据：待补充，不从红白触发图取色。
-- GLB：`model/S3_shortwave_station_v001.glb`，目标 ≤5 MB、验收 ≤10 MB；目标 ≤5 网格、≤30,000 三角面、≤5 材质、≤10 贴图。
+- 交付目标：两件独立轻量模型。
+- 呈现顺序：各自的红白手绘触发图 → 对应的获准真实照片 → 对应的真实配色模型 → 旁白。
+
+| 单元 | 对象 | 触发图交付名 | 真实照片交付名 | GLB |
+|---|---|---|---|---|
+| S3A | 通信楼 | `images/S3A_shortwave_station_building_trigger_v001.jpg` | `images/S3A_shortwave_station_building_reference_reveal_v001.jpg` | `model/S3A_shortwave_station_building_v001.glb` |
+| S3B | 天线阵列 | `images/S3B_shortwave_antenna_array_trigger_v001.jpg` | `images/S3B_shortwave_antenna_array_reference_reveal_v001.jpg` | `model/S3B_shortwave_antenna_array_v001.glb` |
+
+- 模型真实配色依据：照片已收到，不从红白触发图取色；公开展示许可待确认。
+- 每个 GLB 目标 ≤5 MB、验收 ≤10 MB；目标 ≤5 网格、≤30,000 三角面、≤5 材质、≤10 贴图。
+- S3A 不可见建筑面标记 `INFERRED_LOW_DETAIL`；S3B 次级线缆按性能预算简化。
 - 受控输入：`../../../modeling_input/S3/local_reference/`。
 - 旁白文字：待补充后放 `narration/narration_v001.md`。
 - 预览图片与上传记录：分别放 `images/`、`upload/`；未经公开展示许可的参考图不得复制进来。

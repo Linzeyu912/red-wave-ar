@@ -1,16 +1,25 @@
 # S1 平西情报联络站：平台输入入口
 
-> 状态：`AWAITING_VISUAL_CONSTRAINTS / AWAITING_NARRATION_REFERENCE`
+> 状态：`VISUAL_INPUT_RECEIVED / NARRATION_REFERENCE_RECEIVED / RIGHTS_PENDING / MODELING_NOT_STARTED`
 
 ## 当前目标
 
-为 Kivicube 制作一个“平西情报联络站”轻量地点模型，并配套红白手绘触发图、真实参考照片展示、预览图片、旁白和上传记录。模型文件最终为 `S1_pingxi_intelligence_station_v001.glb`，目标不超过 5 MB、验收不超过 10 MB。
+平西情报联络站包含两个独立触发与建模单元：
+
+| 单元 | 对象 | 手绘触发图 | 真实照片 | 计划模型 |
+|---|---|---|---|---|
+| S1A | 入口门楼 | `trigger_hand_drawn.jpg` | `微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v001.glb` |
+| S1B | 女报务员雕塑及发报设备 | `平西情报联络站2.jpg` | `微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v001.glb` |
 
 默认体验顺序是：识别红白手绘触发图 → 展示绘图所依据且已获公开许可的真实照片 → 展示按真实颜色和材质制作的 GLB 模型 → 旁白。
 
-## 当前不得开始建模
+## 当前建模边界
 
-尚未确认地点模型应表现的具体建筑主体、外观轮廓、材质、真实配色、周边范围和禁止复制元素，也未确认真实参考照片的公开展示权。后续用户图片到位后，先形成文字化形象约束和权利记录，再把本文件状态改为 `MODELING_READY`。
+- 现有照片是本轮完整视觉输入，不再等待侧面、背面、屋顶或更多细节照片。
+- 可见面按照片还原；门楼和雕塑的不可见面按低细节保守闭合并标记 `INFERRED_LOW_DETAIL`。
+- S1B 原始照片为 6048×4032、约 12 MB，公开展示副本需缩至 Kivicube 限制内，并裁除或处理背景人物。
+- 两张真实照片的公开展示许可仍待确认；在此之前只作内部建模依据。
+- `平西情报联络站文字素材.docx` 已收到，状态为 `RECEIVED / NOT_REVIEWED`，后续用于事实核验和旁白整理。
 
 旧自研任务中的地下电台小室、发报设备和门楼 GLB 不构成本任务的外形依据，不得直接复制、改名或上传到 Kivicube。
 
@@ -19,8 +28,9 @@
 - 原始图片和文字：`local_reference/`，仅限本地受控使用。
 - 手绘触发图：候选文件 `local_reference/**/trigger_hand_drawn.jpg`；经权利和真机识别审核后，才生成平台交付版本。
 - 真实照片展示图：必须登记与触发图的对应关系及公开展示许可；未经许可不得复制到平台 `images/`。
-- 可追踪形象约束：后续在本目录新增 `visual_constraints.md`。
-- 旁白参考与事实来源：后续在本目录新增 `narration_reference.md`。
+- 文件级对应关系：[`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。
+- 可追踪形象约束：下一步在本目录新增 `visual_constraints.md`，分别记录 S1A、S1B。
+- 旁白参考与事实来源：从已收到的 Word 整理到 `narration_reference.md`，原文件保持受控。
 - 平台交付与验收：[`../../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/asset_card.md`](../../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/asset_card.md)。
 - 平台统一规范：[`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。
 

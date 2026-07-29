@@ -1,2 +1,2 @@
-*
-!.gitignore
+# 图片与 Word 参考素材由根目录 .gitattributes 使用 Git LFS 管理。
+# PDF 与明确标记的敏感源文件仍由仓库根 .gitignore 排除。
