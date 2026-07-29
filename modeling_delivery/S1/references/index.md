@@ -2,11 +2,11 @@
 
 > 更新日期：2026-07-20
 > 状态：`INPUT_PACKAGE_AVAILABLE / STYLE_FRAMES_ALLOWED / FORMAL_ASSETS_PARTIALLY_BLOCKED`
-> 唯一输入入口：`modeling_input/S1/00_START_HERE.md`
+> 历史输入入口：`archive/self_built_app/modeling_input/S1/00_START_HERE.md`
 
 ## 1. 当前结论
 
-`modeling_input/S1/` 已正式交付，不再使用早期“资料包不存在、参考图为 0”的审计结论。建模模型必须从统一入口读取产品、史实、风格、权利、用户图片和当前白盒索引。
+旧 `modeling_input/S1/` 任务包已移入 `archive/self_built_app/modeling_input/S1/`。本索引只解释现有自研白盒的来源，不得作为当前平台建模入口。
 
 当前允许：
 
@@ -26,11 +26,11 @@
 
 | 编号 | 资料 | 路径 | 用途 | 状态 |
 |---|---|---|---|---|
-| REF-00 | 统一入口与全量清单 | `modeling_input/S1/00_START_HERE.md`、`package_manifest.csv` | 所有人从这里开始 | READY |
-| REF-01 | 用户审核 | `modeling_input/S1/01_OWNER_REVIEW.md` | 图片来源、用途、识图和三图闸门 | OWNER REVIEW |
-| REF-02 | 建模交接 | `modeling_input/S1/02_MODELING_HANDOFF.md` | 必读顺序、任务、输出、停止条件 | READY |
-| REF-03 | 用户图片说明 | `modeling_input/S1/03_MATERIALS_GUIDE.md`、`material_manifest.csv` | 图片哈希、可用/禁用内容 | INTERNAL ONLY |
-| REF-04 | 产品计划 | `红色电波AR产品计划书.md` | 产品、数据契约、性能与任务卡 | APPROVED BASELINE |
+| REF-00 | 归档入口与全量清单 | `archive/self_built_app/modeling_input/S1/00_START_HERE.md`、同目录 `package_manifest.csv` | 自研历史追溯 | ARCHIVED |
+| REF-01 | 用户审核 | `archive/self_built_app/modeling_input/S1/01_OWNER_REVIEW.md` | 旧图片用途和三图闸门 | ARCHIVED |
+| REF-02 | 建模交接 | `archive/self_built_app/modeling_input/S1/02_MODELING_HANDOFF.md` | 旧任务、输出和停止条件 | ARCHIVED |
+| REF-03 | 用户图片说明 | `archive/self_built_app/modeling_input/S1/03_MATERIALS_GUIDE.md`、同目录 `material_manifest.csv` | 旧用途与哈希 | ARCHIVED |
+| REF-04 | 产品计划 | `archive/self_built_app/PRODUCT_PLAN_v1.3.md` | 自研产品与数据契约 | ARCHIVED |
 | REF-05 | 已核史实 | `research/S1_pingxi_intelligence_station/verified_facts.md` | 时间、人物、任务和禁用说法 | VERIFIED WITH CAVEATS |
 | REF-06 | 布局规则 | `research/S1_pingxi_intelligence_station/scene_layout_brief.md` | 坐标、分区、通道和碰撞 | WHITEBOX BASELINE |
 | REF-07 | 资产规则 | `research/S1_pingxi_intelligence_station/modeling_brief.md` | 资产级造型与导出 | FORMAL PARTIALLY BLOCKED |
@@ -58,4 +58,4 @@
 
 ## 5. 下一步
 
-严格执行 `modeling_input/S1/02_MODELING_HANDOFF.md`：白盒审核 → STYLE-01/02/03 → `style_review_report.md` → 停止等待用户审核。正式资产解锁项见 `../open_questions.md`。
+该交付曾按 `archive/self_built_app/modeling_input/S1/02_MODELING_HANDOFF.md` 执行；当前只作自研历史归档，不再向平台线下达后续任务。

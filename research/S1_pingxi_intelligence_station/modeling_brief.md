@@ -1,8 +1,8 @@
 # S1 建模任务书
 
-> 当前状态：`USER_APPROVED_M3D_01R_COMPACT_CELLAR / FORMAL_ASSET_BLOCKED_UNTIL_REVISED_STYLE_GATE`
+> 归档状态：`SELF_BUILT_APP_REFERENCE_ONLY / DO_NOT_EXECUTE_FOR_PLATFORM`
 > 适用对象：3D 建模模型与资产审核模型  
-> 上位约束：`红色电波AR产品计划书.md` §4.3、§4.4、§5、§10、§13、§15
+> 旧自研上位约束：`archive/self_built_app/PRODUCT_PLAN_v1.3.md` §4.3、§4.4、§5、§10、§13、§15
 
 ## 1. 建模目标
 
@@ -44,7 +44,7 @@
 
 #### 白盒阶段
 
-- 使用 `modeling_input/S1/04_COMPACT_CELLAR_REVISION.md` 规定的约 5.3 m × 4.7 m × 2.25 m 尺度，不将此尺寸描述为历史尺寸。
+- 旧自研场景使用 `archive/self_built_app/modeling_input/S1/04_COMPACT_CELLAR_REVISION.md` 规定的约 5.3 m × 4.7 m × 2.25 m 尺度；当前平台模型不继承该尺寸。
 - 场景原点、轴向、游客起点和主要交互位置以 `04_COMPACT_CELLAR_REVISION.md` 为准；旧 `scene_layout_brief.md` 只保留历史对照。
 - 只建立：外边界、地面、低矮储洞门、木桌操作组、小型导览牌、少量凳/木箱和碰撞体。
 - 白盒材质使用中性灰、棕、蓝三色区分环境、交互物和导览物。
@@ -144,11 +144,11 @@
 - 提供正面、侧面、背面、线框和游客起点预览；
 - 任何看似“文字”的纹理必须同时提供审核截图和原文来源；未审核文字一律留空。
 
-## 8. 当前允许的建模模型执行口令
+## 8. 历史建模执行口令（当前禁止执行）
 
 ```text
 读取：
-1. 红色电波AR产品计划书.md 的 §4.3、§4.4、§5、§10、§13、§15；
+1. `archive/self_built_app/PRODUCT_PLAN_v1.3.md` 的 §4.3、§4.4、§5、§10、§13、§15；
 2. research/S1_pingxi_intelligence_station/ 下全部文件，尤其是 style_reference_board.md。
 
 本轮只执行 S1 白盒：

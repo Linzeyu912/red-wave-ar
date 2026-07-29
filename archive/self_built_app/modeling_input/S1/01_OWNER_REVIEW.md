@@ -1,4 +1,6 @@
-# S1 用户补充素材审核清单
+# S1 用户补充素材审核清单（自研程序线归档）
+
+> 本文件记录旧地下电台/门楼任务的历史审核，不解锁当前 LKIVIVUBE 地点模型。
 
 > 状态：`OWNER_APPROVED_INTERNAL_ONLY`
 > 对象：`USER-VIS-001` 当前入口、`USER-VIS-002` 当前浮雕墙、`USER-VIS-003` 电台与地下工作场景参考、`USER-VIS-004` 至 `USER-VIS-007` 门楼外观组

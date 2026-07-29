@@ -1,4 +1,6 @@
-# S1 用户补充图片包
+# S1 用户补充图片包（自研程序线归档）
+
+> 本文件记录旧任务的素材使用边界。原始文件仍保存在 `modeling_input/S1/local_reference/`，当前平台任务须重新登记用途。
 
 > 状态：`OWNER_APPROVED_INTERNAL_ONLY / PUBLIC_USE_PROHIBITED`
 > 整理日期：2026-07-27

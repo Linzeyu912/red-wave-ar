@@ -100,7 +100,7 @@
 
 ## 6. 空间构图
 
-沿用 `modeling_input/S1/04_COMPACT_CELLAR_REVISION.md` 的紧凑地下储洞小室尺度、游客起点、通道和桌面基准；旧 `scene_layout_brief.md` 的 8 m × 8 m 白盒已被用户否决，不能因保留旧风格图而继续使用。
+旧自研场景沿用 `archive/self_built_app/modeling_input/S1/04_COMPACT_CELLAR_REVISION.md` 的紧凑地下储洞小室尺度、游客起点、通道和桌面基准；此规则不适用于当前平台地点模型。
 
 ### ZONE-A 地域入口
 
@@ -202,4 +202,4 @@
 - 现馆浮雕再次证明“完整浮雕、人物群像和路线地图”属于现代展陈表达，继续列为反面参考；
 - 电台、发报键、线缆、木桌和煤油灯应构成紧凑可工作的桌面组；只提取结构关系与局部暖光，不复制具体设备或展陈布局；
 - 三张 STYLE 审核图不得出现真实牌匾、楹联、旗帜、栏杆、浮雕题字或浮雕人物；
-- 建模模型读取原图时必须遵守 `modeling_input/S1/03_MATERIALS_GUIDE.md`，原图不得进入工程或远程仓库。
+- 追溯旧任务时须遵守 `archive/self_built_app/modeling_input/S1/03_MATERIALS_GUIDE.md`；当前平台任务必须重新登记原图用途。

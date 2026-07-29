@@ -1,7 +1,7 @@
 # S1 紧凑储洞小室 · 白盒修订与风格图报告（M3D-01R）
 
 > 日期：2026-07-20 ｜ 任务：M3D-01R 修订轮（紧凑小室白盒重建 + 审核级电台 + 三张新风格图）
-> 依据：`modeling_input/S1/00_START_HERE.md`、`02_MODELING_HANDOFF.md`、`03_MATERIALS_GUIDE.md`、`04_COMPACT_CELLAR_REVISION.md`；`research/S1_pingxi_intelligence_station/` 全部文件
+> 历史依据：`archive/self_built_app/modeling_input/S1/00_START_HERE.md` 及同目录旧任务文件；`research/S1_pingxi_intelligence_station/` 全部文件
 > 本报告**取代** 2026-07-20 早前的 M3D-01 版报告。旧版 8 m × 8 m 大空间与粗略方块电台已被用户明确否决；旧版 STYLE-01/02/03、W1–W8、D-01、D-02 仅作历史对照，不再在旧布局上修补。
 > 边界：本轮完成后停止，等待用户与资料审核；不进入中模/高模/正式材质/正式环境（M3D-02/M3D-03）。
 
@@ -131,4 +131,4 @@
 
 ---
 
-**停止条件声明**：按 `04_COMPACT_CELLAR_REVISION.md`，M3D-01R 交付到此停止；不进入最终高模、PBR、人物、地图或 M3D-02/M3D-03。等待：① 用户对新三图与小室布局给出"通过/指定修改项"；② 资料审核模型复核史实、版权与冻结规则；③ 编码模型真机联调（坐标、起点、碰撞、拾取、yaw 基准）。旧版 8×8 相关材料仅作历史对照，不得作为后续依据。
+**归档停止条件**：M3D-01R 交付已停止，不再由本报告进入最终高模、PBR、人物、地图或 M3D-02/M3D-03。当前平台模型须从 `modeling_input/README.md` 重新立项。
