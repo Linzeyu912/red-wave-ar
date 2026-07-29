@@ -1,9 +1,10 @@
-# S3 短波通信局：Kivicube 资产卡
+# S3 “短波通信局”（项目暂定名）：Kivicube 资产卡
 
-> 状态：`VISUAL_INPUT_RECEIVED / TWO_MODEL_UNITS / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / TWO_MODEL_UNITS / IDENTITY_PENDING / NARRATION_PENDING / RIGHTS_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 - 当前输入入口：[`../../../modeling_input/S3/00_START_HERE.md`](../../../modeling_input/S3/00_START_HERE.md)。
+- 图片特征约束：[`../../../modeling_input/S3/visual_constraints.md`](../../../modeling_input/S3/visual_constraints.md)。
 - 交付目标：两件独立轻量模型。
 - 呈现顺序：各自的红白手绘触发图 → 对应的获准真实照片 → 对应的真实配色模型 → 旁白。
 
@@ -15,6 +16,7 @@
 - 模型真实配色依据：照片已收到，不从红白触发图取色；公开展示许可待确认。
 - 每个 GLB 目标 ≤5 MB、验收 ≤10 MB；目标 ≤5 网格、≤30,000 三角面、≤5 材质、≤10 贴图。
 - S3A 不可见建筑面标记 `INFERRED_LOW_DETAIL`；S3B 次级线缆按性能预算简化。
+- “短波通信局”仅为当前项目名；不得把“第三电台”“五六四台”等未证实身份写入模型文字、上传标题或旁白。核验依据：[`../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。
 - 受控输入：`../../../modeling_input/S3/local_reference/`。
 - 旁白文字：待补充后放 `narration/narration_v001.md`。
 - 预览图片与上传记录：分别放 `images/`、`upload/`；未经公开展示许可的参考图不得复制进来。

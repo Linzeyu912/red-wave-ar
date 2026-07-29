@@ -1,14 +1,16 @@
 # S7 中国电信博物馆：Kivicube 资产卡
 
-> 状态：`VISUAL_INPUT_RECEIVED / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / FACADE_STATE_PENDING / NARRATION_PENDING / RIGHTS_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 - 当前输入入口：[`../../../modeling_input/S7/00_START_HERE.md`](../../../modeling_input/S7/00_START_HERE.md)。
+- 图片特征约束：[`../../../modeling_input/S7/visual_constraints.md`](../../../modeling_input/S7/visual_constraints.md)。
 - 交付目标：S7A 中国电信博物馆主体轻量模型；现有照片为本轮完整视觉输入。
 - 呈现顺序：红白手绘触发图 → 获准的真实参考照片 → 真实配色模型 → 旁白。
 - 手绘触发图：`images/S7A_telecom_museum_trigger_v001.jpg`，评分与印刷真机测试待完成。
 - 真实照片展示图：`images/S7A_telecom_museum_reference_reveal_v001.jpg`；原图已收到，公开展示权待确认。
 - 模型真实配色依据：主要照片已收到，不从红白触发图取色；不可见面标记 `INFERRED_LOW_DETAIL`，不虚构馆名或企业标识。
+- 高塔竖向企业标识作为独立可替换贴花；最终 GLB 只采用一个年代状态，不把有标识和无标识照片的细节混合。核验依据：[`../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。
 - GLB：`model/S7A_telecom_museum_v001.glb`，目标 ≤5 MB、验收 ≤10 MB；目标 ≤5 网格、≤30,000 三角面、≤5 材质、≤10 贴图。
 - 受控输入：`../../../modeling_input/S7/local_reference/`。
 - 旁白文字：待补充后放 `narration/narration_v001.md`。

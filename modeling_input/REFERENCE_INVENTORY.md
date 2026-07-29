@@ -1,10 +1,12 @@
 # 建模参考与触发单元清单
 
-> 状态：`VISUAL_INPUT_RECEIVED / PUBLIC_LFS_UPLOAD_CONFIRMED / RIGHTS_PENDING / TEXT_PARTIAL`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / PUBLIC_LFS_UPLOAD_CONFIRMED / RIGHTS_PENDING / TEXT_PARTIAL`
 > 清点日期：2026-07-29
 > 原始素材根目录：`modeling_input/S?/local_reference/source_folder_20260727/`
 
-本清单登记受控输入的对应关系。用户已确认将 S1–S7 当前图片和 Word 上传到公开仓库，文件统一通过 Git LFS 存储；这项确认不替代摄影版权、隐私处理或 Kivicube 公开展示许可。当前共有 7 个地点、9 个独立“触发图—真实照片—模型”单元：平西情报联络站和短波通信局各有两个触发图，必须分别制作两个模型。
+本清单登记受控输入的对应关系。用户已确认将 S1–S7 当前图片和 Word 上传到公开仓库，文件统一通过 Git LFS 存储；这项确认不替代摄影版权、隐私处理或 Kivicube 公开展示许可。当前共有 7 个地点、9 个独立“触发图—真实照片—模型”单元：平西情报联络站和项目暂称“短波通信局”的 S3 各有两个触发图，必须分别制作两个模型。
+
+62 张图片已经完成第一轮逐张特征提取。总索引见 [`VISUAL_CONSTRAINTS_INDEX.md`](VISUAL_CONSTRAINTS_INDEX.md)，每个地点的图片覆盖表、主体特征、推断边界和提示词片段见对应的 `S?/visual_constraints.md`。
 
 ## 触发图、真实照片与模型对应
 
@@ -13,8 +15,8 @@
 | S1A | 平西情报联络站入口门楼 | `S1/.../trigger_hand_drawn.jpg` | `S1/.../微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v001.glb` | 尺寸可用；公开权待确认 |
 | S1B | 平西女报务员雕塑及发报设备 | `S1/.../平西情报联络站2.jpg` | `S1/.../微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v001.glb` | 需缩至 ≤4096、≤5 MB，并裁除/处理背景人物 |
 | S2A | 电报大楼 | `S2/.../trigger_hand_drawn.jpg` | `S2/.../微信图片_20260727183423_918_1.jpg` | `S2A_telegraph_building_v001.glb` | 需压至 ≤5 MB，并裁除车牌等无关信息 |
-| S3A | 短波通信局通信楼 | `S3/.../trigger_hand_drawn.jpg` | `S3/.../微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v001.glb` | 尺寸与体积可用；公开权待确认 |
-| S3B | 短波通信局天线阵列 | `S3/.../短波通信局2.jpg` | `S3/.../微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v001.glb` | 尺寸与体积可用；公开权待确认 |
+| S3A | S3 参考素材所示通信楼 | `S3/.../trigger_hand_drawn.jpg` | `S3/.../微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v001.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
+| S3B | S3 参考素材所示天线阵列 | `S3/.../短波通信局2.jpg` | `S3/.../微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v001.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
 | S4A | 居庸关城楼 | `S4/.../trigger_hand_drawn.jpg` | `S4/.../微信图片_20260727183424_919_1.jpg` | `S4A_juyong_pass_tower_v001.glb` | 需压至 ≤5 MB；公开权待确认 |
 | S5A | 西山无名英雄纪念广场雕塑群 | `S5/.../trigger_hand_drawn.jpg` | `S5/.../18b017b5eb0df80ff4c70fc5991203b5.jpg` | `S5A_memorial_sculpture_v001.glb` | 图片带“百度百科”水印，不能直接公开展示 |
 | S6A | 香山镇芳楼 | `S6/.../trigger_hand_drawn.jpg` | `S6/.../a4c5a574525a3f829e286f6eea4b9e08.jpg` | `S6A_zhenfang_lou_v001.glb` | 尺寸可用；公开权待确认 |

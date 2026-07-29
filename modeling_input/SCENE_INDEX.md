@@ -1,19 +1,19 @@
 # 建模场景索引：S1–S7
 
-> 状态：`PLATFORM_INPUT_INDEX / 7_SITES_9_MODEL_UNITS / VISUAL_INPUT_RECEIVED`
+> 状态：`PLATFORM_INPUT_INDEX / 7_SITES_9_MODEL_UNITS / VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED`
 > 更新日期：2026-07-29
 
 所有当前建模输入按场景编号归档在 `modeling_input/S1` 至 `modeling_input/S7`，并只服务 Kivicube 平台线。自研 App 的旧 S1 建模口令已移入 `archive/self_built_app/`；现有白盒仍留在 `modeling_delivery/S1/` 以维持构建和追溯。两个输出不得自动互相复用。
 
 ## 地点对照表
 
-新增建模约束素材时，**先对照本表确认场景编号、地点、建模单元和输入目录**，再放到对应场景的 `local_reference/source_folder_*/` 下。九个单元的文件级对应见 [`REFERENCE_INVENTORY.md`](REFERENCE_INVENTORY.md)。
+新增建模约束素材时，**先对照本表确认场景编号、地点、建模单元和输入目录**，再放到对应场景的 `local_reference/source_folder_*/` 下。九个单元的文件级对应见 [`REFERENCE_INVENTORY.md`](REFERENCE_INVENTORY.md)，图片提取结论与提示词入口见 [`VISUAL_CONSTRAINTS_INDEX.md`](VISUAL_CONSTRAINTS_INDEX.md)。
 
 | 场景 | 地点（中文） | 建模单元 | 建模输入入口 | 受控文件数 | Kivicube 平台线 |
 |---|---|---|---|---:|---|
 | S1 | 平西情报联络站 | S1A 入口门楼；S1B 女报务员雕塑 | `S1/00_START_HERE.md` | 14 | 图片与 S1 文字已收到；公开权待确认 |
 | S2 | 电报大楼 | S2A 电报大楼 | `S2/00_START_HERE.md` | 11 | 图片已收到；文字与公开权待确认 |
-| S3 | 短波通信局 | S3A 通信楼；S3B 天线阵列 | `S3/00_START_HERE.md` | 10 | 图片已收到；文字与公开权待确认 |
+| S3 | “短波通信局”（项目暂定名） | S3A 通信楼；S3B 天线阵列 | `S3/00_START_HERE.md` | 10 | 图片已收到；具体台站身份、文字与公开权待确认 |
 | S4 | 居庸关 | S4A 居庸关城楼 | `S4/00_START_HERE.md` | 9 | 图片已收到；文字与公开权待确认 |
 | S5 | 西山无名英雄纪念广场 | S5A 纪念雕塑群 | `S5/00_START_HERE.md` | 9 | 图片已收到；文字待补，展示照片需解决水印/权利 |
 | S6 | 香山镇芳楼 | S6A 镇芳楼 | `S6/00_START_HERE.md` | 9 | 图片已收到；文字与公开权待确认 |

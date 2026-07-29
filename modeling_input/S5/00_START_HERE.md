@@ -1,6 +1,6 @@
 # S5 建模输入包：西山无名英雄纪念广场
 
-> 状态：`VISUAL_INPUT_RECEIVED / SINGLE_VIEW_ACCEPTED / NARRATION_PENDING / DISPLAY_PHOTO_BLOCKED`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / SINGLE_VIEW_ACCEPTED / NARRATION_PENDING / DISPLAY_PHOTO_BLOCKED`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S5 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S5_memorial_plaza/asset_card.md`
@@ -19,4 +19,6 @@
 - 现有照片是本轮完整视觉输入，不再等待其他角度；雕塑背面和不可见细节按 `INFERRED_LOW_DETAIL` 闭合。
 - 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；在取得真实照片公开展示许可前，不得进入 App、Kivicube、宣传或公开交付。
 - 当前补充照片带“百度百科”水印，可作内部建模参考，但不能直接作为触发后的公开展示照片；正式发布前需取得许可或更换无水印可公开素材。
+- 官方公开资料确认四尊雕像人物为陈宝仓、朱枫、吴石、聂曦，但未给出当前照片视角下的左右姓名顺序；建模阶段只锁定可见姿态，不强行绑定姓名。
+- 前置铜牌语义标题统一为《家国》；实物为传统右起排字，正面看从左至右可见“国、家”。四尊人物、浮雕墙、铜牌和提示词片段见 [`visual_constraints.md`](visual_constraints.md)，公开资料核验见 [`../SUBJECT_IDENTITY_VERIFICATION.md`](../SUBJECT_IDENTITY_VERIFICATION.md)。
 - 最终 GLB 目标 ≤5 MB、验收 ≤10 MB。文件级对应见 [`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。

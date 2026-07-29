@@ -1,9 +1,10 @@
 # S2 电报大楼：Kivicube 资产卡
 
-> 状态：`VISUAL_INPUT_RECEIVED / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / NARRATION_PENDING / RIGHTS_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 - 当前输入入口：[`../../../modeling_input/S2/00_START_HERE.md`](../../../modeling_input/S2/00_START_HERE.md)。
+- 图片特征约束：[`../../../modeling_input/S2/visual_constraints.md`](../../../modeling_input/S2/visual_constraints.md)。
 - 交付目标：S2A 电报大楼正立面主轮廓轻量模型；现有照片为本轮完整视觉输入。
 - 呈现顺序：红白手绘触发图 → 获准的真实参考照片 → 真实配色模型 → 旁白。
 - 手绘触发图：`images/S2A_telegraph_building_trigger_v001.jpg`，评分与印刷真机测试待完成。

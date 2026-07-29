@@ -21,13 +21,13 @@
 
 1. S1 平西情报联络站：入口门楼、女报务员雕塑及发报设备
 2. S2 电报大楼
-3. S3 短波通信局：通信楼、天线阵列
+3. S3 “短波通信局”（项目暂定名）：通信楼、天线阵列；具体台站身份在取得可追溯依据前保持 `IDENTITY_PENDING`
 4. S4 居庸关
 5. S5 西山无名英雄纪念广场
 6. S6 香山镇芳楼
 7. S7 中国电信博物馆
 
-九个单元的编号、触发图、照片和计划 GLB 以 [`modeling_input/REFERENCE_INVENTORY.md`](../modeling_input/REFERENCE_INVENTORY.md) 为准。每个单元默认按“扫描手绘触发图 → 展示真实参考照片 → 展示真实配色模型 → 播放旁白”编排。路线图仅用于确认地点集合及整体叙事背景；它不自行确定模型外形、比例、路线顺序、坐标或历史事实。
+九个单元的编号、触发图、照片和计划 GLB 以 [`modeling_input/REFERENCE_INVENTORY.md`](../modeling_input/REFERENCE_INVENTORY.md) 为准，主体身份与公开资料边界见 [`modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。每个单元默认按“扫描手绘触发图 → 展示真实参考照片 → 展示真实配色模型 → 播放旁白”编排。路线图仅用于确认地点集合及整体叙事背景；它不自行确定模型外形、比例、路线顺序、坐标或历史事实。
 
 ## 3. 旧资产的处理
 
