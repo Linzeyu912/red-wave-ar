@@ -12,7 +12,7 @@
   "status": "PASS",
   "assets": [
     {
-      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb",
+      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -21,12 +21,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 5.210000038146973,
+        "maximum": 5.389999866485596,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 251232,
+          "value": 295692,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -35,7 +35,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 1864,
+          "value": 2540,
           "maximum": 30000
         },
         "materials": {
@@ -58,13 +58,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 1864,
+        "triangles": 2540,
         "materials": 5,
         "images": 1
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb",
+      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -73,12 +73,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 2.6333823204040527,
+        "maximum": 2.608382225036621,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 94612,
+          "value": 261224,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -87,7 +87,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 1392,
+          "value": 3802,
           "maximum": 30000
         },
         "materials": {
@@ -110,13 +110,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 3,
-        "triangles": 1392,
+        "triangles": 3802,
         "materials": 3,
         "images": 0
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb",
+      "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -125,12 +125,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 14.0,
+        "maximum": 14.800000190734863,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 119948,
+          "value": 683368,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -139,7 +139,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 1712,
+          "value": 9836,
           "maximum": 30000
         },
         "materials": {
@@ -162,13 +162,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 1712,
+        "triangles": 9836,
         "materials": 5,
         "images": 0
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb",
+      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -177,12 +177,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 8.550000190734863,
+        "maximum": 10.699999809265137,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 134244,
+          "value": 317896,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -191,7 +191,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 2124,
+          "value": 4492,
           "maximum": 30000
         },
         "materials": {
@@ -214,13 +214,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 4,
-        "triangles": 2124,
+        "triangles": 4492,
         "materials": 4,
         "images": 0
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb",
+      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -229,12 +229,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 7.446308612823486,
+        "maximum": 7.488889694213867,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 314084,
+          "value": 809228,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -243,7 +243,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 4876,
+          "value": 12476,
           "maximum": 30000
         },
         "materials": {
@@ -266,13 +266,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 3,
-        "triangles": 4876,
+        "triangles": 12476,
         "materials": 3,
         "images": 0
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb",
+      "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -281,12 +281,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 10.71500015258789,
+        "maximum": 10.718000411987305,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 104772,
+          "value": 517464,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -295,7 +295,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 1172,
+          "value": 7348,
           "maximum": 30000
         },
         "materials": {
@@ -318,13 +318,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 1172,
+        "triangles": 7348,
         "materials": 5,
         "images": 1
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb",
+      "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -333,12 +333,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 4.063332557678223,
+        "maximum": 4.155862331390381,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 301792,
+          "value": 584488,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -347,7 +347,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 4246,
+          "value": 8332,
           "maximum": 30000
         },
         "materials": {
@@ -370,13 +370,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 4,
-        "triangles": 4246,
+        "triangles": 8332,
         "materials": 4,
         "images": 1
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb",
+      "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -385,12 +385,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 6.099999904632568,
+        "maximum": 5.900000095367432,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 104460,
+          "value": 515552,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -399,7 +399,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 1490,
+          "value": 7658,
           "maximum": 30000
         },
         "materials": {
@@ -422,13 +422,13 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 1490,
+        "triangles": 7658,
         "materials": 5,
         "images": 0
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb",
+      "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v003.glb",
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
@@ -437,12 +437,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 11.079999923706055,
+        "maximum": 11.574999809265137,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 130176,
+          "value": 390380,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -451,7 +451,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 1304,
+          "value": 5024,
           "maximum": 30000
         },
         "materials": {
@@ -474,7 +474,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 1304,
+        "triangles": 5024,
         "materials": 5,
         "images": 1
       }

@@ -1,6 +1,6 @@
 # S1 平西情报联络站：平台输入入口
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / MODEL_V2_BUILT / NARRATION_REFERENCE_RECEIVED / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / MODEL_V3_BUILT / NARRATION_REFERENCE_RECEIVED / RIGHTS_PENDING`
 
 ## 当前目标
 
@@ -8,8 +8,8 @@
 
 | 单元 | 对象 | 手绘触发图 | 真实照片 | 当前模型 |
 |---|---|---|---|---|
-| S1A | 入口门楼 | `trigger_hand_drawn.jpg` | `微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v002.glb` |
-| S1B | 女报务员雕塑及发报设备 | `平西情报联络站2.jpg` | `微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v002.glb` |
+| S1A | 入口门楼 | `trigger_hand_drawn.jpg` | `微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v003.glb` |
+| S1B | 女报务员雕塑及发报设备 | `平西情报联络站2.jpg` | `微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v003.glb` |
 
 默认体验顺序是：识别红白手绘触发图 → 同位置展示已获公开许可的 1:1 真实照片卡 → GLB 从照片主体下缘贴地展开 → 旁白。照片保持可见，不使用通用厚展台。
 

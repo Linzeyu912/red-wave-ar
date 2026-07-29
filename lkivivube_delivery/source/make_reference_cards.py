@@ -82,7 +82,7 @@ def main() -> None:
     report = []
     for profile in data["assets"]:
         source = ROOT / profile["reference_source"]
-        output = OUTPUT_DIR / f"{profile['asset_id']}_reference_card_v002.jpg"
+        output = OUTPUT_DIR / f"{profile['asset_id']}_reference_card_v003.jpg"
         entry = make_card(source, profile["reference_crop_uv"], output)
         entry.update(
             {

@@ -13,6 +13,7 @@
 | 补充某个地点的图片、文字或建模约束 | [`modeling_input/README.md`](modeling_input/README.md) |
 | 查看 9 个触发图、真实照片与模型对应关系 | [`modeling_input/REFERENCE_INVENTORY.md`](modeling_input/REFERENCE_INVENTORY.md) |
 | 查看 62 张图片提取出的主体特征与提示词素材 | [`modeling_input/VISUAL_CONSTRAINTS_INDEX.md`](modeling_input/VISUAL_CONSTRAINTS_INDEX.md) |
+| 查看针对模型真实度的二次细节提取 | [`modeling_input/DETAIL_EXTRACTION_V2.md`](modeling_input/DETAIL_EXTRACTION_V2.md) |
 | 查看主体身份、同地点一致性与公开资料核验 | [`modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](modeling_input/SUBJECT_IDENTITY_VERIFICATION.md) |
 | 查看或交付 Kivicube 模型、图片与旁白 | [`lkivivube_delivery/README.md`](lkivivube_delivery/README.md) |
 | 维护已有 Android / Filament 程序 | [`docs/CODE_HANDOFF.md`](docs/CODE_HANDOFF.md) |
@@ -23,7 +24,7 @@
 
 | 工作线 | 目标 | 活动目录 | 状态 |
 |---|---|---|---|
-| Kivicube 平台素材 | 七个地点、九个触发单元的 GLB、触发图、真实照片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 9 个 V2 GLB 与照片平面衔接已完成本地验收；等待权利确认、后续文字和平台真机验证 |
+| Kivicube 平台素材 | 七个地点、九个触发单元的 GLB、触发图、真实照片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 9 个 V3 细节版 GLB 与照片平面衔接已完成本地验收；等待权利确认、后续文字和平台真机验证 |
 | 自研程序 | 维护和优化已有 Android / Filament 虚拟研学体验 | `app/`、`modeling_delivery/`、`docs/` | 保留维护，不以真机 AR 连接为当前主阻塞项 |
 
 两条线不得自动混用模型。平台 GLB 不直接复制到 `app/src/main/assets/`；自研 S1 地下电台白盒和门楼也不直接上传到 Kivicube。

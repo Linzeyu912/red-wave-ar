@@ -2,210 +2,210 @@
   "assets": [
     {
       "asset_id": "s1a_pingxi_gate",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1A_pingxi_gate_v002.glb",
-      "size_bytes": 251232,
-      "triangles": 1864,
-      "vertices": 3722,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1A_pingxi_gate_v003.glb",
+      "size_bytes": 295692,
+      "triangles": 2540,
+      "vertices": 4986,
       "meshes": 5,
       "materials": 5,
       "textures": 1,
       "animations": 1,
       "bounds_min": [
-        -3.119999885559082,
+        -3.369999885559082,
         0.0,
-        -2.3399999141693115
+        -1.7200000286102295
       ],
       "bounds_max": [
-        3.119999885559082,
-        5.210000038146973,
-        1.0750000476837158
+        3.369999885559082,
+        5.389999866485596,
+        1.100000023841858
       ],
       "ground_normalization_offset": 0.0,
-      "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb"
+      "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v003.glb"
     },
     {
       "asset_id": "s1b_radio_operator_statue",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1B_radio_operator_statue_v002.glb",
-      "size_bytes": 94612,
-      "triangles": 1392,
-      "vertices": 2554,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1B_radio_operator_statue_v003.glb",
+      "size_bytes": 261224,
+      "triangles": 3802,
+      "vertices": 7308,
       "meshes": 3,
       "materials": 3,
       "textures": 0,
       "animations": 1,
       "bounds_min": [
-        -0.824999988079071,
+        -0.9617158770561218,
         0.0,
-        -1.2000000476837158
+        -1.2647104263305664
       ],
       "bounds_max": [
-        0.824999988079071,
-        2.6333823204040527,
-        0.3851453363895416
+        0.9617158770561218,
+        2.608382225036621,
+        0.3842705190181732
       ],
-      "ground_normalization_offset": -0.020000000000000004,
-      "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb"
+      "ground_normalization_offset": -0.045,
+      "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb"
     },
     {
       "asset_id": "s2a_telegraph_building",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S2_telegraph_building\\model\\S2A_telegraph_building_v002.glb",
-      "size_bytes": 119948,
-      "triangles": 1712,
-      "vertices": 3228,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S2_telegraph_building\\model\\S2A_telegraph_building_v003.glb",
+      "size_bytes": 683368,
+      "triangles": 9836,
+      "vertices": 19308,
       "meshes": 5,
       "materials": 5,
       "textures": 0,
       "animations": 1,
       "bounds_min": [
-        -9.0649995803833,
+        -9.600000381469727,
         0.0,
-        -3.6500000953674316
+        -4.260000228881836
       ],
       "bounds_max": [
-        9.0649995803833,
-        14.0,
-        1.75
+        9.600000381469727,
+        14.800000190734863,
+        2.174999952316284
       ],
       "ground_normalization_offset": 0.0,
-      "relative_file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb"
+      "relative_file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v003.glb"
     },
     {
       "asset_id": "s3a_shortwave_station_building",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3A_shortwave_station_building_v002.glb",
-      "size_bytes": 134244,
-      "triangles": 2124,
-      "vertices": 3624,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3A_shortwave_station_building_v003.glb",
+      "size_bytes": 317896,
+      "triangles": 4492,
+      "vertices": 8916,
       "meshes": 4,
       "materials": 4,
       "textures": 0,
       "animations": 1,
       "bounds_min": [
-        -6.75,
+        -7.474999904632568,
         0.0,
-        -3.25
+        -3.4700000286102295
       ],
       "bounds_max": [
-        6.75,
-        8.550000190734863,
-        2.4000000953674316
+        7.349999904632568,
+        10.699999809265137,
+        2.450000047683716
       ],
       "ground_normalization_offset": 0.0,
-      "relative_file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb"
+      "relative_file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v003.glb"
     },
     {
       "asset_id": "s3b_shortwave_antenna_array",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3B_shortwave_antenna_array_v002.glb",
-      "size_bytes": 314084,
-      "triangles": 4876,
-      "vertices": 8760,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3B_shortwave_antenna_array_v003.glb",
+      "size_bytes": 809228,
+      "triangles": 12476,
+      "vertices": 22808,
       "meshes": 3,
       "materials": 3,
       "textures": 0,
       "animations": 1,
       "bounds_min": [
-        -6.061581611633301,
+        -6.139999866485596,
         0.0,
-        -6.061581611633301
+        -6.139999866485596
       ],
       "bounds_max": [
-        6.061581611633301,
-        7.446308612823486,
-        6.061581611633301
+        6.139999866485596,
+        7.488889694213867,
+        6.139999866485596
       ],
-      "ground_normalization_offset": 0.016048278871302304,
-      "relative_file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb"
+      "ground_normalization_offset": 0.024248711305964284,
+      "relative_file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v003.glb"
     },
     {
       "asset_id": "s4a_juyong_pass_tower",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S4_juyong_pass\\model\\S4A_juyong_pass_tower_v002.glb",
-      "size_bytes": 104772,
-      "triangles": 1172,
-      "vertices": 2182,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S4_juyong_pass\\model\\S4A_juyong_pass_tower_v003.glb",
+      "size_bytes": 517464,
+      "triangles": 7348,
+      "vertices": 13918,
       "meshes": 5,
       "materials": 5,
       "textures": 1,
       "animations": 1,
       "bounds_min": [
-        -6.0,
+        -5.900000095367432,
         0.0,
-        -2.289724349975586
+        -3.044647693634033
       ],
       "bounds_max": [
-        6.0,
-        10.71500015258789,
-        2.0
+        5.900000095367432,
+        10.718000411987305,
+        2.700000047683716
       ],
       "ground_normalization_offset": 0.0,
-      "relative_file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb"
+      "relative_file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v003.glb"
     },
     {
       "asset_id": "s5a_memorial_sculpture",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S5_memorial_plaza\\model\\S5A_memorial_sculpture_v002.glb",
-      "size_bytes": 301792,
-      "triangles": 4246,
-      "vertices": 8086,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S5_memorial_plaza\\model\\S5A_memorial_sculpture_v003.glb",
+      "size_bytes": 584488,
+      "triangles": 8332,
+      "vertices": 16154,
       "meshes": 4,
       "materials": 4,
       "textures": 1,
       "animations": 1,
       "bounds_min": [
-        -5.163666248321533,
+        -5.548607349395752,
         0.0,
-        -3.9154646396636963
+        -3.996734619140625
       ],
       "bounds_max": [
-        5.163666248321533,
-        4.063332557678223,
-        0.800000011920929
+        5.699367046356201,
+        4.155862331390381,
+        0.9700000286102295
       ],
-      "ground_normalization_offset": 0.1133323631519636,
-      "relative_file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb"
+      "ground_normalization_offset": 0.07586214338603364,
+      "relative_file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v003.glb"
     },
     {
       "asset_id": "s6a_zhenfang_lou",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S6_zhenfang_lou\\model\\S6A_zhenfang_lou_v002.glb",
-      "size_bytes": 104460,
-      "triangles": 1490,
-      "vertices": 2786,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S6_zhenfang_lou\\model\\S6A_zhenfang_lou_v003.glb",
+      "size_bytes": 515552,
+      "triangles": 7658,
+      "vertices": 14474,
       "meshes": 5,
       "materials": 5,
       "textures": 0,
       "animations": 1,
       "bounds_min": [
-        -5.0,
+        -5.025000095367432,
         0.0,
-        -4.539999961853027
+        -5.059999942779541
       ],
       "bounds_max": [
-        5.0,
-        6.099999904632568,
-        2.5999999046325684
+        5.025000095367432,
+        5.900000095367432,
+        2.674999952316284
       ],
       "ground_normalization_offset": 0.0,
-      "relative_file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb"
+      "relative_file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v003.glb"
     },
     {
       "asset_id": "s7a_telecom_museum",
-      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S7_telecom_museum\\model\\S7A_telecom_museum_v002.glb",
-      "size_bytes": 130176,
-      "triangles": 1304,
-      "vertices": 2332,
+      "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S7_telecom_museum\\model\\S7A_telecom_museum_v003.glb",
+      "size_bytes": 390380,
+      "triangles": 5024,
+      "vertices": 9764,
       "meshes": 5,
       "materials": 5,
       "textures": 1,
       "animations": 1,
       "bounds_min": [
-        -7.71999979019165,
+        -7.598422050476074,
         0.0,
-        -3.369983673095703
+        -3.440000057220459
       ],
       "bounds_max": [
         7.550000190734863,
-        11.079999923706055,
-        3.6500000953674316
+        11.574999809265137,
+        4.139999866485596
       ],
       "ground_normalization_offset": 0.0,
-      "relative_file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb"
+      "relative_file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v003.glb"
     }
   ]
 }

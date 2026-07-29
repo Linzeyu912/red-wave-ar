@@ -1,6 +1,6 @@
 # 九个 Kivicube 轻量模型：可复现源文件
 
-本目录保存七地点、九个独立建模单元的生成、Blender 复核与验收流水线。当前版本是依据 `modeling_input/S1` 至 `S7` 已有照片约束制作的 V2 照片平面衔接模型，不是 1:1 测绘复刻；照片没有覆盖的侧面、背面和屋顶按 `INFERRED_LOW_DETAIL` 保守闭合。
+本目录保存七地点、九个独立建模单元的生成、Blender 复核与验收流水线。当前版本是依据 `modeling_input/S1` 至 `S7` 的 62 张现有照片和 [`DETAIL_EXTRACTION_V2.md`](../../modeling_input/DETAIL_EXTRACTION_V2.md) 制作的 V3 细节版照片平面衔接模型，不是 1:1 测绘复刻；照片没有覆盖的侧面、背面和屋顶按 `INFERRED_LOW_DETAIL` 保守闭合。
 
 ## 交付内容
 
@@ -13,6 +13,7 @@
 - `make_presentation_handoff.py`：结合最终 GLB 包围盒计算 Kivicube 精确位置与自动适配后的缩放值。
 - `presentation_handoff_report.json`：可直接照录到场景编辑器的图片平面和模型布局结果。
 - `make_reference_cards.py`：在私有 `.build/` 中生成不拉伸、不裁主体的 1:1 参考照片 QA 卡。
+- `make_reference_detail_sheets.py`：将每个地点全部受控照片生成带文件名的私有细节复核图，不复制到公开交付目录。
 - `blender_transition_review.py`：渲染“参考照片平面—浅浮雕—完整三维”三阶段内部预览。
 - `make_transition_contact_sheet.py`：合成九个模型的三阶段内部总览。
 - `build_and_review.ps1`：Windows 一键重建与验收入口。
@@ -38,11 +39,11 @@
 .\lkivivube_delivery\source\build_and_review.ps1 -BlenderExe 'C:\Tools\Blender\blender.exe'
 ```
 
-命令必须以 `[PASS]` 输出九个模型且最终报告状态为 `PASS` 才能进入 Kivicube 上传测试。重新生成会覆盖同名 V2 GLB、`.blend`、预览和报告，不会改动受控参考图。
+命令必须以 `[PASS]` 输出九个模型且最终报告状态为 `PASS` 才能进入 Kivicube 上传测试。重新生成会覆盖同名 V3 GLB、`.blend`、预览和报告，不会改动受控参考图。
 
 ## 人工视觉验收
 
-自动验收通过后仍需打开 `model_contact_sheet.png`、每个场景 `images/*_preview_v002.png` 和私有 `.build/transition_contact_sheet.png`，按对应 `modeling_input/S?/visual_constraints.md` 检查：
+自动验收通过后仍需打开 `model_contact_sheet.png`、每个场景 `images/*_preview_v003.png`、私有 `.build/reference_detail_sheets/` 和 `.build/transition_contact_sheet.png`，按对应 `modeling_input/S?/visual_constraints.md` 及二次细节提取检查：
 
 1. 主体剪影、体块关系、标志性构件和真实配色一致；
 2. 牌匾文字没有镜像或错序；
