@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import math
 import pathlib
+import re
 
 import bpy
 from mathutils import Vector
@@ -28,7 +29,7 @@ def clear_scene() -> None:
     bpy.ops.object.select_all(action="SELECT")
     bpy.ops.object.delete(use_global=False)
     for datablocks in (bpy.data.meshes, bpy.data.curves, bpy.data.materials,
-                       bpy.data.cameras, bpy.data.lights):
+                       bpy.data.cameras, bpy.data.lights, bpy.data.actions):
         for datablock in list(datablocks):
             if datablock.users == 0:
                 datablocks.remove(datablock)
@@ -147,6 +148,15 @@ def main() -> None:
         imported = mesh_objects()
         if not imported:
             raise RuntimeError(f"No mesh imported from {glb_path}")
+        action_names = sorted(action.name for action in bpy.data.actions)
+        if action_names:
+            final_frame = max(
+                math.ceil(action.frame_range[1])
+                for action in bpy.data.actions
+            )
+            bpy.context.scene.frame_end = max(bpy.context.scene.frame_start, final_frame)
+            bpy.context.scene.frame_set(bpy.context.scene.frame_end)
+            bpy.context.view_layer.update()
         minimum, maximum = bounds(imported)
         triangles = sum(len(obj.data.loop_triangles) for obj in imported)
         materials = {slot.material.name for obj in imported for slot in obj.material_slots if slot.material}
@@ -159,7 +169,10 @@ def main() -> None:
 
         add_review_world(minimum, maximum)
         image_dir = glb_path.parent.parent / "images"
-        preview_name = glb_path.stem.replace("_v001", "") + "_preview_v001.png"
+        version_match = re.search(r"_(v\d{3})$", glb_path.stem)
+        version = version_match.group(1) if version_match else "v001"
+        base_name = re.sub(r"_v\d{3}$", "", glb_path.stem)
+        preview_name = f"{base_name}_preview_{version}.png"
         preview_path = image_dir / preview_name
         render_preview(preview_path)
 
@@ -172,6 +185,9 @@ def main() -> None:
             "triangles": triangles,
             "materials": len(materials),
             "images": len(images),
+            "animations": len(action_names),
+            "animation_names": action_names,
+            "review_frame": bpy.context.scene.frame_current,
             "bounds_min": [round(value, 4) for value in minimum],
             "bounds_max": [round(value, 4) for value in maximum],
             "dimensions": [round(value, 4) for value in (maximum - minimum)],
@@ -179,7 +195,8 @@ def main() -> None:
         review.append(entry)
         print(
             f"[BLENDER PASS] {entry['asset_id']} meshes={entry['mesh_objects']} "
-            f"tris={entry['triangles']} mats={entry['materials']} images={entry['images']}"
+            f"tris={entry['triangles']} mats={entry['materials']} images={entry['images']} "
+            f"animations={entry['animations']}"
         )
     REVIEW_REPORT.write_text(json.dumps({"blender": bpy.app.version_string, "assets": review},
                                         ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

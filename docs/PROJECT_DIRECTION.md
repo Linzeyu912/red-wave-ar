@@ -27,7 +27,7 @@
 6. S6 香山镇芳楼
 7. S7 中国电信博物馆
 
-九个单元的编号、触发图、照片和计划 GLB 以 [`modeling_input/REFERENCE_INVENTORY.md`](../modeling_input/REFERENCE_INVENTORY.md) 为准，主体身份与公开资料边界见 [`modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。每个单元默认按“扫描手绘触发图 → 展示真实参考照片 → 展示真实配色模型 → 播放旁白”编排。路线图仅用于确认地点集合及整体叙事背景；它不自行确定模型外形、比例、路线顺序、坐标或历史事实。
+九个单元的编号、触发图、照片和计划 GLB 以 [`modeling_input/REFERENCE_INVENTORY.md`](../modeling_input/REFERENCE_INVENTORY.md) 为准，主体身份与公开资料边界见 [`modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。每个单元默认按“扫描手绘触发图 → 同位置展示 1:1 真实参考照片卡 → 模型从照片主体下缘贴地展开 → 播放旁白”编排。参考照片保持为模型底部环境联系，不使用与照片割裂的通用厚展台。路线图仅用于确认地点集合及整体叙事背景；它不自行确定模型外形、比例、路线顺序、坐标或历史事实。
 
 ## 3. 旧资产的处理
 
@@ -66,4 +66,4 @@
 - 一份可审核、可作为 AR 旁白基础的文字稿；
 - 一张填写完整的资产卡，说明模型范围、真实配色依据、来源、版本、性能实测和待确认项。
 
-当前九个单元的基础视觉输入已收到。下一步先形成逐单元形象约束和推断边界；文字资料除 S1 外仍待补，不影响视觉分析，但会阻塞旁白定稿和正式发布。
+当前九个单元的基础视觉输入、逐单元形象约束、V2 GLB 和照片平面衔接参数已完成本地验收。下一步是确认真实照片公开展示权、补齐 S1 之外的文字、在 Kivicube 中录入交接参数并完成网页端/微信小程序端真机验证；这些事项会继续阻塞旁白定稿和正式发布。
