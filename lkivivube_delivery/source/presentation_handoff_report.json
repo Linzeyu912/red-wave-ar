@@ -1,0 +1,512 @@
+{
+  "schema": "red-wave-ar.kivicube-photo-plane-handoff.v1",
+  "coordinate_contract": {
+    "unit": "target_image_long_edge",
+    "target_plane": "XZ",
+    "up_axis": "Y",
+    "image_bottom_axis": "+Z",
+    "image_center": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "reference_photo_y": 0.002,
+    "model_ground_y": 0.006,
+    "note": "Kivicube handoff values, not a directly importable platform scene file"
+  },
+  "sequence": [
+    {
+      "phase": "trigger",
+      "start_seconds": 0.0,
+      "asset": "physical_red_white_target"
+    },
+    {
+      "phase": "reference_photo",
+      "start_seconds": 0.15,
+      "asset": "square_contain_reference_card",
+      "keep_visible_under_model": true
+    },
+    {
+      "phase": "model_emergence",
+      "start_seconds": 2.2,
+      "asset": "glb",
+      "animation": "photo_emerge",
+      "auto_play": true
+    },
+    {
+      "phase": "narration",
+      "start_seconds": 3.2,
+      "keep_reference_photo_visible": true
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "S1A",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb",
+        "position": [
+          0.0,
+          0.006,
+          0.11
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.11538462,
+        "uniform_scale_after_kivicube_auto_fit": 0.72,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.5,
+        0.88
+      ],
+      "target_footprint": {
+        "x": [
+          -0.36,
+          0.36
+        ],
+        "z": [
+          -0.16,
+          0.234038
+        ],
+        "inside_square_target": true
+      },
+      "note": "门楼下缘在照片外，模型从参考图下边缘抬起，不虚构照片中的地面。"
+    },
+    {
+      "asset_id": "S1B",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb",
+        "position": [
+          -0.12,
+          0.006,
+          0.058182
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.21818182,
+        "uniform_scale_after_kivicube_auto_fit": 0.574556,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.38,
+        0.82
+      ],
+      "target_footprint": {
+        "x": [
+          -0.3,
+          0.06
+        ],
+        "z": [
+          -0.203636,
+          0.142214
+        ],
+        "inside_square_target": true
+      },
+      "note": "参考卡先裁除右侧参观者，模型从雕塑桌面/底座所在的下部区域展开。"
+    },
+    {
+      "asset_id": "S2A",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb",
+        "position": [
+          0.0,
+          0.006,
+          0.202967
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.04302262,
+        "uniform_scale_after_kivicube_auto_fit": 0.78,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.5,
+        0.86
+      ],
+      "target_footprint": {
+        "x": [
+          -0.39,
+          0.39
+        ],
+        "z": [
+          0.045935,
+          0.278257
+        ],
+        "inside_square_target": true
+      },
+      "note": "裁去底部车辆后，模型沿建筑中央入口与树线后的基部抬起。"
+    },
+    {
+      "asset_id": "S3A",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "IDENTITY_AND_RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb",
+        "position": [
+          0.04,
+          0.006,
+          0.166667
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.05333333,
+        "uniform_scale_after_kivicube_auto_fit": 0.72,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.54,
+        0.84
+      ],
+      "target_footprint": {
+        "x": [
+          -0.32,
+          0.4
+        ],
+        "z": [
+          -0.006667,
+          0.294667
+        ],
+        "inside_square_target": true
+      },
+      "note": "保留竖幅原图完整构图，模型从照片中的低层翼楼与台阶线展开。"
+    },
+    {
+      "asset_id": "S3B",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "IDENTITY_AND_RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb",
+        "position": [
+          0.02,
+          0.006,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.06104017,
+        "uniform_scale_after_kivicube_auto_fit": 0.74,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.52,
+        0.87
+      ],
+      "target_footprint": {
+        "x": [
+          -0.35,
+          0.39
+        ],
+        "z": [
+          -0.37,
+          0.37
+        ],
+        "inside_square_target": true
+      },
+      "note": "天线基座在照片外，中心桅杆从下边缘延伸，避免额外制作方形展台。"
+    },
+    {
+      "asset_id": "S4A",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb",
+        "position": [
+          0.0,
+          0.006,
+          0.246433
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.05833333,
+        "uniform_scale_after_kivicube_auto_fit": 0.7,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.5,
+        0.88
+      ],
+      "target_footprint": {
+        "x": [
+          -0.35,
+          0.35
+        ],
+        "z": [
+          0.112865,
+          0.363099
+        ],
+        "inside_square_target": true
+      },
+      "note": "城门洞下缘接近照片边界，模型从该边界抬起并保留拱门负空间。"
+    },
+    {
+      "asset_id": "S5A",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "BLOCKED_WATERMARK_AND_RIGHTS"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb",
+        "position": [
+          0.0,
+          0.006,
+          -0.020561
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.07165451,
+        "uniform_scale_after_kivicube_auto_fit": 0.74,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.5,
+        0.76
+      ],
+      "target_footprint": {
+        "x": [
+          -0.37,
+          0.37
+        ],
+        "z": [
+          -0.301121,
+          0.036763
+        ],
+        "inside_square_target": true
+      },
+      "note": "模型沿照片中的广场铺装与斜置铜牌接触区展开；当前照片只允许内部预览。"
+    },
+    {
+      "asset_id": "S6A",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb",
+        "position": [
+          0.02,
+          0.006,
+          -0.01872
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.068,
+        "uniform_scale_after_kivicube_auto_fit": 0.68,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.52,
+        0.79
+      ],
+      "target_footprint": {
+        "x": [
+          -0.32,
+          0.36
+        ],
+        "z": [
+          -0.32744,
+          0.15808
+        ],
+        "inside_square_target": true
+      },
+      "note": "模型沿正门台阶和院地交界展开，照片中的树木继续留在底图而不进入模型。"
+    },
+    {
+      "asset_id": "S7A",
+      "reference_photo": {
+        "position": [
+          0.0,
+          0.002,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "long_edge_ratio": 1.0,
+        "card_mode": "square_contain",
+        "keep_visible_under_model": true,
+        "publish_status": "RIGHTS_PENDING"
+      },
+      "model": {
+        "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb",
+        "position": [
+          0.024008,
+          0.006,
+          0.211101
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "uniform_scale_target_units_per_model_metre": 0.04715128,
+        "uniform_scale_after_kivicube_auto_fit": 0.72,
+        "entry_animation": "photo_emerge",
+        "auto_play": true
+      },
+      "subject_anchor_uv": [
+        0.52,
+        0.87
+      ],
+      "target_footprint": {
+        "x": [
+          -0.34,
+          0.38
+        ],
+        "z": [
+          0.052202,
+          0.383203
+        ],
+        "inside_square_target": true
+      },
+      "note": "照片为仰视且入口下缘贴近画面底部，模型从入口基线抬起，不补画门前道路。"
+    }
+  ]
+}

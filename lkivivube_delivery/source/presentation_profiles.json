@@ -1,0 +1,139 @@
+{
+  "schema": "red-wave-ar.photo-plane-presentation.v1",
+  "coordinate_contract": {
+    "unit": "target_image_long_edge",
+    "target_plane": "XZ",
+    "up_axis": "Y",
+    "image_bottom_axis": "+Z",
+    "image_center": [0.0, 0.0, 0.0],
+    "reference_photo_y": 0.002,
+    "model_ground_y": 0.006,
+    "note": "Kivicube handoff values, not a directly importable platform scene file"
+  },
+  "sequence": [
+    {
+      "phase": "trigger",
+      "start_seconds": 0.0,
+      "asset": "physical_red_white_target"
+    },
+    {
+      "phase": "reference_photo",
+      "start_seconds": 0.15,
+      "asset": "square_contain_reference_card",
+      "keep_visible_under_model": true
+    },
+    {
+      "phase": "model_emergence",
+      "start_seconds": 2.2,
+      "asset": "glb",
+      "animation": "photo_emerge",
+      "auto_play": true
+    },
+    {
+      "phase": "narration",
+      "start_seconds": 3.2,
+      "keep_reference_photo_visible": true
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "S1A",
+      "model": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb",
+      "reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_publish_status": "RIGHTS_PENDING",
+      "subject_anchor_uv": [0.50, 0.88],
+      "subject_base_visible": false,
+      "model_width_ratio": 0.72,
+      "transition_note": "门楼下缘在照片外，模型从参考图下边缘抬起，不虚构照片中的地面。"
+    },
+    {
+      "asset_id": "S1B",
+      "model": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb",
+      "reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260716203647_1419_5130.jpg",
+      "reference_crop_uv": [0.0, 0.0, 0.64, 1.0],
+      "reference_publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING",
+      "subject_anchor_uv": [0.38, 0.82],
+      "subject_base_visible": false,
+      "model_width_ratio": 0.36,
+      "transition_note": "参考卡先裁除右侧参观者，模型从雕塑桌面/底座所在的下部区域展开。"
+    },
+    {
+      "asset_id": "S2A",
+      "model": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb",
+      "reference_source": "modeling_input/S2/local_reference/source_folder_20260727/微信图片_20260727183423_918_1.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 0.90],
+      "reference_publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING",
+      "subject_anchor_uv": [0.50, 0.86],
+      "subject_base_visible": true,
+      "model_width_ratio": 0.78,
+      "transition_note": "裁去底部车辆后，模型沿建筑中央入口与树线后的基部抬起。"
+    },
+    {
+      "asset_id": "S3A",
+      "model": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb",
+      "reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183421_916_1.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_publish_status": "IDENTITY_AND_RIGHTS_PENDING",
+      "subject_anchor_uv": [0.54, 0.84],
+      "subject_base_visible": true,
+      "model_width_ratio": 0.72,
+      "transition_note": "保留竖幅原图完整构图，模型从照片中的低层翼楼与台阶线展开。"
+    },
+    {
+      "asset_id": "S3B",
+      "model": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb",
+      "reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183422_917_1.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_publish_status": "IDENTITY_AND_RIGHTS_PENDING",
+      "subject_anchor_uv": [0.52, 0.87],
+      "subject_base_visible": false,
+      "model_width_ratio": 0.74,
+      "transition_note": "天线基座在照片外，中心桅杆从下边缘延伸，避免额外制作方形展台。"
+    },
+    {
+      "asset_id": "S4A",
+      "model": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb",
+      "reference_source": "modeling_input/S4/local_reference/source_folder_20260727/微信图片_20260727183424_919_1.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_publish_status": "RIGHTS_PENDING",
+      "subject_anchor_uv": [0.50, 0.88],
+      "subject_base_visible": false,
+      "model_width_ratio": 0.70,
+      "transition_note": "城门洞下缘接近照片边界，模型从该边界抬起并保留拱门负空间。"
+    },
+    {
+      "asset_id": "S5A",
+      "model": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb",
+      "reference_source": "modeling_input/S5/local_reference/source_folder_20260727/18b017b5eb0df80ff4c70fc5991203b5.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_publish_status": "BLOCKED_WATERMARK_AND_RIGHTS",
+      "subject_anchor_uv": [0.50, 0.76],
+      "subject_base_visible": true,
+      "model_width_ratio": 0.74,
+      "transition_note": "模型沿照片中的广场铺装与斜置铜牌接触区展开；当前照片只允许内部预览。"
+    },
+    {
+      "asset_id": "S6A",
+      "model": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb",
+      "reference_source": "modeling_input/S6/local_reference/source_folder_20260727/a4c5a574525a3f829e286f6eea4b9e08.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_publish_status": "RIGHTS_PENDING",
+      "subject_anchor_uv": [0.52, 0.79],
+      "subject_base_visible": true,
+      "model_width_ratio": 0.68,
+      "transition_note": "模型沿正门台阶和院地交界展开，照片中的树木继续留在底图而不进入模型。"
+    },
+    {
+      "asset_id": "S7A",
+      "model": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb",
+      "reference_source": "modeling_input/S7/local_reference/source_folder_20260727/d10d05331791c52d672efca4212a9012.png",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_publish_status": "RIGHTS_PENDING",
+      "subject_anchor_uv": [0.52, 0.87],
+      "subject_base_visible": false,
+      "model_width_ratio": 0.72,
+      "transition_note": "照片为仰视且入口下缘贴近画面底部，模型从入口基线抬起，不补画门前道路。"
+    }
+  ]
+}

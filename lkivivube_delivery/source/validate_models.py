@@ -26,6 +26,7 @@ MAX_MESHES = 5
 MAX_TRIANGLES = 30_000
 MAX_MATERIALS = 5
 MAX_TEXTURES = 10
+MAX_ANIMATIONS = 5
 ALLOWED_IMAGE_MIME = {"image/png", "image/jpeg"}
 ALLOWED_PRIMITIVE_MODES = {4}  # TRIANGLES
 
@@ -114,8 +115,11 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
     materials = document.get("materials", [])
     textures = document.get("textures", [])
     images = document.get("images", [])
+    animations = document.get("animations", [])
     triangles = 0
     primitives = 0
+    position_min_y: list[float] = []
+    position_max_y: list[float] = []
     for mesh_index, mesh in enumerate(meshes):
         for primitive_index, primitive in enumerate(mesh.get("primitives", [])):
             primitives += 1
@@ -127,6 +131,13 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
             attributes = primitive.get("attributes", {})
             if "POSITION" not in attributes:
                 errors.append(f"mesh {mesh_index} primitive {primitive_index} has no POSITION")
+            else:
+                position_accessor = document.get("accessors", [])[attributes["POSITION"]]
+                minimum = position_accessor.get("min", [])
+                maximum = position_accessor.get("max", [])
+                if len(minimum) == 3 and len(maximum) == 3:
+                    position_min_y.append(float(minimum[1]))
+                    position_max_y.append(float(maximum[1]))
             try:
                 index_count = accessor_count(document, primitive["indices"])
                 if index_count % 3:
@@ -163,6 +174,42 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
                 f"image {image_index} has unsupported MIME type {image.get('mimeType')!r}"
             )
 
+    for animation_index, animation in enumerate(animations):
+        samplers_for_animation = animation.get("samplers", [])
+        for channel_index, channel in enumerate(animation.get("channels", [])):
+            sampler_index = channel.get("sampler")
+            target = channel.get("target", {})
+            node_index = target.get("node")
+            path_name = target.get("path")
+            if not isinstance(sampler_index, int) or not 0 <= sampler_index < len(samplers_for_animation):
+                errors.append(f"animation {animation_index} channel {channel_index} has invalid sampler")
+                continue
+            if not isinstance(node_index, int) or not 0 <= node_index < len(document.get("nodes", [])):
+                errors.append(f"animation {animation_index} channel {channel_index} has invalid node")
+            if path_name not in {"translation", "rotation", "scale", "weights"}:
+                errors.append(
+                    f"animation {animation_index} channel {channel_index} has invalid path {path_name!r}"
+                )
+            if path_name == "scale":
+                output_index = samplers_for_animation[sampler_index].get("output")
+                if isinstance(output_index, int) and 0 <= output_index < len(document.get("accessors", [])):
+                    scale_min = document["accessors"][output_index].get("min", [])
+                    if len(scale_min) != 3 or any(float(value) <= 0.0 for value in scale_min):
+                        errors.append(
+                            f"animation {animation_index} scale contains zero or negative values"
+                        )
+
+    minimum_ground_y = min(position_min_y) if position_min_y else None
+    maximum_ground_y = max(position_max_y) if position_max_y else None
+    if minimum_ground_y is None:
+        errors.append("unable to determine the model ground plane")
+    elif abs(minimum_ground_y) > 1e-5:
+        errors.append(
+            f"model bottom must touch Y=0 reference-photo plane, found {minimum_ground_y}"
+        )
+    if maximum_ground_y is not None and maximum_ground_y <= 0.0:
+        errors.append("model has no geometry above the reference-photo plane")
+
     extensions_required = set(document.get("extensionsRequired", []))
     extensions_used = set(document.get("extensionsUsed", []))
     if extensions_required:
@@ -182,6 +229,7 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
         "triangles": {"value": triangles, "maximum": MAX_TRIANGLES},
         "materials": {"value": len(materials), "maximum": MAX_MATERIALS},
         "textures": {"value": len(textures), "maximum": MAX_TEXTURES},
+        "animations": {"value": len(animations), "maximum": MAX_ANIMATIONS},
     }
     for name, budget in budgets.items():
         if budget["value"] > budget["maximum"]:
@@ -198,6 +246,12 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
         "glb_version": asset.get("version"),
         "primitives": primitives,
         "images": len(images),
+        "ground_plane": {
+            "axis": "Y",
+            "minimum": minimum_ground_y,
+            "maximum": maximum_ground_y,
+            "status": "PASS" if minimum_ground_y is not None and abs(minimum_ground_y) <= 1e-5 else "FAIL",
+        },
         "budgets": budgets,
         "errors": errors,
         "warnings": warnings,
@@ -259,6 +313,7 @@ def main() -> int:
                 "triangles": "triangles",
                 "materials": "materials",
                 "textures": "images",
+                "animations": "animations",
             }
             for budget_name, blender_name in comparisons.items():
                 authored = entry["budgets"][budget_name]["value"]
@@ -284,6 +339,7 @@ def main() -> int:
             "maximum_triangles": MAX_TRIANGLES,
             "maximum_materials": MAX_MATERIALS,
             "maximum_textures": MAX_TEXTURES,
+            "maximum_animations": MAX_ANIMATIONS,
         },
         "status": "FAIL" if failed else "PASS",
         "assets": assets,

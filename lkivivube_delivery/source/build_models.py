@@ -314,7 +314,7 @@ def build_s1_gate(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Pat
         [(1.83, 0.45, -0.58), (2.43, 0.45, -0.58), (2.43, 3.30, -0.58), (1.83, 3.30, -0.58)],
         (0.0, 0.25, 0.375, 1.0),
     )
-    return model, ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb"
 
 
 def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -363,7 +363,7 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     equipment.add_box_center((0.36, 1.09, -0.89), (0.46, 0.10, 0.30))
     equipment.add_tube((0.28, 1.15, -0.88), (0.52, 1.25, -0.88), 0.025, 7)
     highlight.add_box_center((0.0, 1.075, -0.70), (0.56, 0.028, 0.34))
-    return model, ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb"
 
 
 def build_s2(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -408,7 +408,7 @@ def build_s2(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             trim.add_tube((x, 10.10, z), (x, 11.05, z), 0.085, 8)
     trim.add_box_center((0.0, 11.05, 0.0), (3.25, 0.18, 2.40))
     dark.add_tube((0.0, 11.14, 0.0), (0.0, 14.00, 0.0), 0.055, 8)
-    return model, ROOT / "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb"
 
 
 def build_s3_building(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -448,7 +448,7 @@ def build_s3_building(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             detail.add_tube((-5.30 + radius * math.cos(a0), y, -0.25 + radius * math.sin(a0)),
                             (-5.30 + radius * math.cos(a1), y, -0.25 + radius * math.sin(a1)),
                             0.025, 6)
-    return model, ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb"
 
 
 def build_s3_antenna(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -513,7 +513,7 @@ def build_s3_antenna(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             cable.add_tube((ex * factor0, y, ez * factor0),
                            (ex * factor1, y - 0.10, ez * factor1), 0.015, 6)
     steel.add_cylinder_y((0.0, 0.12, 0.0), 0.90, 0.24, 16)
-    return model, ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb"
 
 
 def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -556,7 +556,7 @@ def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     signage.add_textured_quad(
         [(-1.55, 9.08, -1.68), (1.55, 9.08, -1.68), (1.55, 9.72, -1.68), (-1.55, 9.72, -1.68)]
     )
-    return model, ROOT / "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb"
 
 
 def build_s5(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -592,7 +592,7 @@ def build_s5(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     plaque.add_textured_quad(
         [(-1.95, 0.07, -3.66), (1.95, 0.07, -3.66), (1.95, 0.94, -2.95), (-1.95, 0.94, -2.95)]
     )
-    return model, ROOT / "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb"
 
 
 def build_s6(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -635,7 +635,7 @@ def build_s6(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # characteristic perforated trim
     for x in [(-1.15 + index * 0.23) for index in range(11)]:
         detail.add_box_center((x, 4.70, -2.78), (0.11, 0.15, 0.08))
-    return model, ROOT / "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb"
 
 
 def build_s7(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -683,7 +683,7 @@ def build_s7(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         [(3.15, 4.10, -0.39), (3.70, 4.10, -0.39), (3.70, 9.55, -0.39), (3.15, 9.55, -0.39)],
         (0.75, 0.50, 1.0, 1.0),
     )
-    return model, ROOT / "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v001.glb"
+    return model, ROOT / "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb"
 
 
 BUILDERS = [

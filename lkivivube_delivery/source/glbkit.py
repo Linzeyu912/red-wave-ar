@@ -322,8 +322,34 @@ class Model:
     def mesh(self, material_name: str) -> MeshBuilder:
         return self.builders[material_name]
 
+    def normalize_ground(self) -> float:
+        """Move the authored model so its lowest vertex touches the image plane.
+
+        Image-AR models emerge from a reference-photo plane, so even a small
+        negative Y value can make the object look buried in or detached from
+        the card.  Returning the applied offset keeps the operation auditable.
+        """
+        positions = [
+            position
+            for builder in self.builders.values()
+            for position in builder.positions
+        ]
+        if not positions:
+            return 0.0
+        minimum_y = min(position[1] for position in positions)
+        if abs(minimum_y) <= 1e-9:
+            return 0.0
+        for builder in self.builders.values():
+            builder.positions = [
+                (x, y - minimum_y, z) for x, y, z in builder.positions
+            ]
+        return -minimum_y
+
     def export(self, path: pathlib.Path) -> dict:
-        return write_glb(path, self.asset_id, self.materials, self.builders)
+        ground_offset = self.normalize_ground()
+        stats = write_glb(path, self.asset_id, self.materials, self.builders)
+        stats["ground_normalization_offset"] = ground_offset
+        return stats
 
 
 def _pad4(data: bytes, byte: bytes) -> bytes:
@@ -357,7 +383,7 @@ def write_glb(
         array: np.ndarray,
         component_type: int,
         accessor_type: str,
-        target: int,
+        target: int | None,
         with_minmax: bool = False,
     ) -> int:
         view_index = add_blob(array.tobytes(), target)
@@ -368,8 +394,10 @@ def write_glb(
             "type": accessor_type,
         }
         if with_minmax:
-            accessor["min"] = [float(value) for value in array.min(axis=0)]
-            accessor["max"] = [float(value) for value in array.max(axis=0)]
+            minimum = np.atleast_1d(array.min(axis=0))
+            maximum = np.atleast_1d(array.max(axis=0))
+            accessor["min"] = [float(value) for value in minimum]
+            accessor["max"] = [float(value) for value in maximum]
         accessors.append(accessor)
         return len(accessors) - 1
 
@@ -419,11 +447,13 @@ def write_glb(
     total_triangles = 0
     total_vertices = 0
     used_materials = 0
+    all_positions: list[np.ndarray] = []
     for material_index, material in enumerate(materials):
         builder = builders[material.name]
         if builder.empty:
             continue
         positions = np.asarray(builder.positions, dtype=np.float32).reshape(-1, 3)
+        all_positions.append(positions)
         normals = np.asarray(builder.normals, dtype=np.float32).reshape(-1, 3)
         texcoords = np.asarray(builder.texcoords, dtype=np.float32).reshape(-1, 2)
         if positions.shape[0] > 65535:
@@ -447,10 +477,45 @@ def write_glb(
         total_vertices += int(positions.shape[0])
         used_materials += 1
 
+    if not all_positions:
+        raise ValueError(f"{asset_id} contains no geometry")
+    combined_positions = np.concatenate(all_positions, axis=0)
+    bounds_min = combined_positions.min(axis=0)
+    bounds_max = combined_positions.max(axis=0)
+
+    # One cross-platform transform animation turns the model from a shallow
+    # relief into full 3D while its bottom remains locked to the reference
+    # image.  All scale components remain positive to satisfy Kivicube rules.
+    emergence_times = np.asarray([0.0, 0.16, 0.70, 1.10, 1.40], dtype=np.float32)
+    emergence_scales = np.asarray(
+        [
+            (0.98, 0.025, 0.08),
+            (0.99, 0.10, 0.16),
+            (1.00, 0.72, 0.70),
+            (1.00, 1.05, 1.02),
+            (1.00, 1.00, 1.00),
+        ],
+        dtype=np.float32,
+    )
+    animation = {
+        "name": "photo_emerge",
+        "samplers": [{
+            "input": add_accessor(emergence_times, 5126, "SCALAR", None, with_minmax=True),
+            "output": add_accessor(emergence_scales, 5126, "VEC3", None, with_minmax=True),
+            "interpolation": "LINEAR",
+        }],
+        "channels": [{"sampler": 0, "target": {"node": 0, "path": "scale"}}],
+        "extras": {
+            "purpose": "reference_photo_plane_to_full_3d",
+            "keep_reference_photo_visible": True,
+            "bottom_locked_to_image_plane": True,
+        },
+    }
+
     gltf = {
         "asset": {
             "version": "2.0",
-            "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+            "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
             "copyright": "Project-authored low-poly geometry; reference images are not embedded",
         },
         "scene": 0,
@@ -461,6 +526,16 @@ def write_glb(
         "bufferViews": buffer_views,
         "accessors": accessors,
         "buffers": [{"byteLength": len(blob)}],
+        "animations": [animation],
+        "extras": {
+            "red_wave_ar_presentation": {
+                "layout": "reference_photo_plane",
+                "ground_plane_y": 0.0,
+                "front_axis": "-Z",
+                "entry_animation": "photo_emerge",
+                "reference_photo_is_separate_asset": True,
+            }
+        },
     }
     if images:
         gltf["images"] = images
@@ -486,4 +561,7 @@ def write_glb(
         "meshes": len(gltf_meshes),
         "materials": used_materials,
         "textures": len(images),
+        "animations": 1,
+        "bounds_min": [float(value) for value in bounds_min],
+        "bounds_max": [float(value) for value in bounds_max],
     }

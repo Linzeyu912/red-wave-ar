@@ -6,20 +6,27 @@
     "maximum_meshes": 5,
     "maximum_triangles": 30000,
     "maximum_materials": 5,
-    "maximum_textures": 10
+    "maximum_textures": 10,
+    "maximum_animations": 5
   },
   "status": "PASS",
   "assets": [
     {
-      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v001.glb",
+      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 5,
       "images": 1,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 5.210000038146973,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 250292,
+          "value": 251232,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -38,6 +45,10 @@
         "textures": {
           "value": 1,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -53,15 +64,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v001.glb",
+      "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 3,
       "images": 0,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 2.6333823204040527,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 93696,
+          "value": 94612,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -80,6 +97,10 @@
         "textures": {
           "value": 0,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -95,15 +116,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v001.glb",
+      "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 5,
       "images": 0,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 14.0,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 119008,
+          "value": 119948,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -122,6 +149,10 @@
         "textures": {
           "value": 0,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -137,15 +168,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v001.glb",
+      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 4,
       "images": 0,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 8.550000190734863,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 133304,
+          "value": 134244,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -164,6 +201,10 @@
         "textures": {
           "value": 0,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -179,15 +220,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v001.glb",
+      "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 3,
       "images": 0,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 7.446308612823486,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 313160,
+          "value": 314084,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -206,6 +253,10 @@
         "textures": {
           "value": 0,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -221,15 +272,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v001.glb",
+      "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 5,
       "images": 1,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 10.71500015258789,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 103832,
+          "value": 104772,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -248,6 +305,10 @@
         "textures": {
           "value": 1,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -263,15 +324,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v001.glb",
+      "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 4,
       "images": 1,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 4.063332557678223,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 300856,
+          "value": 301792,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -290,6 +357,10 @@
         "textures": {
           "value": 1,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -305,15 +376,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v001.glb",
+      "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 5,
       "images": 0,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 6.099999904632568,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 103524,
+          "value": 104460,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -332,6 +409,10 @@
         "textures": {
           "value": 0,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],
@@ -347,15 +428,21 @@
       }
     },
     {
-      "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v001.glb",
+      "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb",
       "status": "PASS",
-      "generator": "red-wave-ar kivicube procedural model pipeline 1.0",
+      "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
       "primitives": 5,
       "images": 1,
+      "ground_plane": {
+        "axis": "Y",
+        "minimum": 0.0,
+        "maximum": 11.079999923706055,
+        "status": "PASS"
+      },
       "budgets": {
         "file_bytes": {
-          "value": 129240,
+          "value": 130176,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -374,6 +461,10 @@
         "textures": {
           "value": 1,
           "maximum": 10
+        },
+        "animations": {
+          "value": 1,
+          "maximum": 5
         }
       },
       "errors": [],

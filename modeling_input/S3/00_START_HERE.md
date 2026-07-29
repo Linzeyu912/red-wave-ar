@@ -1,6 +1,6 @@
 # S3 建模输入包：“短波通信局”（项目暂定名）
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / TWO_MODEL_UNITS / IDENTITY_PENDING / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / TWO_MODEL_UNITS / MODEL_V2_BUILT / IDENTITY_PENDING / NARRATION_PENDING / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S3 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S3_shortwave_station/asset_card.md`
@@ -11,8 +11,8 @@
 
 | 单元 | 对象 | 手绘触发图 | 真实照片 | 计划模型 |
 |---|---|---|---|---|
-| S3A | 通信楼 | `trigger_hand_drawn.jpg` | `微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v001.glb` |
-| S3B | 天线阵列 | `短波通信局2.jpg` | `微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v001.glb` |
+| S3A | 通信楼 | `trigger_hand_drawn.jpg` | `微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v002.glb` |
+| S3B | 天线阵列 | `短波通信局2.jpg` | `微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v002.glb` |
 
 正式文字资料仍由负责同学编写；目录内 `短波通信局文字素材.docx` 不视为已交付成稿。
 
@@ -20,7 +20,7 @@
 
 ## 目标呈现
 
-识别红白手绘触发图后，先展示绘制该图时使用且已获公开许可的真实参考照片，再过渡到按真实建筑颜色和材质制作的 GLB 模型，随后播放旁白。平台统一约束见 [`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。
+识别红白手绘触发图后，在同一位置展示已获公开许可的 1:1 真实参考照片卡；照片保持可见，GLB 从照片主体下缘贴地展开，随后播放旁白。平台统一约束见 [`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。
 
 ## 当前边界
 

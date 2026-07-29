@@ -1,17 +1,17 @@
 # S2 建模输入包：电报大楼
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / SINGLE_VIEW_ACCEPTED / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / SINGLE_VIEW_ACCEPTED / MODEL_V2_BUILT / NARRATION_PENDING / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S2 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S2_telegraph_building/asset_card.md`
 
 ## 本地素材
 
-当前受控目录共有 11 个文件。S2A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `微信图片_20260727183423_918_1.jpg`，计划模型为 `S2A_telegraph_building_v001.glb`。`e7014ebbe8b936c91c629951317c1fa2.jpg` 只作补充展陈参考。正式文字资料仍待负责同学补充。
+当前受控目录共有 11 个文件。S2A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `微信图片_20260727183423_918_1.jpg`，当前模型为 `S2A_telegraph_building_v002.glb`。`e7014ebbe8b936c91c629951317c1fa2.jpg` 只作补充展陈参考。正式文字资料仍待负责同学补充。
 
 ## 目标呈现
 
-识别红白手绘触发图后，先展示绘制该图时使用且已获公开许可的真实参考照片，再过渡到按真实建筑颜色和材质制作的 GLB 模型，随后播放旁白。平台统一约束见 [`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。
+识别红白手绘触发图后，在同一位置展示已获公开许可的 1:1 真实参考照片卡；照片保持可见，GLB 从照片主体下缘贴地展开，随后播放旁白。平台统一约束见 [`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。
 
 ## 当前边界
 
