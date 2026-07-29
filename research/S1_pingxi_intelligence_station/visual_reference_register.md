@@ -131,7 +131,7 @@
 
 ### USER-VIS-001 当前纪念馆入口
 
-- 来源：USRC-001；文件元数据见 `modeling_input/S1/material_manifest.csv`。
+- 来源：USRC-001；旧任务文件元数据见 `archive/self_built_app/modeling_input/S1/material_manifest.csv`。
 - 本地参考：`modeling_input/S1/local_reference/USER-VIS-001_current_entrance.jpg`，由 Git 忽略，不随仓库发布。
 - 尺寸：1440 × 996。
 - 可观察特征：灰砖墙体和砖缝尺度、瓦檐层次、暗红木门框、门洞向院落和山体延伸的视线、入口尺度关系。
@@ -141,7 +141,7 @@
 
 ### USER-VIS-002 当前纪念馆浮雕墙
 
-- 来源：USRC-001；文件元数据见 `modeling_input/S1/material_manifest.csv`。
+- 来源：USRC-001；旧任务文件元数据见 `archive/self_built_app/modeling_input/S1/material_manifest.csv`。
 - 本地参考：`modeling_input/S1/local_reference/USER-VIS-002_relief_wall.jpg`，由 Git 忽略，不随仓库发布。
 - 尺寸：5724 × 4032。
 - 可观察特征：灰砖色差、瓦当排列、石基拼接、单色浮雕粗糙度，以及当前展陈的路线—人员—通信叙事层级。
@@ -151,7 +151,7 @@
 
 ### USER-VIS-003 电台与地下工作场景参考
 
-- 来源：USRC-001；文件元数据见 `modeling_input/S1/material_manifest.csv`。
+- 来源：USRC-001；旧任务文件元数据见 `archive/self_built_app/modeling_input/S1/material_manifest.csv`。
 - 本地参考：`modeling_input/S1/local_reference/USER-VIS-003_radio_room_reference.png`，由 Git 忽略，不随仓库发布。
 - 尺寸：519 × 815。
 - 可观察特征：箱式设备的倾斜控制面、旋钮/表窗/插线端的前后层次，发报键与线缆的桌面功能关系，煤油灯局部暖光和低矮地下工作空间的紧凑尺度感。

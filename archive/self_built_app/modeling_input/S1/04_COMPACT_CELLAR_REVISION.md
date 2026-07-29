@@ -1,4 +1,6 @@
-# S1 紧凑地下储洞小室：用户指定修订（M3D-01R）
+# S1 紧凑地下储洞小室：用户指定修订（自研程序线归档）
+
+> 本文件只保留旧 M3D-01R 空间与电台审核依据，不是当前平台 S1 的建筑形象约束。
 
 > 状态：`USER_APPROVED_REVISION / WHITEBOX_AND_STYLE_REVIEW_REOPENED`
 > 决定日期：2026-07-20

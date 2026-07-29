@@ -1,10 +1,12 @@
-# S1 建模模型对接说明
+# S1 建模模型对接说明（自研程序线归档）
+
+> 本文件中的提示词、尺寸和停止条件仅适用于旧自研地下电台场景，不得用于当前 LKIVIVUBE 地点轻量模型。
 
 > 状态：`M3D-01R_READY_FOR_COMPACT_CELLAR_REVIEW / GATE-01_REGISTERED`
 > 版本：0.3
 > 本轮目标：用紧凑地下储洞小室替换旧版 8 m × 8 m 白盒，优化审核级电台并重新制作三张风格图；不进入完整中模、高模和正式材质
 
-> 唯一入口：`modeling_input/S1/00_START_HERE.md`
+> 历史入口：`archive/self_built_app/modeling_input/S1/00_START_HERE.md`
 
 ## 0. 用户修订优先级（必须先读）
 
@@ -26,7 +28,7 @@ S1 的史实方向、虚拟展馆定位和风格方向已经具备交接条件�
 
 ## 2. 建模模型必读顺序
 
-1. `红色电波AR产品计划书.md`：§4.3、§4.4、§5、§10、§13、§15；
+1. `archive/self_built_app/PRODUCT_PLAN_v1.3.md`：§4.3、§4.4、§5、§10、§13、§15；
 2. `research/S1_pingxi_intelligence_station/README.md`；
 3. `verified_facts.md`、`source_register.md`；
 4. `scene_layout_brief.md`；
@@ -90,6 +92,7 @@ S1 的史实方向、虚拟展馆定位和风格方向已经具备交接条件�
 ## 6. 可直接复制给建模模型的提示词
 
 ```text
+【归档文本，禁止执行；当前平台任务必须从 modeling_input/README.md 重新立项】
 你现在负责 red-wave-ar 项目的 S1 平西情报联络站建模交接阶段。
 
 仓库工作规则：

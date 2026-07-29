@@ -2,7 +2,7 @@
 
 > 状态：`DELIVERED_NOT_RUNTIME_INTEGRATED`
 > 接收日期：2026-07-27
-> 对应规范：`modeling_input/S1/02_MODELING_HANDOFF.md` §8
+> 历史对应规范：`archive/self_built_app/modeling_input/S1/02_MODELING_HANDOFF.md` §8
 
 本目录归档用户提供的已完成门楼模型。它是独立资产，**没有**接入 `app/`、`scene.json` 或当前 S1 地下储洞白盒；当前 App 的运行时资产和资源契约不变。
 
