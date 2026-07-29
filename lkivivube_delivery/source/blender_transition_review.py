@@ -168,7 +168,7 @@ def main() -> None:
         ground_clearance = 0.006
         stage.location = (position_x, position_target_z, ground_clearance)
 
-        card_path = CARD_DIR / f"{profile['asset_id']}_reference_card_v002.jpg"
+        card_path = CARD_DIR / f"{profile['asset_id']}_reference_card_v003.jpg"
         add_reference_card(card_path)
         add_world()
 

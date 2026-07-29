@@ -42,6 +42,11 @@ try {
         throw "Private reference-card generation failed with exit code $LASTEXITCODE"
     }
 
+    python 'lkivivube_delivery\source\make_reference_detail_sheets.py'
+    if ($LASTEXITCODE -ne 0) {
+        throw "Private reference-detail-sheet generation failed with exit code $LASTEXITCODE"
+    }
+
     & $BlenderExe --background --factory-startup --python 'lkivivube_delivery\source\blender_transition_review.py'
     if ($LASTEXITCODE -ne 0) {
         throw "Blender photo-plane transition review failed with exit code $LASTEXITCODE"

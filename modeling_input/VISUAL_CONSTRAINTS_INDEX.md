@@ -1,10 +1,12 @@
 # 图像特征提取与建模提示词索引
 
-> 状态：`IMAGE_REVIEWED / DRAFT_V1 / HUMAN_REVIEW_REQUIRED`
+> 状态：`IMAGE_REVIEWED / DETAIL_PASS_V2 / MODEL_V3_IMPLEMENTED / HUMAN_REVIEW_REQUIRED`
 > 提取日期：2026-07-29
 > 覆盖范围：S1–S7 共 62 张图片、59 个独立画面、9 个建模单元
 
 本索引把现有图片转换为可追踪的建模特征和提示词素材。它不是测绘记录，也不证明历史年代、建筑名称或照片权利；正式建模前仍需由项目负责人确认各单元的范围和待定项。
+
+九个单元针对当前模型不够精细之处的二次逐图提取见 [`DETAIL_EXTRACTION_V2.md`](DETAIL_EXTRACTION_V2.md)。后续建模以该文件中的构件层级、开口、窗格、檐口和材质修订为优先。
 
 ## 1. 标记含义
 

@@ -3,11 +3,11 @@
   "assets": [
     {
       "asset_id": "s1a_pingxi_gate",
-      "glb": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S1A_pingxi_gate_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/images/S1A_pingxi_gate_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S1A_pingxi_gate_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/images/S1A_pingxi_gate_preview_v003.png",
       "mesh_objects": 5,
-      "triangles": 1864,
+      "triangles": 2540,
       "materials": 5,
       "images": 1,
       "animations": 1,
@@ -16,28 +16,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -3.12,
-        -1.075,
+        -3.37,
+        -1.1,
         0.0
       ],
       "bounds_max": [
-        3.12,
-        2.34,
-        5.21
+        3.37,
+        1.72,
+        5.39
       ],
       "dimensions": [
-        6.24,
-        3.415,
-        5.21
+        6.74,
+        2.82,
+        5.39
       ]
     },
     {
       "asset_id": "s1b_radio_operator_statue",
-      "glb": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S1B_radio_operator_statue_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/images/S1B_radio_operator_statue_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S1B_radio_operator_statue_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/images/S1B_radio_operator_statue_preview_v003.png",
       "mesh_objects": 3,
-      "triangles": 1392,
+      "triangles": 3802,
       "materials": 3,
       "images": 0,
       "animations": 1,
@@ -46,28 +46,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -0.825,
-        -0.3851,
+        -0.9617,
+        -0.3843,
         0.0
       ],
       "bounds_max": [
-        0.825,
-        1.2,
-        2.6334
+        0.9617,
+        1.2647,
+        2.6084
       ],
       "dimensions": [
-        1.65,
-        1.5851,
-        2.6334
+        1.9234,
+        1.649,
+        2.6084
       ]
     },
     {
       "asset_id": "s2a_telegraph_building",
-      "glb": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S2A_telegraph_building_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S2_telegraph_building/images/S2A_telegraph_building_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S2A_telegraph_building_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S2_telegraph_building/images/S2A_telegraph_building_preview_v003.png",
       "mesh_objects": 5,
-      "triangles": 1712,
+      "triangles": 9836,
       "materials": 5,
       "images": 0,
       "animations": 1,
@@ -76,28 +76,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -9.065,
-        -1.75,
+        -9.6,
+        -2.175,
         0.0
       ],
       "bounds_max": [
-        9.065,
-        3.65,
-        14.0
+        9.6,
+        4.26,
+        14.8
       ],
       "dimensions": [
-        18.13,
-        5.4,
-        14.0
+        19.2,
+        6.435,
+        14.8
       ]
     },
     {
       "asset_id": "s3a_shortwave_station_building",
-      "glb": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S3A_shortwave_station_building_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S3_shortwave_station/images/S3A_shortwave_station_building_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S3A_shortwave_station_building_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S3_shortwave_station/images/S3A_shortwave_station_building_preview_v003.png",
       "mesh_objects": 4,
-      "triangles": 2124,
+      "triangles": 4492,
       "materials": 4,
       "images": 0,
       "animations": 1,
@@ -106,28 +106,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -6.75,
-        -2.4,
+        -7.475,
+        -2.45,
         0.0
       ],
       "bounds_max": [
-        6.75,
-        3.25,
-        8.55
+        7.35,
+        3.47,
+        10.7
       ],
       "dimensions": [
-        13.5,
-        5.65,
-        8.55
+        14.825,
+        5.92,
+        10.7
       ]
     },
     {
       "asset_id": "s3b_shortwave_antenna_array",
-      "glb": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S3B_shortwave_antenna_array_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S3_shortwave_station/images/S3B_shortwave_antenna_array_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S3B_shortwave_antenna_array_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S3_shortwave_station/images/S3B_shortwave_antenna_array_preview_v003.png",
       "mesh_objects": 3,
-      "triangles": 4876,
+      "triangles": 12476,
       "materials": 3,
       "images": 0,
       "animations": 1,
@@ -136,28 +136,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -6.0616,
-        -6.0616,
+        -6.14,
+        -6.14,
         0.0
       ],
       "bounds_max": [
-        6.0616,
-        6.0616,
-        7.4463
+        6.14,
+        6.14,
+        7.4889
       ],
       "dimensions": [
-        12.1232,
-        12.1232,
-        7.4463
+        12.28,
+        12.28,
+        7.4889
       ]
     },
     {
       "asset_id": "s4a_juyong_pass_tower",
-      "glb": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S4A_juyong_pass_tower_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S4_juyong_pass/images/S4A_juyong_pass_tower_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S4A_juyong_pass_tower_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S4_juyong_pass/images/S4A_juyong_pass_tower_preview_v003.png",
       "mesh_objects": 5,
-      "triangles": 1172,
+      "triangles": 7348,
       "materials": 5,
       "images": 1,
       "animations": 1,
@@ -166,28 +166,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -6.0,
-        -2.0,
+        -5.9,
+        -2.7,
         0.0
       ],
       "bounds_max": [
-        6.0,
-        2.2897,
-        10.715
+        5.9,
+        3.0446,
+        10.718
       ],
       "dimensions": [
-        12.0,
-        4.2897,
-        10.715
+        11.8,
+        5.7446,
+        10.718
       ]
     },
     {
       "asset_id": "s5a_memorial_sculpture",
-      "glb": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S5A_memorial_sculpture_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S5_memorial_plaza/images/S5A_memorial_sculpture_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S5A_memorial_sculpture_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S5_memorial_plaza/images/S5A_memorial_sculpture_preview_v003.png",
       "mesh_objects": 4,
-      "triangles": 4246,
+      "triangles": 8332,
       "materials": 4,
       "images": 1,
       "animations": 1,
@@ -196,28 +196,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -5.1637,
-        -0.8,
+        -5.5486,
+        -0.97,
         0.0
       ],
       "bounds_max": [
-        5.1637,
-        3.9155,
-        4.0633
+        5.6994,
+        3.9967,
+        4.1559
       ],
       "dimensions": [
-        10.3273,
-        4.7155,
-        4.0633
+        11.248,
+        4.9667,
+        4.1559
       ]
     },
     {
       "asset_id": "s6a_zhenfang_lou",
-      "glb": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S6A_zhenfang_lou_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S6_zhenfang_lou/images/S6A_zhenfang_lou_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S6A_zhenfang_lou_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S6_zhenfang_lou/images/S6A_zhenfang_lou_preview_v003.png",
       "mesh_objects": 5,
-      "triangles": 1490,
+      "triangles": 7658,
       "materials": 5,
       "images": 0,
       "animations": 1,
@@ -226,28 +226,28 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -5.0,
-        -2.6,
+        -5.025,
+        -2.675,
         0.0
       ],
       "bounds_max": [
-        5.0,
-        4.54,
-        6.1
+        5.025,
+        5.06,
+        5.9
       ],
       "dimensions": [
-        10.0,
-        7.14,
-        6.1
+        10.05,
+        7.735,
+        5.9
       ]
     },
     {
       "asset_id": "s7a_telecom_museum",
-      "glb": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb",
-      "blend": "lkivivube_delivery/source/blend/S7A_telecom_museum_v002_source.blend",
-      "preview": "lkivivube_delivery/scenes/S7_telecom_museum/images/S7A_telecom_museum_preview_v002.png",
+      "glb": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v003.glb",
+      "blend": "lkivivube_delivery/source/blend/S7A_telecom_museum_v003_source.blend",
+      "preview": "lkivivube_delivery/scenes/S7_telecom_museum/images/S7A_telecom_museum_preview_v003.png",
       "mesh_objects": 5,
-      "triangles": 1304,
+      "triangles": 5024,
       "materials": 5,
       "images": 1,
       "animations": 1,
@@ -256,19 +256,19 @@
       ],
       "review_frame": 34,
       "bounds_min": [
-        -7.72,
-        -3.65,
+        -7.5984,
+        -4.14,
         0.0
       ],
       "bounds_max": [
         7.55,
-        3.37,
-        11.08
+        3.44,
+        11.575
       ],
       "dimensions": [
-        15.27,
-        7.02,
-        11.08
+        15.1484,
+        7.58,
+        11.575
       ]
     }
   ]

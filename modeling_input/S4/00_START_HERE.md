@@ -1,13 +1,13 @@
 # S4 建模输入包：居庸关
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / SINGLE_VIEW_ACCEPTED / MODEL_V2_BUILT / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_PENDING / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S4 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S4_juyong_pass/asset_card.md`
 
 ## 本地素材
 
-当前受控目录共有 9 个文件。S4A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `微信图片_20260727183424_919_1.jpg`，当前模型为 `S4A_juyong_pass_tower_v002.glb`。正式文字资料仍待负责同学补充。
+当前受控目录共有 9 个文件。S4A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `微信图片_20260727183424_919_1.jpg`，当前模型为 `S4A_juyong_pass_tower_v003.glb`。正式文字资料仍待负责同学补充。
 
 ## 目标呈现
 

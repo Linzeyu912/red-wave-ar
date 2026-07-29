@@ -1,13 +1,13 @@
 # S5 建模输入包：西山无名英雄纪念广场
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / SINGLE_VIEW_ACCEPTED / MODEL_V2_BUILT / NARRATION_PENDING / DISPLAY_PHOTO_BLOCKED`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_PENDING / DISPLAY_PHOTO_BLOCKED`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S5 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S5_memorial_plaza/asset_card.md`
 
 ## 本地素材
 
-当前受控目录共有 9 个文件。S5A 的触发图为 `trigger_hand_drawn.jpg`，本轮补充照片为 `18b017b5eb0df80ff4c70fc5991203b5.jpg`，当前模型为 `S5A_memorial_sculpture_v002.glb`。以用户最新说明为准，正式文字资料仍待负责同学补充。
+当前受控目录共有 9 个文件。S5A 的触发图为 `trigger_hand_drawn.jpg`，本轮补充照片为 `18b017b5eb0df80ff4c70fc5991203b5.jpg`，当前模型为 `S5A_memorial_sculpture_v003.glb`。以用户最新说明为准，正式文字资料仍待负责同学补充。
 
 ## 目标呈现
 

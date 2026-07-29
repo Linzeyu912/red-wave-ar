@@ -59,18 +59,18 @@
         "publish_status": "RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v002.glb",
+        "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v003.glb",
         "position": [
           0.0,
           0.006,
-          0.11
+          0.196261
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.11538462,
+        "uniform_scale_target_units_per_model_metre": 0.10682493,
         "uniform_scale_after_kivicube_auto_fit": 0.72,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -85,8 +85,8 @@
           0.36
         ],
         "z": [
-          -0.16,
-          0.234038
+          0.012522,
+          0.313769
         ],
         "inside_square_target": true
       },
@@ -111,19 +111,19 @@
         "publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v002.glb",
+        "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb",
         "position": [
           -0.12,
           0.006,
-          0.058182
+          0.08329
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.21818182,
-        "uniform_scale_after_kivicube_auto_fit": 0.574556,
+        "uniform_scale_target_units_per_model_metre": 0.18716547,
+        "uniform_scale_after_kivicube_auto_fit": 0.488199,
         "entry_animation": "photo_emerge",
         "auto_play": true
       },
@@ -137,8 +137,8 @@
           0.06
         ],
         "z": [
-          -0.203636,
-          0.142214
+          -0.15342,
+          0.155212
         ],
         "inside_square_target": true
       },
@@ -163,18 +163,18 @@
         "publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v002.glb",
+        "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v003.glb",
         "position": [
           0.0,
           0.006,
-          0.202967
+          0.186937
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.04302262,
+        "uniform_scale_target_units_per_model_metre": 0.040625,
         "uniform_scale_after_kivicube_auto_fit": 0.78,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -189,8 +189,8 @@
           0.39
         ],
         "z": [
-          0.045935,
-          0.278257
+          0.013875,
+          0.275297
         ],
         "inside_square_target": true
       },
@@ -215,18 +215,18 @@
         "publish_status": "IDENTITY_AND_RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v002.glb",
+        "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v003.glb",
         "position": [
-          0.04,
+          0.043035,
           0.006,
-          0.166667
+          0.171474
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.05333333,
+        "uniform_scale_target_units_per_model_metre": 0.04856661,
         "uniform_scale_after_kivicube_auto_fit": 0.72,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -241,8 +241,8 @@
           0.4
         ],
         "z": [
-          -0.006667,
-          0.294667
+          0.002948,
+          0.290462
         ],
         "inside_square_target": true
       },
@@ -267,7 +267,7 @@
         "publish_status": "IDENTITY_AND_RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v002.glb",
+        "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v003.glb",
         "position": [
           0.02,
           0.006,
@@ -278,7 +278,7 @@
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.06104017,
+        "uniform_scale_target_units_per_model_metre": 0.06026059,
         "uniform_scale_after_kivicube_auto_fit": 0.74,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -319,18 +319,18 @@
         "publish_status": "RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v002.glb",
+        "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v003.glb",
         "position": [
           0.0,
           0.006,
-          0.246433
+          0.199385
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.05833333,
+        "uniform_scale_target_units_per_model_metre": 0.05932203,
         "uniform_scale_after_kivicube_auto_fit": 0.7,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -345,8 +345,8 @@
           0.35
         ],
         "z": [
-          0.112865,
-          0.363099
+          0.018771,
+          0.359555
         ],
         "inside_square_target": true
       },
@@ -371,18 +371,18 @@
         "publish_status": "BLOCKED_WATERMARK_AND_RIGHTS"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v002.glb",
+        "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v003.glb",
         "position": [
-          0.0,
+          -0.004959,
           0.006,
-          -0.020561
+          -0.002944
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.07165451,
+        "uniform_scale_target_units_per_model_metre": 0.06578962,
         "uniform_scale_after_kivicube_auto_fit": 0.74,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -397,8 +397,8 @@
           0.37
         ],
         "z": [
-          -0.301121,
-          0.036763
+          -0.265887,
+          0.060872
         ],
         "inside_square_target": true
       },
@@ -423,18 +423,18 @@
         "publish_status": "RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v002.glb",
+        "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v003.glb",
         "position": [
           0.02,
           0.006,
-          -0.01872
+          -0.052368
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.068,
+        "uniform_scale_target_units_per_model_metre": 0.06766169,
         "uniform_scale_after_kivicube_auto_fit": 0.68,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -449,8 +449,8 @@
           0.36
         ],
         "z": [
-          -0.32744,
-          0.15808
+          -0.394736,
+          0.128627
         ],
         "inside_square_target": true
       },
@@ -475,18 +475,18 @@
         "publish_status": "RIGHTS_PENDING"
       },
       "model": {
-        "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v002.glb",
+        "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v003.glb",
         "position": [
-          0.024008,
+          0.021151,
           0.006,
-          0.211101
+          0.206498
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.04715128,
+        "uniform_scale_target_units_per_model_metre": 0.0475297,
         "uniform_scale_after_kivicube_auto_fit": 0.72,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -501,8 +501,8 @@
           0.38
         ],
         "z": [
-          0.052202,
-          0.383203
+          0.042996,
+          0.403271
         ],
         "inside_square_target": true
       },
