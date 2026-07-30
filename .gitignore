@@ -40,3 +40,6 @@ __pycache__/
 # === Gradle / 构建产物 ===
 .gradle/
 *.apk.tmp
+
+# 发票留存目录下的电子发票不受 *.pdf 忽略限制
+!发票留存/*.pdf
