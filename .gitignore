@@ -30,6 +30,7 @@ Thumbs.db
 *.bak
 *.blend1
 .zcode/
+/tmp/
 
 # === Python（建模白盒生成脚本缓存）===
 __pycache__/
