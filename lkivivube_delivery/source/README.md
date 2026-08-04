@@ -1,6 +1,6 @@
 # 九个 Kivicube 轻量模型：可复现源文件
 
-本目录保存七地点、九个独立建模单元的生成、Blender 复核与验收流水线。当前版本是依据 `modeling_input/S1` 至 `S7` 的 62 张现有照片和 [`DETAIL_EXTRACTION_V2.md`](../../modeling_input/DETAIL_EXTRACTION_V2.md) 制作的 V3 细节版照片平面衔接模型，不是 1:1 测绘复刻；照片没有覆盖的侧面、背面和屋顶按 `INFERRED_LOW_DETAIL` 保守闭合。
+本目录保存七地点、九个独立建模单元的生成、Blender 复核与验收流水线。当前版本依据 `modeling_input/S1` 至 `S7` 的 62 张现有照片和原位迭代的 [`DETAIL_EXTRACTION_V2.md`](../../modeling_input/DETAIL_EXTRACTION_V2.md) 制作 V3 细节版照片平面衔接模型。2026-08-04 的 V2.2 复核保留了已确认体块，统一纠正 S1A、S2A、S3A、S6A、S7A 的入口台阶方向，重点重建 S1B 人物/设备和 S3B 四臂桁架/帘幕线网；未新建交付目录或模型版本。S1B 使用低于 50,000 三角面硬上限的近景人物专项预算，并保持单一 GLB 整体上传。模型不是 1:1 测绘复刻，照片没有覆盖的侧面、背面和屋顶按 `INFERRED_LOW_DETAIL` 保守闭合。
 
 ## 交付内容
 

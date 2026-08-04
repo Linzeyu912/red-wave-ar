@@ -4,7 +4,11 @@
     "preferred_file_bytes": 5242880,
     "maximum_file_bytes": 10485760,
     "maximum_meshes": 5,
-    "maximum_triangles": 30000,
+    "recommended_triangles": 30000,
+    "platform_maximum_triangles": 50000,
+    "high_detail_triangle_limits": {
+      "S1B_radio_operator_statue_v003.glb": 50000
+    },
     "maximum_materials": 5,
     "maximum_textures": 10,
     "maximum_animations": 5
@@ -26,7 +30,7 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 295692,
+          "value": 298216,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -35,7 +39,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 2540,
+          "value": 2576,
           "maximum": 30000
         },
         "materials": {
@@ -58,7 +62,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 2540,
+        "triangles": 2576,
         "materials": 5,
         "images": 1
       }
@@ -68,30 +72,30 @@
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
-      "primitives": 3,
+      "primitives": 4,
       "images": 0,
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 2.608382225036621,
+        "maximum": 2.5405781269073486,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 261224,
+          "value": 1200920,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
-          "value": 3,
+          "value": 4,
           "maximum": 5
         },
         "triangles": {
-          "value": 3802,
-          "maximum": 30000
+          "value": 46316,
+          "maximum": 50000
         },
         "materials": {
-          "value": 3,
+          "value": 4,
           "maximum": 5
         },
         "textures": {
@@ -104,14 +108,16 @@
         }
       },
       "errors": [],
-      "warnings": [],
+      "warnings": [
+        "approved character-detail exception: 46316 triangles exceeds the 30000 recommendation but remains within the 50000 platform cap"
+      ],
       "asset_id": "s1b_radio_operator_statue",
       "blender_import": {
         "status": "PASS",
         "version": "5.1.2",
-        "mesh_objects": 3,
-        "triangles": 3802,
-        "materials": 3,
+        "mesh_objects": 4,
+        "triangles": 46316,
+        "materials": 4,
         "images": 0
       }
     },
@@ -130,7 +136,7 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 683368,
+          "value": 683364,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -182,7 +188,7 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 317896,
+          "value": 317892,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -229,12 +235,12 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 7.488889694213867,
+        "maximum": 7.621484756469727,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 809228,
+          "value": 1462740,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -243,7 +249,7 @@
           "maximum": 5
         },
         "triangles": {
-          "value": 12476,
+          "value": 22448,
           "maximum": 30000
         },
         "materials": {
@@ -266,7 +272,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 3,
-        "triangles": 12476,
+        "triangles": 22448,
         "materials": 3,
         "images": 0
       }
