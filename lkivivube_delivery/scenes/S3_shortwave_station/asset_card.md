@@ -14,8 +14,8 @@
 | S3B | 天线阵列 | `images/S3B_shortwave_antenna_array_trigger_v001.jpg` | `images/S3B_shortwave_antenna_array_reference_reveal_v001.jpg` | `model/S3B_shortwave_antenna_array_v003.glb` |
 
 - 模型真实配色依据：照片已收到并用于 V3，不从红白触发图取色；公开展示许可待确认。
-- S3A：317,896 B、4 网格、4,492 三角面、4 材质、0 贴图、1 个 `photo_emerge` 动画；已细化七层弧形玻璃带、挑板、盲墙和低翼；源文件 `../../source/blend/S3A_shortwave_station_building_v003_source.blend`；预览 `images/S3A_shortwave_station_building_preview_v003.png`。
-- S3B：809,228 B、3 网格、12,476 三角面、3 材质、0 贴图、1 个 `photo_emerge` 动画；已细化桅杆桁架、三角臂、悬垂线和绝缘子；源文件 `../../source/blend/S3B_shortwave_antenna_array_v003_source.blend`；预览 `images/S3B_shortwave_antenna_array_preview_v003.png`。
+- S3A：317,892 B、4 网格、4,492 三角面、4 材质、0 贴图、1 个 `photo_emerge` 动画；保留七层弧形玻璃带、挑板、盲墙和低翼，入口台阶纠正为外低内高；源文件 `../../source/blend/S3A_shortwave_station_building_v003_source.blend`；预览 `images/S3A_shortwave_station_building_preview_v003.png`。
+- S3B：1,462,740 B、3 网格、22,448 三角面、3 材质、0 贴图、1 个 `photo_emerge` 动画；两组对向共线桁架轴按近正交关系建模，细化十节四腿塔架、共同支承节点、空间三角臂、端部封头、主拉索、四扇区帘幕线网和代表性绝缘子；源文件 `../../source/blend/S3B_shortwave_antenna_array_v003_source.blend`；预览 `images/S3B_shortwave_antenna_array_preview_v003.png`。
 - 两个单元的照片主体锚点、模型位置和缩放：`../../source/presentation_handoff_report.json`。
 - 两个 GLB 均通过本地预算与 Blender 5.1.2 回读检查。
 - S3A 不可见建筑面标记 `INFERRED_LOW_DETAIL`；S3B 次级线缆按性能预算简化。

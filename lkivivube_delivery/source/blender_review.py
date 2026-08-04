@@ -56,7 +56,7 @@ def look_at(obj: bpy.types.Object, target: Vector) -> None:
     obj.rotation_euler = direction.to_track_quat("-Z", "Y").to_euler()
 
 
-def add_review_world(minimum: Vector, maximum: Vector) -> None:
+def add_review_world(minimum: Vector, maximum: Vector, asset_id: str = "") -> None:
     """Create a Blender Z-up review rig.
 
     Blender's glTF importer converts authored glTF axes as:
@@ -81,10 +81,12 @@ def add_review_world(minimum: Vector, maximum: Vector) -> None:
     material.roughness = 0.94
     ground.data.materials.append(material)
 
+    light_scale = 0.35 if asset_id == "s1b_radio_operator_statue" else 1.0
+
     bpy.ops.object.light_add(type="AREA")
     key = bpy.context.object
     key.name = "qa_key"
-    key.data.energy = 1400.0
+    key.data.energy = 1400.0 * light_scale
     key.data.shape = "DISK"
     key.data.size = extent * 0.85
     key.location = centre + Vector((-extent * 0.85, extent * 1.05, extent * 1.45))
@@ -93,7 +95,7 @@ def add_review_world(minimum: Vector, maximum: Vector) -> None:
     bpy.ops.object.light_add(type="AREA")
     fill = bpy.context.object
     fill.name = "qa_fill"
-    fill.data.energy = 850.0
+    fill.data.energy = 850.0 * light_scale
     fill.data.size = extent * 0.72
     fill.location = centre + Vector((extent * 1.15, extent * 0.55, extent * 0.75))
     look_at(fill, centre)
@@ -101,7 +103,7 @@ def add_review_world(minimum: Vector, maximum: Vector) -> None:
     bpy.ops.object.light_add(type="AREA")
     rim = bpy.context.object
     rim.name = "qa_rim"
-    rim.data.energy = 1100.0
+    rim.data.energy = 1100.0 * light_scale
     rim.data.size = extent * 0.55
     rim.location = centre + Vector((0.0, -extent * 1.20, extent * 1.10))
     look_at(rim, centre)
@@ -109,10 +111,13 @@ def add_review_world(minimum: Vector, maximum: Vector) -> None:
     bpy.ops.object.camera_add()
     camera = bpy.context.object
     camera.name = "qa_camera"
-    camera.data.lens = 58.0
+    camera.data.lens = 64.0 if asset_id == "s1b_radio_operator_statue" else 58.0
     camera.data.sensor_width = 36.0
     target = Vector((centre.x, centre.y, minimum.z + dimensions.z * 0.46))
-    camera.location = target + Vector((extent * 1.05, extent * 1.72, extent * 0.78))
+    if asset_id == "s1b_radio_operator_statue":
+        camera.location = target + Vector((-extent * 0.72, extent * 1.90, extent * 0.68))
+    else:
+        camera.location = target + Vector((extent * 1.05, extent * 1.72, extent * 0.78))
     look_at(camera, target)
     bpy.context.scene.camera = camera
 
@@ -167,7 +172,7 @@ def main() -> None:
         source_path = BLEND_DIR / f"{glb_path.stem}_source.blend"
         bpy.ops.wm.save_as_mainfile(filepath=str(source_path), compress=True)
 
-        add_review_world(minimum, maximum)
+        add_review_world(minimum, maximum, asset["asset_id"])
         image_dir = glb_path.parent.parent / "images"
         version_match = re.search(r"_(v\d{3})$", glb_path.stem)
         version = version_match.group(1) if version_match else "v001"

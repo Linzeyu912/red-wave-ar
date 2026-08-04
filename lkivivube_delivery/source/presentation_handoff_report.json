@@ -63,7 +63,7 @@
         "position": [
           0.0,
           0.006,
-          0.196261
+          0.113878
         ],
         "rotation_degrees": [
           0.0,
@@ -85,8 +85,8 @@
           0.36
         ],
         "z": [
-          0.012522,
-          0.313769
+          -0.152245,
+          0.231385
         ],
         "inside_square_target": true
       },
@@ -115,15 +115,15 @@
         "position": [
           -0.12,
           0.006,
-          0.08329
+          0.113032
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.18716547,
-        "uniform_scale_after_kivicube_auto_fit": 0.488199,
+        "uniform_scale_target_units_per_model_metre": 0.1544534,
+        "uniform_scale_after_kivicube_auto_fit": 0.392401,
         "entry_animation": "photo_emerge",
         "auto_play": true
       },
@@ -137,8 +137,8 @@
           0.06
         ],
         "z": [
-          -0.15342,
-          0.155212
+          -0.093935,
+          0.168018
         ],
         "inside_square_target": true
       },
@@ -167,7 +167,7 @@
         "position": [
           0.0,
           0.006,
-          0.186937
+          0.191423
         ],
         "rotation_degrees": [
           0.0,
@@ -189,8 +189,8 @@
           0.39
         ],
         "z": [
-          0.013875,
-          0.275297
+          0.022845,
+          0.279782
         ],
         "inside_square_target": true
       },
@@ -219,7 +219,7 @@
         "position": [
           0.043035,
           0.006,
-          0.171474
+          0.176836
         ],
         "rotation_degrees": [
           0.0,
@@ -241,8 +241,8 @@
           0.4
         ],
         "z": [
-          0.002948,
-          0.290462
+          0.013671,
+          0.295824
         ],
         "inside_square_target": true
       },
@@ -278,7 +278,7 @@
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.06026059,
+        "uniform_scale_target_units_per_model_metre": 0.06131814,
         "uniform_scale_after_kivicube_auto_fit": 0.74,
         "entry_animation": "photo_emerge",
         "auto_play": true
@@ -427,7 +427,7 @@
         "position": [
           0.02,
           0.006,
-          -0.052368
+          -0.044898
         ],
         "rotation_degrees": [
           0.0,
@@ -449,8 +449,8 @@
           0.36
         ],
         "z": [
-          -0.394736,
-          0.128627
+          -0.379797,
+          0.136097
         ],
         "inside_square_target": true
       },
@@ -479,7 +479,7 @@
         "position": [
           0.021151,
           0.006,
-          0.206498
+          0.210871
         ],
         "rotation_degrees": [
           0.0,
@@ -501,8 +501,8 @@
           0.38
         ],
         "z": [
-          0.042996,
-          0.403271
+          0.051741,
+          0.407644
         ],
         "inside_square_target": true
       },
