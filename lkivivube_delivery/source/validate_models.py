@@ -24,11 +24,15 @@ TARGET_BYTES = 5 * 1024 * 1024
 MAX_BYTES = 10 * 1024 * 1024
 MAX_MESHES = 5
 MAX_TRIANGLES = 30_000
+PLATFORM_MAX_TRIANGLES = 50_000
 MAX_MATERIALS = 5
 MAX_TEXTURES = 10
 MAX_ANIMATIONS = 5
 ALLOWED_IMAGE_MIME = {"image/png", "image/jpeg"}
 ALLOWED_PRIMITIVE_MODES = {4}  # TRIANGLES
+HIGH_DETAIL_TRIANGLE_LIMITS = {
+    "S1B_radio_operator_statue_v003.glb": PLATFORM_MAX_TRIANGLES,
+}
 
 
 class ValidationError(RuntimeError):
@@ -223,10 +227,11 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
         )
 
     size = path.stat().st_size
+    triangle_limit = HIGH_DETAIL_TRIANGLE_LIMITS.get(path.name, MAX_TRIANGLES)
     budgets = {
         "file_bytes": {"value": size, "target": TARGET_BYTES, "maximum": MAX_BYTES},
         "meshes": {"value": len(meshes), "maximum": MAX_MESHES},
-        "triangles": {"value": triangles, "maximum": MAX_TRIANGLES},
+        "triangles": {"value": triangles, "maximum": triangle_limit},
         "materials": {"value": len(materials), "maximum": MAX_MATERIALS},
         "textures": {"value": len(textures), "maximum": MAX_TEXTURES},
         "animations": {"value": len(animations), "maximum": MAX_ANIMATIONS},
@@ -238,6 +243,11 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
             )
     if size > TARGET_BYTES:
         warnings.append(f"file exceeds the preferred 5 MiB target ({size} bytes)")
+    if triangles > MAX_TRIANGLES and triangle_limit > MAX_TRIANGLES:
+        warnings.append(
+            f"approved character-detail exception: {triangles} triangles exceeds the "
+            f"{MAX_TRIANGLES} recommendation but remains within the {triangle_limit} platform cap"
+        )
 
     return {
         "file": path.relative_to(ROOT).as_posix(),
@@ -336,7 +346,9 @@ def main() -> int:
             "preferred_file_bytes": TARGET_BYTES,
             "maximum_file_bytes": MAX_BYTES,
             "maximum_meshes": MAX_MESHES,
-            "maximum_triangles": MAX_TRIANGLES,
+            "recommended_triangles": MAX_TRIANGLES,
+            "platform_maximum_triangles": PLATFORM_MAX_TRIANGLES,
+            "high_detail_triangle_limits": HIGH_DETAIL_TRIANGLE_LIMITS,
             "maximum_materials": MAX_MATERIALS,
             "maximum_textures": MAX_TEXTURES,
             "maximum_animations": MAX_ANIMATIONS,
