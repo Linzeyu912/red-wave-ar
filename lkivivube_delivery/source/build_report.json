@@ -3,9 +3,9 @@
     {
       "asset_id": "s1a_pingxi_gate",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1A_pingxi_gate_v003.glb",
-      "size_bytes": 295692,
-      "triangles": 2540,
-      "vertices": 4986,
+      "size_bytes": 298216,
+      "triangles": 2576,
+      "vertices": 5058,
       "meshes": 5,
       "materials": 5,
       "textures": 1,
@@ -13,7 +13,7 @@
       "bounds_min": [
         -3.369999885559082,
         0.0,
-        -1.7200000286102295
+        -2.4911999702453613
       ],
       "bounds_max": [
         3.369999885559082,
@@ -26,30 +26,30 @@
     {
       "asset_id": "s1b_radio_operator_statue",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1B_radio_operator_statue_v003.glb",
-      "size_bytes": 261224,
-      "triangles": 3802,
-      "vertices": 7308,
-      "meshes": 3,
-      "materials": 3,
+      "size_bytes": 1200920,
+      "triangles": 46316,
+      "vertices": 28668,
+      "meshes": 4,
+      "materials": 4,
       "textures": 0,
       "animations": 1,
       "bounds_min": [
-        -0.9617158770561218,
+        -1.1654000282287598,
         0.0,
-        -1.2647104263305664
+        -1.340000033378601
       ],
       "bounds_max": [
-        0.9617158770561218,
-        2.608382225036621,
-        0.3842705190181732
+        1.1654000282287598,
+        2.5405781269073486,
+        0.35600000619888306
       ],
-      "ground_normalization_offset": -0.045,
+      "ground_normalization_offset": 0.0,
       "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb"
     },
     {
       "asset_id": "s2a_telegraph_building",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S2_telegraph_building\\model\\S2A_telegraph_building_v003.glb",
-      "size_bytes": 683368,
+      "size_bytes": 683364,
       "triangles": 9836,
       "vertices": 19308,
       "meshes": 5,
@@ -59,7 +59,7 @@
       "bounds_min": [
         -9.600000381469727,
         0.0,
-        -4.260000228881836
+        -4.149600028991699
       ],
       "bounds_max": [
         9.600000381469727,
@@ -72,7 +72,7 @@
     {
       "asset_id": "s3a_shortwave_station_building",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3A_shortwave_station_building_v003.glb",
-      "size_bytes": 317896,
+      "size_bytes": 317892,
       "triangles": 4492,
       "vertices": 8916,
       "meshes": 4,
@@ -82,7 +82,7 @@
       "bounds_min": [
         -7.474999904632568,
         0.0,
-        -3.4700000286102295
+        -3.359600067138672
       ],
       "bounds_max": [
         7.349999904632568,
@@ -95,22 +95,22 @@
     {
       "asset_id": "s3b_shortwave_antenna_array",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S3_shortwave_station\\model\\S3B_shortwave_antenna_array_v003.glb",
-      "size_bytes": 809228,
-      "triangles": 12476,
-      "vertices": 22808,
+      "size_bytes": 1462740,
+      "triangles": 22448,
+      "vertices": 41360,
       "meshes": 3,
       "materials": 3,
       "textures": 0,
       "animations": 1,
       "bounds_min": [
-        -6.139999866485596,
+        -6.0341033935546875,
         0.0,
-        -6.139999866485596
+        -6.0341033935546875
       ],
       "bounds_max": [
-        6.139999866485596,
-        7.488889694213867,
-        6.139999866485596
+        6.0341033935546875,
+        7.621484756469727,
+        6.0341033935546875
       ],
       "ground_normalization_offset": 0.024248711305964284,
       "relative_file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v003.glb"
@@ -174,7 +174,7 @@
       "bounds_min": [
         -5.025000095367432,
         0.0,
-        -5.059999942779541
+        -4.9496002197265625
       ],
       "bounds_max": [
         5.025000095367432,
@@ -197,7 +197,7 @@
       "bounds_min": [
         -7.598422050476074,
         0.0,
-        -3.440000057220459
+        -3.3480000495910645
       ],
       "bounds_max": [
         7.550000190734863,

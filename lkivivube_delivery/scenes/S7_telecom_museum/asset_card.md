@@ -11,7 +11,7 @@
 - 真实照片展示图：`images/S7A_telecom_museum_reference_reveal_v001.jpg`；原图已收到，公开展示权待确认。
 - 模型真实配色依据：主要照片已收到，不从红白触发图取色；不可见面标记 `INFERRED_LOW_DETAIL`，不虚构馆名或企业标识。
 - V3 沿用主要照片和手绘触发图共同出现的“高塔带竖向中国电信博物馆馆名”状态；没有混入无标识状态的冲突细节。该贴花在 `.blend` 中仍可替换。核验依据：[`../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。
-- GLB：`model/S7A_telecom_museum_v003.glb`，390,380 B、5 网格、5,024 三角面、5 材质、1 贴图、1 个 `photo_emerge` 动画；已将弧形主体改为前半曲面并细化幕墙分格、金属板缝、入口、塔楼和后翼，本地预算与 Blender 5.1.2 回读检查通过。
+- GLB：`model/S7A_telecom_museum_v003.glb`，390,380 B、5 网格、5,024 三角面、5 材质、1 贴图、1 个 `photo_emerge` 动画；已将弧形主体改为前半曲面并细化幕墙分格、金属板缝、入口、塔楼和后翼，同时纠正入口台阶为外低内高；本地预算与 Blender 5.1.2 回读检查通过。
 - 可编辑源文件：`../../source/blend/S7A_telecom_museum_v003_source.blend`。
 - V3 预览：`images/S7A_telecom_museum_preview_v003.png`。
 - 照片主体锚点、模型位置和缩放：`../../source/presentation_handoff_report.json`。
