@@ -7,6 +7,7 @@ rewrites the controlled source photographs or hand-drawn trigger files.
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont, ImageOps
@@ -14,6 +15,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent / ".build" / "trigger_reference_review"
+PUBLISHED = ROOT / "lkivivube_delivery" / "images"
 FONT_CANDIDATES = [
     Path("C:/Windows/Fonts/msyh.ttc"),
     Path("C:/Windows/Fonts/msyhbd.ttc"),
@@ -162,6 +164,13 @@ def main() -> None:
     make_sheet("trigger", "原手绘触发图｜9 个模型", OUT / "trigger_images_3x3.png")
     make_sheet("reference", "绘制触发图的参考原图｜9 个模型", OUT / "trigger_reference_images_3x3.png")
     make_sheet("ground", "模型出现时的地面贴图｜9 个模型", OUT / "ground_textures_3x3.png")
+    PUBLISHED.mkdir(parents=True, exist_ok=True)
+    for review_name, published_name in (
+        ("trigger_images_3x3.png", "kivicube_trigger_images_3x3.png"),
+        ("trigger_reference_images_3x3.png", "kivicube_trigger_reference_images_3x3.png"),
+        ("ground_textures_3x3.png", "kivicube_ground_textures_3x3.png"),
+    ):
+        shutil.copy2(OUT / review_name, PUBLISHED / published_name)
 
     manifest = {
         "schema": "red-wave-ar.trigger-reference-dimension-review.v1",

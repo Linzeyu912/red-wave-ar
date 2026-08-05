@@ -2,6 +2,14 @@
 
 所有 7 个地点、9 个模型均按同一流程交付：**原手绘触发图 → 绘制触发图的参考原图 → 模型与局部地面贴图**。
 
+## 触发图与适配预览
+
+![原手绘触发图｜9 个模型](images/kivicube_trigger_images_3x3.png)
+
+![绘制触发图的参考原图｜9 个模型](images/kivicube_trigger_reference_images_3x3.png)
+
+![模型出现时的地面贴图｜9 个模型](images/kivicube_ground_textures_3x3.png)
+
 | 单元 | 中文地点／模型 | 素材包 |
 |---|---|---|
 | S1A | 平西情报联络站：入口门楼 | `scenes/S1_pingxi_intelligence_station/kivicube_package/S1A_pingxi_gate/` |
