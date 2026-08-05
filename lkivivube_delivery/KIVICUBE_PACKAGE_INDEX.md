@@ -2,6 +2,10 @@
 
 所有 7 个地点、9 个模型均按同一流程交付：**原手绘触发图 → 绘制触发图的参考原图 → 模型与局部地面贴图**。
 
+## 当前 3D 建模预览
+
+![九个模型预览｜会随构建流程自动更新](images/kivicube_model_previews_3x3.png)
+
 ## 触发图与适配预览
 
 ![原手绘触发图｜9 个模型](images/kivicube_trigger_images_3x3.png)
