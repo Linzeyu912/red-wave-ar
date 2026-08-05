@@ -1,0 +1,98 @@
+{
+  "schema": "red-wave-ar.kivicube-s1-package.v1",
+  "asset_id": "S1A",
+  "display_name_zh": "平西情报联络站：入口门楼",
+  "target_coordinate_contract": {
+    "unit": "target_image_long_edge",
+    "target_plane": "XZ",
+    "up_axis": "Y",
+    "image_bottom_axis": "+Z"
+  },
+  "files": {
+    "image_target": "S1A_pingxi_gate_trigger_v001.jpg",
+    "reference_reveal": "S1A_pingxi_gate_reference_reveal_v001.jpg",
+    "ground_texture": "S1A_pingxi_gate_ground_texture_v001.png",
+    "model_glb": "../../model/S1A_pingxi_gate_v003.glb"
+  },
+  "animation_sequence": [
+    {
+      "start_seconds": 0.0,
+      "action": "recognize_image_target",
+      "notes_zh": "识别红白黑手绘触发图；触发图为实体识别图，不再额外盖一张数字触发图。"
+    },
+    {
+      "start_seconds": 0.15,
+      "action": "show_reference_reveal",
+      "notes_zh": "显示对应原图，作为模型出现前的第一画面。"
+    },
+    {
+      "start_seconds": 2.2,
+      "action": "show_ground_and_model",
+      "model_animation": "photo_emerge",
+      "auto_play": true,
+      "notes_zh": "地面贴图和 GLB 同时出现；地面只覆盖模型脚下区域，不遮住整张原图。"
+    },
+    {
+      "start_seconds": 3.2,
+      "action": "start_narration",
+      "notes_zh": "保持原图、地面和模型可见。"
+    }
+  ],
+  "reference_reveal_plane": {
+    "position": [
+      0.0,
+      0.002,
+      0.0
+    ],
+    "rotation_degrees": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "long_edge_ratio": 1.0,
+    "fit_mode": "contain_preserve_original_aspect"
+  },
+  "ground_texture_plane": {
+    "position": [
+      0.0,
+      0.004,
+      0.04
+    ],
+    "rotation_degrees": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size_target_units": [
+      0.76,
+      0.46
+    ],
+    "y_offset": 0.004,
+    "notes_zh": "这是平面贴图，不是厚展台；按模型出现时再显示。"
+  },
+  "model": {
+    "position": [
+      0.0,
+      0.006,
+      0.113878
+    ],
+    "rotation_degrees": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uniform_scale_after_kivicube_auto_fit": 0.72,
+    "entry_animation": "photo_emerge",
+    "auto_play": true,
+    "target_footprint": {
+      "x": [
+        -0.36,
+        0.36
+      ],
+      "z": [
+        -0.152245,
+        0.231385
+      ]
+    }
+  }
+}

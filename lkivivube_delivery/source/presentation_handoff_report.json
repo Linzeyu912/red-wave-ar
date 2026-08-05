@@ -18,12 +18,13 @@
     {
       "phase": "trigger",
       "start_seconds": 0.0,
-      "asset": "physical_red_white_target"
+      "asset": "physical_red_white_black_target"
     },
     {
       "phase": "reference_photo",
       "start_seconds": 0.15,
-      "asset": "square_contain_reference_card",
+      "asset": "reference_reveal_image",
+      "display_mode": "asset_specific",
       "keep_visible_under_model": true
     },
     {
@@ -43,6 +44,13 @@
     {
       "asset_id": "S1A",
       "reference_photo": {
+        "source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
@@ -54,7 +62,7 @@
           0.0
         ],
         "long_edge_ratio": 1.0,
-        "card_mode": "square_contain",
+        "card_mode": "original_preserve_aspect",
         "keep_visible_under_model": true,
         "publish_status": "RIGHTS_PENDING"
       },
@@ -95,6 +103,13 @@
     {
       "asset_id": "S1B",
       "reference_photo": {
+        "source": "modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站2.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
@@ -106,9 +121,9 @@
           0.0
         ],
         "long_edge_ratio": 1.0,
-        "card_mode": "square_contain",
+        "card_mode": "original_preserve_aspect",
         "keep_visible_under_model": true,
-        "publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING"
+        "publish_status": "RIGHTS_PENDING"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb",
@@ -142,11 +157,18 @@
         ],
         "inside_square_target": true
       },
-      "note": "参考卡先裁除右侧参观者，模型从雕塑桌面/底座所在的下部区域展开。"
+      "note": "使用白底雕塑原图作为首帧，模型从雕塑桌面/底座所在的下部区域展开；不再使用含讲解员的室内照片。"
     },
     {
       "asset_id": "S2A",
       "reference_photo": {
+        "source": "modeling_input/S2/local_reference/source_folder_20260727/微信图片_20260727183423_918_1.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          0.9
+        ],
         "position": [
           0.0,
           0.002,
@@ -199,6 +221,13 @@
     {
       "asset_id": "S3A",
       "reference_photo": {
+        "source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183421_916_1.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
@@ -251,6 +280,13 @@
     {
       "asset_id": "S3B",
       "reference_photo": {
+        "source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183422_917_1.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
@@ -303,6 +339,13 @@
     {
       "asset_id": "S4A",
       "reference_photo": {
+        "source": "modeling_input/S4/local_reference/source_folder_20260727/微信图片_20260727183424_919_1.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
@@ -355,6 +398,13 @@
     {
       "asset_id": "S5A",
       "reference_photo": {
+        "source": "modeling_input/S5/local_reference/source_folder_20260727/18b017b5eb0df80ff4c70fc5991203b5.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
@@ -407,6 +457,13 @@
     {
       "asset_id": "S6A",
       "reference_photo": {
+        "source": "modeling_input/S6/local_reference/source_folder_20260727/a4c5a574525a3f829e286f6eea4b9e08.jpg",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
@@ -459,6 +516,13 @@
     {
       "asset_id": "S7A",
       "reference_photo": {
+        "source": "modeling_input/S7/local_reference/source_folder_20260727/d10d05331791c52d672efca4212a9012.png",
+        "crop_uv": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
         "position": [
           0.0,
           0.002,
