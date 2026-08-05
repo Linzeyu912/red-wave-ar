@@ -36,7 +36,7 @@ ASSETS = [
     {
         "asset_id": "S1B",
         "display_name_zh": "平西情报联络站：女报务员雕塑",
-        "trigger": source("S1", "平西情报联络站2.jpg"),
+        "trigger": source("S1", "S1B_radio_operator_trigger_hand_drawn.jpg"),
         "reference": source("S1", "微信图片_20260716203647_1419_5130.jpg"),
     },
     {

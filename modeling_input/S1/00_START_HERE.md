@@ -9,7 +9,7 @@
 | 单元 | 对象 | 手绘触发图 | 真实照片 | 当前模型 |
 |---|---|---|---|---|
 | S1A | 入口门楼 | `trigger_hand_drawn.jpg` | `微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v003.glb` |
-| S1B | 女报务员雕塑及发报设备 | `平西情报联络站2.jpg` | `微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v003.glb` |
+| S1B | 女报务员雕塑及发报设备 | `S1B_radio_operator_trigger_hand_drawn.jpg` | `微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v003.glb` |
 
 默认体验顺序是：识别红白黑手绘触发图 → 同位置等比例展示触发图对应原图 → GLB 与脚下地面贴图同时从照片主体下缘展开 → 旁白。原图保持可见，不使用通用厚展台。
 
@@ -26,7 +26,7 @@
 ## 素材放置
 
 - 原始图片和文字：`local_reference/`，仅限本地受控使用。
-- 手绘触发图：S1A 原图为 `local_reference/**/trigger_hand_drawn.jpg`，S1B 原图为 `local_reference/**/平西情报联络站2.jpg`；Kivicube 包内仅复制原文件，不重绘、不裁切。两者均须经真机识别审核后再公开发布。
+- 手绘触发图：S1A 原图为 `local_reference/**/trigger_hand_drawn.jpg`，S1B 原图为 `local_reference/**/S1B_radio_operator_trigger_hand_drawn.jpg`；Kivicube 包内仅复制原文件，不重绘、不裁切。两者均须经真机识别审核后再公开发布。
 - 真实照片展示图：必须登记与触发图的对应关系及公开展示许可；未经许可不得复制到平台 `images/`。
 - 文件级对应关系：[`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。
 - 可追踪形象约束：[`visual_constraints.md`](visual_constraints.md)，已分别记录 S1A、S1B 的逐图依据、主体特征、推断边界和提示词片段。
