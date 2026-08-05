@@ -1,11 +1,10 @@
-# Kivicube 素材包｜S1_pingxi_intelligence_station
+# Kivicube 素材包｜S2_telegraph_building
 
 本目录按模型单元分包。每个子目录都有：原手绘触发图、绘制触发图的参考原图副本、独立地面贴图、`kivicube_setup.json`。
 
 | 单元 | 中文名称 | 子目录 |
 |---|---|---|
-| S1A | 平西情报联络站：入口门楼 | `S1A_pingxi_gate/` |
-| S1B | 平西情报联络站：女报务员雕塑及发报设备 | `S1B_radio_operator_statue/` |
+| S2A | 电报大楼 | `S2A_telegraph_building/` |
 
 ## 统一装配顺序
 

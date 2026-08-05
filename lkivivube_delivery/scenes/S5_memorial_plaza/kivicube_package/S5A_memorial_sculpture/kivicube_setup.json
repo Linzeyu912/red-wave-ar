@@ -1,17 +1,17 @@
 {
   "schema": "red-wave-ar.kivicube-package.v2",
-  "asset_id": "S1B",
-  "display_name_zh": "平西情报联络站：女报务员雕塑及发报设备",
+  "asset_id": "S5A",
+  "display_name_zh": "西山无名英雄纪念广场雕塑群",
   "source_integrity": {
     "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
     "reference": "drawing_reference_original_aspect_preserved",
     "ground": "separate_1024_square_image_plane"
   },
   "files": {
-    "image_target": "S1B_radio_operator_statue_trigger_v001.jpg",
-    "reference_reveal": "S1B_radio_operator_statue_reference_reveal_v001.jpg",
-    "ground_texture": "S1B_radio_operator_statue_ground_texture_v001.png",
-    "model_glb": "../../model/S1B_radio_operator_statue_v003.glb"
+    "image_target": "S5A_memorial_sculpture_trigger_v001.jpg",
+    "reference_reveal": "S5A_memorial_sculpture_reference_reveal_v001.jpg",
+    "ground_texture": "S5A_memorial_sculpture_ground_texture_v001.png",
+    "model_glb": "../../model/S5A_memorial_sculpture_v003.glb"
   },
   "animation_sequence": [
     {
@@ -51,9 +51,9 @@
   },
   "ground_texture_plane": {
     "position": [
-      -0.12,
+      0.0,
       0.004,
-      0.037041
+      -0.102507
     ],
     "rotation_degrees": [
       0.0,
@@ -61,34 +61,34 @@
       0.0
     ],
     "size_target_units": [
-      0.42,
-      0.321953
+      0.8,
+      0.386759
     ],
     "y_offset": 0.004,
     "notes_zh": "仅覆盖模型实际占地及 0.03 单位边界；不覆盖整张原图。"
   },
   "model": {
     "position": [
-      -0.12,
+      -0.004959,
       0.006,
-      0.113032
+      -0.002944
     ],
     "rotation_degrees": [
       0.0,
       0.0,
       0.0
     ],
-    "uniform_scale_after_kivicube_auto_fit": 0.392401,
+    "uniform_scale_after_kivicube_auto_fit": 0.74,
     "entry_animation": "photo_emerge",
     "auto_play": true,
     "target_footprint": {
       "x": [
-        -0.3,
-        0.06
+        -0.37,
+        0.37
       ],
       "z": [
-        -0.093935,
-        0.168018
+        -0.265887,
+        0.060872
       ],
       "inside_square_target": true
     }

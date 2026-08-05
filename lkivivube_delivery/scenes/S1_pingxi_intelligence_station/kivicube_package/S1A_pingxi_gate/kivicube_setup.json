@@ -1,12 +1,11 @@
 {
-  "schema": "red-wave-ar.kivicube-s1-package.v1",
+  "schema": "red-wave-ar.kivicube-package.v2",
   "asset_id": "S1A",
   "display_name_zh": "平西情报联络站：入口门楼",
-  "target_coordinate_contract": {
-    "unit": "target_image_long_edge",
-    "target_plane": "XZ",
-    "up_axis": "Y",
-    "image_bottom_axis": "+Z"
+  "source_integrity": {
+    "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
+    "reference": "drawing_reference_original_aspect_preserved",
+    "ground": "separate_1024_square_image_plane"
   },
   "files": {
     "image_target": "S1A_pingxi_gate_trigger_v001.jpg",
@@ -17,25 +16,23 @@
   "animation_sequence": [
     {
       "start_seconds": 0.0,
-      "action": "recognize_image_target",
-      "notes_zh": "识别红白黑手绘触发图；触发图为实体识别图，不再额外盖一张数字触发图。"
+      "action": "recognize_original_hand_drawn_image_target"
     },
     {
       "start_seconds": 0.15,
       "action": "show_reference_reveal",
-      "notes_zh": "显示对应原图，作为模型出现前的第一画面。"
+      "keep_visible_under_model": true
     },
     {
       "start_seconds": 2.2,
       "action": "show_ground_and_model",
       "model_animation": "photo_emerge",
-      "auto_play": true,
-      "notes_zh": "地面贴图和 GLB 同时出现；地面只覆盖模型脚下区域，不遮住整张原图。"
+      "auto_play": true
     },
     {
       "start_seconds": 3.2,
       "action": "start_narration",
-      "notes_zh": "保持原图、地面和模型可见。"
+      "keep_reference_visible": true
     }
   ],
   "reference_reveal_plane": {
@@ -56,7 +53,7 @@
     "position": [
       0.0,
       0.004,
-      0.04
+      0.03957
     ],
     "rotation_degrees": [
       0.0,
@@ -64,11 +61,11 @@
       0.0
     ],
     "size_target_units": [
-      0.76,
-      0.46
+      0.78,
+      0.44363
     ],
     "y_offset": 0.004,
-    "notes_zh": "这是平面贴图，不是厚展台；按模型出现时再显示。"
+    "notes_zh": "仅覆盖模型实际占地及 0.03 单位边界；不覆盖整张原图。"
   },
   "model": {
     "position": [
@@ -92,7 +89,8 @@
       "z": [
         -0.152245,
         0.231385
-      ]
+      ],
+      "inside_square_target": true
     }
   }
 }
