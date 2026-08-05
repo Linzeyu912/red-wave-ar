@@ -8,7 +8,7 @@
 - `glbkit.py`：本项目的轻量 glTF 2.0/GLB 写出器，使用米制单位、Y 轴向上、正面朝 -Z。
 - `blender_review.py`：用 Blender 5.1.2 逐个导入 GLB，保存可编辑 `.blend`，并渲染预览。
 - `validate_models.py`：检查 GLB 结构、嵌入资源与 Kivicube 文件/网格/三角面/材质/贴图预算。
-- `make_contact_sheet.py`：把九张预览合成总览。
+- `make_contact_sheet.py`：把九张预览合成总览，并同步到 `../images/kivicube_model_previews_3x3.png`，供 Kivicube 素材包索引 README 直接展示。
 - `presentation_profiles.json`：九个模型相对方形触发图/参考照片卡的锚点、宽度、位置和隐私处理交接参数。
 - `make_presentation_handoff.py`：结合最终 GLB 包围盒计算 Kivicube 精确位置与自动适配后的缩放值。
 - `presentation_handoff_report.json`：可直接照录到场景编辑器的图片平面和模型布局结果。
