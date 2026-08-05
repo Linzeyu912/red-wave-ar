@@ -14,12 +14,13 @@
     {
       "phase": "trigger",
       "start_seconds": 0.0,
-      "asset": "physical_red_white_target"
+      "asset": "physical_red_white_black_target"
     },
     {
       "phase": "reference_photo",
       "start_seconds": 0.15,
-      "asset": "square_contain_reference_card",
+      "asset": "reference_reveal_image",
+      "display_mode": "asset_specific",
       "keep_visible_under_model": true
     },
     {
@@ -41,6 +42,7 @@
       "model": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v003.glb",
       "reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
       "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_display_mode": "original_preserve_aspect",
       "reference_publish_status": "RIGHTS_PENDING",
       "subject_anchor_uv": [0.50, 0.88],
       "subject_base_visible": false,
@@ -50,13 +52,14 @@
     {
       "asset_id": "S1B",
       "model": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb",
-      "reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260716203647_1419_5130.jpg",
-      "reference_crop_uv": [0.0, 0.0, 0.64, 1.0],
-      "reference_publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING",
+      "reference_source": "modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站2.jpg",
+      "reference_crop_uv": [0.0, 0.0, 1.0, 1.0],
+      "reference_display_mode": "original_preserve_aspect",
+      "reference_publish_status": "RIGHTS_PENDING",
       "subject_anchor_uv": [0.38, 0.82],
       "subject_base_visible": false,
       "model_width_ratio": 0.36,
-      "transition_note": "参考卡先裁除右侧参观者，模型从雕塑桌面/底座所在的下部区域展开。"
+      "transition_note": "使用白底雕塑原图作为首帧，模型从雕塑桌面/底座所在的下部区域展开；不再使用含讲解员的室内照片。"
     },
     {
       "asset_id": "S2A",

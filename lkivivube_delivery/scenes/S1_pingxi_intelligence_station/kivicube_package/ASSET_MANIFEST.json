@@ -1,0 +1,57 @@
+{
+  "schema": "red-wave-ar.kivicube-s1-package-manifest.v1",
+  "scope": "S1 Pingxi intelligence station only",
+  "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
+  "assets": [
+    {
+      "asset_id": "S1A",
+      "display_name_zh": "平西情报联络站：入口门楼",
+      "trigger_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
+      "files": [
+        {
+          "file": "S1A_pingxi_gate_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "bytes": 301090
+        },
+        {
+          "file": "S1A_pingxi_gate_reference_reveal_v001.jpg",
+          "width": 1440,
+          "height": 996,
+          "bytes": 252270
+        },
+        {
+          "file": "S1A_pingxi_gate_ground_texture_v001.png",
+          "width": 1254,
+          "height": 1254,
+          "bytes": 3213044
+        }
+      ]
+    },
+    {
+      "asset_id": "S1B",
+      "display_name_zh": "平西情报联络站：女报务员雕塑及发报设备",
+      "trigger_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站2.jpg",
+      "files": [
+        {
+          "file": "S1B_radio_operator_statue_trigger_v001.png",
+          "width": 1254,
+          "height": 1254,
+          "bytes": 2047147
+        },
+        {
+          "file": "S1B_radio_operator_statue_reference_reveal_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "bytes": 103171
+        },
+        {
+          "file": "S1B_radio_operator_statue_ground_texture_v001.png",
+          "width": 1254,
+          "height": 1254,
+          "bytes": 2674086
+        }
+      ]
+    }
+  ]
+}

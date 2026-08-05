@@ -13,7 +13,7 @@
 | 单元 | 地点与对象 | 手绘触发图原文件 | 真实照片原文件 | 计划 GLB | 展示图预处理 |
 |---|---|---|---|---|---|
 | S1A | 平西情报联络站入口门楼 | `S1/.../trigger_hand_drawn.jpg` | `S1/.../微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v003.glb` | 尺寸可用；公开权待确认 |
-| S1B | 平西女报务员雕塑及发报设备 | `S1/.../平西情报联络站2.jpg` | `S1/.../微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v003.glb` | 需缩至 ≤4096、≤5 MB，并裁除/处理背景人物 |
+| S1B | 平西女报务员雕塑及发报设备 | `lkivivube_delivery/.../kivicube_package/S1B_radio_operator_statue/S1B_radio_operator_statue_trigger_v001.png` | `S1/.../平西情报联络站2.jpg` | `S1B_radio_operator_statue_v003.glb` | 白底原图可作首帧；公开权待确认 |
 | S2A | 电报大楼 | `S2/.../trigger_hand_drawn.jpg` | `S2/.../微信图片_20260727183423_918_1.jpg` | `S2A_telegraph_building_v003.glb` | 需压至 ≤5 MB，并裁除车牌等无关信息 |
 | S3A | S3 参考素材所示通信楼 | `S3/.../trigger_hand_drawn.jpg` | `S3/.../微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v003.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
 | S3B | S3 参考素材所示天线阵列 | `S3/.../短波通信局2.jpg` | `S3/.../微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v003.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
