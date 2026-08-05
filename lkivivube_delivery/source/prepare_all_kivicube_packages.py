@@ -35,7 +35,7 @@ ASSETS = [
     {
         "asset_id": "S1B", "scene": "S1_pingxi_intelligence_station", "folder": "S1B_radio_operator_statue",
         "display_name_zh": "平西情报联络站：女报务员雕塑及发报设备", "model": "S1B_radio_operator_statue_v003.glb",
-        "trigger": ref("S1", "平西情报联络站2.jpg"), "reference": ref("S1", "微信图片_20260716203647_1419_5130.jpg"),
+        "trigger": ref("S1", "S1B_radio_operator_trigger_hand_drawn.jpg"), "reference": ref("S1", "微信图片_20260716203647_1419_5130.jpg"),
         "status": "PRIVACY_AND_RIGHTS_PENDING",
     },
     {

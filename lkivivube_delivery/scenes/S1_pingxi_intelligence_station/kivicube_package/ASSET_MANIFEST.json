@@ -45,7 +45,7 @@
     {
       "asset_id": "S1B",
       "display_name_zh": "平西情报联络站：女报务员雕塑及发报设备",
-      "trigger_source": "modeling_input/S1/local_reference/source_folder_20260727/平西情报联络站2.jpg",
+      "trigger_source": "modeling_input/S1/local_reference/source_folder_20260727/S1B_radio_operator_trigger_hand_drawn.jpg",
       "trigger_drawing_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260716203647_1419_5130.jpg",
       "reference_publish_status": "PRIVACY_AND_RIGHTS_PENDING",
       "delivery": {
@@ -54,7 +54,7 @@
           "width": 1080,
           "height": 1080,
           "aspect_ratio": 1.0,
-          "bytes": 268186
+          "bytes": 165113
         },
         "reference_reveal": {
           "file": "S1B_radio_operator_statue_reference_reveal_v001.jpg",

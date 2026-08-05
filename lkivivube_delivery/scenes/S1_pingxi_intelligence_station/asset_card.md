@@ -31,7 +31,7 @@
 ## 交付与验收
 
 - S1A 触发图／原图／地面贴图：`kivicube_package/S1A_pingxi_gate/`。
-- S1B 触发图／原图／地面贴图：`kivicube_package/S1B_radio_operator_statue/`；触发图保持原文件，绘制参考原图保留原画幅比例。
+- S1B 触发图／原图／地面贴图：`kivicube_package/S1B_radio_operator_statue/`；触发图使用 `S1B_radio_operator_trigger_hand_drawn.jpg` 原文件，保持原样、不重绘、不裁切；绘制参考原图保留原画幅比例。
 - 每个单元的 Kivicube 时间线、贴图平面与模型摆放参数，见各自 `kivicube_package/*/kivicube_setup.json`。
 - 形象与真实配色约束：已按 V2.1 原位复核用于 V3；S1A 六级入口台阶已纠正为外侧最低、靠门最高，并压暗灰砖、灰瓦与酒红木构。
 - S1B 已重排为人物在左后、设备在右前的三分之四构图，使用连续法线的雕刻式头脸、收分袖管与分指双手，细化扫发、发辫、圆耳罩、盘扣衣襟、箱式报务机和电键；46,316 三角面属于近景人物专项预算，低于平台 50,000 硬上限。不可见面采用 `INFERRED_LOW_DETAIL`，不生成照片未显示的腿脚姿态。
