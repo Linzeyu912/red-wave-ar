@@ -13,7 +13,7 @@
 | 单元 | 地点与对象 | 手绘触发图原文件 | 真实照片原文件 | 计划 GLB | 展示图预处理 |
 |---|---|---|---|---|---|
 | S1A | 平西情报联络站入口门楼 | `S1/.../trigger_hand_drawn.jpg` | `S1/.../微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v003.glb` | 尺寸可用；公开权待确认 |
-| S1B | 平西女报务员雕塑及发报设备 | `lkivivube_delivery/.../kivicube_package/S1B_radio_operator_statue/S1B_radio_operator_statue_trigger_v001.png` | `S1/.../平西情报联络站2.jpg` | `S1B_radio_operator_statue_v003.glb` | 白底原图可作首帧；公开权待确认 |
+| S1B | 平西女报务员雕塑及发报设备 | `S1/.../平西情报联络站2.jpg` | `S1/.../微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v003.glb` | 原图须缩至 ≤2048 长边；背景人物与公开权待处理 |
 | S2A | 电报大楼 | `S2/.../trigger_hand_drawn.jpg` | `S2/.../微信图片_20260727183423_918_1.jpg` | `S2A_telegraph_building_v003.glb` | 需压至 ≤5 MB，并裁除车牌等无关信息 |
 | S3A | S3 参考素材所示通信楼 | `S3/.../trigger_hand_drawn.jpg` | `S3/.../微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v003.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
 | S3B | S3 参考素材所示天线阵列 | `S3/.../短波通信局2.jpg` | `S3/.../微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v003.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
@@ -23,6 +23,8 @@
 | S7A | 中国电信博物馆 | `S7/.../trigger_hand_drawn.jpg` | `S7/.../d10d05331791c52d672efca4212a9012.png` | `S7A_telecom_museum_v003.glb` | 尺寸可用；公开权待确认 |
 
 表中 `S?/.../` 均指对应的 `modeling_input/S?/local_reference/source_folder_20260727/`。真实照片均可先作为内部建模依据；只有公开展示权确认且预处理合格后，才能生成 `lkivivube_delivery/scenes/.../images/*_reference_reveal_v001.*`。
+
+九个单元的 Kivicube 正式素材包已经放在各自场景目录的 `kivicube_package/`：原手绘触发图保持 `1080×1080`、不重绘不裁切；绘制参考原图保留画幅比例并仅在长边大于 `2048px` 时下采样；每个模型均有独立 `1024×1024` 地面贴图和对应的 `kivicube_setup.json`。
 
 S2 的 `e7014ebbe8b936c91c629951317c1fa2.jpg` 是补充的展陈参考，不替代 S2A 的主要真实照片。
 

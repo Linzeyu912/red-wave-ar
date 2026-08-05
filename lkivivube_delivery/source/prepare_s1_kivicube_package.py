@@ -1,4 +1,4 @@
-"""Prepare the S1 (Pingxi) Kivicube image package.
+"""Legacy S1 entry point; use the unified all-scene package workflow.
 
 The script makes deterministic delivery copies of the supplied trigger-reference
 photos and writes placement manifests.  The S1B hand-drawn trigger and the two
@@ -231,4 +231,6 @@ S1B 的旧“触发图”实际上是白底雕塑照片，并非红白黑手绘�
 
 
 if __name__ == "__main__":
-    main()
+    from prepare_all_kivicube_packages import main as prepare_all_packages
+
+    prepare_all_packages()

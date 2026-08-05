@@ -31,13 +31,13 @@
 ## 交付与验收
 
 - S1A 触发图／原图／地面贴图：`kivicube_package/S1A_pingxi_gate/`。
-- S1B 触发图／原图／地面贴图：`kivicube_package/S1B_radio_operator_statue/`；白底雕塑原图是触发图参考与 AR 首帧。
+- S1B 触发图／原图／地面贴图：`kivicube_package/S1B_radio_operator_statue/`；触发图保持原文件，绘制参考原图保留原画幅比例。
 - 每个单元的 Kivicube 时间线、贴图平面与模型摆放参数，见各自 `kivicube_package/*/kivicube_setup.json`。
 - 形象与真实配色约束：已按 V2.1 原位复核用于 V3；S1A 六级入口台阶已纠正为外侧最低、靠门最高，并压暗灰砖、灰瓦与酒红木构。
 - S1B 已重排为人物在左后、设备在右前的三分之四构图，使用连续法线的雕刻式头脸、收分袖管与分指双手，细化扫发、发辫、圆耳罩、盘扣衣襟、箱式报务机和电键；46,316 三角面属于近景人物专项预算，低于平台 50,000 硬上限。不可见面采用 `INFERRED_LOW_DETAIL`，不生成照片未显示的腿脚姿态。
 - 上传策略：S1B 使用一个完整 `S1B_radio_operator_statue_v003.glb`；人物、头发、设备与细节仅在 GLB 内部合并为 4 个材质网格，不拆成多个平台对象。
 - GLB 性能：两个模型均通过 `../../source/validation_report.json`，并经 Blender 5.1.2 实际导入。
-- 原图锚点和 Kivicube 位置/缩放：以 `../../source/presentation_handoff_report.json` 为准；S1B 已改用无讲解员的白底雕塑原图。
+- 原图锚点和 Kivicube 位置/缩放：以 `../../source/presentation_handoff_report.json` 为准；S1B 的原图包含讲解员，公开展示前需完成隐私与授权审核。
 - 旁白文字参考：已收到、待审核；成稿放 `narration/narration_v001.md`。
 - 平台预览图：两张 V3 预览已生成，见上表。
 - “触发图—真实照片—模型—旁白”流程：网页端与微信小程序端均待验证。
