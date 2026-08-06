@@ -1,0 +1,46 @@
+{
+  "schema": "red-wave-ar.kivicube-package-manifest.v2",
+  "scope": "S7_telecom_museum",
+  "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
+  "assets": [
+    {
+      "asset_id": "S7A",
+      "display_name_zh": "中国电信博物馆",
+      "trigger_source": "modeling_input/S7/local_reference/source_folder_20260727/trigger_hand_drawn.jpg",
+      "trigger_drawing_reference_source": "modeling_input/S7/local_reference/source_folder_20260727/d10d05331791c52d672efca4212a9012.png",
+      "reference_publish_status": "RIGHTS_PENDING",
+      "delivery": {
+        "trigger": {
+          "file": "S7A_telecom_museum_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "aspect_ratio": 1.0,
+          "bytes": 246972
+        },
+        "reference_reveal": {
+          "file": "S7A_telecom_museum_reference_reveal_v001.jpg",
+          "width": 640,
+          "height": 426,
+          "aspect_ratio": 1.50235,
+          "bytes": 94338
+        },
+        "ground_texture": {
+          "file": "S7A_telecom_museum_ground_texture_v001.png",
+          "width": 1024,
+          "height": 1024,
+          "aspect_ratio": 1.0,
+          "bytes": 1880016
+        },
+        "ground_plane_position": [
+          0.02,
+          0.004,
+          0.229692
+        ],
+        "ground_plane_size_target_units": [
+          0.78,
+          0.415903
+        ]
+      }
+    }
+  ]
+}
