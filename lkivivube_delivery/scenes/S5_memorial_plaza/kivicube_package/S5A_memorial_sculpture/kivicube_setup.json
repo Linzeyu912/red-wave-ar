@@ -7,6 +7,12 @@
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
+  "reference_derived_surface_contract": {
+    "constraint_file": "modeling_input/S5/visual_constraints.md",
+    "front_evidence": "18b017b5eb0df80ff4c70fc5991203b5.jpg; front four figures, relief wall and oblique bronze plaque",
+    "model_surface_evidence_zh": "暖浅灰石质人物/浮雕/支撑，铜牌为深棕铜色。",
+    "ground_scope_zh": "仅以浅暖灰石材衔接人物石质支撑和台阶；明确不重建大面积纪念广场铺装。"
+  },
   "files": {
     "image_target": "S5A_memorial_sculpture_trigger_v001.jpg",
     "drawing_reference_internal": "S5A_memorial_sculpture_reference_reveal_v001.jpg",
@@ -50,7 +56,7 @@
     ],
     "y_offset": 0.002,
     "material_mode": "unlit",
-    "surface_family": "memorial_granite_plaza",
+    "surface_family": "restrained_memorial_stone",
     "model_material_bridge_rgb": [
       199,
       195,

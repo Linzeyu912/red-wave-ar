@@ -7,6 +7,12 @@
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
+  "reference_derived_surface_contract": {
+    "constraint_file": "modeling_input/S3/visual_constraints.md",
+    "front_evidence": "微信图片_20260727183422_917_1.jpg; structural axes 90°±5°, display view reproduces photo X projection",
+    "model_surface_evidence_zh": "灰色钢桁架、深棕锈色桁架与拉索、可读机械地脚。",
+    "ground_scope_zh": "仅作低饱和压实中性土/草色接触面；不添加树冠、天空、建筑或额外场地。"
+  },
   "files": {
     "image_target": "S3B_shortwave_antenna_array_trigger_v001.jpg",
     "drawing_reference_internal": "S3B_shortwave_antenna_array_reference_reveal_v001.jpg",

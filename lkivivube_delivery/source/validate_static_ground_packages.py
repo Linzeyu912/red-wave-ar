@@ -53,6 +53,15 @@ def validate_setup(path: pathlib.Path) -> dict[str, object]:
     if "reference_reveal_plane" in data:
         errors.append("reference photo plane must not be configured")
 
+    contract = data.get("reference_derived_surface_contract", {})
+    if not isinstance(contract, dict) or not all(
+        isinstance(contract.get(key), str) and contract[key].strip()
+        for key in ("constraint_file", "front_evidence", "model_surface_evidence_zh", "ground_scope_zh")
+    ):
+        errors.append("missing reference-derived surface contract")
+    elif not (ROOT / contract["constraint_file"]).exists():
+        errors.append("surface contract constraint file is missing")
+
     x = footprint.get("x", [])
     z = footprint.get("z", [])
     if len(x) != 2 or len(z) != 2 or len(size) != 2:
