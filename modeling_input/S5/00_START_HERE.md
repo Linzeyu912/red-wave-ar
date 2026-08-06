@@ -1,13 +1,13 @@
 # S5 建模输入包：西山无名英雄纪念广场
 
-> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_PENDING / DISPLAY_PHOTO_BLOCKED`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_REFERENCE_DRAFTED / DISPLAY_PHOTO_BLOCKED`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S5 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S5_memorial_plaza/asset_card.md`
 
 ## 本地素材
 
-当前受控目录共有 9 个文件。S5A 的触发图为 `trigger_hand_drawn.jpg`，本轮补充照片为 `18b017b5eb0df80ff4c70fc5991203b5.jpg`，当前模型为 `S5A_memorial_sculpture_v003.glb`。以用户最新说明为准，正式文字资料仍待负责同学补充。
+当前受控目录共有 9 个文件。S5A 的触发图为 `trigger_hand_drawn.jpg`，本轮补充照片为 `18b017b5eb0df80ff4c70fc5991203b5.jpg`，当前模型为 `S5A_memorial_sculpture_v003.glb`。已补充基于官方来源的文字素材研究稿，仍需内容审核后才可作为正式旁白。
 
 ## 目标呈现
 
@@ -21,4 +21,5 @@
 - 当前补充照片带“百度百科”水印，可作内部建模参考，但不能直接作为触发后的公开展示照片；正式发布前需取得许可或更换无水印可公开素材。
 - 官方公开资料确认四尊雕像人物为陈宝仓、朱枫、吴石、聂曦，但未给出当前照片视角下的左右姓名顺序；建模阶段只锁定可见姿态，不强行绑定姓名。
 - 前置铜牌语义标题统一为《家国》；实物为传统右起排字，正面看从左至右可见“国、家”。四尊人物、浮雕墙、铜牌和提示词片段见 [`visual_constraints.md`](visual_constraints.md)，公开资料核验见 [`../SUBJECT_IDENTITY_VERIFICATION.md`](../SUBJECT_IDENTITY_VERIFICATION.md)。
+- 长短版文字、来源与禁写边界见 [`narration_reference.md`](narration_reference.md)。
 - 最终 GLB 目标 ≤5 MB、验收 ≤10 MB。文件级对应见 [`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。

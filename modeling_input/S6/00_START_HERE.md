@@ -1,13 +1,13 @@
 # S6 建模输入包：香山镇芳楼
 
-> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_REFERENCE_DRAFTED / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S6 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S6_zhenfang_lou/asset_card.md`
 
 ## 本地素材
 
-当前受控目录共有 9 个文件。S6A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `a4c5a574525a3f829e286f6eea4b9e08.jpg`，当前模型为 `S6A_zhenfang_lou_v003.glb`。正式文字资料仍待负责同学补充。
+当前受控目录共有 9 个文件。S6A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `a4c5a574525a3f829e286f6eea4b9e08.jpg`，当前模型为 `S6A_zhenfang_lou_v003.glb`。已补充基于官方来源的文字素材研究稿，仍需内容审核后才可作为正式旁白。
 
 ## 目标呈现
 
@@ -19,4 +19,5 @@
 - 现有照片是本轮完整视觉输入，不再等待其他角度；侧后立面和屋顶不可见结构按 `INFERRED_LOW_DETAIL` 保守处理。
 - 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；在取得真实照片公开展示许可前，不得进入 App、Kivicube、宣传或公开交付。
 - 灰砖楼体、环廊、山花五角星、门窗与颜色约束及提示词片段见 [`visual_constraints.md`](visual_constraints.md)。
+- 长短版文字、来源与禁写边界见 [`narration_reference.md`](narration_reference.md)。
 - 最终 GLB 目标 ≤5 MB、验收 ≤10 MB。文件级对应见 [`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。

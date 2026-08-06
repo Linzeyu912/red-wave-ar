@@ -25,6 +25,7 @@
 | 查看 Kivicube 建模、触发图和素材约束 | [`docs/KIVICUBE_ASSET_CONSTRAINTS.md`](docs/KIVICUBE_ASSET_CONSTRAINTS.md) |
 | 补充某个地点的图片、文字或建模约束 | [`modeling_input/README.md`](modeling_input/README.md) |
 | 查看 9 个触发图、真实照片与模型对应关系 | [`modeling_input/REFERENCE_INVENTORY.md`](modeling_input/REFERENCE_INVENTORY.md) |
+| 查看七个地点的旁白文字研究稿、来源与审核边界 | [`modeling_input/NARRATION_REFERENCE_INDEX.md`](modeling_input/NARRATION_REFERENCE_INDEX.md) |
 | 查看 62 张图片提取出的主体特征与提示词素材 | [`modeling_input/VISUAL_CONSTRAINTS_INDEX.md`](modeling_input/VISUAL_CONSTRAINTS_INDEX.md) |
 | 查看针对模型真实度的二次细节提取 | [`modeling_input/DETAIL_EXTRACTION_V2.md`](modeling_input/DETAIL_EXTRACTION_V2.md) |
 | 查看主体身份、同地点一致性与公开资料核验 | [`modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](modeling_input/SUBJECT_IDENTITY_VERIFICATION.md) |
@@ -38,7 +39,7 @@
 
 | 工作线 | 目标 | 活动目录 | 状态 |
 |---|---|---|---|
-| Kivicube 平台素材 | 七个地点、九个触发单元的 GLB、触发图、真实照片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 9 个 V3 细节版 GLB 与照片平面衔接已完成本地验收；等待权利确认、后续文字和平台真机验证 |
+| Kivicube 平台素材 | 七个地点、九个触发单元的 GLB、触发图、真实照片、旁白和上传记录 | `modeling_input/`、`lkivivube_delivery/` | 9 个 V3 细节版 GLB 与照片平面衔接已完成本地验收；七个地点文字研究稿已就位，等待内容/权利确认和平台真机验证 |
 | 自研程序 | 维护和优化已有 Android / Filament 虚拟研学体验 | `app/`、`modeling_delivery/`、`docs/` | 保留维护，不以真机 AR 连接为当前主阻塞项 |
 
 两条线不得自动混用模型。平台 GLB 不直接复制到 `app/src/main/assets/`；自研 S1 地下电台白盒和门楼也不直接上传到 Kivicube。
@@ -47,13 +48,13 @@
 
 | 场景 | 地点 | 平台状态 |
 |---|---|---|
-| S1 | 平西情报联络站 | 2 个单元：入口门楼、女报务员雕塑；图片和文字已收到 |
-| S2 | 电报大楼 | 1 个单元；图片已收到，文字待补 |
-| S3 | “短波通信局”（项目暂定名） | 2 个单元：通信楼、天线阵列；图片已收到，外部身份与文字待核验 |
-| S4 | 居庸关 | 1 个单元；图片已收到，文字待补 |
-| S5 | 西山无名英雄纪念广场 | 1 个单元；图片已收到，文字待补 |
-| S6 | 香山镇芳楼 | 1 个单元；图片已收到，文字待补 |
-| S7 | 中国电信博物馆 | 1 个单元；图片已收到，文字待补 |
+| S1 | 平西情报联络站 | 2 个单元：入口门楼、女报务员雕塑；已整理本地 Word 与核验边界 |
+| S2 | 电报大楼 | 1 个单元；已整理含官方来源的文字研究稿 |
+| S3 | “短波通信局”（项目暂定名） | 2 个单元：通信楼、天线阵列；仅有技术说明研究稿，具体身份仍待核验 |
+| S4 | 居庸关 | 1 个单元；已整理含官方来源的文字研究稿 |
+| S5 | 西山无名英雄纪念广场 | 1 个单元；已整理含官方来源的文字研究稿 |
+| S6 | 香山镇芳楼 | 1 个单元；已整理含官方来源的文字研究稿 |
+| S7 | 中国电信博物馆 | 1 个单元；已整理含馆方来源的文字研究稿 |
 
 稳定场景编号、slug 和输入路径见 [`modeling_input/SCENE_INDEX.md`](modeling_input/SCENE_INDEX.md)。
 

@@ -1,6 +1,6 @@
 # S1 平西情报联络站：平台输入入口
 
-> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / MODEL_V3_BUILT / NARRATION_REFERENCE_RECEIVED / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / MODEL_V3_BUILT / NARRATION_REFERENCE_DRAFTED / RIGHTS_PENDING`
 
 ## 当前目标
 
@@ -19,7 +19,7 @@
 - 可见面按照片还原；门楼和雕塑的不可见面按低细节保守闭合并标记 `INFERRED_LOW_DETAIL`。
 - S1B 的绘制参考原图包含讲解员；AR 适配仍保留其原图画幅，公开展示前必须完成隐私与授权审核。
 - 两张真实照片的公开展示许可仍待确认；在此之前只作内部建模依据。
-- `平西情报联络站文字素材.docx` 已收到，状态为 `RECEIVED / NOT_REVIEWED`，后续用于事实核验和旁白整理。
+- `平西情报联络站文字素材.docx` 已收到；其整理稿、公开来源和待核验项见 [`narration_reference.md`](narration_reference.md)。
 
 旧自研任务中的地下电台小室、发报设备和门楼 GLB 不构成本任务的外形依据，不得直接复制、改名或上传到 Kivicube。
 
