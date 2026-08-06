@@ -11,13 +11,13 @@
 
 ## 目标呈现
 
-识别红白手绘触发图后，在同一位置展示已获公开许可的 1:1 真实参考照片卡；照片保持可见，GLB 从照片主体下缘贴地展开，随后播放旁白。平台统一约束见 [`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。
+识别红白手绘触发图后，显示与模型底材衔接的 V002 专属地面贴图和静态 GLB，随后播放旁白。真实参考照片只作内部建模与触发图对应核对，不配置为 AR 展示对象。平台统一约束见 [`../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。
 
 ## 当前边界
 
 - 可在项目内部观察建筑轮廓、材料、比例和环境层级；原图只作参考，不得作为贴图、照片投影或 1:1 复刻依据。
 - 现有照片是本轮完整视觉输入，不再等待侧面、背面或更多细节照片；不可见面按 `INFERRED_LOW_DETAIL` 保守闭合。
-- 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；在取得真实照片公开展示许可前，不得进入 App、Kivicube、宣传或公开交付。
+- 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；真实照片不得进入 Kivicube 场景或用于其他公开用途。
 - 主要照片约 5.16 MB，展示副本需压至 ≤5 MB，并裁除车牌等无关信息。最终 GLB 目标 ≤5 MB、验收 ≤10 MB。
 - 图片特征、主体边界、年代差异和提示词片段见 [`visual_constraints.md`](visual_constraints.md)。
 - 长短版文字、来源与禁写边界见 [`narration_reference.md`](narration_reference.md)。

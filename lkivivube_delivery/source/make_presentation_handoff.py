@@ -1,4 +1,4 @@
-"""Calculate exact Kivicube layout values from model bounds and photo anchors."""
+"""Calculate exact Kivicube static-ground layout values from model bounds."""
 
 from __future__ import annotations
 
@@ -55,18 +55,24 @@ def main() -> None:
         scale_after_kivicube_auto_fit = (
             profile["model_width_ratio"] / (width / longest)
         )
+        ground_edge = max(
+            transformed_x[1] - transformed_x[0] + 0.20,
+            transformed_z[1] - transformed_z[0] + 0.20,
+        )
         results.append(
             {
                 "asset_id": asset_id,
-                "reference_photo": {
-                    "source": profile["reference_source"],
-                    "crop_uv": profile["reference_crop_uv"],
-                    "position": [0.0, profiles["coordinate_contract"]["reference_photo_y"], 0.0],
+                "ground_texture": {
+                    "version": "v002",
+                    "position": [
+                        round((transformed_x[0] + transformed_x[1]) / 2.0, 6),
+                        profiles["coordinate_contract"]["ground_texture_y"],
+                        round((transformed_z[0] + transformed_z[1]) / 2.0, 6),
+                    ],
                     "rotation_degrees": [0.0, 0.0, 0.0],
-                    "long_edge_ratio": 1.0,
-                    "card_mode": profile.get("reference_display_mode", "square_contain"),
-                    "keep_visible_under_model": True,
-                    "publish_status": profile["reference_publish_status"],
+                    "size_target_units": [round(ground_edge, 6), round(ground_edge, 6)],
+                    "material_mode": "unlit",
+                    "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
                 },
                 "model": {
                     "file": profile["model"],
@@ -80,8 +86,8 @@ def main() -> None:
                     "uniform_scale_after_kivicube_auto_fit": round(
                         scale_after_kivicube_auto_fit, 6
                     ),
-                    "entry_animation": "photo_emerge",
-                    "auto_play": True,
+                    "entry_animation": "none",
+                    "auto_play": False,
                 },
                 "subject_anchor_uv": profile["subject_anchor_uv"],
                 "target_footprint": {
@@ -89,11 +95,12 @@ def main() -> None:
                     "z": [round(value, 6) for value in transformed_z],
                     "inside_square_target": footprint_inside,
                 },
-                "note": profile["transition_note"],
+                "drawing_reference_source": profile["reference_source"],
+                "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition.",
             }
         )
     result = {
-        "schema": "red-wave-ar.kivicube-photo-plane-handoff.v1",
+        "schema": "red-wave-ar.kivicube-static-ground-handoff.v2",
         "coordinate_contract": profiles["coordinate_contract"],
         "sequence": profiles["sequence"],
         "assets": results,

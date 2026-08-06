@@ -1,5 +1,5 @@
 {
-  "schema": "red-wave-ar.kivicube-package-manifest.v2",
+  "schema": "red-wave-ar.kivicube-static-ground-package-manifest.v3",
   "scope": "S2_telegraph_building",
   "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
   "assets": [
@@ -17,7 +17,7 @@
           "aspect_ratio": 1.0,
           "bytes": 222015
         },
-        "reference_reveal": {
+        "drawing_reference_internal": {
           "file": "S2A_telegraph_building_reference_reveal_v001.jpg",
           "width": 2048,
           "height": 1536,
@@ -25,20 +25,20 @@
           "bytes": 735084
         },
         "ground_texture": {
-          "file": "S2A_telegraph_building_ground_texture_v001.png",
+          "file": "S2A_telegraph_building_ground_texture_v002.png",
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 2076262
+          "bytes": 1940199
         },
         "ground_plane_position": [
           0.0,
-          0.004,
+          0.002,
           0.151313
         ],
         "ground_plane_size_target_units": [
-          0.84,
-          0.316937
+          0.98,
+          0.98
         ]
       }
     }

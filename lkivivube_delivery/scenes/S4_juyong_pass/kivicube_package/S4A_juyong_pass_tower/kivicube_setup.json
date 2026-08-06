@@ -1,58 +1,42 @@
 {
-  "schema": "red-wave-ar.kivicube-package.v2",
+  "schema": "red-wave-ar.kivicube-static-ground-package.v3",
   "asset_id": "S4A",
   "display_name_zh": "居庸关城楼",
   "source_integrity": {
     "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
-    "reference": "drawing_reference_original_aspect_preserved",
-    "ground": "separate_1024_square_image_plane"
+    "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
+    "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
   "files": {
     "image_target": "S4A_juyong_pass_tower_trigger_v001.jpg",
-    "reference_reveal": "S4A_juyong_pass_tower_reference_reveal_v001.jpg",
-    "ground_texture": "S4A_juyong_pass_tower_ground_texture_v001.png",
+    "drawing_reference_internal": "S4A_juyong_pass_tower_reference_reveal_v001.jpg",
+    "ground_texture": "S4A_juyong_pass_tower_ground_texture_v002.png",
     "model_glb": "../../model/S4A_juyong_pass_tower_v003.glb"
   },
-  "animation_sequence": [
+  "display_sequence": [
     {
       "start_seconds": 0.0,
       "action": "recognize_original_hand_drawn_image_target"
     },
     {
-      "start_seconds": 0.15,
-      "action": "show_reference_reveal",
-      "keep_visible_under_model": true
+      "start_seconds": 0.1,
+      "action": "show_ground_texture_plane",
+      "material_mode": "unlit"
     },
     {
-      "start_seconds": 2.2,
-      "action": "show_ground_and_model",
-      "model_animation": "photo_emerge",
-      "auto_play": true
+      "start_seconds": 0.1,
+      "action": "show_model_static",
+      "play_model_animation": false
     },
     {
-      "start_seconds": 3.2,
-      "action": "start_narration",
-      "keep_reference_visible": true
+      "start_seconds": 0.8,
+      "action": "start_narration"
     }
   ],
-  "reference_reveal_plane": {
-    "position": [
-      0.0,
-      0.002,
-      0.0
-    ],
-    "rotation_degrees": [
-      0.0,
-      0.0,
-      0.0
-    ],
-    "long_edge_ratio": 1.0,
-    "fit_mode": "contain_preserve_original_aspect"
-  },
   "ground_texture_plane": {
     "position": [
       0.0,
-      0.004,
+      0.002,
       0.189163
     ],
     "rotation_degrees": [
@@ -61,16 +45,23 @@
       0.0
     ],
     "size_target_units": [
-      0.76,
-      0.400784
+      0.9,
+      0.9
     ],
-    "y_offset": 0.004,
-    "notes_zh": "仅覆盖模型实际占地及 0.03 单位边界；不覆盖整张原图。"
+    "y_offset": 0.002,
+    "material_mode": "unlit",
+    "surface_family": "historic_slate_flagstone",
+    "model_material_bridge_rgb": [
+      114,
+      115,
+      111
+    ],
+    "notes_zh": "方形地面不拉伸；以同材质色系和轻微接触阴影衔接模型底部，不添加独立展台。"
   },
   "model": {
     "position": [
       0.0,
-      0.006,
+      0.004,
       0.199385
     ],
     "rotation_degrees": [
@@ -79,8 +70,8 @@
       0.0
     ],
     "uniform_scale_after_kivicube_auto_fit": 0.7,
-    "entry_animation": "photo_emerge",
-    "auto_play": true,
+    "entry_animation": "none",
+    "auto_play": false,
     "target_footprint": {
       "x": [
         -0.35,

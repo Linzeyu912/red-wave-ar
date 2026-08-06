@@ -4,13 +4,13 @@
 > 清点日期：2026-07-29
 > 原始素材根目录：`modeling_input/S?/local_reference/source_folder_20260727/`
 
-本清单登记受控输入的对应关系。用户已确认将 S1–S7 当前图片和 Word 上传到公开仓库，文件统一通过 Git LFS 存储；这项确认不替代摄影版权、隐私处理或 Kivicube 公开展示许可。当前共有 7 个地点、9 个独立“触发图—真实照片—模型”单元：平西情报联络站和项目暂称“短波通信局”的 S3 各有两个触发图，必须分别制作两个模型。
+本清单登记受控输入的对应关系。用户已确认将 S1–S7 当前图片和 Word 上传到公开仓库，文件统一通过 Git LFS 存储；这项确认不替代摄影版权、隐私处理或其他公开用途许可。当前共有 7 个地点、9 个独立“触发图—真实照片（内部依据）—地面贴图—模型”单元：平西情报联络站和项目暂称“短波通信局”的 S3 各有两个触发图，必须分别制作两个模型。
 
 62 张图片已经完成第一轮逐张特征提取。总索引见 [`VISUAL_CONSTRAINTS_INDEX.md`](VISUAL_CONSTRAINTS_INDEX.md)，每个地点的图片覆盖表、主体特征、推断边界和提示词片段见对应的 `S?/visual_constraints.md`。
 
 ## 触发图、真实照片与模型对应
 
-| 单元 | 地点与对象 | 手绘触发图原文件 | 真实照片原文件 | 计划 GLB | 展示图预处理 |
+| 单元 | 地点与对象 | 手绘触发图原文件 | 真实照片原文件 | 计划 GLB | 内部参考图预处理 |
 |---|---|---|---|---|---|
 | S1A | 平西情报联络站入口门楼 | `S1/.../trigger_hand_drawn.jpg` | `S1/.../微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v003.glb` | 尺寸可用；公开权待确认 |
 | S1B | 平西女报务员雕塑及发报设备 | `S1/.../S1B_radio_operator_trigger_hand_drawn.jpg` | `S1/.../微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v003.glb` | 触发图 1080×1080，原样复制；真实照片须缩至 ≤2048 长边，背景人物与公开权待处理 |
@@ -22,7 +22,7 @@
 | S6A | 香山镇芳楼 | `S6/.../trigger_hand_drawn.jpg` | `S6/.../a4c5a574525a3f829e286f6eea4b9e08.jpg` | `S6A_zhenfang_lou_v003.glb` | 尺寸可用；公开权待确认 |
 | S7A | 中国电信博物馆 | `S7/.../trigger_hand_drawn.jpg` | `S7/.../d10d05331791c52d672efca4212a9012.png` | `S7A_telecom_museum_v003.glb` | 尺寸可用；公开权待确认 |
 
-表中 `S?/.../` 均指对应的 `modeling_input/S?/local_reference/source_folder_20260727/`。真实照片均可先作为内部建模依据；只有公开展示权确认且预处理合格后，才能生成 `lkivivube_delivery/scenes/.../images/*_reference_reveal_v001.*`。
+表中 `S?/.../` 均指对应的 `modeling_input/S?/local_reference/source_folder_20260727/`。真实照片可作为内部建模与手绘图对应依据；其派生 `*_reference_reveal_v001.*` 仅保留为内部核对文件，当前不配置为 Kivicube AR 展示图。
 
 九个单元的 Kivicube 正式素材包已经放在各自场景目录的 `kivicube_package/`：原手绘触发图保持 `1080×1080`、不重绘不裁切；绘制参考原图保留画幅比例并仅在长边大于 `2048px` 时下采样；每个模型均有独立 `1024×1024` 地面贴图和对应的 `kivicube_setup.json`。
 

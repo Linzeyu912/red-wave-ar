@@ -21,7 +21,7 @@
 1. 原始图片和 Word 放进对应 `S?/local_reference/`，由 `.gitattributes` 统一通过 Git LFS 版本化。
 2. 仓库为公开仓库；用户已确认 S1–S7 当前参考图片和 Word 可进入 Git LFS。PDF、`_source.*` 和其他明确标记的敏感文件仍由根 `.gitignore` 排除。
 3. 每个地点必须区分红白手绘触发图、绘图所依据的真实照片和模型；三者的用途与权限分别登记。
-4. Git LFS 入库不等于取得 AR 展示许可。真实照片若要在触发后展示，仍必须取得公开展示许可；只有内部参考权时不得复制到平台交付目录。
+4. Git LFS 入库不等于取得公开许可。真实照片当前仅用于内部建模与触发图对应核对，不配置为 Kivicube AR 展示对象，也不得未经审核用于其他公开用途。
 5. 单个触发单元在模型范围、形象约束、真实配色依据和推断边界明确后即可进入建模准备；旁白可后补，但正式发布前必须完成。
 6. 新模型只输出到 `lkivivube_delivery/scenes/`，不写入 `modeling_delivery/` 或 `app/src/main/assets/`。
 7. 平台限制与验收目标以 [`../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../docs/KIVICUBE_ASSET_CONSTRAINTS.md) 为准。

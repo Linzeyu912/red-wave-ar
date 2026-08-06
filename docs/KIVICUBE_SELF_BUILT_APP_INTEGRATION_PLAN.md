@@ -21,10 +21,10 @@
 ## 阶段 0：平西双单元验证（当前由项目方执行）
 
 1. 在项目统一归属的 Kivicube 账号中，分别创建两个“图像 AR”测试场景：S1A 入口门楼、S1B 女报务员。
-2. 按 [`../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/KIVICUBE_TEST_HANDOFF.md`](../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/KIVICUBE_TEST_HANDOFF.md) 上传触发图、参考图、地面贴图和 GLB。
-3. 对每张手绘触发图完成平台评分和印刷真机识别测试；先验证“识别 → 模型出现”，再添加照片淡入、动画和旁白。
+2. 按 [`../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/KIVICUBE_TEST_HANDOFF.md`](../lkivivube_delivery/scenes/S1_pingxi_intelligence_station/KIVICUBE_TEST_HANDOFF.md) 上传触发图、V002 地面贴图和 GLB；绘制参考原图仅留作内部核对，不配置为展示对象。
+3. 对每张手绘触发图完成平台评分和印刷真机识别测试；验证“识别 → 地面贴图与静态模型同时出现 → 旁白”，不依赖照片淡入或模型入场动画。
 4. 保存场景，记录每个单元的 WebAR 分享链接或 `scene-id`；只向开发交接链接/ID，不提供账号凭据。
-5. 真实参考照片当前仅供内部适配测试，取得公开展示许可前不得对外发布。
+5. 真实参考照片仅供内部适配核对；来源、人物隐私和仓库公开边界未确认前不得对外发布，也不得配置到 AR 场景。
 
 **阶段 0 产出**：两个可访问的测试链接（S1A、S1B）、触发图评分/真机测试结果、出现的问题与设备型号。
 
@@ -42,7 +42,7 @@
 ## 阶段 2：九单元批量接入与验收
 
 1. 为 S1A、S1B、S2A、S3A、S3B、S4A、S5A、S6A、S7A 分别登记链接/ID、版本、公开状态和最后真机测试时间。
-2. 逐单元验证：触发图识别、参考图显示、地面贴图、模型位置、`photo_emerge` 动画、旁白、返回流程。
+2. 逐单元验证：触发图识别、V002 地面贴图、模型位置与材质衔接、静态展示、旁白、返回流程。
 3. 覆盖至少一台 Android 8+ 设备和目标展示机；记录 WebView 版本、网络状况、加载耗时和失败回退结果。
 4. 图片/模型更新后，先更新 Kivicube 场景与测试记录，再更新 App 中的场景链接或版本标记。
 
@@ -51,7 +51,7 @@
 在九个单元通过真机验收后，再确认：
 
 - Kivicube 账户归属、场景数量、体验次数、水印与商用/教育展示权益；
-- 真实参考照片的公开展示许可与隐私处理；
+- 真实参考照片的来源、仓库公开许可与隐私处理；
 - 网络不可用时的原生降级内容；
 - Android App 的签名、发布渠道和隐私说明。
 

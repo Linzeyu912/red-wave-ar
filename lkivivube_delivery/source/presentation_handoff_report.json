@@ -1,5 +1,5 @@
 {
-  "schema": "red-wave-ar.kivicube-photo-plane-handoff.v1",
+  "schema": "red-wave-ar.kivicube-static-ground-handoff.v2",
   "coordinate_contract": {
     "unit": "target_image_long_edge",
     "target_plane": "XZ",
@@ -10,9 +10,9 @@
       0.0,
       0.0
     ],
-    "reference_photo_y": 0.002,
-    "model_ground_y": 0.006,
-    "note": "Kivicube handoff values, not a directly importable platform scene file"
+    "ground_texture_y": 0.002,
+    "model_ground_y": 0.004,
+    "note": "Kivicube static-ground handoff values; drawing references stay internal and are not display planes"
   },
   "sequence": [
     {
@@ -21,56 +21,44 @@
       "asset": "physical_red_white_black_target"
     },
     {
-      "phase": "reference_photo",
-      "start_seconds": 0.15,
-      "asset": "reference_reveal_image",
-      "display_mode": "asset_specific",
-      "keep_visible_under_model": true
-    },
-    {
-      "phase": "model_emergence",
-      "start_seconds": 2.2,
-      "asset": "glb",
-      "animation": "photo_emerge",
-      "auto_play": true
+      "phase": "static_ground_and_model",
+      "start_seconds": 0.1,
+      "ground_asset": "ground_texture_v002",
+      "model_animation": "none",
+      "model_auto_play": false
     },
     {
       "phase": "narration",
-      "start_seconds": 3.2,
-      "keep_reference_photo_visible": true
+      "start_seconds": 0.8
     }
   ],
   "assets": [
     {
       "asset_id": "S1A",
-      "reference_photo": {
-        "source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
           0.0,
           0.002,
-          0.0
+          0.03957
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "RIGHTS_PENDING"
+        "size_target_units": [
+          0.92,
+          0.92
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v003.glb",
         "position": [
           0.0,
-          0.006,
+          0.004,
           0.113878
         ],
         "rotation_degrees": [
@@ -80,8 +68,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.10682493,
         "uniform_scale_after_kivicube_auto_fit": 0.72,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.5,
@@ -98,38 +86,35 @@
         ],
         "inside_square_target": true
       },
-      "note": "门楼下缘在照片外，模型从参考图下边缘抬起，不虚构照片中的地面。"
+      "drawing_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S1B",
-      "reference_photo": {
-        "source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260716203647_1419_5130.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
-          0.0,
+          -0.12,
           0.002,
-          0.0
+          0.037041
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "PRIVACY_AND_RIGHTS_PENDING"
+        "size_target_units": [
+          0.56,
+          0.56
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb",
         "position": [
           -0.12,
-          0.006,
+          0.004,
           0.113032
         ],
         "rotation_degrees": [
@@ -139,8 +124,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.1544534,
         "uniform_scale_after_kivicube_auto_fit": 0.392401,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.38,
@@ -157,38 +142,35 @@
         ],
         "inside_square_target": true
       },
-      "note": "保留绘制触发图时使用的原图作为首帧，模型从雕塑桌面/底座所在的下部区域展开；公开展示前需处理背景人物与授权。"
+      "drawing_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260716203647_1419_5130.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S2A",
-      "reference_photo": {
-        "source": "modeling_input/S2/local_reference/source_folder_20260727/微信图片_20260727183423_918_1.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
           0.0,
           0.002,
-          0.0
+          0.151313
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "PRIVACY_CROP_AND_RIGHTS_PENDING"
+        "size_target_units": [
+          0.98,
+          0.98
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v003.glb",
         "position": [
           0.0,
-          0.006,
+          0.004,
           0.191423
         ],
         "rotation_degrees": [
@@ -198,8 +180,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.040625,
         "uniform_scale_after_kivicube_auto_fit": 0.78,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.5,
@@ -216,38 +198,35 @@
         ],
         "inside_square_target": true
       },
-      "note": "裁去底部车辆后，模型沿建筑中央入口与树线后的基部抬起。"
+      "drawing_reference_source": "modeling_input/S2/local_reference/source_folder_20260727/微信图片_20260727183423_918_1.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S3A",
-      "reference_photo": {
-        "source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183421_916_1.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
-          0.0,
+          0.04,
           0.002,
-          0.0
+          0.154748
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "IDENTITY_AND_RIGHTS_PENDING"
+        "size_target_units": [
+          0.92,
+          0.92
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v003.glb",
         "position": [
           0.043035,
-          0.006,
+          0.004,
           0.176836
         ],
         "rotation_degrees": [
@@ -257,8 +236,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.04856661,
         "uniform_scale_after_kivicube_auto_fit": 0.72,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.54,
@@ -275,20 +254,15 @@
         ],
         "inside_square_target": true
       },
-      "note": "保留竖幅原图完整构图，模型从照片中的低层翼楼与台阶线展开。"
+      "drawing_reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183421_916_1.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S3B",
-      "reference_photo": {
-        "source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183422_917_1.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
-          0.0,
+          0.02,
           0.002,
           0.0
         ],
@@ -297,16 +271,18 @@
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "IDENTITY_AND_RIGHTS_PENDING"
+        "size_target_units": [
+          0.94,
+          0.94
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v003.glb",
         "position": [
           0.02,
-          0.006,
+          0.004,
           0.0
         ],
         "rotation_degrees": [
@@ -316,8 +292,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.06131814,
         "uniform_scale_after_kivicube_auto_fit": 0.74,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.52,
@@ -334,38 +310,35 @@
         ],
         "inside_square_target": true
       },
-      "note": "天线基座在照片外，中心桅杆从下边缘延伸，避免额外制作方形展台。"
+      "drawing_reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183422_917_1.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S4A",
-      "reference_photo": {
-        "source": "modeling_input/S4/local_reference/source_folder_20260727/微信图片_20260727183424_919_1.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
           0.0,
           0.002,
-          0.0
+          0.189163
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "RIGHTS_PENDING"
+        "size_target_units": [
+          0.9,
+          0.9
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v003.glb",
         "position": [
           0.0,
-          0.006,
+          0.004,
           0.199385
         ],
         "rotation_degrees": [
@@ -375,8 +348,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.05932203,
         "uniform_scale_after_kivicube_auto_fit": 0.7,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.5,
@@ -393,38 +366,35 @@
         ],
         "inside_square_target": true
       },
-      "note": "城门洞下缘接近照片边界，模型从该边界抬起并保留拱门负空间。"
+      "drawing_reference_source": "modeling_input/S4/local_reference/source_folder_20260727/微信图片_20260727183424_919_1.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S5A",
-      "reference_photo": {
-        "source": "modeling_input/S5/local_reference/source_folder_20260727/18b017b5eb0df80ff4c70fc5991203b5.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
-          0.0,
+          -0.0,
           0.002,
-          0.0
+          -0.102508
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "BLOCKED_WATERMARK_AND_RIGHTS"
+        "size_target_units": [
+          0.94,
+          0.94
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v003.glb",
         "position": [
           -0.004959,
-          0.006,
+          0.004,
           -0.002944
         ],
         "rotation_degrees": [
@@ -434,8 +404,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.06578962,
         "uniform_scale_after_kivicube_auto_fit": 0.74,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.5,
@@ -452,38 +422,35 @@
         ],
         "inside_square_target": true
       },
-      "note": "模型沿照片中的广场铺装与斜置铜牌接触区展开；当前照片只允许内部预览。"
+      "drawing_reference_source": "modeling_input/S5/local_reference/source_folder_20260727/18b017b5eb0df80ff4c70fc5991203b5.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S6A",
-      "reference_photo": {
-        "source": "modeling_input/S6/local_reference/source_folder_20260727/a4c5a574525a3f829e286f6eea4b9e08.jpg",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
-          0.0,
+          0.02,
           0.002,
-          0.0
+          -0.12185
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "RIGHTS_PENDING"
+        "size_target_units": [
+          0.88,
+          0.88
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v003.glb",
         "position": [
           0.02,
-          0.006,
+          0.004,
           -0.044898
         ],
         "rotation_degrees": [
@@ -493,8 +460,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.06766169,
         "uniform_scale_after_kivicube_auto_fit": 0.68,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.52,
@@ -511,38 +478,35 @@
         ],
         "inside_square_target": true
       },
-      "note": "模型沿正门台阶和院地交界展开，照片中的树木继续留在底图而不进入模型。"
+      "drawing_reference_source": "modeling_input/S6/local_reference/source_folder_20260727/a4c5a574525a3f829e286f6eea4b9e08.jpg",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S7A",
-      "reference_photo": {
-        "source": "modeling_input/S7/local_reference/source_folder_20260727/d10d05331791c52d672efca4212a9012.png",
-        "crop_uv": [
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ],
+      "ground_texture": {
+        "version": "v002",
         "position": [
-          0.0,
+          0.02,
           0.002,
-          0.0
+          0.229692
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "long_edge_ratio": 1.0,
-        "card_mode": "original_preserve_aspect",
-        "keep_visible_under_model": true,
-        "publish_status": "RIGHTS_PENDING"
+        "size_target_units": [
+          0.92,
+          0.92
+        ],
+        "material_mode": "unlit",
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v003.glb",
         "position": [
           0.021151,
-          0.006,
+          0.004,
           0.210871
         ],
         "rotation_degrees": [
@@ -552,8 +516,8 @@
         ],
         "uniform_scale_target_units_per_model_metre": 0.0475297,
         "uniform_scale_after_kivicube_auto_fit": 0.72,
-        "entry_animation": "photo_emerge",
-        "auto_play": true
+        "entry_animation": "none",
+        "auto_play": false
       },
       "subject_anchor_uv": [
         0.52,
@@ -570,7 +534,8 @@
         ],
         "inside_square_target": true
       },
-      "note": "照片为仰视且入口下缘贴近画面底部，模型从入口基线抬起，不补画门前道路。"
+      "drawing_reference_source": "modeling_input/S7/local_reference/source_folder_20260727/d10d05331791c52d672efca4212a9012.png",
+      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
     }
   ]
 }
