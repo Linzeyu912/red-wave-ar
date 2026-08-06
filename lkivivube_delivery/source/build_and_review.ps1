@@ -47,6 +47,11 @@ try {
         throw "Static-ground Kivicube package generation failed with exit code $LASTEXITCODE"
     }
 
+    python 'lkivivube_delivery\source\validate_static_ground_packages.py'
+    if ($LASTEXITCODE -ne 0) {
+        throw "Static-ground package validation failed with exit code $LASTEXITCODE"
+    }
+
     python 'lkivivube_delivery\source\make_trigger_reference_review.py'
     if ($LASTEXITCODE -ne 0) {
         throw "Kivicube asset review-sheet generation failed with exit code $LASTEXITCODE"

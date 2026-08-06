@@ -14,6 +14,7 @@
 - `presentation_handoff_report.json`：可直接照录到场景编辑器的静态地面与模型布局结果。
 - `prepare_all_kivicube_packages.py`：复制原手绘触发图，生成九个 V002 地面贴图与静态 Kivicube 包配置。
 - `ground_texture_inputs/`：九张可追踪的 V002 地面材质源；由生成脚本统一归一到 `1024×1024` 并按模型足迹叠加轻微接触阴影。
+- `validate_static_ground_packages.py`：验证九个 GLB 的本地 `Y=0` 基线、`Y=0.002/0.004` 摆放间距、正方形地面边界、V002 尺寸、无光照材质和关闭动画；输出 `static_ground_validation_report.json`。
 - `blender_ground_contact_review.py`：按 Kivicube 的静态摆放参数渲染九个“V002 地面＋完整 GLB”贴地预览。
 - `make_static_ground_contact_sheet.py`：生成并发布九单元贴地总览 `../images/kivicube_model_ground_contact_3x3.png`。
 - `make_reference_detail_sheets.py`：将每个地点全部受控照片生成带文件名的私有细节复核图，不复制到公开交付目录。
