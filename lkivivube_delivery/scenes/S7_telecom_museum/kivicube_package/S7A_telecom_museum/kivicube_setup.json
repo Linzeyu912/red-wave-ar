@@ -50,11 +50,11 @@
     ],
     "y_offset": 0.002,
     "material_mode": "unlit",
-    "surface_family": "modern_graphite_paving",
+    "surface_family": "soft_graphite_paving",
     "model_material_bridge_rgb": [
-      120,
-      122,
-      121
+      155,
+      155,
+      150
     ],
     "notes_zh": "方形地面不拉伸；以同材质色系和轻微接触阴影衔接模型底部，不添加独立展台。"
   },

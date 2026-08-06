@@ -12,7 +12,7 @@ import json
 import shutil
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageOps
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -96,7 +96,14 @@ GROUND_SURFACES = {
     "S4A": {"family": "historic_slate_flagstone", "bridge_rgb": (114, 115, 111)},
     "S5A": {"family": "memorial_granite_plaza", "bridge_rgb": (199, 195, 184)},
     "S6A": {"family": "heritage_courtyard_stone", "bridge_rgb": (136, 137, 134)},
-    "S7A": {"family": "modern_graphite_paving", "bridge_rgb": (120, 122, 121)},
+    "S7A": {
+        "family": "soft_graphite_paving",
+        "bridge_rgb": (155, 155, 150),
+        # The original graphite source reads as a black plinth beneath the
+        # museum's pale stone/metal base at AR scale.  Keep its paving grain,
+        # but lift it toward a neutral mid-grey for a continuous transition.
+        "bridge_strength": 0.60,
+    },
 }
 
 
@@ -137,16 +144,22 @@ def save_ground(
     ground_position: list[float],
     ground_size: list[float],
     bridge_rgb: tuple[int, int, int],
+    bridge_strength: float = 0.10,
 ) -> dict[str, object]:
-    """Normalize a ground material and add a subtle model-contact bridge."""
+    """Normalize a restrained ground material and add a soft contact bridge."""
     with Image.open(source) as opened:
         image = ImageOps.exif_transpose(opened).convert("RGB")
         image = ImageOps.fit(image, (1024, 1024), method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
-        image = Image.blend(image, Image.new("RGB", image.size, bridge_rgb), 0.055)
+        # These are support surfaces, not a second hero asset.  Suppress small
+        # texture noise and contrast so the material reads at AR scale without
+        # competing with the model silhouette or its own surface detail.
+        image = image.resize((512, 512), Image.Resampling.LANCZOS).resize((1024, 1024), Image.Resampling.BICUBIC)
+        image = ImageEnhance.Contrast(image).enhance(0.72)
+        image = Image.blend(image, Image.new("RGB", image.size, bridge_rgb), bridge_strength)
 
-        # The soft occlusion ring is only visible at the GLB boundary. It makes
-        # the separately uploaded ground plane read as a continuous surface,
-        # without drawing a generic pedestal or changing the model geometry.
+        # Use a very low-contrast oval under the actual footprint, never a
+        # dark rectangular badge.  It only prevents the independently uploaded
+        # GLB and plane from looking disconnected on renderers without shadow.
         edge = ground_size[0]
         center_x, _, center_z = ground_position
         x0, x1 = footprint["x"]
@@ -158,8 +171,8 @@ def save_ground(
             round((1.0 - ((z0 - center_z) / edge + 0.5)) * 1024),
         )
         shadow = Image.new("RGBA", image.size, (0, 0, 0, 0))
-        ImageDraw.Draw(shadow).rounded_rectangle(box, radius=18, fill=(20, 20, 18, 34))
-        shadow = shadow.filter(ImageFilter.GaussianBlur(15))
+        ImageDraw.Draw(shadow).ellipse(box, fill=(18, 18, 16, 16))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(38))
         image = Image.alpha_composite(image.convert("RGBA"), shadow).convert("RGB")
         image.save(destination, "PNG", optimize=True)
     info = file_info(destination)
@@ -244,6 +257,7 @@ def main() -> None:
             ground_position,
             ground_size,
             surface["bridge_rgb"],
+            surface.get("bridge_strength", 0.10),
         )
         model = handoff_asset["model"]
         setup = {

@@ -51,6 +51,16 @@ try {
     if ($LASTEXITCODE -ne 0) {
         throw "Kivicube asset review-sheet generation failed with exit code $LASTEXITCODE"
     }
+
+    & $BlenderExe --background --factory-startup --python 'lkivivube_delivery\source\blender_ground_contact_review.py'
+    if ($LASTEXITCODE -ne 0) {
+        throw "Static-ground contact review failed with exit code $LASTEXITCODE"
+    }
+
+    python 'lkivivube_delivery\source\make_static_ground_contact_sheet.py'
+    if ($LASTEXITCODE -ne 0) {
+        throw "Static-ground contact sheet generation failed with exit code $LASTEXITCODE"
+    }
 }
 finally {
     Pop-Location

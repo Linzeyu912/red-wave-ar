@@ -29,7 +29,7 @@
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 2015317
+          "bytes": 1152098
         },
         "ground_plane_position": [
           0.04,
@@ -68,7 +68,7 @@
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 2189235
+          "bytes": 1388661
         },
         "ground_plane_position": [
           0.02,

@@ -14,6 +14,8 @@
 
 ![模型出现时的地面贴图｜9 个模型](images/kivicube_ground_textures_3x3.png)
 
+![静态模型与地面贴图的贴地预览｜9 个模型](images/kivicube_model_ground_contact_3x3.png)
+
 | 单元 | 中文地点／模型 | 素材包 |
 |---|---|---|
 | S1A | 平西情报联络站：入口门楼 | `scenes/S1_pingxi_intelligence_station/kivicube_package/S1A_pingxi_gate/` |
@@ -34,3 +36,5 @@
 - 时间线：`0.00s` 识别触发图，`0.10s` 同时显示地面贴图与静态 GLB，`0.80s` 播放旁白；不自动播放 `photo_emerge`。
 
 每个单元的精确位置、正方形地面尺寸、颜色衔接说明和模型缩放在其 `kivicube_setup.json` 中。全部原图仍仅可用于内部核对；涉及来源、人物隐私或仓库公开时，仍必须按各包 `ASSET_MANIFEST.json` 中的权限状态处理。
+
+贴地预览由 Blender 按同一静态位置和缩放参数生成，用于检查地面与模型底部的连续感；Kivicube 真机中的环境光会不同，但不得出现明显色带、厚展台或黑色底座效果。
