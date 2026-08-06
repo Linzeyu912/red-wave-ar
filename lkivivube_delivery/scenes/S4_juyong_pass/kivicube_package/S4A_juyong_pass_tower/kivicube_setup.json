@@ -7,6 +7,12 @@
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
+  "reference_derived_surface_contract": {
+    "constraint_file": "modeling_input/S4/visual_constraints.md",
+    "front_evidence": "微信图片_20260727183424_919_1.jpg; 032E63AF42302FFB028EAA84B418AC8DF7D70A29_size41_w640_h444.jpeg; central arch",
+    "model_surface_evidence_zh": "灰旧砖城台、红柱和深红墙体、绿灰瓦与彩画。",
+    "ground_scope_zh": "只保留与城台同调的中灰旧石材接触面；不重建山体、长城或游客环境。"
+  },
   "files": {
     "image_target": "S4A_juyong_pass_tower_trigger_v001.jpg",
     "drawing_reference_internal": "S4A_juyong_pass_tower_reference_reveal_v001.jpg",

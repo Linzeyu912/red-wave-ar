@@ -85,8 +85,10 @@ ASSETS = [
 
 
 # These bridge colours use the lowest, ground-facing material of each GLB.
-# The generated material image is only gently shifted toward this colour; it
-# never replaces the visible model material or invents a freestanding plinth.
+# They are selected only after the modeling constraint/reference files below
+# establish the subject's visible front and material hierarchy. The generated
+# material image is only gently shifted toward this colour; it never replaces
+# the visible model material or invents a freestanding plinth.
 GROUND_SURFACES = {
     "S1A": {"family": "courtyard_grey_flagstone", "bridge_rgb": (119, 117, 110)},
     "S1B": {"family": "warm_dark_hardwood", "bridge_rgb": (59, 36, 22)},
@@ -94,7 +96,7 @@ GROUND_SURFACES = {
     "S3A": {"family": "aged_service_concrete", "bridge_rgb": (126, 124, 117)},
     "S3B": {"family": "compacted_grass_earth", "bridge_rgb": (69, 72, 73)},
     "S4A": {"family": "historic_slate_flagstone", "bridge_rgb": (114, 115, 111)},
-    "S5A": {"family": "memorial_granite_plaza", "bridge_rgb": (199, 195, 184)},
+    "S5A": {"family": "restrained_memorial_stone", "bridge_rgb": (199, 195, 184)},
     "S6A": {"family": "heritage_courtyard_stone", "bridge_rgb": (136, 137, 134)},
     "S7A": {
         "family": "soft_graphite_paving",
@@ -103,6 +105,69 @@ GROUND_SURFACES = {
         # museum's pale stone/metal base at AR scale.  Keep its paving grain,
         # but lift it toward a neutral mid-grey for a continuous transition.
         "bridge_strength": 0.60,
+    },
+}
+
+
+# Source-first contracts: a scene's hand-drawn trigger only confirms the
+# recognition silhouette.  Front-facing geometry, model surface hierarchy and
+# the small local ground support must be extracted from the original modeling
+# constraints/references before this package is assembled.  The ground is not
+# a reconstruction of an excluded plaza, street or landscape.
+REFERENCE_DERIVED_SURFACE_CONTRACTS = {
+    "S1A": {
+        "constraint_file": "modeling_input/S1/visual_constraints.md",
+        "front_evidence": "USER-VIS-001_current_entrance.jpg; USER-VIS-007_gate_front_full.png; program front=-Z",
+        "model_surface_evidence_zh": "中深灰旧砖、酒红木框与牌匾、灰瓦、灰石门槛和正面台阶。",
+        "ground_scope_zh": "仅以门槛和台阶同系的低对比灰石作局部支撑；不重建街面、院落或旗杆设施。",
+    },
+    "S1B": {
+        "constraint_file": "modeling_input/S1/visual_constraints.md",
+        "front_evidence": "69e9b8c5d5de886d89e76e65.jpg; person left-back and equipment right-front; front-left three-quarter review",
+        "model_surface_evidence_zh": "人物、桌面与设备为暖棕青铜，凹部和衣褶为深褐/近黑铜锈。",
+        "ground_scope_zh": "照片未提供可独立建模的展厅地面；仅用克制的深棕木质中性支撑，避免添加展墙或展台。",
+    },
+    "S2A": {
+        "constraint_file": "modeling_input/S2/visual_constraints.md",
+        "front_evidence": "a686c9177f3e6709c93d37436691883df8dcd100ff4b.webp; 北京电报大楼,_2020.jpg; central clock/entrance axis",
+        "model_surface_evidence_zh": "暖橙褐砖面、象牙白至浅灰结构框架、深灰蓝/灰绿窗与深红褐钟塔格栅。",
+        "ground_scope_zh": "只用浅灰石质近地支撑；不添加照片中的街道、护栏、树木或投影。",
+    },
+    "S3A": {
+        "constraint_file": "modeling_input/S3/visual_constraints.md",
+        "front_evidence": "899.jpg; d71e2294ec93c25f3505af46eba879d6.jpg; front tower and entrance steps",
+        "model_surface_evidence_zh": "灰白旧砖/抹灰、褪色粉橙楼板带、深灰绿玻璃与宽台阶。",
+        "ground_scope_zh": "以低对比旧混凝土/浅石材承接入口基座；不重建水池、车辆、旗帜和场地。",
+    },
+    "S3B": {
+        "constraint_file": "modeling_input/S3/visual_constraints.md",
+        "front_evidence": "微信图片_20260727183422_917_1.jpg; structural axes 90°±5°, display view reproduces photo X projection",
+        "model_surface_evidence_zh": "灰色钢桁架、深棕锈色桁架与拉索、可读机械地脚。",
+        "ground_scope_zh": "仅作低饱和压实中性土/草色接触面；不添加树冠、天空、建筑或额外场地。",
+    },
+    "S4A": {
+        "constraint_file": "modeling_input/S4/visual_constraints.md",
+        "front_evidence": "微信图片_20260727183424_919_1.jpg; 032E63AF42302FFB028EAA84B418AC8DF7D70A29_size41_w640_h444.jpeg; central arch",
+        "model_surface_evidence_zh": "灰旧砖城台、红柱和深红墙体、绿灰瓦与彩画。",
+        "ground_scope_zh": "只保留与城台同调的中灰旧石材接触面；不重建山体、长城或游客环境。",
+    },
+    "S5A": {
+        "constraint_file": "modeling_input/S5/visual_constraints.md",
+        "front_evidence": "18b017b5eb0df80ff4c70fc5991203b5.jpg; front four figures, relief wall and oblique bronze plaque",
+        "model_surface_evidence_zh": "暖浅灰石质人物/浮雕/支撑，铜牌为深棕铜色。",
+        "ground_scope_zh": "仅以浅暖灰石材衔接人物石质支撑和台阶；明确不重建大面积纪念广场铺装。",
+    },
+    "S6A": {
+        "constraint_file": "modeling_input/S6/visual_constraints.md",
+        "front_evidence": "a4c5a574525a3f829e286f6eea4b9e08.jpg; 0b18-iepyyhi6452074.jpg; central stair and five-bay front",
+        "model_surface_evidence_zh": "浅中灰旧砖、旧白构件、枣红木构与中深灰石台阶/勒脚。",
+        "ground_scope_zh": "仅作中性灰石/混凝土接触面；不加入树木、竹林、花坛或相邻建筑。",
+    },
+    "S7A": {
+        "constraint_file": "modeling_input/S7/visual_constraints.md",
+        "front_evidence": "d10d05331791c52d672efca4212a9012.png; 188ad055c327b443febfe41b.jpeg; 20220516921d8bf63fb546cd87b666db46ae683e_202205161407044270rId5image2.jpeg; recessed entrance and red columns",
+        "model_surface_evidence_zh": "银白金属板、蓝绿色玻璃、深红柱与浅米灰浮雕墙/台阶。",
+        "ground_scope_zh": "只用提亮的中性灰石质接触面，避免形成黑色铭牌式展台；不重建车道、树木或围栏。",
     },
 }
 
@@ -250,6 +315,7 @@ def main() -> None:
         footprint = handoff_asset["target_footprint"]
         ground_position, ground_size = ground_layout(footprint)
         surface = GROUND_SURFACES[asset["asset_id"]]
+        surface_contract = REFERENCE_DERIVED_SURFACE_CONTRACTS[asset["asset_id"]]
         ground_info = save_ground(
             GROUND_INPUTS / f"{asset['asset_id']}_{GROUND_VERSION}.png",
             ground_path,
@@ -269,6 +335,7 @@ def main() -> None:
                 "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
                 "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge",
             },
+            "reference_derived_surface_contract": surface_contract,
             "files": {
                 "image_target": trigger_path.name,
                 "drawing_reference_internal": reference_path.name,
@@ -315,6 +382,7 @@ def main() -> None:
                     "trigger_source": asset["trigger"].relative_to(ROOT).as_posix(),
                     "trigger_drawing_reference_source": asset["reference"].relative_to(ROOT).as_posix(),
                     "reference_publish_status": asset["status"], "delivery": asset["delivery"],
+                    "reference_derived_surface_contract": REFERENCE_DERIVED_SURFACE_CONTRACTS[asset["asset_id"]],
                 }
                 for asset in assets
             ],

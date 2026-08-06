@@ -7,6 +7,12 @@
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
+  "reference_derived_surface_contract": {
+    "constraint_file": "modeling_input/S3/visual_constraints.md",
+    "front_evidence": "899.jpg; d71e2294ec93c25f3505af46eba879d6.jpg; front tower and entrance steps",
+    "model_surface_evidence_zh": "灰白旧砖/抹灰、褪色粉橙楼板带、深灰绿玻璃与宽台阶。",
+    "ground_scope_zh": "以低对比旧混凝土/浅石材承接入口基座；不重建水池、车辆、旗帜和场地。"
+  },
   "files": {
     "image_target": "S3A_shortwave_station_building_trigger_v001.jpg",
     "drawing_reference_internal": "S3A_shortwave_station_building_reference_reveal_v001.jpg",

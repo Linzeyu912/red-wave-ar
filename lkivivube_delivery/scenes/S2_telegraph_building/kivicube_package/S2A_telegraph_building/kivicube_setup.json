@@ -7,6 +7,12 @@
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
+  "reference_derived_surface_contract": {
+    "constraint_file": "modeling_input/S2/visual_constraints.md",
+    "front_evidence": "a686c9177f3e6709c93d37436691883df8dcd100ff4b.webp; 北京电报大楼,_2020.jpg; central clock/entrance axis",
+    "model_surface_evidence_zh": "暖橙褐砖面、象牙白至浅灰结构框架、深灰蓝/灰绿窗与深红褐钟塔格栅。",
+    "ground_scope_zh": "只用浅灰石质近地支撑；不添加照片中的街道、护栏、树木或投影。"
+  },
   "files": {
     "image_target": "S2A_telegraph_building_trigger_v001.jpg",
     "drawing_reference_internal": "S2A_telegraph_building_reference_reveal_v001.jpg",

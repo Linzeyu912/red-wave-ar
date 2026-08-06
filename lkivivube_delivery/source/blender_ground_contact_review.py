@@ -66,16 +66,21 @@ def add_ground(texture_path: pathlib.Path, ground: dict[str, object]) -> bpy.typ
     material.use_nodes = True
     nodes = material.node_tree.nodes
     links = material.node_tree.links
+    # Do not depend on Blender's version-specific default node set.  Blender
+    # 5.1 can create an empty material here after repeated scene cleanup.
+    nodes.clear()
+    output = nodes.new("ShaderNodeOutputMaterial")
+    principled = nodes.new("ShaderNodeBsdfPrincipled")
     image_node = nodes.new("ShaderNodeTexImage")
     image_node.image = bpy.data.images.load(str(texture_path), check_existing=False)
-    principled = nodes.get("Principled BSDF")
     links.new(image_node.outputs["Color"], principled.inputs["Base Color"])
+    links.new(principled.outputs["BSDF"], output.inputs["Surface"])
     principled.inputs["Roughness"].default_value = 0.94
     plane.data.materials.append(material)
     return plane
 
 
-def add_lights_and_camera(minimum: Vector, maximum: Vector) -> None:
+def add_lights_and_camera(minimum: Vector, maximum: Vector, asset_id: str) -> None:
     span_xy = max(maximum.x - minimum.x, maximum.y - minimum.y, 0.8)
     height = max(maximum.z - minimum.z, 0.35)
     extent = max(span_xy, height)
@@ -90,9 +95,13 @@ def add_lights_and_camera(minimum: Vector, maximum: Vector) -> None:
     # Area-light energy follows the square of the review scale.  The static
     # Kivicube scene is usually around one target unit wide, unlike the source
     # GLBs measured in metres; fixed metre-scale lighting would overexpose it.
+    # Kivicube/model front is -Z.  After the glTF-to-Blender coordinate
+    # conversion used above, that front is Blender +Y, so front lighting and
+    # review cameras must be placed on +Y.  The former -Y view rendered the
+    # backs of the models in the 3×3 contact sheet.
     for location, energy, size in (
-        (target + Vector((-span_xy, -span_xy * 0.8, height * 1.4)), 30.0 * extent * extent, span_xy),
-        (target + Vector((span_xy, -span_xy * 0.25, height * 0.8)), 18.0 * extent * extent, span_xy * 0.8),
+        (target + Vector((-span_xy, span_xy * 0.8, height * 1.4)), 30.0 * extent * extent, span_xy),
+        (target + Vector((span_xy, span_xy * 0.25, height * 0.8)), 18.0 * extent * extent, span_xy * 0.8),
     ):
         bpy.ops.object.light_add(type="AREA", location=location)
         light = bpy.context.object
@@ -101,7 +110,19 @@ def add_lights_and_camera(minimum: Vector, maximum: Vector) -> None:
         light.data.size = size
         look_at(light, target)
 
-    bpy.ops.object.camera_add(location=target + Vector((span_xy * 1.35, -span_xy * 1.55, height * 1.15)))
+    # Front-evidence view presets.  They retain enough perspective to inspect
+    # surface/ground contact without replacing each asset's documented main
+    # reference angle.  S1B is deliberately a front-left three-quarter view:
+    # the evidence specifies "person left-back, equipment right-front", not a
+    # symmetric portrait.  S5A stays near frontal so the relief and plaque are
+    # not hidden behind the figures.
+    view = {
+        "S1B": (-0.72, 1.90, 0.68),
+        "S5A": (0.25, 1.85, 0.72),
+    }.get(asset_id, (0.58, 1.75, 0.86))
+    bpy.ops.object.camera_add(
+        location=target + Vector((span_xy * view[0], span_xy * view[1], height * view[2]))
+    )
     camera = bpy.context.object
     camera.data.type = "ORTHO"
     camera.data.ortho_scale = max(span_xy * 2.2, height * 1.45)
@@ -163,7 +184,7 @@ def main() -> None:
         plane = add_ground(texture_path, ground)
         bpy.context.view_layer.update()
         minimum, maximum = bounds(meshes + [plane])
-        add_lights_and_camera(minimum, maximum)
+        add_lights_and_camera(minimum, maximum, asset_id)
 
         output = OUTPUT_DIR / f"{asset_id}_ground_contact.png"
         render(output)

@@ -7,6 +7,12 @@
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
+  "reference_derived_surface_contract": {
+    "constraint_file": "modeling_input/S7/visual_constraints.md",
+    "front_evidence": "d10d05331791c52d672efca4212a9012.png; 188ad055c327b443febfe41b.jpeg; 20220516921d8bf63fb546cd87b666db46ae683e_202205161407044270rId5image2.jpeg; recessed entrance and red columns",
+    "model_surface_evidence_zh": "银白金属板、蓝绿色玻璃、深红柱与浅米灰浮雕墙/台阶。",
+    "ground_scope_zh": "只用提亮的中性灰石质接触面，避免形成黑色铭牌式展台；不重建车道、树木或围栏。"
+  },
   "files": {
     "image_target": "S7A_telecom_museum_trigger_v001.jpg",
     "drawing_reference_internal": "S7A_telecom_museum_reference_reveal_v001.jpg",

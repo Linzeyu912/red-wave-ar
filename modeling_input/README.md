@@ -14,7 +14,7 @@
 | S6 | 香山镇芳楼 | [`S6/00_START_HERE.md`](S6/00_START_HERE.md) | [`S6/visual_constraints.md`](S6/visual_constraints.md) | [`S6/narration_reference.md`](S6/narration_reference.md) | [`S6 asset_card`](../lkivivube_delivery/scenes/S6_zhenfang_lou/asset_card.md) |
 | S7 | 中国电信博物馆 | [`S7/00_START_HERE.md`](S7/00_START_HERE.md) | [`S7/visual_constraints.md`](S7/visual_constraints.md) | [`S7/narration_reference.md`](S7/narration_reference.md) | [`S7 asset_card`](../lkivivube_delivery/scenes/S7_telecom_museum/asset_card.md) |
 
-九个触发与建模单元的文件对应、预处理要求和文字状态见 [`REFERENCE_INVENTORY.md`](REFERENCE_INVENTORY.md)；七个地点的长短版文字、来源与审核边界见 [`NARRATION_REFERENCE_INDEX.md`](NARRATION_REFERENCE_INDEX.md)；图片提取结论和提示词组装顺序见 [`VISUAL_CONSTRAINTS_INDEX.md`](VISUAL_CONSTRAINTS_INDEX.md)；同地点主体一致性、公开资料出处和身份边界见 [`SUBJECT_IDENTITY_VERIFICATION.md`](SUBJECT_IDENTITY_VERIFICATION.md)。
+九个触发与建模单元的文件对应、预处理要求和文字状态见 [`REFERENCE_INVENTORY.md`](REFERENCE_INVENTORY.md)；七个地点的长短版文字、来源与审核边界见 [`NARRATION_REFERENCE_INDEX.md`](NARRATION_REFERENCE_INDEX.md)；图片提取结论和提示词组装顺序见 [`VISUAL_CONSTRAINTS_INDEX.md`](VISUAL_CONSTRAINTS_INDEX.md)；表面材质、地面和正面核对必须遵守 [`SURFACE_GROUND_SOURCE_ORDER.md`](SURFACE_GROUND_SOURCE_ORDER.md)；同地点主体一致性、公开资料出处和身份边界见 [`SUBJECT_IDENTITY_VERIFICATION.md`](SUBJECT_IDENTITY_VERIFICATION.md)。
 
 ## 输入规则
 
