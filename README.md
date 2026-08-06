@@ -16,6 +16,8 @@
 
 ![九张模型地面贴图](lkivivube_delivery/images/kivicube_ground_textures_3x3.png)
 
+![九个模型与地面贴图的静态贴地预览](lkivivube_delivery/images/kivicube_model_ground_contact_3x3.png)
+
 ## 从这里开始
 
 | 你要做的事 | 唯一入口 |

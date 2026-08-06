@@ -14,6 +14,8 @@
 - `presentation_handoff_report.json`：可直接照录到场景编辑器的静态地面与模型布局结果。
 - `prepare_all_kivicube_packages.py`：复制原手绘触发图，生成九个 V002 地面贴图与静态 Kivicube 包配置。
 - `ground_texture_inputs/`：九张可追踪的 V002 地面材质源；由生成脚本统一归一到 `1024×1024` 并按模型足迹叠加轻微接触阴影。
+- `blender_ground_contact_review.py`：按 Kivicube 的静态摆放参数渲染九个“V002 地面＋完整 GLB”贴地预览。
+- `make_static_ground_contact_sheet.py`：生成并发布九单元贴地总览 `../images/kivicube_model_ground_contact_3x3.png`。
 - `make_reference_detail_sheets.py`：将每个地点全部受控照片生成带文件名的私有细节复核图，不复制到公开交付目录。
 - `build_and_review.ps1`：Windows 一键重建与验收入口。
 - `blend/`：从最终 GLB 回读后保存的可继续编辑源文件；这些文件和 GLB 均由 Git LFS 管理。
@@ -42,7 +44,7 @@
 
 ## 人工视觉验收
 
-自动验收通过后仍需打开 `model_contact_sheet.png`、每个场景 `images/*_preview_v003.png`、私有 `.build/reference_detail_sheets/` 和 `../images/kivicube_ground_textures_3x3.png`，按对应 `modeling_input/S?/visual_constraints.md` 及二次细节提取检查：
+自动验收通过后仍需打开 `model_contact_sheet.png`、每个场景 `images/*_preview_v003.png`、私有 `.build/reference_detail_sheets/`、`../images/kivicube_ground_textures_3x3.png` 和 `../images/kivicube_model_ground_contact_3x3.png`，按对应 `modeling_input/S?/visual_constraints.md` 及二次细节提取检查：
 
 1. 主体剪影、体块关系、标志性构件和真实配色一致；
 2. 牌匾文字没有镜像或错序；
