@@ -1,0 +1,70 @@
+{
+  "schema": "red-wave-ar.static-ground-validation.v1",
+  "model_bottom_contract": "validation_report.json proves all nine GLBs have minimum local Y=0",
+  "status": "PASS",
+  "assets": [
+    {
+      "asset_id": "S1A",
+      "setup": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1A_pingxi_gate/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1A_pingxi_gate/S1A_pingxi_gate_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S1B",
+      "setup": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1B_radio_operator_statue/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1B_radio_operator_statue/S1B_radio_operator_statue_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S2A",
+      "setup": "lkivivube_delivery/scenes/S2_telegraph_building/kivicube_package/S2A_telegraph_building/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S2_telegraph_building/kivicube_package/S2A_telegraph_building/S2A_telegraph_building_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S3A",
+      "setup": "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3A_shortwave_station_building/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3A_shortwave_station_building/S3A_shortwave_station_building_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S3B",
+      "setup": "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3B_shortwave_antenna_array/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3B_shortwave_antenna_array/S3B_shortwave_antenna_array_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S4A",
+      "setup": "lkivivube_delivery/scenes/S4_juyong_pass/kivicube_package/S4A_juyong_pass_tower/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S4_juyong_pass/kivicube_package/S4A_juyong_pass_tower/S4A_juyong_pass_tower_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S5A",
+      "setup": "lkivivube_delivery/scenes/S5_memorial_plaza/kivicube_package/S5A_memorial_sculpture/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S5_memorial_plaza/kivicube_package/S5A_memorial_sculpture/S5A_memorial_sculpture_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S6A",
+      "setup": "lkivivube_delivery/scenes/S6_zhenfang_lou/kivicube_package/S6A_zhenfang_lou/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S6_zhenfang_lou/kivicube_package/S6A_zhenfang_lou/S6A_zhenfang_lou_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "asset_id": "S7A",
+      "setup": "lkivivube_delivery/scenes/S7_telecom_museum/kivicube_package/S7A_telecom_museum/kivicube_setup.json",
+      "ground_texture": "lkivivube_delivery/scenes/S7_telecom_museum/kivicube_package/S7A_telecom_museum/S7A_telecom_museum_ground_texture_v002.png",
+      "status": "PASS",
+      "errors": []
+    }
+  ]
+}
