@@ -6,6 +6,8 @@
 
 平台技术约束统一见 [`../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。本目录名 `lkivivube_delivery` 沿用早期拼写以保持路径稳定，正文中的平台正式名称统一为 Kivicube。
 
+平西 S1A/S1B 的 Kivicube 内部测试文件和上传顺序见 [`scenes/S1_pingxi_intelligence_station/KIVICUBE_TEST_HANDOFF.md`](scenes/S1_pingxi_intelligence_station/KIVICUBE_TEST_HANDOFF.md)；后续自研 Android App 的接入计划见 [`../docs/KIVICUBE_SELF_BUILT_APP_INTEGRATION_PLAN.md`](../docs/KIVICUBE_SELF_BUILT_APP_INTEGRATION_PLAN.md)。
+
 ## 目录与职责
 
 ```text
