@@ -1,0 +1,85 @@
+{
+  "schema": "red-wave-ar.kivicube-package-manifest.v2",
+  "scope": "S3_shortwave_station",
+  "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
+  "assets": [
+    {
+      "asset_id": "S3A",
+      "display_name_zh": "短波通信局：通信楼",
+      "trigger_source": "modeling_input/S3/local_reference/source_folder_20260727/trigger_hand_drawn.jpg",
+      "trigger_drawing_reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183421_916_1.jpg",
+      "reference_publish_status": "IDENTITY_AND_RIGHTS_PENDING",
+      "delivery": {
+        "trigger": {
+          "file": "S3A_shortwave_station_building_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "aspect_ratio": 1.0,
+          "bytes": 338901
+        },
+        "reference_reveal": {
+          "file": "S3A_shortwave_station_building_reference_reveal_v001.jpg",
+          "width": 1536,
+          "height": 2048,
+          "aspect_ratio": 0.75,
+          "bytes": 725411
+        },
+        "ground_texture": {
+          "file": "S3A_shortwave_station_building_ground_texture_v001.png",
+          "width": 1024,
+          "height": 1024,
+          "aspect_ratio": 1.0,
+          "bytes": 1918946
+        },
+        "ground_plane_position": [
+          0.04,
+          0.004,
+          0.154747
+        ],
+        "ground_plane_size_target_units": [
+          0.78,
+          0.342153
+        ]
+      }
+    },
+    {
+      "asset_id": "S3B",
+      "display_name_zh": "短波通信局：天线阵列",
+      "trigger_source": "modeling_input/S3/local_reference/source_folder_20260727/短波通信局2.jpg",
+      "trigger_drawing_reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183422_917_1.jpg",
+      "reference_publish_status": "IDENTITY_AND_RIGHTS_PENDING",
+      "delivery": {
+        "trigger": {
+          "file": "S3B_shortwave_antenna_array_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "aspect_ratio": 1.0,
+          "bytes": 236647
+        },
+        "reference_reveal": {
+          "file": "S3B_shortwave_antenna_array_reference_reveal_v001.jpg",
+          "width": 2048,
+          "height": 1536,
+          "aspect_ratio": 1.33333,
+          "bytes": 653306
+        },
+        "ground_texture": {
+          "file": "S3B_shortwave_antenna_array_ground_texture_v001.png",
+          "width": 1024,
+          "height": 1024,
+          "aspect_ratio": 1.0,
+          "bytes": 2376192
+        },
+        "ground_plane_position": [
+          0.02,
+          0.004,
+          0.0
+        ],
+        "ground_plane_size_target_units": [
+          0.8,
+          0.8
+        ]
+      }
+    }
+  ]
+}

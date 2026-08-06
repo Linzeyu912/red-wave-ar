@@ -1,0 +1,46 @@
+{
+  "schema": "red-wave-ar.kivicube-package-manifest.v2",
+  "scope": "S2_telegraph_building",
+  "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
+  "assets": [
+    {
+      "asset_id": "S2A",
+      "display_name_zh": "电报大楼",
+      "trigger_source": "modeling_input/S2/local_reference/source_folder_20260727/trigger_hand_drawn.jpg",
+      "trigger_drawing_reference_source": "modeling_input/S2/local_reference/source_folder_20260727/微信图片_20260727183423_918_1.jpg",
+      "reference_publish_status": "PRIVACY_AND_RIGHTS_PENDING",
+      "delivery": {
+        "trigger": {
+          "file": "S2A_telegraph_building_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "aspect_ratio": 1.0,
+          "bytes": 222015
+        },
+        "reference_reveal": {
+          "file": "S2A_telegraph_building_reference_reveal_v001.jpg",
+          "width": 2048,
+          "height": 1536,
+          "aspect_ratio": 1.33333,
+          "bytes": 735084
+        },
+        "ground_texture": {
+          "file": "S2A_telegraph_building_ground_texture_v001.png",
+          "width": 1024,
+          "height": 1024,
+          "aspect_ratio": 1.0,
+          "bytes": 2076262
+        },
+        "ground_plane_position": [
+          0.0,
+          0.004,
+          0.151313
+        ],
+        "ground_plane_size_target_units": [
+          0.84,
+          0.316937
+        ]
+      }
+    }
+  ]
+}

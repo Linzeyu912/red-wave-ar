@@ -12,6 +12,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 REPORT = HERE / "blender_review_report.json"
 OUTPUT = HERE / "model_contact_sheet.png"
+PUBLISHED_OUTPUT = ROOT / "lkivivube_delivery" / "images" / "kivicube_model_previews_3x3.png"
 FONT = pathlib.Path(r"C:\Windows\Fonts\msyh.ttc")
 DISPLAY_LABELS = {
     "s1a_pingxi_gate": "S1A 平西情报联络站｜入口门楼",
@@ -56,7 +57,10 @@ def main() -> None:
         draw.text((left + 14, label_y + 62), stats, font=stat_font, fill=(169, 201, 218))
         draw.text((left + 14, label_y + 87), dims, font=stat_font, fill=(171, 178, 186))
     sheet.save(OUTPUT, optimize=True)
+    PUBLISHED_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    sheet.save(PUBLISHED_OUTPUT, optimize=True)
     print(OUTPUT)
+    print(PUBLISHED_OUTPUT)
 
 
 if __name__ == "__main__":

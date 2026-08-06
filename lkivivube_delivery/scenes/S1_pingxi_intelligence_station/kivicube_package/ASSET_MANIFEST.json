@@ -1,0 +1,85 @@
+{
+  "schema": "red-wave-ar.kivicube-package-manifest.v2",
+  "scope": "S1_pingxi_intelligence_station",
+  "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
+  "assets": [
+    {
+      "asset_id": "S1A",
+      "display_name_zh": "平西情报联络站：入口门楼",
+      "trigger_source": "modeling_input/S1/local_reference/source_folder_20260727/trigger_hand_drawn.jpg",
+      "trigger_drawing_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
+      "reference_publish_status": "RIGHTS_PENDING",
+      "delivery": {
+        "trigger": {
+          "file": "S1A_pingxi_gate_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "aspect_ratio": 1.0,
+          "bytes": 705778
+        },
+        "reference_reveal": {
+          "file": "S1A_pingxi_gate_reference_reveal_v001.jpg",
+          "width": 1440,
+          "height": 996,
+          "aspect_ratio": 1.44578,
+          "bytes": 252270
+        },
+        "ground_texture": {
+          "file": "S1A_pingxi_gate_ground_texture_v001.png",
+          "width": 1024,
+          "height": 1024,
+          "aspect_ratio": 1.0,
+          "bytes": 2077223
+        },
+        "ground_plane_position": [
+          0.0,
+          0.004,
+          0.03957
+        ],
+        "ground_plane_size_target_units": [
+          0.78,
+          0.44363
+        ]
+      }
+    },
+    {
+      "asset_id": "S1B",
+      "display_name_zh": "平西情报联络站：女报务员雕塑及发报设备",
+      "trigger_source": "modeling_input/S1/local_reference/source_folder_20260727/S1B_radio_operator_trigger_hand_drawn.jpg",
+      "trigger_drawing_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260716203647_1419_5130.jpg",
+      "reference_publish_status": "PRIVACY_AND_RIGHTS_PENDING",
+      "delivery": {
+        "trigger": {
+          "file": "S1B_radio_operator_statue_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "aspect_ratio": 1.0,
+          "bytes": 165113
+        },
+        "reference_reveal": {
+          "file": "S1B_radio_operator_statue_reference_reveal_v001.jpg",
+          "width": 2048,
+          "height": 1365,
+          "aspect_ratio": 1.50037,
+          "bytes": 530507
+        },
+        "ground_texture": {
+          "file": "S1B_radio_operator_statue_ground_texture_v001.png",
+          "width": 1024,
+          "height": 1024,
+          "aspect_ratio": 1.0,
+          "bytes": 1744429
+        },
+        "ground_plane_position": [
+          -0.12,
+          0.004,
+          0.037041
+        ],
+        "ground_plane_size_target_units": [
+          0.42,
+          0.321953
+        ]
+      }
+    }
+  ]
+}

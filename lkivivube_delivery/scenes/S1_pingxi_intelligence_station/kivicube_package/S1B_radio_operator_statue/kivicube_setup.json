@@ -1,0 +1,96 @@
+{
+  "schema": "red-wave-ar.kivicube-package.v2",
+  "asset_id": "S1B",
+  "display_name_zh": "平西情报联络站：女报务员雕塑及发报设备",
+  "source_integrity": {
+    "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
+    "reference": "drawing_reference_original_aspect_preserved",
+    "ground": "separate_1024_square_image_plane"
+  },
+  "files": {
+    "image_target": "S1B_radio_operator_statue_trigger_v001.jpg",
+    "reference_reveal": "S1B_radio_operator_statue_reference_reveal_v001.jpg",
+    "ground_texture": "S1B_radio_operator_statue_ground_texture_v001.png",
+    "model_glb": "../../model/S1B_radio_operator_statue_v003.glb"
+  },
+  "animation_sequence": [
+    {
+      "start_seconds": 0.0,
+      "action": "recognize_original_hand_drawn_image_target"
+    },
+    {
+      "start_seconds": 0.15,
+      "action": "show_reference_reveal",
+      "keep_visible_under_model": true
+    },
+    {
+      "start_seconds": 2.2,
+      "action": "show_ground_and_model",
+      "model_animation": "photo_emerge",
+      "auto_play": true
+    },
+    {
+      "start_seconds": 3.2,
+      "action": "start_narration",
+      "keep_reference_visible": true
+    }
+  ],
+  "reference_reveal_plane": {
+    "position": [
+      0.0,
+      0.002,
+      0.0
+    ],
+    "rotation_degrees": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "long_edge_ratio": 1.0,
+    "fit_mode": "contain_preserve_original_aspect"
+  },
+  "ground_texture_plane": {
+    "position": [
+      -0.12,
+      0.004,
+      0.037041
+    ],
+    "rotation_degrees": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "size_target_units": [
+      0.42,
+      0.321953
+    ],
+    "y_offset": 0.004,
+    "notes_zh": "仅覆盖模型实际占地及 0.03 单位边界；不覆盖整张原图。"
+  },
+  "model": {
+    "position": [
+      -0.12,
+      0.006,
+      0.113032
+    ],
+    "rotation_degrees": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "uniform_scale_after_kivicube_auto_fit": 0.392401,
+    "entry_animation": "photo_emerge",
+    "auto_play": true,
+    "target_footprint": {
+      "x": [
+        -0.3,
+        0.06
+      ],
+      "z": [
+        -0.093935,
+        0.168018
+      ],
+      "inside_square_target": true
+    }
+  }
+}

@@ -59,10 +59,12 @@ def main() -> None:
             {
                 "asset_id": asset_id,
                 "reference_photo": {
+                    "source": profile["reference_source"],
+                    "crop_uv": profile["reference_crop_uv"],
                     "position": [0.0, profiles["coordinate_contract"]["reference_photo_y"], 0.0],
                     "rotation_degrees": [0.0, 0.0, 0.0],
                     "long_edge_ratio": 1.0,
-                    "card_mode": "square_contain",
+                    "card_mode": profile.get("reference_display_mode", "square_contain"),
                     "keep_visible_under_model": True,
                     "publish_status": profile["reference_publish_status"],
                 },

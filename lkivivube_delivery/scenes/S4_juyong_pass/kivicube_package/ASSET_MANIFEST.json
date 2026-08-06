@@ -1,0 +1,46 @@
+{
+  "schema": "red-wave-ar.kivicube-package-manifest.v2",
+  "scope": "S4_juyong_pass",
+  "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
+  "assets": [
+    {
+      "asset_id": "S4A",
+      "display_name_zh": "居庸关城楼",
+      "trigger_source": "modeling_input/S4/local_reference/source_folder_20260727/trigger_hand_drawn.jpg",
+      "trigger_drawing_reference_source": "modeling_input/S4/local_reference/source_folder_20260727/微信图片_20260727183424_919_1.jpg",
+      "reference_publish_status": "RIGHTS_PENDING",
+      "delivery": {
+        "trigger": {
+          "file": "S4A_juyong_pass_tower_trigger_v001.jpg",
+          "width": 1080,
+          "height": 1080,
+          "aspect_ratio": 1.0,
+          "bytes": 401794
+        },
+        "reference_reveal": {
+          "file": "S4A_juyong_pass_tower_reference_reveal_v001.jpg",
+          "width": 1536,
+          "height": 2048,
+          "aspect_ratio": 0.75,
+          "bytes": 923732
+        },
+        "ground_texture": {
+          "file": "S4A_juyong_pass_tower_ground_texture_v001.png",
+          "width": 1024,
+          "height": 1024,
+          "aspect_ratio": 1.0,
+          "bytes": 1981898
+        },
+        "ground_plane_position": [
+          0.0,
+          0.004,
+          0.189163
+        ],
+        "ground_plane_size_target_units": [
+          0.76,
+          0.400784
+        ]
+      }
+    }
+  ]
+}
