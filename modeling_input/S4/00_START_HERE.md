@@ -1,13 +1,13 @@
 # S4 建模输入包：居庸关
 
-> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / SINGLE_VIEW_ACCEPTED / MODEL_V3_BUILT / NARRATION_REFERENCE_DRAFTED / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S4 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S4_juyong_pass/asset_card.md`
 
 ## 本地素材
 
-当前受控目录共有 9 个文件。S4A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `微信图片_20260727183424_919_1.jpg`，当前模型为 `S4A_juyong_pass_tower_v003.glb`。正式文字资料仍待负责同学补充。
+当前受控目录共有 9 个文件。S4A 的触发图为 `trigger_hand_drawn.jpg`，主要真实照片为 `微信图片_20260727183424_919_1.jpg`，当前模型为 `S4A_juyong_pass_tower_v003.glb`。已补充基于官方来源的文字素材研究稿，仍需内容审核后才可作为正式旁白。
 
 ## 目标呈现
 
@@ -20,4 +20,5 @@
 - 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；在取得真实照片公开展示许可前，不得进入 App、Kivicube、宣传或公开交付。
 - 主要照片约 6.43 MB，展示副本需压至 ≤5 MB。最终 GLB 目标 ≤5 MB、验收 ≤10 MB。
 - 图片特征、牌匾与彩画约束、推断边界和提示词片段见 [`visual_constraints.md`](visual_constraints.md)。
+- 长短版文字、来源与禁写边界见 [`narration_reference.md`](narration_reference.md)。
 - 文件级对应见 [`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。

@@ -1,6 +1,6 @@
 # 建模参考与触发单元清单
 
-> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / PUBLIC_LFS_UPLOAD_CONFIRMED / RIGHTS_PENDING / TEXT_PARTIAL`
+> 状态：`VISUAL_INPUT_RECEIVED / VISUAL_CONSTRAINTS_DRAFTED / PUBLIC_LFS_UPLOAD_CONFIRMED / RIGHTS_PENDING / NARRATION_RESEARCH_DRAFTS_READY`
 > 清点日期：2026-07-29
 > 原始素材根目录：`modeling_input/S?/local_reference/source_folder_20260727/`
 
@@ -45,7 +45,8 @@ S2 的 `e7014ebbe8b936c91c629951317c1fa2.jpg` 是补充的展陈参考，不替�
 
 | 场景 | 状态 | 说明 |
 |---|---|---|
-| S1 | `RECEIVED / NOT_REVIEWED` | `平西情报联络站文字素材.docx` 已收到，后续提取并做事实与旁白审核 |
-| S2–S7 | `AWAITING_AUTHOR` | 以用户最新说明为准，正式文字资料仍由负责同学编写；目录内旧文件不视为已交付成稿 |
+| S1 | `LOCAL_SOURCE_EXTRACTED / REVIEW_REQUIRED` | 已从 `平西情报联络站文字素材.docx` 整理到 [`S1/narration_reference.md`](S1/narration_reference.md)；原 Word 中具体史实仍待逐项审核 |
+| S2、S4–S7 | `RESEARCHED_DRAFT / OFFICIAL_SOURCES_LINKED / REVIEW_REQUIRED` | 已按平西的长短版结构整理研究稿，来源和禁写边界见各地点的 `narration_reference.md` |
+| S3 | `RESEARCHED_DRAFT / IDENTITY_PENDING / INTERNAL_TEST_ONLY` | 已提供技术与模型说明稿；没有书面地点身份前，不能形成具体台站历史旁白 |
 
-文字未到不阻塞形象约束整理和建模准备，但在旁白成稿、事实核验与场景正式发布前必须补齐。
+研究稿不替代旁白成稿。通过事实、版权和内容审核后，才可写入平台交付目录的 `narration/narration_v001.md` 并用于正式发布。

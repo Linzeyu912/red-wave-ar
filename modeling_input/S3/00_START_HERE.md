@@ -1,6 +1,6 @@
 # S3 建模输入包：“短波通信局”（项目暂定名）
 
-> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / TWO_MODEL_UNITS / MODEL_V3_BUILT / IDENTITY_PENDING / NARRATION_PENDING / RIGHTS_PENDING`
+> 状态：`VISUAL_INPUT_RECEIVED / DETAIL_PASS_V2 / TWO_MODEL_UNITS / MODEL_V3_BUILT / IDENTITY_PENDING / NARRATION_REFERENCE_DRAFTED / RIGHTS_PENDING`
 > 导入日期：2026-07-27
 > 当前角色：Kivicube 平台 S3 唯一输入入口
 > 平台资产卡：`../../lkivivube_delivery/scenes/S3_shortwave_station/asset_card.md`
@@ -14,7 +14,7 @@
 | S3A | 通信楼 | `trigger_hand_drawn.jpg` | `微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v003.glb` |
 | S3B | 天线阵列 | `短波通信局2.jpg` | `微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v003.glb` |
 
-正式文字资料仍由负责同学编写；目录内 `短波通信局文字素材.docx` 不视为已交付成稿。
+目录内 `短波通信局文字素材.docx` 不视为已交付成稿。已新增仅限技术与模型说明的研究稿；它不解除地点身份核验限制。
 
 公开资料尚不能把现有照片中的具体楼体和天线与“第三电台”“五六四台”或其他确切台站一一对应。“短波通信局”只作为当前项目名和稳定目录名；正式旁白不得据此扩写具体台站身份。核验记录见 [`../SUBJECT_IDENTITY_VERIFICATION.md`](../SUBJECT_IDENTITY_VERIFICATION.md)。
 
@@ -29,4 +29,5 @@
 - 未登记摄影者、来源、拍摄时间、建筑权利或发布许可；在取得真实照片公开展示许可前，不得进入 App、Kivicube、宣传或公开交付。
 - 两个单元的逐图形象约束、`INFERRED_LOW_DETAIL` 清单和提示词片段已整理到 [`visual_constraints.md`](visual_constraints.md)。每个 GLB 目标 ≤5 MB、验收 ≤10 MB，只输出到平台资产卡指定目录。
 - `IDENTITY_PENDING` 不阻塞按照片进行外形建模，但阻塞具体台站名称、年代和历史归属的旁白定稿。
+- 内部测试用的长短版说明、来源和禁写边界见 [`narration_reference.md`](narration_reference.md)。
 - 文件级对应与预处理要求见 [`../REFERENCE_INVENTORY.md`](../REFERENCE_INVENTORY.md)。
