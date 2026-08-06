@@ -29,6 +29,7 @@
 | 查看针对模型真实度的二次细节提取 | [`modeling_input/DETAIL_EXTRACTION_V2.md`](modeling_input/DETAIL_EXTRACTION_V2.md) |
 | 查看主体身份、同地点一致性与公开资料核验 | [`modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](modeling_input/SUBJECT_IDENTITY_VERIFICATION.md) |
 | 查看或交付 Kivicube 模型、图片与旁白 | [`lkivivube_delivery/README.md`](lkivivube_delivery/README.md) |
+| 查看 Kivicube 与自研 Android App 的接入计划 | [`docs/KIVICUBE_SELF_BUILT_APP_INTEGRATION_PLAN.md`](docs/KIVICUBE_SELF_BUILT_APP_INTEGRATION_PLAN.md) |
 | 维护已有 Android / Filament 程序 | [`docs/CODE_HANDOFF.md`](docs/CODE_HANDOFF.md) |
 | 构建或测试自研程序 | [`docs/BUILD.md`](docs/BUILD.md) |
 | 查阅旧地下电台任务与产品计划 | [`archive/self_built_app/README.md`](archive/self_built_app/README.md) |
