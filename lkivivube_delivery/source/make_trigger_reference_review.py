@@ -7,6 +7,7 @@ rewrites the controlled source photographs or hand-drawn trigger files.
 from __future__ import annotations
 
 import json
+import hashlib
 import shutil
 from pathlib import Path
 
@@ -84,15 +85,15 @@ ASSETS = [
 ]
 
 GROUND_BY_ID = {
-    "S1A": ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1A_pingxi_gate/S1A_pingxi_gate_ground_texture_v001.png",
-    "S1B": ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1B_radio_operator_statue/S1B_radio_operator_statue_ground_texture_v001.png",
-    "S2A": ROOT / "lkivivube_delivery/scenes/S2_telegraph_building/kivicube_package/S2A_telegraph_building/S2A_telegraph_building_ground_texture_v001.png",
-    "S3A": ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3A_shortwave_station_building/S3A_shortwave_station_building_ground_texture_v001.png",
-    "S3B": ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3B_shortwave_antenna_array/S3B_shortwave_antenna_array_ground_texture_v001.png",
-    "S4A": ROOT / "lkivivube_delivery/scenes/S4_juyong_pass/kivicube_package/S4A_juyong_pass_tower/S4A_juyong_pass_tower_ground_texture_v001.png",
-    "S5A": ROOT / "lkivivube_delivery/scenes/S5_memorial_plaza/kivicube_package/S5A_memorial_sculpture/S5A_memorial_sculpture_ground_texture_v001.png",
-    "S6A": ROOT / "lkivivube_delivery/scenes/S6_zhenfang_lou/kivicube_package/S6A_zhenfang_lou/S6A_zhenfang_lou_ground_texture_v001.png",
-    "S7A": ROOT / "lkivivube_delivery/scenes/S7_telecom_museum/kivicube_package/S7A_telecom_museum/S7A_telecom_museum_ground_texture_v001.png",
+    "S1A": ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1A_pingxi_gate/S1A_pingxi_gate_ground_texture_v002.png",
+    "S1B": ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/kivicube_package/S1B_radio_operator_statue/S1B_radio_operator_statue_ground_texture_v002.png",
+    "S2A": ROOT / "lkivivube_delivery/scenes/S2_telegraph_building/kivicube_package/S2A_telegraph_building/S2A_telegraph_building_ground_texture_v002.png",
+    "S3A": ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3A_shortwave_station_building/S3A_shortwave_station_building_ground_texture_v002.png",
+    "S3B": ROOT / "lkivivube_delivery/scenes/S3_shortwave_station/kivicube_package/S3B_shortwave_antenna_array/S3B_shortwave_antenna_array_ground_texture_v002.png",
+    "S4A": ROOT / "lkivivube_delivery/scenes/S4_juyong_pass/kivicube_package/S4A_juyong_pass_tower/S4A_juyong_pass_tower_ground_texture_v002.png",
+    "S5A": ROOT / "lkivivube_delivery/scenes/S5_memorial_plaza/kivicube_package/S5A_memorial_sculpture/S5A_memorial_sculpture_ground_texture_v002.png",
+    "S6A": ROOT / "lkivivube_delivery/scenes/S6_zhenfang_lou/kivicube_package/S6A_zhenfang_lou/S6A_zhenfang_lou_ground_texture_v002.png",
+    "S7A": ROOT / "lkivivube_delivery/scenes/S7_telecom_museum/kivicube_package/S7A_telecom_museum/S7A_telecom_museum_ground_texture_v002.png",
 }
 
 GRID = 3
@@ -120,6 +121,10 @@ def image_metadata(path: Path) -> dict[str, object]:
             "aspect_ratio": round(image.width / image.height, 5),
             "bytes": path.stat().st_size,
         }
+
+
+def file_digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def make_sheet(kind: str, title: str, output: Path) -> None:
@@ -163,21 +168,28 @@ def main() -> None:
         raise FileNotFoundError("Missing controlled input:\n" + "\n".join(missing))
     make_sheet("trigger", "原手绘触发图｜9 个模型", OUT / "trigger_images_3x3.png")
     make_sheet("reference", "绘制触发图的参考原图｜9 个模型", OUT / "trigger_reference_images_3x3.png")
-    make_sheet("ground", "模型出现时的地面贴图｜9 个模型", OUT / "ground_textures_3x3.png")
+    make_sheet("ground", "模型静态摆放的地面贴图 v002｜9 个模型", OUT / "ground_textures_3x3.png")
     PUBLISHED.mkdir(parents=True, exist_ok=True)
     for review_name, published_name in (
         ("trigger_images_3x3.png", "kivicube_trigger_images_3x3.png"),
         ("trigger_reference_images_3x3.png", "kivicube_trigger_reference_images_3x3.png"),
         ("ground_textures_3x3.png", "kivicube_ground_textures_3x3.png"),
     ):
-        shutil.copy2(OUT / review_name, PUBLISHED / published_name)
+        source = OUT / review_name
+        destination = PUBLISHED / published_name
+        # A README preview can be held open by Windows Explorer or the desktop
+        # app.  Avoid a needless overwrite when this deterministic build has
+        # already produced exactly the published image.
+        if destination.exists() and file_digest(source) == file_digest(destination):
+            continue
+        shutil.copy2(source, destination)
 
     manifest = {
         "schema": "red-wave-ar.trigger-reference-dimension-review.v1",
         "delivery_rules": {
             "trigger_images": "Preserve original hand-drawn source. No redraw or crop. Existing square targets stay at native dimensions.",
             "reference_images": "Preserve aspect ratio. Delivery copy may downscale only when its longest edge exceeds 2048 pixels.",
-            "ground_images": "Use a square image plane, 1024–1280 pixels per side, and keep its plane smaller than the reference image plane.",
+            "ground_images": "Use a square 1024px unlit plane. v002 materials are colour-bridged to the GLB base and include a subtle contact shadow; do not show a reference-image plane.",
         },
         "assets": [
             {

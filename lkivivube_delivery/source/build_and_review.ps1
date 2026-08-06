@@ -37,24 +37,19 @@ try {
         throw "Contact sheet generation failed with exit code $LASTEXITCODE"
     }
 
-    python 'lkivivube_delivery\source\make_reference_cards.py'
-    if ($LASTEXITCODE -ne 0) {
-        throw "Private reference-card generation failed with exit code $LASTEXITCODE"
-    }
-
     python 'lkivivube_delivery\source\make_reference_detail_sheets.py'
     if ($LASTEXITCODE -ne 0) {
         throw "Private reference-detail-sheet generation failed with exit code $LASTEXITCODE"
     }
 
-    & $BlenderExe --background --factory-startup --python 'lkivivube_delivery\source\blender_transition_review.py'
+    python 'lkivivube_delivery\source\prepare_all_kivicube_packages.py'
     if ($LASTEXITCODE -ne 0) {
-        throw "Blender photo-plane transition review failed with exit code $LASTEXITCODE"
+        throw "Static-ground Kivicube package generation failed with exit code $LASTEXITCODE"
     }
 
-    python 'lkivivube_delivery\source\make_transition_contact_sheet.py'
+    python 'lkivivube_delivery\source\make_trigger_reference_review.py'
     if ($LASTEXITCODE -ne 0) {
-        throw "Transition contact sheet generation failed with exit code $LASTEXITCODE"
+        throw "Kivicube asset review-sheet generation failed with exit code $LASTEXITCODE"
     }
 }
 finally {

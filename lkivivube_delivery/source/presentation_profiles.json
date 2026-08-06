@@ -1,14 +1,14 @@
 {
-  "schema": "red-wave-ar.photo-plane-presentation.v1",
+  "schema": "red-wave-ar.static-ground-presentation.v2",
   "coordinate_contract": {
     "unit": "target_image_long_edge",
     "target_plane": "XZ",
     "up_axis": "Y",
     "image_bottom_axis": "+Z",
     "image_center": [0.0, 0.0, 0.0],
-    "reference_photo_y": 0.002,
-    "model_ground_y": 0.006,
-    "note": "Kivicube handoff values, not a directly importable platform scene file"
+    "ground_texture_y": 0.002,
+    "model_ground_y": 0.004,
+    "note": "Kivicube static-ground handoff values; drawing references stay internal and are not display planes"
   },
   "sequence": [
     {
@@ -17,23 +17,15 @@
       "asset": "physical_red_white_black_target"
     },
     {
-      "phase": "reference_photo",
-      "start_seconds": 0.15,
-      "asset": "reference_reveal_image",
-      "display_mode": "asset_specific",
-      "keep_visible_under_model": true
-    },
-    {
-      "phase": "model_emergence",
-      "start_seconds": 2.2,
-      "asset": "glb",
-      "animation": "photo_emerge",
-      "auto_play": true
+      "phase": "static_ground_and_model",
+      "start_seconds": 0.1,
+      "ground_asset": "ground_texture_v002",
+      "model_animation": "none",
+      "model_auto_play": false
     },
     {
       "phase": "narration",
-      "start_seconds": 3.2,
-      "keep_reference_photo_visible": true
+      "start_seconds": 0.8
     }
   ],
   "assets": [

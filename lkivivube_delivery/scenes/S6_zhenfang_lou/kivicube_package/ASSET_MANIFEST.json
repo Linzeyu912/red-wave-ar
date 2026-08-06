@@ -1,5 +1,5 @@
 {
-  "schema": "red-wave-ar.kivicube-package-manifest.v2",
+  "schema": "red-wave-ar.kivicube-static-ground-package-manifest.v3",
   "scope": "S6_zhenfang_lou",
   "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
   "assets": [
@@ -17,7 +17,7 @@
           "aspect_ratio": 1.0,
           "bytes": 349247
         },
-        "reference_reveal": {
+        "drawing_reference_internal": {
           "file": "S6A_zhenfang_lou_reference_reveal_v001.jpg",
           "width": 1080,
           "height": 607,
@@ -25,20 +25,20 @@
           "bytes": 149535
         },
         "ground_texture": {
-          "file": "S6A_zhenfang_lou_ground_texture_v001.png",
+          "file": "S6A_zhenfang_lou_ground_texture_v002.png",
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 1906033
+          "bytes": 2043333
         },
         "ground_plane_position": [
           0.02,
-          0.004,
+          0.002,
           -0.12185
         ],
         "ground_plane_size_target_units": [
-          0.74,
-          0.575894
+          0.88,
+          0.88
         ]
       }
     }

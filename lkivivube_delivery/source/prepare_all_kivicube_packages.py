@@ -1,9 +1,9 @@
-"""Create the Kivicube image packages for all nine current AR models.
+"""Create static-ground Kivicube packages for all nine AR models.
 
-The controlled hand-drawn trigger images are copied byte-for-byte.  Reference
-photos retain their original aspect ratio, while ground planes are normalized
-to 1024×1024.  This keeps trigger recognition stable and gives every GLB a
-separate, appropriately sized ground-image plane.
+The controlled hand-drawn trigger images are copied byte-for-byte. Drawing
+references remain internal support files only: after recognition Kivicube shows
+the ground texture and a static GLB directly, without relying on an unclear
+photo-reveal or model-entry animation.
 """
 
 from __future__ import annotations
@@ -12,13 +12,14 @@ import json
 import shutil
 from pathlib import Path
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "modeling_input"
-GROUND_INPUTS = Path(__file__).resolve().parent / ".build" / "ground_texture_inputs"
+GROUND_INPUTS = Path(__file__).resolve().parent / "ground_texture_inputs"
 HANDOFF = Path(__file__).resolve().parent / "presentation_handoff_report.json"
+GROUND_VERSION = "v002"
 
 
 def ref(scene: str, filename: str) -> Path:
@@ -83,6 +84,22 @@ ASSETS = [
 ]
 
 
+# These bridge colours use the lowest, ground-facing material of each GLB.
+# The generated material image is only gently shifted toward this colour; it
+# never replaces the visible model material or invents a freestanding plinth.
+GROUND_SURFACES = {
+    "S1A": {"family": "courtyard_grey_flagstone", "bridge_rgb": (119, 117, 110)},
+    "S1B": {"family": "warm_dark_hardwood", "bridge_rgb": (59, 36, 22)},
+    "S2A": {"family": "urban_granite_paving", "bridge_rgb": (170, 167, 158)},
+    "S3A": {"family": "aged_service_concrete", "bridge_rgb": (126, 124, 117)},
+    "S3B": {"family": "compacted_grass_earth", "bridge_rgb": (69, 72, 73)},
+    "S4A": {"family": "historic_slate_flagstone", "bridge_rgb": (114, 115, 111)},
+    "S5A": {"family": "memorial_granite_plaza", "bridge_rgb": (199, 195, 184)},
+    "S6A": {"family": "heritage_courtyard_stone", "bridge_rgb": (136, 137, 134)},
+    "S7A": {"family": "modern_graphite_paving", "bridge_rgb": (120, 122, 121)},
+}
+
+
 def file_info(path: Path) -> dict[str, object]:
     with Image.open(path) as image:
         image = ImageOps.exif_transpose(image)
@@ -113,11 +130,37 @@ def save_reference(source: Path, destination: Path) -> dict[str, object]:
     return file_info(destination)
 
 
-def save_ground(source: Path, destination: Path) -> dict[str, object]:
-    """Normalize the ground texture to a square 1024px image-plane asset."""
+def save_ground(
+    source: Path,
+    destination: Path,
+    footprint: dict[str, list[float]],
+    ground_position: list[float],
+    ground_size: list[float],
+    bridge_rgb: tuple[int, int, int],
+) -> dict[str, object]:
+    """Normalize a ground material and add a subtle model-contact bridge."""
     with Image.open(source) as opened:
         image = ImageOps.exif_transpose(opened).convert("RGB")
         image = ImageOps.fit(image, (1024, 1024), method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
+        image = Image.blend(image, Image.new("RGB", image.size, bridge_rgb), 0.055)
+
+        # The soft occlusion ring is only visible at the GLB boundary. It makes
+        # the separately uploaded ground plane read as a continuous surface,
+        # without drawing a generic pedestal or changing the model geometry.
+        edge = ground_size[0]
+        center_x, _, center_z = ground_position
+        x0, x1 = footprint["x"]
+        z0, z1 = footprint["z"]
+        box = (
+            round(((x0 - center_x) / edge + 0.5) * 1024),
+            round((1.0 - ((z1 - center_z) / edge + 0.5)) * 1024),
+            round(((x1 - center_x) / edge + 0.5) * 1024),
+            round((1.0 - ((z0 - center_z) / edge + 0.5)) * 1024),
+        )
+        shadow = Image.new("RGBA", image.size, (0, 0, 0, 0))
+        ImageDraw.Draw(shadow).rounded_rectangle(box, radius=18, fill=(20, 20, 18, 34))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(15))
+        image = Image.alpha_composite(image.convert("RGBA"), shadow).convert("RGB")
         image.save(destination, "PNG", optimize=True)
     info = file_info(destination)
     if (info["width"], info["height"]) != (1024, 1024):
@@ -132,9 +175,11 @@ def write_json(path: Path, content: dict[str, object]) -> None:
 def ground_layout(footprint: dict[str, list[float]]) -> tuple[list[float], list[float]]:
     x0, x1 = footprint["x"]
     z0, z1 = footprint["z"]
-    width = round((x1 - x0) + 0.06, 6)
-    depth = round((z1 - z0) + 0.06, 6)
-    return [round((x0 + x1) / 2, 6), 0.004, round((z0 + z1) / 2, 6)], [width, depth]
+    # Square plane prevents a square material image from being stretched on a
+    # long building footprint. The 0.10-unit border leaves enough visible
+    # context for the texture and contact shadow to merge with the GLB base.
+    edge = round(max((x1 - x0) + 0.20, (z1 - z0) + 0.20), 6)
+    return [round((x0 + x1) / 2, 6), 0.002, round((z0 + z1) / 2, 6)], [edge, edge]
 
 
 def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
@@ -144,7 +189,7 @@ def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
     )
     readme = f"""# Kivicube 素材包｜{assets[0]['scene']}
 
-本目录按模型单元分包。每个子目录都有：原手绘触发图、绘制触发图的参考原图副本、独立地面贴图、`kivicube_setup.json`。
+本目录按模型单元分包。每个子目录都有：原手绘触发图、绘制触发图的内部参考原图副本、独立地面贴图、`kivicube_setup.json`。
 
 | 单元 | 中文名称 | 子目录 |
 |---|---|---|
@@ -153,15 +198,15 @@ def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
 ## 统一装配顺序
 
 1. 将 `*_trigger_v001.jpg` 作为图片识别图；它是原手绘文件的未修改副本。
-2. 识别稳定后第 `0.15s` 显示 `*_reference_reveal_v001.jpg`，保持原图画幅比例。
-3. 第 `2.20s` 显示 `*_ground_texture_v001.png` 和 GLB，自动播放 `photo_emerge`。
-4. 地面平面在 `Y=0.004`，模型在 `Y=0.006`；地面尺寸小于原图平面、由模型的实际占地推导，详见各自 JSON。
+2. 识别稳定后立即显示 `*_ground_texture_v002.png`，作为独立、无光照的方形地面平面。
+3. 同时显示 GLB，**不**自动播放 `photo_emerge` 或其他入场动画；模型静态贴地摆放。
+4. 地面平面在 `Y=0.002`，模型最低点在 `Y=0.004`；地面为不拉伸的方形，覆盖模型占地外侧 0.10 单位边界，详见各自 JSON。
 
 ## 尺寸约束
 
 - 原手绘触发图：`1080×1080`，不裁切、不重绘。
-- 参考原图：原比例交付；仅长边超过 `2048px` 时下采样。
-- 地面贴图：`1024×1024`，每个模型独立一张。
+- 参考原图：原比例交付，仅供绘制关系和内部核对，不进入识别后的展示流程。
+- 地面贴图：`1024×1024`、v002；每个模型独立一张，按模型底部材质色系制作，并带轻微接触阴影。
 
 所有参考原图均为 `RIGHTS_PENDING` 或更严格状态，只可先用于内部 Kivicube 适配。文件级状态见 `ASSET_MANIFEST.json`。
 """
@@ -171,7 +216,7 @@ def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
 def main() -> None:
     handoff = json.loads(HANDOFF.read_text(encoding="utf-8"))
     layouts = {asset["asset_id"]: asset for asset in handoff["assets"]}
-    missing = [str(path) for asset in ASSETS for path in (asset["trigger"], asset["reference"], GROUND_INPUTS / f"{asset['asset_id']}.png") if not path.exists()]
+    missing = [str(path) for asset in ASSETS for path in (asset["trigger"], asset["reference"], GROUND_INPUTS / f"{asset['asset_id']}_{GROUND_VERSION}.png") if not path.exists()]
     if missing:
         raise FileNotFoundError("Missing required package inputs:\n" + "\n".join(missing))
 
@@ -184,54 +229,61 @@ def main() -> None:
         prefix = asset["folder"]
         trigger_path = unit / f"{prefix}_trigger_v001.jpg"
         reference_path = unit / f"{prefix}_reference_reveal_v001.jpg"
-        ground_path = unit / f"{prefix}_ground_texture_v001.png"
+        ground_path = unit / f"{prefix}_ground_texture_{GROUND_VERSION}.png"
 
         trigger_info = copy_trigger(asset["trigger"], trigger_path)
         reference_info = save_reference(asset["reference"], reference_path)
-        ground_info = save_ground(GROUND_INPUTS / f"{asset['asset_id']}.png", ground_path)
         handoff_asset = layouts[asset["asset_id"]]
         footprint = handoff_asset["target_footprint"]
         ground_position, ground_size = ground_layout(footprint)
+        surface = GROUND_SURFACES[asset["asset_id"]]
+        ground_info = save_ground(
+            GROUND_INPUTS / f"{asset['asset_id']}_{GROUND_VERSION}.png",
+            ground_path,
+            footprint,
+            ground_position,
+            ground_size,
+            surface["bridge_rgb"],
+        )
         model = handoff_asset["model"]
         setup = {
-            "schema": "red-wave-ar.kivicube-package.v2",
+            "schema": "red-wave-ar.kivicube-static-ground-package.v3",
             "asset_id": asset["asset_id"],
             "display_name_zh": asset["display_name_zh"],
             "source_integrity": {
                 "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
-                "reference": "drawing_reference_original_aspect_preserved",
-                "ground": "separate_1024_square_image_plane",
+                "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
+                "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge",
             },
             "files": {
                 "image_target": trigger_path.name,
-                "reference_reveal": reference_path.name,
+                "drawing_reference_internal": reference_path.name,
                 "ground_texture": ground_path.name,
                 "model_glb": f"../../model/{asset['model']}",
             },
-            "animation_sequence": [
+            "display_sequence": [
                 {"start_seconds": 0.0, "action": "recognize_original_hand_drawn_image_target"},
-                {"start_seconds": 0.15, "action": "show_reference_reveal", "keep_visible_under_model": True},
-                {"start_seconds": 2.2, "action": "show_ground_and_model", "model_animation": "photo_emerge", "auto_play": True},
-                {"start_seconds": 3.2, "action": "start_narration", "keep_reference_visible": True},
+                {"start_seconds": 0.1, "action": "show_ground_texture_plane", "material_mode": "unlit"},
+                {"start_seconds": 0.1, "action": "show_model_static", "play_model_animation": False},
+                {"start_seconds": 0.8, "action": "start_narration"},
             ],
-            "reference_reveal_plane": {
-                "position": [0.0, 0.002, 0.0], "rotation_degrees": [0.0, 0.0, 0.0],
-                "long_edge_ratio": 1.0, "fit_mode": "contain_preserve_original_aspect",
-            },
             "ground_texture_plane": {
                 "position": ground_position, "rotation_degrees": [0.0, 0.0, 0.0],
-                "size_target_units": ground_size, "y_offset": 0.004,
-                "notes_zh": "仅覆盖模型实际占地及 0.03 单位边界；不覆盖整张原图。",
+                "size_target_units": ground_size, "y_offset": 0.002,
+                "material_mode": "unlit",
+                "surface_family": surface["family"],
+                "model_material_bridge_rgb": surface["bridge_rgb"],
+                "notes_zh": "方形地面不拉伸；以同材质色系和轻微接触阴影衔接模型底部，不添加独立展台。",
             },
             "model": {
-                "position": model["position"], "rotation_degrees": model["rotation_degrees"],
+                "position": [model["position"][0], 0.004, model["position"][2]], "rotation_degrees": model["rotation_degrees"],
                 "uniform_scale_after_kivicube_auto_fit": model["uniform_scale_after_kivicube_auto_fit"],
-                "entry_animation": "photo_emerge", "auto_play": True, "target_footprint": footprint,
+                "entry_animation": "none", "auto_play": False, "target_footprint": footprint,
             },
         }
         write_json(unit / "kivicube_setup.json", setup)
         asset["delivery"] = {
-            "trigger": trigger_info, "reference_reveal": reference_info, "ground_texture": ground_info,
+            "trigger": trigger_info, "drawing_reference_internal": reference_info, "ground_texture": ground_info,
             "ground_plane_position": ground_position, "ground_plane_size_target_units": ground_size,
         }
         by_scene.setdefault(asset["scene"], []).append(asset)
@@ -240,7 +292,7 @@ def main() -> None:
         package = ROOT / "lkivivube_delivery" / "scenes" / scene_name / "kivicube_package"
         write_scene_readme(package, assets)
         manifest = {
-            "schema": "red-wave-ar.kivicube-package-manifest.v2",
+            "schema": "red-wave-ar.kivicube-static-ground-package-manifest.v3",
             "scope": scene_name,
             "status": "INTERNAL_KIVICUBE_TEST_ONLY_RIGHTS_PENDING",
             "assets": [
