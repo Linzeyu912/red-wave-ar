@@ -7,6 +7,8 @@ import pathlib
 
 from PIL import Image
 
+from ground_contact_contracts import GROUND_CONTACTS, MODEL_CENTER_POLICY
+
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -67,9 +69,27 @@ def validate_setup(path: pathlib.Path) -> dict[str, object]:
     if len(x) != 2 or len(z) != 2 or len(size) != 2:
         errors.append("missing target footprint")
     else:
-        expected_edge = round(max(float(x[1]) - float(x[0]) + 0.20, float(z[1]) - float(z[0]) + 0.20), 6)
+        contact = GROUND_CONTACTS.get(asset_id)
+        if contact is None:
+            errors.append("missing ground contact contract")
+            contact = {"perimeter_clearance_target_units": 0.0}
+        clearance = float(contact["perimeter_clearance_target_units"])
+        expected_center = [round((float(x[0]) + float(x[1])) / 2, 6), 0.002, round((float(z[0]) + float(z[1])) / 2, 6)]
+        # Footprint endpoints and the centre are both stored to six decimals;
+        # averaging two rounded endpoints can differ from a rounded raw centre
+        # by one final digit.
+        if len(position) != 3 or any(not close_enough(float(position[index]), expected_center[index], 2e-6) for index in range(3)):
+            errors.append("ground centre must equal transformed model footprint centre")
+        expected_edge = round(max(float(x[1]) - float(x[0]) + clearance * 2, float(z[1]) - float(z[0]) + clearance * 2), 6)
         if not close_enough(float(size[0]), expected_edge):
-            errors.append(f"ground edge {size[0]} does not cover footprint with 0.10-unit border")
+            errors.append(f"ground edge {size[0]} does not cover footprint with {clearance}-unit border")
+        if ground.get("model_center_policy") != MODEL_CENTER_POLICY:
+            errors.append("ground model-centering contract is missing")
+        if ground.get("front_axis") != contact["front_axis"]:
+            errors.append("ground front axis does not match contact contract")
+        transition = ground.get("stair_transition", {})
+        if not isinstance(transition, dict) or transition.get("has_front_landing") is not contact["has_front_landing"]:
+            errors.append("ground stair-transition contract is missing")
 
     texture = path.parent / str(files.get("ground_texture", ""))
     if not texture.exists():

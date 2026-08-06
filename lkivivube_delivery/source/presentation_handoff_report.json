@@ -48,11 +48,20 @@
           0.0
         ],
         "size_target_units": [
-          0.92,
-          0.92
+          1.08,
+          1.08
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.18,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": true,
+          "landing_width_ratio": 0.62,
+          "stair_geometry_zh": "GLB 内保留正面 6–7 级灰石直跑台阶；外侧最低，向门洞逐级升高。",
+          "ground_approach_zh": "台阶外侧以居中的低对比灰石铺装承接，不在平面贴图中伪造立体踏步。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1A_pingxi_gate_v003.glb",
@@ -87,7 +96,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260712203953_1152_5130.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S1B",
@@ -104,11 +113,20 @@
           0.0
         ],
         "size_target_units": [
-          0.56,
-          0.56
+          0.6,
+          0.6
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.12,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": false,
+          "landing_width_ratio": 0.0,
+          "stair_geometry_zh": "人物、桌台和设备为完整 GLB 组合，无外部台阶。",
+          "ground_approach_zh": "深棕木质地面仅作居中展陈组合的接触面，不添加虚构台阶或展台。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb",
@@ -143,7 +161,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S1/local_reference/source_folder_20260727/微信图片_20260716203647_1419_5130.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S2A",
@@ -160,11 +178,20 @@
           0.0
         ],
         "size_target_units": [
-          0.98,
-          0.98
+          1.06,
+          1.06
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.14,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": true,
+          "landing_width_ratio": 0.28,
+          "stair_geometry_zh": "GLB 内保留中央入口的极短台阶/基座；不扩展为街道设施。",
+          "ground_approach_zh": "入口前留出居中的浅灰石质承接区，保持模型位于地面中心。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v003.glb",
@@ -199,7 +226,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S2/local_reference/source_folder_20260727/微信图片_20260727183423_918_1.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S3A",
@@ -216,11 +243,20 @@
           0.0
         ],
         "size_target_units": [
-          0.92,
-          0.92
+          1.04,
+          1.04
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.16,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": true,
+          "landing_width_ratio": 0.56,
+          "stair_geometry_zh": "GLB 内保留低层翼楼前的宽台阶，正面朝 -Z。",
+          "ground_approach_zh": "宽台阶外侧以低对比旧混凝土/浅石材过渡，不加入水池、车辆或道路。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3A_shortwave_station_building_v003.glb",
@@ -255,7 +291,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183421_916_1.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S3B",
@@ -272,11 +308,20 @@
           0.0
         ],
         "size_target_units": [
-          0.94,
-          0.94
+          0.98,
+          0.98
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.12,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": false,
+          "landing_width_ratio": 0.0,
+          "stair_geometry_zh": "GLB 仅保留可读机械地脚，无建筑入口台阶。",
+          "ground_approach_zh": "压实中性土/草色从地脚外侧连续铺开，不添加台阶或黑色底座。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S3_shortwave_station/model/S3B_shortwave_antenna_array_v003.glb",
@@ -311,7 +356,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S3/local_reference/source_folder_20260727/微信图片_20260727183422_917_1.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S4A",
@@ -328,11 +373,20 @@
           0.0
         ],
         "size_target_units": [
-          0.9,
-          0.9
+          0.94,
+          0.94
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.12,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": false,
+          "landing_width_ratio": 0.0,
+          "stair_geometry_zh": "城台、券门和城楼基座为 GLB 几何；无资料支持时不伪造入口台阶。",
+          "ground_approach_zh": "中灰旧石接触面包围居中的城台，避免用平面贴图绘制假台阶。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S4_juyong_pass/model/S4A_juyong_pass_tower_v003.glb",
@@ -367,7 +421,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S4/local_reference/source_folder_20260727/微信图片_20260727183424_919_1.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S5A",
@@ -384,11 +438,20 @@
           0.0
         ],
         "size_target_units": [
-          0.94,
-          0.94
+          1.02,
+          1.02
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.14,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": false,
+          "landing_width_ratio": 0.0,
+          "stair_geometry_zh": "人物石质支撑、斜置铜牌石座和层级关系均由 GLB 几何表达。",
+          "ground_approach_zh": "浅暖灰石材只承接局部石座，不把平面图做成大面积广场或假台阶。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S5_memorial_plaza/model/S5A_memorial_sculpture_v003.glb",
@@ -423,7 +486,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S5/local_reference/source_folder_20260727/18b017b5eb0df80ff4c70fc5991203b5.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S6A",
@@ -440,11 +503,20 @@
           0.0
         ],
         "size_target_units": [
-          0.88,
-          0.88
+          1.0,
+          1.0
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.16,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": true,
+          "landing_width_ratio": 0.34,
+          "stair_geometry_zh": "GLB 内保留中央直跑中深灰石阶，正面朝 -Z 并向门廊逐级升高。",
+          "ground_approach_zh": "台阶前以居中的中性灰石/混凝土接触区收口，不扩展到园林。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v003.glb",
@@ -479,7 +551,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S6/local_reference/source_folder_20260727/a4c5a574525a3f829e286f6eea4b9e08.jpg",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     },
     {
       "asset_id": "S7A",
@@ -496,11 +568,20 @@
           0.0
         ],
         "size_target_units": [
-          0.92,
-          0.92
+          1.02,
+          1.02
         ],
         "material_mode": "unlit",
-        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion"
+        "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+        "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+        "perimeter_clearance_target_units": 0.15,
+        "front_axis": "-Z",
+        "stair_transition": {
+          "has_front_landing": true,
+          "landing_width_ratio": 0.36,
+          "stair_geometry_zh": "GLB 内保留入口前的极短浅米灰石台阶/平台，正面朝 -Z。",
+          "ground_approach_zh": "入口前留出居中的提亮中性灰石承接区，不把道路或围栏绘入地面。"
+        }
       },
       "model": {
         "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v003.glb",
@@ -535,7 +616,7 @@
         "inside_square_target": true
       },
       "drawing_reference_source": "modeling_input/S7/local_reference/source_folder_20260727/d10d05331791c52d672efca4212a9012.png",
-      "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition."
+      "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition."
     }
   ]
 }
