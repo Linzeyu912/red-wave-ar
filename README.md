@@ -4,6 +4,18 @@
 
 > 当前项目方向以 [`docs/PROJECT_DIRECTION.md`](docs/PROJECT_DIRECTION.md) 为准。旧地下电台白盒和自研虚拟展馆计划已归档，不再作为新平台建模入口。
 
+## Kivicube 九宫格预览
+
+以下图片会随建模与素材打包流程自动更新；完整的文件定位、Kivicube 上传参数和逐单元素材包见 [`lkivivube_delivery/KIVICUBE_PACKAGE_INDEX.md`](lkivivube_delivery/KIVICUBE_PACKAGE_INDEX.md)。
+
+![九个模型预览](lkivivube_delivery/images/kivicube_model_previews_3x3.png)
+
+![九张原手绘触发图](lkivivube_delivery/images/kivicube_trigger_images_3x3.png)
+
+![九张触发图参考原图](lkivivube_delivery/images/kivicube_trigger_reference_images_3x3.png)
+
+![九张模型地面贴图](lkivivube_delivery/images/kivicube_ground_textures_3x3.png)
+
 ## 从这里开始
 
 | 你要做的事 | 唯一入口 |
