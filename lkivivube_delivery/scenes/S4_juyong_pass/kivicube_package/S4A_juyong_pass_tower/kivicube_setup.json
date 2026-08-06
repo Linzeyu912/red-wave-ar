@@ -51,8 +51,8 @@
       0.0
     ],
     "size_target_units": [
-      0.9,
-      0.9
+      0.94,
+      0.94
     ],
     "y_offset": 0.002,
     "material_mode": "unlit",
@@ -62,7 +62,16 @@
       115,
       111
     ],
-    "notes_zh": "方形地面不拉伸；以同材质色系和轻微接触阴影衔接模型底部，不添加独立展台。"
+    "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+    "perimeter_clearance_target_units": 0.12,
+    "front_axis": "-Z",
+    "stair_transition": {
+      "has_front_landing": false,
+      "landing_width_ratio": 0.0,
+      "stair_geometry_zh": "城台、券门和城楼基座为 GLB 几何；无资料支持时不伪造入口台阶。",
+      "ground_approach_zh": "中灰旧石接触面包围居中的城台，避免用平面贴图绘制假台阶。"
+    },
+    "notes_zh": "模型转换后占地中心与方形地面中心重合；真实台阶留在 GLB 内，正面地面仅以同材质铺装和轻微接触阴影承接，不添加独立展台。"
   },
   "model": {
     "position": [

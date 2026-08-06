@@ -29,7 +29,7 @@
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 1093880
+          "bytes": 1094499
         },
         "ground_plane_position": [
           0.0,
@@ -37,8 +37,8 @@
           0.03957
         ],
         "ground_plane_size_target_units": [
-          0.92,
-          0.92
+          1.08,
+          1.08
         ]
       },
       "reference_derived_surface_contract": {
@@ -74,7 +74,7 @@
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 757362
+          "bytes": 757701
         },
         "ground_plane_position": [
           -0.12,
@@ -82,8 +82,8 @@
           0.037041
         ],
         "ground_plane_size_target_units": [
-          0.56,
-          0.56
+          0.6,
+          0.6
         ]
       },
       "reference_derived_surface_contract": {

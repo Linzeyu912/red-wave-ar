@@ -14,6 +14,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
 
+from ground_contact_contracts import GROUND_CONTACTS, MODEL_CENTER_POLICY
+
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "modeling_input"
@@ -209,6 +211,7 @@ def save_ground(
     ground_position: list[float],
     ground_size: list[float],
     bridge_rgb: tuple[int, int, int],
+    contact: dict[str, object],
     bridge_strength: float = 0.10,
 ) -> dict[str, object]:
     """Normalize a restrained ground material and add a soft contact bridge."""
@@ -221,6 +224,28 @@ def save_ground(
         image = image.resize((512, 512), Image.Resampling.LANCZOS).resize((1024, 1024), Image.Resampling.BICUBIC)
         image = ImageEnhance.Contrast(image).enhance(0.72)
         image = Image.blend(image, Image.new("RGB", image.size, bridge_rgb), bridge_strength)
+
+        # The texture cannot stand in for 3D risers. For assets whose GLB has
+        # a documented front stair, add only a low-contrast, material-matched
+        # approach area immediately outside that stair. The real treads and
+        # risers remain in the centred GLB.
+        if contact["has_front_landing"]:
+            edge = ground_size[0]
+            center_x, _, center_z = ground_position
+            x0, x1 = footprint["x"]
+            z0, _ = footprint["z"]
+            half_width = (x1 - x0) * float(contact["landing_width_ratio"]) / 2.0
+            clearance = float(contact["perimeter_clearance_target_units"])
+            landing = (
+                round(((center_x - half_width - center_x) / edge + 0.5) * 1024),
+                round((1.0 - ((z0 + 0.012 - center_z) / edge + 0.5)) * 1024),
+                round(((center_x + half_width - center_x) / edge + 0.5) * 1024),
+                round((1.0 - ((z0 - clearance * 0.82 - center_z) / edge + 0.5)) * 1024),
+            )
+            approach = Image.new("RGBA", image.size, (0, 0, 0, 0))
+            ImageDraw.Draw(approach).rounded_rectangle(landing, radius=16, fill=(*bridge_rgb, 13))
+            approach = approach.filter(ImageFilter.GaussianBlur(11))
+            image = Image.alpha_composite(image.convert("RGBA"), approach).convert("RGB")
 
         # Use a very low-contrast oval under the actual footprint, never a
         # dark rectangular badge.  It only prevents the independently uploaded
@@ -250,16 +275,6 @@ def write_json(path: Path, content: dict[str, object]) -> None:
     path.write_text(json.dumps(content, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def ground_layout(footprint: dict[str, list[float]]) -> tuple[list[float], list[float]]:
-    x0, x1 = footprint["x"]
-    z0, z1 = footprint["z"]
-    # Square plane prevents a square material image from being stretched on a
-    # long building footprint. The 0.10-unit border leaves enough visible
-    # context for the texture and contact shadow to merge with the GLB base.
-    edge = round(max((x1 - x0) + 0.20, (z1 - z0) + 0.20), 6)
-    return [round((x0 + x1) / 2, 6), 0.002, round((z0 + z1) / 2, 6)], [edge, edge]
-
-
 def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
     rows = "\n".join(
         f"| {asset['asset_id']} | {asset['display_name_zh']} | `{asset['folder']}/` |"
@@ -278,7 +293,7 @@ def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
 1. 将 `*_trigger_v001.jpg` 作为图片识别图；它是原手绘文件的未修改副本。
 2. 识别稳定后立即显示 `*_ground_texture_v002.png`，作为独立、无光照的方形地面平面。
 3. 同时显示 GLB，**不**自动播放 `photo_emerge` 或其他入场动画；模型静态贴地摆放。
-4. 地面平面在 `Y=0.002`，模型最低点在 `Y=0.004`；地面为不拉伸的方形，覆盖模型占地外侧 0.10 单位边界，详见各自 JSON。
+4. 地面平面在 `Y=0.002`，模型最低点在 `Y=0.004`；地面中心等于模型转换后占地中心，因此模型位于地面图中间上方。带台阶的单元把真实踏步保留在 GLB 内，正面（`-Z`）外侧地面只承接铺装，不以贴图伪造立体台阶。
 
 ## 尺寸约束
 
@@ -313,9 +328,12 @@ def main() -> None:
         reference_info = save_reference(asset["reference"], reference_path)
         handoff_asset = layouts[asset["asset_id"]]
         footprint = handoff_asset["target_footprint"]
-        ground_position, ground_size = ground_layout(footprint)
+        ground = handoff_asset["ground_texture"]
+        ground_position = ground["position"]
+        ground_size = ground["size_target_units"]
         surface = GROUND_SURFACES[asset["asset_id"]]
         surface_contract = REFERENCE_DERIVED_SURFACE_CONTRACTS[asset["asset_id"]]
+        contact = GROUND_CONTACTS[asset["asset_id"]]
         ground_info = save_ground(
             GROUND_INPUTS / f"{asset['asset_id']}_{GROUND_VERSION}.png",
             ground_path,
@@ -323,6 +341,7 @@ def main() -> None:
             ground_position,
             ground_size,
             surface["bridge_rgb"],
+            contact,
             surface.get("bridge_strength", 0.10),
         )
         model = handoff_asset["model"]
@@ -354,7 +373,11 @@ def main() -> None:
                 "material_mode": "unlit",
                 "surface_family": surface["family"],
                 "model_material_bridge_rgb": surface["bridge_rgb"],
-                "notes_zh": "方形地面不拉伸；以同材质色系和轻微接触阴影衔接模型底部，不添加独立展台。",
+                "model_center_policy": MODEL_CENTER_POLICY,
+                "perimeter_clearance_target_units": ground["perimeter_clearance_target_units"],
+                "front_axis": ground["front_axis"],
+                "stair_transition": ground["stair_transition"],
+                "notes_zh": "模型转换后占地中心与方形地面中心重合；真实台阶留在 GLB 内，正面地面仅以同材质铺装和轻微接触阴影承接，不添加独立展台。",
             },
             "model": {
                 "position": [model["position"][0], 0.004, model["position"][2]], "rotation_degrees": model["rotation_degrees"],

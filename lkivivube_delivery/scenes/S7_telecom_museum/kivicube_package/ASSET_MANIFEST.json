@@ -29,7 +29,7 @@
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 583885
+          "bytes": 586024
         },
         "ground_plane_position": [
           0.02,
@@ -37,8 +37,8 @@
           0.229692
         ],
         "ground_plane_size_target_units": [
-          0.92,
-          0.92
+          1.02,
+          1.02
         ]
       },
       "reference_derived_surface_contract": {

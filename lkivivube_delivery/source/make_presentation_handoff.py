@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import pathlib
 
+from ground_contact_contracts import GROUND_CONTACTS, MODEL_CENTER_POLICY
+
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -20,6 +22,7 @@ def main() -> None:
     results = []
     for profile in profiles["assets"]:
         asset_id = profile["asset_id"]
+        contact = GROUND_CONTACTS[asset_id]
         build = by_file[profile["model"]]
         minimum = build["bounds_min"]
         maximum = build["bounds_max"]
@@ -55,9 +58,10 @@ def main() -> None:
         scale_after_kivicube_auto_fit = (
             profile["model_width_ratio"] / (width / longest)
         )
+        clearance = contact["perimeter_clearance_target_units"]
         ground_edge = max(
-            transformed_x[1] - transformed_x[0] + 0.20,
-            transformed_z[1] - transformed_z[0] + 0.20,
+            transformed_x[1] - transformed_x[0] + clearance * 2,
+            transformed_z[1] - transformed_z[0] + clearance * 2,
         )
         results.append(
             {
@@ -73,6 +77,15 @@ def main() -> None:
                     "size_target_units": [round(ground_edge, 6), round(ground_edge, 6)],
                     "material_mode": "unlit",
                     "contact_bridge": "matching_ground_material_family_plus_subtle_ambient_occlusion",
+                    "model_center_policy": MODEL_CENTER_POLICY,
+                    "perimeter_clearance_target_units": clearance,
+                    "front_axis": contact["front_axis"],
+                    "stair_transition": {
+                        "has_front_landing": contact["has_front_landing"],
+                        "landing_width_ratio": contact["landing_width_ratio"],
+                        "stair_geometry_zh": contact["stair_geometry_zh"],
+                        "ground_approach_zh": contact["ground_approach_zh"],
+                    },
                 },
                 "model": {
                     "file": profile["model"],
@@ -96,7 +109,7 @@ def main() -> None:
                     "inside_square_target": footprint_inside,
                 },
                 "drawing_reference_source": profile["reference_source"],
-                "placement_note": "Static GLB sits directly on the v002 ground texture; do not show the drawing reference after recognition.",
+                "placement_note": "The transformed model footprint is centred on the v002 ground plane. Physical stairs stay in the GLB and meet its front material approach; do not show the drawing reference after recognition.",
             }
         )
     result = {

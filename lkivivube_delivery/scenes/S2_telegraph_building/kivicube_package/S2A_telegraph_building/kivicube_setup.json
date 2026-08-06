@@ -51,8 +51,8 @@
       0.0
     ],
     "size_target_units": [
-      0.98,
-      0.98
+      1.06,
+      1.06
     ],
     "y_offset": 0.002,
     "material_mode": "unlit",
@@ -62,7 +62,16 @@
       167,
       158
     ],
-    "notes_zh": "方形地面不拉伸；以同材质色系和轻微接触阴影衔接模型底部，不添加独立展台。"
+    "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
+    "perimeter_clearance_target_units": 0.14,
+    "front_axis": "-Z",
+    "stair_transition": {
+      "has_front_landing": true,
+      "landing_width_ratio": 0.28,
+      "stair_geometry_zh": "GLB 内保留中央入口的极短台阶/基座；不扩展为街道设施。",
+      "ground_approach_zh": "入口前留出居中的浅灰石质承接区，保持模型位于地面中心。"
+    },
+    "notes_zh": "模型转换后占地中心与方形地面中心重合；真实台阶留在 GLB 内，正面地面仅以同材质铺装和轻微接触阴影承接，不添加独立展台。"
   },
   "model": {
     "position": [
