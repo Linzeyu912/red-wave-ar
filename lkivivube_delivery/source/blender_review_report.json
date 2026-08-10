@@ -37,7 +37,7 @@
       "blend": "lkivivube_delivery/source/blend/S1B_radio_operator_statue_v003_source.blend",
       "preview": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/images/S1B_radio_operator_statue_preview_v003.png",
       "mesh_objects": 4,
-      "triangles": 92660,
+      "triangles": 119912,
       "materials": 4,
       "images": 0,
       "animations": 1,
@@ -47,7 +47,7 @@
       "review_frame": 34,
       "bounds_min": [
         -1.1654,
-        -0.4377,
+        -0.4378,
         0.0
       ],
       "bounds_max": [
@@ -57,7 +57,7 @@
       ],
       "dimensions": [
         2.3308,
-        1.7777,
+        1.7778,
         2.5477
       ]
     },
