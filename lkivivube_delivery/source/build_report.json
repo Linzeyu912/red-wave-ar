@@ -3,7 +3,7 @@
     {
       "asset_id": "s1a_pingxi_gate",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1A_pingxi_gate_v003.glb",
-      "size_bytes": 375180,
+      "size_bytes": 467432,
       "triangles": 3756,
       "vertices": 7242,
       "meshes": 5,
@@ -26,9 +26,9 @@
     {
       "asset_id": "s1b_radio_operator_statue",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1B_radio_operator_statue_v003.glb",
-      "size_bytes": 2326540,
-      "triangles": 92660,
-      "vertices": 55154,
+      "size_bytes": 3072084,
+      "triangles": 119912,
+      "vertices": 73342,
       "meshes": 4,
       "materials": 4,
       "textures": 0,
@@ -41,7 +41,7 @@
       "bounds_max": [
         1.1654000282287598,
         2.5477404594421387,
-        0.4377429187297821
+        0.43781986832618713
       ],
       "ground_normalization_offset": 0.0,
       "relative_file": "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb"
@@ -118,7 +118,7 @@
     {
       "asset_id": "s4a_juyong_pass_tower",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S4_juyong_pass\\model\\S4A_juyong_pass_tower_v003.glb",
-      "size_bytes": 585904,
+      "size_bytes": 598200,
       "triangles": 8596,
       "vertices": 15790,
       "meshes": 6,
@@ -141,7 +141,7 @@
     {
       "asset_id": "s5a_memorial_sculpture",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S5_memorial_plaza\\model\\S5A_memorial_sculpture_v003.glb",
-      "size_bytes": 1327476,
+      "size_bytes": 1339648,
       "triangles": 45564,
       "vertices": 32358,
       "meshes": 5,
@@ -187,7 +187,7 @@
     {
       "asset_id": "s7a_telecom_museum",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S7_telecom_museum\\model\\S7A_telecom_museum_v003.glb",
-      "size_bytes": 569516,
+      "size_bytes": 664860,
       "triangles": 7616,
       "vertices": 14876,
       "meshes": 5,

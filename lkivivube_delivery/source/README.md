@@ -24,7 +24,7 @@
 - `build_report.json`、`blender_review_report.json`、`validation_report.json`：三层机器可读验收证据。
 - `model_contact_sheet.png`：九个模型的统一视觉总览。
 
-生成过程中使用的文字图集位于忽略目录 `.build/`，贴图已经嵌入 GLB 和 `.blend`，不需要作为独立上传文件。
+生成过程中使用的文字图集位于忽略目录 `.build/`，贴图已经嵌入 GLB 和 `.blend`，不需要作为独立上传文件。`build_models.py` 按文字角色选择字体：默认说明字为微软雅黑/黑体回退，平西门匾与楹联及电信博物馆馆名为华文行楷，居庸关繁体“天下第一雄關”为华文楷体，《家国》铜牌为华文隶书。可用 `RED_WAVE_FONT_DEFAULT`、`RED_WAVE_FONT_CALLIGRAPHY`、`RED_WAVE_FONT_HERITAGE`、`RED_WAVE_FONT_INSCRIPTION` 覆盖对应字体文件；不得用一种现代无衬线字体替代所有历史文字。
 
 真实参考照片和细节复核图只用于内部检查；照片不作为当前 Kivicube 场景对象。V002 地面贴图以模型接触材质为色彩桥接，叠加轻微接触阴影，并输出到每个 `kivicube_package/` 目录和 `../images/kivicube_ground_textures_3x3.png`。
 

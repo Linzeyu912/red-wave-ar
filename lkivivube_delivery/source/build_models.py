@@ -33,27 +33,53 @@ def rgb(hex_value: str) -> tuple[float, float, float]:
     return tuple(int(value[index:index + 2], 16) / 255.0 for index in (0, 2, 4))
 
 
-def find_font() -> str:
-    override = os.environ.get("RED_WAVE_FONT")
-    candidates = [
-        pathlib.Path(override) if override else None,
-        pathlib.Path(r"C:\Windows\Fonts\msyh.ttc"),
-        pathlib.Path(r"C:\Windows\Fonts\simhei.ttf"),
-        pathlib.Path(r"C:\Windows\Fonts\simsun.ttc"),
-    ]
-    for candidate in candidates:
+def find_font(env_name: str, candidates: tuple[str, ...]) -> str:
+    """Resolve a role-specific Chinese font with a reproducible fallback."""
+    override = os.environ.get(env_name) or os.environ.get("RED_WAVE_FONT")
+    paths = [pathlib.Path(override) if override else None]
+    paths.extend(pathlib.Path(candidate) for candidate in candidates)
+    for candidate in paths:
         if candidate and candidate.is_file():
             return str(candidate)
-    raise RuntimeError("Set RED_WAVE_FONT to a Chinese-capable font file")
+    raise RuntimeError(f"Set {env_name} to a Chinese-capable font file")
 
 
-FONT = find_font()
+FONT_DEFAULT = find_font("RED_WAVE_FONT_DEFAULT", (
+    r"C:\Windows\Fonts\msyh.ttc",
+    r"C:\Windows\Fonts\simhei.ttf",
+    r"C:\Windows\Fonts\simsun.ttc",
+))
+FONT_CALLIGRAPHY = find_font("RED_WAVE_FONT_CALLIGRAPHY", (
+    r"C:\Windows\Fonts\STXINGKA.TTF",
+    r"C:\Windows\Fonts\STKAITI.TTF",
+    r"C:\Windows\Fonts\simkai.ttf",
+    r"C:\Windows\Fonts\simsun.ttc",
+))
+FONT_INSCRIPTION = find_font("RED_WAVE_FONT_INSCRIPTION", (
+    r"C:\Windows\Fonts\STLITI.TTF",
+    r"C:\Windows\Fonts\STKAITI.TTF",
+    r"C:\Windows\Fonts\simkai.ttf",
+    r"C:\Windows\Fonts\simsun.ttc",
+))
+FONT_HERITAGE = find_font("RED_WAVE_FONT_HERITAGE", (
+    # STXINGKA does not contain the traditional glyph 關.  The historical
+    # Juyong Pass plaque needs a traditional-Chinese-capable brush typeface.
+    r"C:\Windows\Fonts\STKAITI.TTF",
+    r"C:\Windows\Fonts\simkai.ttf",
+    r"C:\Windows\Fonts\simsun.ttc",
+))
 
 
-def fit_font(text: str, box: tuple[int, int, int, int], maximum: int, vertical: bool = False) -> ImageFont.FreeTypeFont:
+def fit_font(
+    text: str,
+    box: tuple[int, int, int, int],
+    maximum: int,
+    vertical: bool = False,
+    font_path: str = FONT_DEFAULT,
+) -> ImageFont.FreeTypeFont:
     left, top, right, bottom = box
     for size in range(maximum, 15, -4):
-        font = ImageFont.truetype(FONT, size)
+        font = ImageFont.truetype(font_path, size)
         if vertical:
             widths, heights = [], []
             for char in text:
@@ -66,7 +92,7 @@ def fit_font(text: str, box: tuple[int, int, int, int], maximum: int, vertical: 
             bounds = font.getbbox(text)
             if bounds[2] - bounds[0] <= right - left and bounds[3] - bounds[1] <= bottom - top:
                 return font
-    return ImageFont.truetype(FONT, 16)
+    return ImageFont.truetype(font_path, 16)
 
 
 def draw_centered(
@@ -76,9 +102,12 @@ def draw_centered(
     fill: tuple[int, int, int],
     maximum: int,
     rtl: bool = False,
+    font_path: str = FONT_DEFAULT,
+    stroke_width: int = 0,
+    stroke_fill: tuple[int, int, int] | None = None,
 ) -> None:
     display = text[::-1] if rtl else text
-    font = fit_font(display, box, maximum)
+    font = fit_font(display, box, maximum, font_path=font_path)
     bounds = draw.textbbox((0, 0), display, font=font)
     width, height = bounds[2] - bounds[0], bounds[3] - bounds[1]
     left, top, right, bottom = box
@@ -88,6 +117,8 @@ def draw_centered(
         display,
         font=font,
         fill=fill,
+        stroke_width=stroke_width,
+        stroke_fill=stroke_fill,
     )
 
 
@@ -97,39 +128,63 @@ def draw_vertical(
     text: str,
     fill: tuple[int, int, int],
     maximum: int,
+    font_path: str = FONT_DEFAULT,
 ) -> None:
-    font = fit_font(text, box, maximum, vertical=True)
+    font = fit_font(text, box, maximum, vertical=True, font_path=font_path)
     left, top, right, bottom = box
     step = (bottom - top) / max(1, len(text))
     for index, char in enumerate(text):
         sub = (left, int(top + index * step), right, int(top + (index + 1) * step))
-        draw_centered(draw, sub, char, fill, maximum)
+        draw_centered(draw, sub, char, fill, maximum, font_path=font_path)
 
 
 def make_gate_atlas(path: pathlib.Path) -> None:
     image = Image.new("RGB", (2048, 2048), (80, 20, 18))
     draw = ImageDraw.Draw(image)
     # top quarter: horizontal plaque
-    draw.rounded_rectangle((18, 18, 2030, 494), radius=28, fill=(93, 24, 20), outline=(45, 12, 10), width=22)
-    draw_centered(draw, (90, 70, 1958, 442), "平西情报联络站", (144, 205, 171), 250, rtl=True)
+    draw.rectangle((18, 18, 2030, 494), fill=(93, 24, 20), outline=(45, 12, 10), width=22)
+    draw_centered(
+        draw,
+        (132, 58, 1970, 446),
+        "平西情报联络站",
+        (75, 151, 116),
+        276,
+        rtl=True,
+        font_path=FONT_CALLIGRAPHY,
+        stroke_width=1,
+        stroke_fill=(49, 111, 83),
+    )
+    # The close reference shows a small calligrapher inscription and two seals
+    # on the viewer-left.  Their characters are not reliably legible, so keep
+    # source-supported unreadable marks instead of inventing names.
+    for index, y in enumerate((102, 176, 246, 316)):
+        draw.line((70 + index % 2 * 4, y, 102 - index % 2 * 5, y + 34), fill=(57, 124, 94), width=7)
+    for top in (348, 398):
+        draw.rectangle((62, top, 102, top + 36), outline=(132, 34, 28), width=6)
     # lower left/right: two vertical couplets
     for box, text in [
         ((40, 560, 760, 2020), "英雄热血铸丰碑"),
-        ((1288, 560, 2008, 2020), "红色电波传密报"),
+        ((1288, 560, 2008, 2020), "红色电波传密讯"),
     ]:
         draw.rounded_rectangle(box, radius=20, fill=(112, 26, 23), outline=(48, 12, 10), width=18)
         inner = (box[0] + 100, box[1] + 70, box[2] - 100, box[3] - 70)
-        draw_vertical(draw, inner, text, (155, 211, 179), 165)
+        draw_vertical(draw, inner, text, (91, 169, 129), 176, font_path=FONT_CALLIGRAPHY)
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, optimize=True)
 
 
-def make_sign(path: pathlib.Path, text: str, background: tuple[int, int, int],
-              foreground: tuple[int, int, int], rtl: bool = False) -> None:
+def make_sign(
+    path: pathlib.Path,
+    text: str,
+    background: tuple[int, int, int],
+    foreground: tuple[int, int, int],
+    rtl: bool = False,
+    font_path: str = FONT_DEFAULT,
+) -> None:
     image = Image.new("RGB", (1024, 320), background)
     draw = ImageDraw.Draw(image)
-    draw.rounded_rectangle((12, 12, 1012, 308), radius=18, outline=tuple(max(0, c - 45) for c in background), width=14)
-    draw_centered(draw, (40, 32, 984, 286), text, foreground, 180, rtl=rtl)
+    draw.rectangle((12, 12, 1012, 308), outline=tuple(max(0, c - 45) for c in background), width=12)
+    draw_centered(draw, (42, 28, 982, 290), text, foreground, 192, rtl=rtl, font_path=font_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, optimize=True)
 
@@ -139,7 +194,16 @@ def make_memorial_atlas(path: pathlib.Path) -> None:
     draw = ImageDraw.Draw(image)
     draw.rounded_rectangle((18, 18, 1006, 750), radius=24, outline=(155, 116, 66), width=16)
     # Semantic title is 家国; physical left-to-right character placement is 国 家.
-    draw_centered(draw, (80, 55, 944, 275), "国家", (198, 157, 92), 150)
+    draw_centered(
+        draw,
+        (80, 45, 944, 285),
+        "国家",
+        (198, 157, 92),
+        176,
+        font_path=FONT_INSCRIPTION,
+        stroke_width=1,
+        stroke_fill=(118, 84, 49),
+    )
     for y in range(335, 690, 46):
         margin = 95 + (y % 3) * 6
         draw.line((margin, y, 1024 - margin, y), fill=(103, 78, 52), width=4)
@@ -151,9 +215,25 @@ def make_telecom_atlas(path: pathlib.Path) -> None:
     image = Image.new("RGB", (2048, 1024), (232, 229, 216))
     draw = ImageDraw.Draw(image)
     draw.rectangle((0, 0, 2048, 512), fill=(94, 30, 26))
-    draw_centered(draw, (70, 50, 1978, 462), "中国电信博物馆", (226, 191, 104), 230)
+    draw_centered(
+        draw,
+        (70, 38, 1978, 474),
+        "中国电信博物馆",
+        (226, 191, 104),
+        250,
+        font_path=FONT_CALLIGRAPHY,
+        stroke_width=2,
+        stroke_fill=(132, 91, 39),
+    )
     draw.rectangle((1536, 512, 2048, 1024), fill=(231, 234, 230))
-    draw_vertical(draw, (1610, 530, 1970, 1006), "中国电信博物馆", (176, 38, 32), 94)
+    draw_vertical(
+        draw,
+        (1610, 530, 1970, 1006),
+        "中国电信博物馆",
+        (176, 38, 32),
+        100,
+        font_path=FONT_CALLIGRAPHY,
+    )
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, optimize=True)
 
@@ -166,7 +246,14 @@ def prepare_textures() -> dict[str, pathlib.Path]:
         "telecom": TEXTURES / "s7_telecom_signage.png",
     }
     make_gate_atlas(textures["gate"])
-    make_sign(textures["juyong"], "天下第一雄关", (237, 227, 195), (35, 31, 25))
+    make_sign(
+        textures["juyong"],
+        "天下第一雄關",
+        (237, 227, 195),
+        (35, 31, 25),
+        rtl=True,
+        font_path=FONT_HERITAGE,
+    )
     make_memorial_atlas(textures["memorial"])
     make_telecom_atlas(textures["telecom"])
     return textures
@@ -856,7 +943,7 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         Material("bronze", rgb("#3b2416"), metallic=0.34, roughness=0.82),
         Material("dark_bronze", rgb("#17100c"), metallic=0.28, roughness=0.86),
         Material("highlight_bronze", rgb("#815027"), metallic=0.42, roughness=0.76),
-        Material("aged_patina", rgb("#242a26"), metallic=0.40, roughness=0.82),
+        Material("aged_patina", rgb("#2b241d"), metallic=0.38, roughness=0.84),
     ])
     figure, dark, highlight, patina = (
         model.mesh(name)
@@ -895,7 +982,7 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     head_pitch = -12.0
     # All three independent photographs show a long, narrow face with a soft
     # jaw—not the former round mannequin head.
-    add_sculpted_head(figure, head, (0.202, 0.342, 0.205), head_yaw, head_pitch, 192, 96)
+    add_sculpted_head(figure, head, (0.202, 0.342, 0.205), head_yaw, head_pitch, 224, 112)
     # Ears, cheek planes, nose, chin and lips give the face a readable profile.
     for lateral in (-0.228, 0.228):
         ear = face_point(lateral, 0.0, 0.0)
@@ -905,64 +992,57 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     for lateral in (-0.082, 0.082):
         # Almond-shaped eye with separate upper/lower lids.  The period bronze
         # sculpture shows narrow, focused eyes rather than the former dark bar.
-        inner = face_point(lateral - 0.044, 0.047, 0.226)
-        upper = face_point(lateral, 0.057, 0.232)
-        outer = face_point(lateral + 0.044, 0.045, 0.226)
-        lower = face_point(lateral, 0.039, 0.229)
-        figure.add_tube(inner, upper, 0.0032, 10)
-        figure.add_tube(upper, outer, 0.0032, 10)
-        figure.add_tube(inner, lower, 0.0022, 10)
-        figure.add_tube(lower, outer, 0.0022, 10)
+        inner = face_point(lateral - 0.044, 0.047, 0.211)
+        upper = face_point(lateral, 0.057, 0.218)
+        outer = face_point(lateral + 0.044, 0.045, 0.211)
+        lower = face_point(lateral, 0.039, 0.215)
+        figure.add_tube(inner, upper, 0.0015, 8)
+        figure.add_tube(upper, outer, 0.0015, 8)
+        figure.add_tube(inner, lower, 0.0010, 8)
+        figure.add_tube(lower, outer, 0.0010, 8)
         add_smooth_ellipsoid(
             dark,
-            face_point(lateral, 0.047, 0.233),
-            (0.015, 0.0050, 0.0055),
-            20,
-            10,
+            face_point(lateral, 0.047, 0.219),
+            (0.011, 0.0028, 0.0030),
+            16,
+            8,
             head_yaw,
             head_pitch,
         )
         # Gently arched brow follows the three-quarter reference.
-        brow_inner = face_point(lateral - 0.046, 0.100, 0.211)
-        brow_peak = face_point(lateral - 0.006, 0.112, 0.216)
-        brow_outer = face_point(lateral + 0.050, 0.096, 0.209)
-        figure.add_tube(brow_inner, brow_peak, 0.0026, 10)
-        figure.add_tube(brow_peak, brow_outer, 0.0024, 10)
+        brow_inner = face_point(lateral - 0.046, 0.100, 0.198)
+        brow_peak = face_point(lateral - 0.006, 0.112, 0.202)
+        brow_outer = face_point(lateral + 0.050, 0.096, 0.197)
+        dark.add_tube(brow_inner, brow_peak, 0.0018, 8)
+        dark.add_tube(brow_peak, brow_outer, 0.0016, 8)
     for lateral in (-0.024, 0.024):
         add_smooth_ellipsoid(
             dark,
-            face_point(lateral, -0.025, 0.250),
-            (0.008, 0.0045, 0.0045),
-            12,
-            6,
+            face_point(lateral, -0.025, 0.232),
+            (0.005, 0.0025, 0.0025),
+            10,
+            5,
             head_yaw,
             head_pitch,
         )
-    # Nose wings and a neutral two-part mouth preserve the continuous profile
-    # without reintroducing a cylindrical nose or a single horizontal lip bar.
-    for lateral in (-0.044, 0.044):
-        highlight.add_tube(
-            face_point(lateral * 0.55, -0.018, 0.241),
-            face_point(lateral, -0.036, 0.232),
-            0.0032,
-            10,
-        )
-    upper_lip_left = face_point(-0.054, -0.109, 0.224)
-    upper_lip_mid = face_point(0.0, -0.101, 0.234)
-    upper_lip_right = face_point(0.054, -0.109, 0.224)
-    lower_lip_mid = face_point(0.0, -0.123, 0.232)
-    dark.add_tube(upper_lip_left, upper_lip_mid, 0.0022, 10)
-    dark.add_tube(upper_lip_mid, upper_lip_right, 0.0022, 10)
-    highlight.add_tube(upper_lip_left, lower_lip_mid, 0.0018, 10)
-    highlight.add_tube(lower_lip_mid, upper_lip_right, 0.0018, 10)
+    # A restrained mouth seam lets the sculpted surface carry the nose, lips
+    # and chin.  Excess relief here reads as wire-like spikes at mobile scale.
+    upper_lip_left = face_point(-0.052, -0.109, 0.211)
+    upper_lip_mid = face_point(0.0, -0.101, 0.220)
+    upper_lip_right = face_point(0.052, -0.109, 0.211)
+    lower_lip_mid = face_point(0.0, -0.122, 0.218)
+    dark.add_tube(upper_lip_left, upper_lip_mid, 0.0015, 8)
+    dark.add_tube(upper_lip_mid, upper_lip_right, 0.0015, 8)
+    dark.add_tube(upper_lip_left, lower_lip_mid, 0.0010, 8)
+    dark.add_tube(lower_lip_mid, upper_lip_right, 0.0010, 8)
 
     # Swept hair, separated fringe ridges and a long segmented braid.
     add_smooth_ellipsoid(
         dark,
         (head[0] - forward[0] * 0.055, head[1] + 0.105, head[2] - forward[2] * 0.055),
         (0.260, 0.230, 0.220),
-        96,
-        48,
+        112,
+        56,
         head_yaw,
         head_pitch,
     )
@@ -970,16 +1050,22 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # rear scalp mass so the silhouette reads as hair instead of a bald cap.
     add_smooth_ellipsoid(
         dark,
-        face_point(0.0, 0.245, 0.040),
-        (0.188, 0.060, 0.080),
-        56,
-        28,
+        face_point(0.0, 0.205, 0.112),
+        (0.190, 0.092, 0.073),
+        72,
+        36,
         head_yaw,
         head_pitch,
     )
-    # Individual photographed grooves are represented by the smooth raised
-    # fringe mass above.  Free-standing strand tubes read as spikes in AR and
-    # are intentionally omitted.
+    # Seven shallow grooves stay inside the fringe mass.  Their small radius
+    # produces a combed highlight without dangling, free-standing strands.
+    for index in range(7):
+        lateral = -0.150 + index * 0.050
+        start = face_point(lateral, 0.166, 0.136)
+        middle = face_point(lateral * 0.88, 0.210 + 0.006 * math.cos(index * 0.55), 0.139)
+        end = face_point(lateral * 0.68, 0.250, 0.116)
+        highlight.add_tube(start, middle, 0.0024, 8)
+        highlight.add_tube(middle, end, 0.0021, 8)
     braid_points = []
     for index in range(10):
         t = index / 9.0
@@ -994,8 +1080,8 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             dark,
             point,
             (radius * 1.08, radius * 1.18, radius),
-            32,
-            16,
+            40,
+            20,
             yaw_degrees=-18.0 if index % 2 else 18.0,
         )
         if index:
@@ -1015,7 +1101,8 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         p0 = (ear[0] - right[0] * 0.035 * lateral, ear[1], ear[2] - right[2] * 0.035 * lateral)
         p1 = (ear[0] + right[0] * 0.095 * lateral, ear[1], ear[2] + right[2] * 0.095 * lateral)
         dark.add_tube(p0, p1, 0.088, 20)
-        patina.add_tube(p0, p1, 0.049, 16)
+        highlight.add_tube(p0, p1, 0.066, 20)
+        patina.add_tube(p0, p1, 0.043, 18)
     band_points = [
         face_point(-0.29 + 0.58 * index / 10.0, 0.09 + 0.23 * math.sin(math.pi * index / 10.0), -0.015)
         for index in range(11)
@@ -1024,15 +1111,18 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         dark.add_tube(p0, p1, 0.022, 12)
     add_catenary(dark, ear_points[1], (0.45, 1.10, -0.72), 0.10, 0.015, 10)
 
-    # High standing collar, diagonal overlap and five knot buttons.
+    # High standing collar, diagonal overlap and four source-led frog closures.
     for start, end in [
         ((-0.63, 1.92, -0.25), (-0.40, 1.78, -0.35)),
         ((-0.17, 1.92, -0.25), (-0.40, 1.78, -0.35)),
         ((-0.40, 1.78, -0.35), (-0.15, 1.12, -0.34)),
     ]:
         highlight.add_tube(start, end, 0.028, 7)
-    for y in (1.67, 1.53, 1.39, 1.25, 1.12):
-        highlight.add_uv_sphere((-0.25, y, -0.37), (0.033, 0.025, 0.025), 9, 4)
+    for index, y in enumerate((1.66, 1.49, 1.32, 1.15)):
+        x = -0.27 + index * 0.026
+        highlight.add_uv_sphere((x, y, -0.37), (0.026, 0.020, 0.021), 16, 8)
+        highlight.add_tube((x + 0.018, y + 0.004, -0.372), (x + 0.092, y + 0.018, -0.373), 0.009, 10)
+        highlight.add_tube((x + 0.092, y + 0.018, -0.373), (x + 0.134, y - 0.005, -0.372), 0.007, 10)
 
     # Broad sleeves bend toward the operating surface; raised seams read as folds.
     shoulders = [(-0.79, 1.69, -0.02), (-0.08, 1.66, -0.05)]
@@ -1112,13 +1202,33 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     for x in (-0.92, -0.32, 0.27, 0.90):
         dark.add_uv_sphere((x, 0.56, -1.16), (0.08, 0.045, 0.025), 8, 4)
 
-    # Historic sloped radio box, raised lid seam, handle, terminals and knobs.
+    # Historic sloped radio box, raised lid seam, handle, varied terminals and knobs.
     dark.add_rbox_x((0.56, 1.06, -0.72), (0.92, 0.40, 0.58), -7.0)
     highlight.add_rbox_x((0.56, 1.26, -0.72), (0.86, 0.035, 0.52), -7.0)
-    for x in (0.20, 0.50, 0.80):
-        highlight.add_tube((x, 1.37, -0.92), (x, 1.37, -1.01), 0.042, 9)
-        dark.add_uv_sphere((x, 1.37, -1.02), (0.050, 0.035, 0.050), 9, 4)
-        patina.add_tube((x, 1.365, -0.92), (x, 1.365, -1.015), 0.017, 10)
+    # Left U-shaped binding bridge.
+    for x in (0.18, 0.30):
+        patina.add_cylinder_y((x, 1.355, -0.98), 0.027, 0.080, 16)
+        highlight.add_uv_sphere((x, 1.398, -0.98), (0.032, 0.022, 0.032), 16, 8)
+    highlight.add_tube((0.18, 1.415, -0.98), (0.18, 1.455, -0.98), 0.014, 12)
+    highlight.add_tube((0.18, 1.455, -0.98), (0.30, 1.455, -0.98), 0.014, 12)
+    highlight.add_tube((0.30, 1.455, -0.98), (0.30, 1.415, -0.98), 0.014, 12)
+    # Central coarse tuning knob and smaller right selector.
+    highlight.add_cylinder_y((0.54, 1.375, -1.00), 0.062, 0.060, 24)
+    dark.add_uv_sphere((0.54, 1.410, -1.00), (0.054, 0.028, 0.054), 24, 12)
+    for angle_index in range(8):
+        angle = angle_index * math.pi / 4.0
+        patina.add_tube(
+            (0.54 + 0.050 * math.cos(angle), 1.405, -1.00 + 0.050 * math.sin(angle)),
+            (0.54 + 0.063 * math.cos(angle), 1.405, -1.00 + 0.063 * math.sin(angle)),
+            0.005,
+            8,
+        )
+    highlight.add_cylinder_y((0.79, 1.365, -1.00), 0.041, 0.050, 20)
+    dark.add_uv_sphere((0.79, 1.395, -1.00), (0.036, 0.020, 0.036), 20, 10)
+    # Raised rectangular tuning plate on the rear top plane.
+    patina.add_rbox_x((0.70, 1.345, -0.61), (0.26, 0.024, 0.15), -7.0)
+    for x, z in ((0.59, -0.67), (0.81, -0.67), (0.59, -0.55), (0.81, -0.55)):
+        highlight.add_cylinder_y((x, 1.363, z), 0.010, 0.020, 10)
     dark.add_tube((0.26, 1.41, -0.57), (0.74, 1.41, -0.57), 0.024, 8)
     dark.add_tube((0.26, 1.34, -0.57), (0.26, 1.41, -0.57), 0.024, 8)
     dark.add_tube((0.74, 1.34, -0.57), (0.74, 1.41, -0.57), 0.024, 8)
