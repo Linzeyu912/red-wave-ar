@@ -43,7 +43,7 @@
     "position": [
       -0.12,
       0.002,
-      0.037041
+      0.043354
     ],
     "rotation_degrees": [
       0.0,
@@ -84,7 +84,7 @@
       0.0,
       0.0
     ],
-    "uniform_scale_after_kivicube_auto_fit": 0.392401,
+    "uniform_scale_after_kivicube_auto_fit": 0.393507,
     "entry_animation": "none",
     "auto_play": false,
     "target_footprint": {
@@ -94,7 +94,7 @@
       ],
       "z": [
         -0.093935,
-        0.168018
+        0.180643
       ],
       "inside_square_target": true
     }

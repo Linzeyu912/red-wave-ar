@@ -1,6 +1,6 @@
 # 图像特征提取与建模提示词索引
 
-> 状态：`IMAGE_REVIEWED / DETAIL_PASS_V2.2 / MODEL_V3_IMPLEMENTED / HUMAN_REVIEW_REQUIRED`
+> 状态：`IMAGE_REVIEWED / DETAIL_PASS_V2.3 / MODEL_V3_HIGH_DETAIL_IMPLEMENTED / LOCAL_VALIDATION_PASS / PLATFORM_REVIEW_PENDING`
 > 提取日期：2026-07-29
 > 覆盖范围：S1–S7 共 62 张图片、59 个独立画面、9 个建模单元
 
@@ -42,7 +42,7 @@
 4. 列出必须保留的牌匾、钟面、人物姿态或结构件；
 5. 明确不可见面均为 `INFERRED_LOW_DETAIL`；
 6. 写默认排除项和场景专属负面词；
-7. 最后附 Kivicube 预算：单个 GLB 目标 ≤5 MB、验收 ≤10 MB，通常 ≤5 网格、≤30,000 三角面、≤5 材质、≤10 贴图；S1B 人物专项低于 50,000 三角面硬上限。
+7. 最后附 Kivicube 运行预算：单个 GLB 优选 ≤5 MB、验收 ≤10 MB，网格/材质/贴图各不超过 10；通用模型规范为 300,000 三角面以内，项目按主体设置更低的证据驱动上限，详见 `DETAIL_EVIDENCE_MATRIX.md` 与 `docs/KIVICUBE_ASSET_CONSTRAINTS.md`。
 
 ## 4. 跨场景统一负面约束
 

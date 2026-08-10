@@ -17,8 +17,8 @@
 
 | 单元 | 大小 | 网格 | 三角面 | 材质 | 贴图 | 可编辑源文件 | 预览 |
 |---|---:|---:|---:|---:|---:|---|---|
-| S1A | 298,216 B | 5 | 2,576 | 5 | 1 | `../../source/blend/S1A_pingxi_gate_v003_source.blend` | `images/S1A_pingxi_gate_preview_v003.png` |
-| S1B | 1,200,920 B | 4 | 46,316 | 4 | 0 | `../../source/blend/S1B_radio_operator_statue_v003_source.blend` | `images/S1B_radio_operator_statue_preview_v003.png` |
+| S1A | 375,180 B | 5 | 3,756 | 5 | 1 | `../../source/blend/S1A_pingxi_gate_v003_source.blend` | `images/S1A_pingxi_gate_preview_v003.png` |
+| S1B | 2,326,540 B | 4 | 92,660 | 4 | 0 | `../../source/blend/S1B_radio_operator_statue_v003_source.blend` | `images/S1B_radio_operator_statue_preview_v003.png` |
 
 ## AR 呈现流程
 
@@ -34,7 +34,7 @@
 - S1B 触发图／内部原图／V002 地面贴图：`kivicube_package/S1B_radio_operator_statue/`；触发图使用 `S1B_radio_operator_trigger_hand_drawn.jpg` 原文件，保持原样、不重绘、不裁切；绘制参考原图保留原画幅比例。
 - 每个单元的 Kivicube 时间线、贴图平面与模型摆放参数，见各自 `kivicube_package/*/kivicube_setup.json`。
 - 形象与真实配色约束：已按 V2.1 原位复核用于 V3；S1A 六级入口台阶已纠正为外侧最低、靠门最高，并压暗灰砖、灰瓦与酒红木构。
-- S1B 已重排为人物在左后、设备在右前的三分之四构图，使用连续法线的雕刻式头脸、收分袖管与分指双手，细化扫发、发辫、圆耳罩、盘扣衣襟、箱式报务机和电键；46,316 三角面属于近景人物专项预算，低于平台 50,000 硬上限。不可见面采用 `INFERRED_LOW_DETAIL`，不生成照片未显示的腿脚姿态。
+- S1B 正式 GLB 的正面为人物在左后、设备在右前的三分之四构图，并按三张独立参考照片把 92,660 三角面用于连续偏长头脸、同材质浅浮雕眼睑与嘴唇、低起伏鼻翼、整体后梳额发、十节粗辫、圆耳罩、盘扣衣襟、平滑肩袖、三层衣褶、带关节的分指双手、箱式报务机和电键。九宫格已修正 Blender 坐标转换导致的屏幕镜像，但不镜像正式 GLB。项目专项验收上限为 180,000，Kivicube 通用规范为 300,000 三角面以内；不可见面采用 `INFERRED_LOW_DETAIL`，不生成照片未显示的腿脚姿态。
 - 上传策略：S1B 使用一个完整 `S1B_radio_operator_statue_v003.glb`；人物、头发、设备与细节仅在 GLB 内部合并为 4 个材质网格，不拆成多个平台对象。
 - GLB 性能：两个模型均通过 `../../source/validation_report.json`，并经 Blender 5.1.2 实际导入。
 - 地面与模型的静态位置/缩放：以 `../../source/presentation_handoff_report.json` 为准；S1B 的原图包含讲解员，仍需完成隐私与来源审核，但不会上传为展示平面。

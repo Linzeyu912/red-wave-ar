@@ -1,6 +1,6 @@
 # 九个 Kivicube 轻量模型：可复现源文件
 
-本目录保存七地点、九个独立建模单元的生成、Blender 复核与验收流水线。当前版本依据 `modeling_input/S1` 至 `S7` 的 62 张现有照片和原位迭代的 [`DETAIL_EXTRACTION_V2.md`](../../modeling_input/DETAIL_EXTRACTION_V2.md) 制作 V3 细节版模型，并生成与底材连续的 V002 专属地面贴图。表面材质、模型正面和地面只能按 [`SURFACE_GROUND_SOURCE_ORDER.md`](../../modeling_input/SURFACE_GROUND_SOURCE_ORDER.md) 从原始约束/参考图提取，不能从手绘触发图或旧九宫格反推。2026-08-04 的 V2.2 复核保留了已确认体块，统一纠正 S1A、S2A、S3A、S6A、S7A 的入口台阶方向，重点重建 S1B 人物/设备和 S3B 四臂桁架/帘幕线网；未新建交付目录或模型版本。S1B 使用低于 50,000 三角面硬上限的近景人物专项预算，并保持单一 GLB 整体上传。模型不是 1:1 测绘复刻，照片没有覆盖的侧面、背面和屋顶按 `INFERRED_LOW_DETAIL` 保守闭合。
+本目录保存七地点、九个独立建模单元的生成、Blender 复核与验收流水线。当前版本依据 `modeling_input/S1` 至 `S7` 的 62 张现有照片、[`DETAIL_EXTRACTION_V2.md`](../../modeling_input/DETAIL_EXTRACTION_V2.md) 和 [`DETAIL_EVIDENCE_MATRIX.md`](../../modeling_input/DETAIL_EVIDENCE_MATRIX.md) 原位迭代 V3 模型，并生成与底材连续的 V002 专属地面贴图。表面材质、模型正面和地面只能按 [`SURFACE_GROUND_SOURCE_ORDER.md`](../../modeling_input/SURFACE_GROUND_SOURCE_ORDER.md) 从原始约束/参考图提取，不能从手绘触发图或旧九宫格反推。2026-08-10 起的高精度迭代以多图一致细节优先，S1B 采用 180,000 三角面的项目专项上限、S3B 采用 120,000；二者及其他模型仍必须低于 Kivicube 通用 300,000 三角面规范并保持单一 GLB 整体上传。模型不是 1:1 测绘复刻，照片没有覆盖的侧面、背面和屋顶按 `INFERRED_LOW_DETAIL` 保守闭合。
 
 ## 交付内容
 
