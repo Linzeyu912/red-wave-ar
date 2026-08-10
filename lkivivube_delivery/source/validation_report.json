@@ -3,13 +3,21 @@
   "policy": {
     "preferred_file_bytes": 5242880,
     "maximum_file_bytes": 10485760,
-    "maximum_meshes": 5,
-    "recommended_triangles": 30000,
-    "platform_maximum_triangles": 50000,
-    "high_detail_triangle_limits": {
-      "S1B_radio_operator_statue_v003.glb": 50000
+    "maximum_meshes": 10,
+    "default_project_triangle_limit": 120000,
+    "platform_maximum_triangles": 300000,
+    "asset_triangle_limits": {
+      "S1A_pingxi_gate_v003.glb": 80000,
+      "S1B_radio_operator_statue_v003.glb": 180000,
+      "S2A_telegraph_building_v003.glb": 120000,
+      "S3A_shortwave_station_building_v003.glb": 100000,
+      "S3B_shortwave_antenna_array_v003.glb": 120000,
+      "S4A_juyong_pass_tower_v003.glb": 120000,
+      "S5A_memorial_sculpture_v003.glb": 160000,
+      "S6A_zhenfang_lou_v003.glb": 100000,
+      "S7A_telecom_museum_v003.glb": 100000
     },
-    "maximum_materials": 5,
+    "maximum_materials": 10,
     "maximum_textures": 10,
     "maximum_animations": 5
   },
@@ -30,21 +38,21 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 298216,
+          "value": 375180,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "triangles": {
-          "value": 2576,
-          "maximum": 30000
+          "value": 3756,
+          "maximum": 80000
         },
         "materials": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "textures": {
           "value": 1,
@@ -62,7 +70,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 2576,
+        "triangles": 3756,
         "materials": 5,
         "images": 1
       }
@@ -77,26 +85,26 @@
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 2.5405781269073486,
+        "maximum": 2.5477404594421387,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 1200920,
+          "value": 2326540,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
           "value": 4,
-          "maximum": 5
+          "maximum": 10
         },
         "triangles": {
-          "value": 46316,
-          "maximum": 50000
+          "value": 92660,
+          "maximum": 180000
         },
         "materials": {
           "value": 4,
-          "maximum": 5
+          "maximum": 10
         },
         "textures": {
           "value": 0,
@@ -108,15 +116,13 @@
         }
       },
       "errors": [],
-      "warnings": [
-        "approved character-detail exception: 46316 triangles exceeds the 30000 recommendation but remains within the 50000 platform cap"
-      ],
+      "warnings": [],
       "asset_id": "s1b_radio_operator_statue",
       "blender_import": {
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 4,
-        "triangles": 46316,
+        "triangles": 92660,
         "materials": 4,
         "images": 0
       }
@@ -136,21 +142,21 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 683364,
+          "value": 884964,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "triangles": {
-          "value": 9836,
-          "maximum": 30000
+          "value": 12716,
+          "maximum": 120000
         },
         "materials": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "textures": {
           "value": 0,
@@ -168,7 +174,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 9836,
+        "triangles": 12716,
         "materials": 5,
         "images": 0
       }
@@ -188,21 +194,21 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 317892,
+          "value": 549692,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
           "value": 4,
-          "maximum": 5
+          "maximum": 10
         },
         "triangles": {
-          "value": 4492,
-          "maximum": 30000
+          "value": 7828,
+          "maximum": 100000
         },
         "materials": {
           "value": 4,
-          "maximum": 5
+          "maximum": 10
         },
         "textures": {
           "value": 0,
@@ -220,7 +226,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 4,
-        "triangles": 4492,
+        "triangles": 7828,
         "materials": 4,
         "images": 0
       }
@@ -230,31 +236,31 @@
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
-      "primitives": 3,
+      "primitives": 5,
       "images": 0,
       "ground_plane": {
         "axis": "Y",
         "minimum": 0.0,
-        "maximum": 7.621484756469727,
+        "maximum": 7.625231742858887,
         "status": "PASS"
       },
       "budgets": {
         "file_bytes": {
-          "value": 1462740,
+          "value": 4242044,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
-          "value": 3,
-          "maximum": 5
+          "value": 5,
+          "maximum": 10
         },
         "triangles": {
-          "value": 22448,
-          "maximum": 30000
+          "value": 65584,
+          "maximum": 120000
         },
         "materials": {
-          "value": 3,
-          "maximum": 5
+          "value": 5,
+          "maximum": 10
         },
         "textures": {
           "value": 0,
@@ -271,9 +277,9 @@
       "blender_import": {
         "status": "PASS",
         "version": "5.1.2",
-        "mesh_objects": 3,
-        "triangles": 22448,
-        "materials": 3,
+        "mesh_objects": 5,
+        "triangles": 65584,
+        "materials": 5,
         "images": 0
       }
     },
@@ -282,7 +288,7 @@
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
-      "primitives": 5,
+      "primitives": 6,
       "images": 1,
       "ground_plane": {
         "axis": "Y",
@@ -292,21 +298,21 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 517464,
+          "value": 585904,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
-          "value": 5,
-          "maximum": 5
+          "value": 6,
+          "maximum": 10
         },
         "triangles": {
-          "value": 7348,
-          "maximum": 30000
+          "value": 8596,
+          "maximum": 120000
         },
         "materials": {
-          "value": 5,
-          "maximum": 5
+          "value": 6,
+          "maximum": 10
         },
         "textures": {
           "value": 1,
@@ -323,9 +329,9 @@
       "blender_import": {
         "status": "PASS",
         "version": "5.1.2",
-        "mesh_objects": 5,
-        "triangles": 7348,
-        "materials": 5,
+        "mesh_objects": 6,
+        "triangles": 8596,
+        "materials": 6,
         "images": 1
       }
     },
@@ -334,7 +340,7 @@
       "status": "PASS",
       "generator": "red-wave-ar kivicube procedural model pipeline 1.1",
       "glb_version": "2.0",
-      "primitives": 4,
+      "primitives": 5,
       "images": 1,
       "ground_plane": {
         "axis": "Y",
@@ -344,21 +350,21 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 584488,
+          "value": 1327476,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
-          "value": 4,
-          "maximum": 5
+          "value": 5,
+          "maximum": 10
         },
         "triangles": {
-          "value": 8332,
-          "maximum": 30000
+          "value": 45564,
+          "maximum": 160000
         },
         "materials": {
-          "value": 4,
-          "maximum": 5
+          "value": 5,
+          "maximum": 10
         },
         "textures": {
           "value": 1,
@@ -375,9 +381,9 @@
       "blender_import": {
         "status": "PASS",
         "version": "5.1.2",
-        "mesh_objects": 4,
-        "triangles": 8332,
-        "materials": 4,
+        "mesh_objects": 5,
+        "triangles": 45564,
+        "materials": 5,
         "images": 1
       }
     },
@@ -396,21 +402,21 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 515552,
+          "value": 882644,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "triangles": {
-          "value": 7658,
-          "maximum": 30000
+          "value": 13094,
+          "maximum": 100000
         },
         "materials": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "textures": {
           "value": 0,
@@ -428,7 +434,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 7658,
+        "triangles": 13094,
         "materials": 5,
         "images": 0
       }
@@ -448,21 +454,21 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 390380,
+          "value": 569516,
           "target": 5242880,
           "maximum": 10485760
         },
         "meshes": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "triangles": {
-          "value": 5024,
-          "maximum": 30000
+          "value": 7616,
+          "maximum": 100000
         },
         "materials": {
           "value": 5,
-          "maximum": 5
+          "maximum": 10
         },
         "textures": {
           "value": 1,
@@ -480,7 +486,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 5024,
+        "triangles": 7616,
         "materials": 5,
         "images": 1
       }

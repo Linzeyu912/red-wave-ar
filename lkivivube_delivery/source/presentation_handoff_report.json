@@ -40,7 +40,7 @@
         "position": [
           0.0,
           0.002,
-          0.03957
+          0.03776
         ],
         "rotation_degrees": [
           0.0,
@@ -68,7 +68,7 @@
         "position": [
           0.0,
           0.004,
-          0.113878
+          0.112671
         ],
         "rotation_degrees": [
           0.0,
@@ -90,8 +90,8 @@
           0.36
         ],
         "z": [
-          -0.152245,
-          0.231385
+          -0.154659,
+          0.230178
         ],
         "inside_square_target": true
       },
@@ -105,7 +105,7 @@
         "position": [
           -0.12,
           0.002,
-          0.037041
+          0.043354
         ],
         "rotation_degrees": [
           0.0,
@@ -141,7 +141,7 @@
           0.0
         ],
         "uniform_scale_target_units_per_model_metre": 0.1544534,
-        "uniform_scale_after_kivicube_auto_fit": 0.392401,
+        "uniform_scale_after_kivicube_auto_fit": 0.393507,
         "entry_animation": "none",
         "auto_play": false
       },
@@ -156,7 +156,7 @@
         ],
         "z": [
           -0.093935,
-          0.168018
+          0.180643
         ],
         "inside_square_target": true
       },
@@ -560,7 +560,7 @@
         "position": [
           0.02,
           0.002,
-          0.229692
+          0.229623
         ],
         "rotation_degrees": [
           0.0,
@@ -586,16 +586,16 @@
       "model": {
         "file": "lkivivube_delivery/scenes/S7_telecom_museum/model/S7A_telecom_museum_v003.glb",
         "position": [
-          0.021151,
+          0.020974,
           0.004,
-          0.210871
+          0.210792
         ],
         "rotation_degrees": [
           0.0,
           0.0,
           0.0
         ],
-        "uniform_scale_target_units_per_model_metre": 0.0475297,
+        "uniform_scale_target_units_per_model_metre": 0.04755315,
         "uniform_scale_after_kivicube_auto_fit": 0.72,
         "entry_animation": "none",
         "auto_play": false
@@ -610,8 +610,8 @@
           0.38
         ],
         "z": [
-          0.051741,
-          0.407644
+          0.051584,
+          0.407662
         ],
         "inside_square_target": true
       },

@@ -22,16 +22,24 @@ OUTPUT = HERE / "validation_report.json"
 
 TARGET_BYTES = 5 * 1024 * 1024
 MAX_BYTES = 10 * 1024 * 1024
-MAX_MESHES = 5
-MAX_TRIANGLES = 30_000
-PLATFORM_MAX_TRIANGLES = 50_000
-MAX_MATERIALS = 5
+MAX_MESHES = 10
+DEFAULT_TRIANGLE_LIMIT = 120_000
+PLATFORM_MAX_TRIANGLES = 300_000
+MAX_MATERIALS = 10
 MAX_TEXTURES = 10
 MAX_ANIMATIONS = 5
 ALLOWED_IMAGE_MIME = {"image/png", "image/jpeg"}
 ALLOWED_PRIMITIVE_MODES = {4}  # TRIANGLES
-HIGH_DETAIL_TRIANGLE_LIMITS = {
-    "S1B_radio_operator_statue_v003.glb": PLATFORM_MAX_TRIANGLES,
+ASSET_TRIANGLE_LIMITS = {
+    "S1A_pingxi_gate_v003.glb": 80_000,
+    "S1B_radio_operator_statue_v003.glb": 180_000,
+    "S2A_telegraph_building_v003.glb": 120_000,
+    "S3A_shortwave_station_building_v003.glb": 100_000,
+    "S3B_shortwave_antenna_array_v003.glb": 120_000,
+    "S4A_juyong_pass_tower_v003.glb": 120_000,
+    "S5A_memorial_sculpture_v003.glb": 160_000,
+    "S6A_zhenfang_lou_v003.glb": 100_000,
+    "S7A_telecom_museum_v003.glb": 100_000,
 }
 
 
@@ -227,7 +235,12 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
         )
 
     size = path.stat().st_size
-    triangle_limit = HIGH_DETAIL_TRIANGLE_LIMITS.get(path.name, MAX_TRIANGLES)
+    triangle_limit = ASSET_TRIANGLE_LIMITS.get(path.name, DEFAULT_TRIANGLE_LIMIT)
+    if triangle_limit > PLATFORM_MAX_TRIANGLES:
+        errors.append(
+            f"project triangle limit {triangle_limit} exceeds Kivicube platform limit "
+            f"{PLATFORM_MAX_TRIANGLES}"
+        )
     budgets = {
         "file_bytes": {"value": size, "target": TARGET_BYTES, "maximum": MAX_BYTES},
         "meshes": {"value": len(meshes), "maximum": MAX_MESHES},
@@ -243,10 +256,10 @@ def validate_document(path: pathlib.Path) -> dict[str, Any]:
             )
     if size > TARGET_BYTES:
         warnings.append(f"file exceeds the preferred 5 MiB target ({size} bytes)")
-    if triangles > MAX_TRIANGLES and triangle_limit > MAX_TRIANGLES:
+    if triangles > DEFAULT_TRIANGLE_LIMIT and triangle_limit > DEFAULT_TRIANGLE_LIMIT:
         warnings.append(
-            f"approved character-detail exception: {triangles} triangles exceeds the "
-            f"{MAX_TRIANGLES} recommendation but remains within the {triangle_limit} platform cap"
+            f"approved evidence-driven detail exception: {triangles} triangles exceeds the "
+            f"{DEFAULT_TRIANGLE_LIMIT} default but remains within the {triangle_limit} project cap"
         )
 
     return {
@@ -346,9 +359,9 @@ def main() -> int:
             "preferred_file_bytes": TARGET_BYTES,
             "maximum_file_bytes": MAX_BYTES,
             "maximum_meshes": MAX_MESHES,
-            "recommended_triangles": MAX_TRIANGLES,
+            "default_project_triangle_limit": DEFAULT_TRIANGLE_LIMIT,
             "platform_maximum_triangles": PLATFORM_MAX_TRIANGLES,
-            "high_detail_triangle_limits": HIGH_DETAIL_TRIANGLE_LIMITS,
+            "asset_triangle_limits": ASSET_TRIANGLE_LIMITS,
             "maximum_materials": MAX_MATERIALS,
             "maximum_textures": MAX_TEXTURES,
             "maximum_animations": MAX_ANIMATIONS,

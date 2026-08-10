@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import pathlib
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -38,6 +38,8 @@ def main() -> None:
         row, column = divmod(index, 3)
         left, top = column * cell_w, row * cell_h
         image = Image.open(ROOT / item["preview"]).convert("RGB")
+        if item["asset_id"] == "S1B":
+            image = ImageOps.mirror(image)
         image.thumbnail((500, 410), Image.Resampling.LANCZOS)
         sheet.paste(image, (left + (cell_w - image.width) // 2, top + 8))
         draw.text((left + 12, top + 420), LABELS[item["asset_id"]], font=title_font, fill=(235, 237, 240))

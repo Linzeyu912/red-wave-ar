@@ -81,7 +81,10 @@ def add_review_world(minimum: Vector, maximum: Vector, asset_id: str = "") -> No
     material.roughness = 0.94
     ground.data.materials.append(material)
 
-    light_scale = 0.35 if asset_id == "s1b_radio_operator_statue" else 1.0
+    # Area lights and camera distance both grow with asset extent.  Scale total
+    # power for large buildings so S2/S3A/S7 are as readable as the small gate.
+    photometric_scale = max(1.0, (extent / 8.0) ** 2)
+    light_scale = photometric_scale * (0.35 if asset_id == "s1b_radio_operator_statue" else 1.0)
 
     bpy.ops.object.light_add(type="AREA")
     key = bpy.context.object

@@ -610,7 +610,7 @@ def add_roof_tile_ribs(
             (x, base_y, z_front),
             (x, base_y + rise, z_front + depth / 2.0),
             radius,
-            6,
+            10,
         )
 
 
@@ -641,44 +641,64 @@ def add_brick_courses(
 
 def add_humanoid(builder: MeshBuilder, x: float, ground_y: float, z: float, scale: float,
                  pose: str, female: bool = False) -> None:
-    """Detailed mobile-budget commemorative figure with distinct clothing."""
+    """Smooth commemorative figure whose pose and clothing stay source-led."""
     pelvis_y = ground_y + 0.83 * scale
     shoulder_y = ground_y + 1.48 * scale
     head_y = ground_y + 1.80 * scale
     # legs and feet
     for offset in (-0.16, 0.16):
-        builder.add_tube((x + offset * scale, pelvis_y, z),
-                         (x + offset * 0.85 * scale, ground_y + 0.18 * scale, z - 0.01),
-                         0.105 * scale, 8)
+        add_smooth_limb(
+            builder,
+            (x + offset * scale, pelvis_y, z),
+            (x + offset * 0.85 * scale, ground_y + 0.18 * scale, z - 0.01),
+            0.115 * scale,
+            0.090 * scale,
+            24,
+            8,
+        )
         builder.add_box_center((x + offset * 0.85 * scale, ground_y + 0.08 * scale, z - 0.10 * scale),
                                (0.22 * scale, 0.12 * scale, 0.40 * scale))
     # torso and clothing mass
-    builder.add_uv_sphere((x, ground_y + 1.18 * scale, z),
-                          ((0.38 if not female else 0.32) * scale, 0.48 * scale, 0.22 * scale), 16, 7)
+    add_smooth_ellipsoid(
+        builder,
+        (x, ground_y + 1.18 * scale, z),
+        ((0.38 if not female else 0.32) * scale, 0.48 * scale, 0.22 * scale),
+        36,
+        18,
+    )
     if female:
         skirt = [(x - 0.28 * scale, ground_y + 0.55 * scale),
                  (x + 0.28 * scale, ground_y + 0.55 * scale),
                  (x + 0.20 * scale, ground_y + 1.18 * scale),
                  (x - 0.20 * scale, ground_y + 1.18 * scale)]
         builder.add_polygon_prism_z(skirt, z - 0.18 * scale, z + 0.18 * scale)
-    builder.add_uv_sphere((x, head_y, z - 0.01 * scale),
-                          (0.21 * scale, 0.26 * scale, 0.20 * scale), 16, 8)
+    add_sculpted_head(
+        builder,
+        (x, head_y, z - 0.01 * scale),
+        (0.205 * scale, 0.265 * scale, 0.195 * scale),
+        -2.5 if x < 0.0 else 2.5,
+        -2.0,
+        48,
+        24,
+    )
     builder.add_tube((x, shoulder_y - 0.10 * scale, z), (x, head_y - 0.23 * scale, z),
                      0.105 * scale, 8)
-    # Nose, ears, brow and collar remain broad enough to survive mobile display.
-    builder.add_uv_sphere(
-        (x, head_y - 0.01 * scale, z - 0.205 * scale),
-        (0.055 * scale, 0.075 * scale, 0.065 * scale),
-        8,
-        4,
-    )
+    # Ears, collar and hair masses remain broad enough to survive mobile display.
     for side in (-1.0, 1.0):
-        builder.add_uv_sphere(
+        add_smooth_ellipsoid(
+            builder,
             (x + side * 0.205 * scale, head_y, z),
             (0.045 * scale, 0.075 * scale, 0.035 * scale),
-            8,
-            4,
+            20,
+            10,
         )
+    add_smooth_ellipsoid(
+        builder,
+        (x, head_y + 0.105 * scale, z + 0.015 * scale),
+        (0.205 * scale, 0.155 * scale, 0.190 * scale),
+        32,
+        16,
+    )
     builder.add_tube(
         (x - 0.16 * scale, shoulder_y + 0.02 * scale, z - 0.18 * scale),
         (x, shoulder_y - 0.10 * scale, z - 0.23 * scale),
@@ -719,9 +739,34 @@ def add_humanoid(builder: MeshBuilder, x: float, ground_y: float, z: float, scal
         (left_shoulder, left_elbow, left_hand),
         (right_shoulder, right_elbow, right_hand),
     ]:
-        builder.add_tube(shoulder, elbow, 0.09 * scale, 8)
-        builder.add_tube(elbow, hand, 0.075 * scale, 8)
-        builder.add_uv_sphere(hand, (0.09 * scale, 0.065 * scale, 0.10 * scale), 10, 5)
+        add_smooth_limb(builder, shoulder, elbow, 0.105 * scale, 0.090 * scale, 24, 8)
+        add_smooth_limb(builder, elbow, hand, 0.090 * scale, 0.065 * scale, 24, 8)
+        add_smooth_ellipsoid(
+            builder,
+            hand,
+            (0.09 * scale, 0.065 * scale, 0.10 * scale),
+            28,
+            14,
+        )
+        # Four readable fingers are enough at the intended AR distance; the
+        # rear of each hand remains deliberately conservative.
+        for finger_index in range(4):
+            finger_x = hand[0] + (finger_index - 1.5) * 0.028 * scale
+            finger_start = (finger_x, hand[1] - 0.015 * scale, hand[2] - 0.045 * scale)
+            finger_end = (
+                finger_x + (hand[0] - elbow[0]) * 0.055,
+                hand[1] - (0.055 + finger_index * 0.004) * scale,
+                hand[2] - (0.10 + finger_index * 0.006) * scale,
+            )
+            add_smooth_limb(
+                builder,
+                finger_start,
+                finger_end,
+                0.014 * scale,
+                0.008 * scale,
+                14,
+                4,
+            )
 
 
 def build_s1_gate(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
@@ -752,6 +797,11 @@ def build_s1_gate(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Pat
     # Low-frequency brick bond and the stepped corbel courses above the plaque.
     for x0, x1 in ((-2.74, -1.36), (1.36, 2.74)):
         add_brick_courses(stone, x0, x1, 0.22, 3.72, -0.615, 0.24, 0.035)
+    # The outer returns and lintel are visible in several front/oblique references.
+    # Keep the rear court unarticulated because no controlled image covers it.
+    for x0, x1 in ((-3.34, -2.74), (2.74, 3.34)):
+        add_brick_courses(stone, x0, x1, 0.20, 3.02, -0.595, 0.24, 0.032)
+    add_brick_courses(stone, -1.34, 1.34, 3.48, 4.02, -0.615, 0.22, 0.032)
     for level, (width, y, depth) in enumerate(
         ((5.55, 4.08, 1.34), (5.82, 4.24, 1.48), (6.06, 4.40, 1.62))
     ):
@@ -775,6 +825,11 @@ def build_s1_gate(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Pat
     # highest beside the gate.  The previous formula accidentally reversed it.
     stone.add_box_center((0.0, 0.10, -0.05), (2.80, 0.20, 1.22))
     add_approach_steps(stone, 0.0, -2.34, 6, 3.86, 0.28, 0.11, 0.08)
+    for index in range(6):
+        width = 3.86 - index * 0.08
+        z = -2.34 + index * 0.28 - 0.145
+        y = 0.11 * (index + 1) + 0.012
+        stone.add_box_center((0.0, y, z), (width, 0.024, 0.035))
 
     # Plaque and couplet boards have real thickness; the atlas supplies only lettering.
     wood.add_box_center((0.0, 3.79, -0.78), (3.72, 0.92, 0.16))
@@ -816,12 +871,14 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     ]
     figure.add_polygon_prism_z(torso, -0.31, 0.28)
     add_smooth_ellipsoid(figure, (body_x, 1.58, -0.01), (0.48, 0.38, 0.21), 80, 40)
+    for shoulder in ((-0.78, 1.68, -0.01), (-0.06, 1.66, -0.04)):
+        add_smooth_ellipsoid(figure, shoulder, (0.205, 0.235, 0.205), 48, 24)
     figure.add_tube((body_x, 1.82, -0.02), (-0.40, 1.98, -0.05), 0.13, 12)
 
     # Head turns about 28 degrees toward the equipment and tips slightly down.
-    head = (-0.40, 2.20, -0.04)
+    head = (-0.40, 2.21, -0.04)
     yaw = math.radians(-28.0)
-    pitch = math.radians(-8.0)
+    pitch = math.radians(-12.0)
     forward = (-math.sin(yaw), 0.0, -math.cos(yaw))
     right = (math.cos(yaw), 0.0, -math.sin(yaw))
 
@@ -835,8 +892,10 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         )
 
     head_yaw = -28.0
-    head_pitch = -8.0
-    add_sculpted_head(figure, head, (0.235, 0.318, 0.225), head_yaw, head_pitch, 132, 66)
+    head_pitch = -12.0
+    # All three independent photographs show a long, narrow face with a soft
+    # jaw—not the former round mannequin head.
+    add_sculpted_head(figure, head, (0.202, 0.342, 0.205), head_yaw, head_pitch, 192, 96)
     # Ears, cheek planes, nose, chin and lips give the face a readable profile.
     for lateral in (-0.228, 0.228):
         ear = face_point(lateral, 0.0, 0.0)
@@ -844,48 +903,66 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # The sculpted surface carries the bridge and jaw; only subtle accents are
     # layered over it so the face does not revert to a primitive mannequin.
     for lateral in (-0.082, 0.082):
+        # Almond-shaped eye with separate upper/lower lids.  The period bronze
+        # sculpture shows narrow, focused eyes rather than the former dark bar.
+        inner = face_point(lateral - 0.044, 0.047, 0.226)
+        upper = face_point(lateral, 0.057, 0.232)
+        outer = face_point(lateral + 0.044, 0.045, 0.226)
+        lower = face_point(lateral, 0.039, 0.229)
+        figure.add_tube(inner, upper, 0.0032, 10)
+        figure.add_tube(upper, outer, 0.0032, 10)
+        figure.add_tube(inner, lower, 0.0022, 10)
+        figure.add_tube(lower, outer, 0.0022, 10)
         add_smooth_ellipsoid(
             dark,
-            face_point(lateral, 0.045, 0.247),
-            (0.047, 0.010, 0.009),
-            18,
-            9,
+            face_point(lateral, 0.047, 0.233),
+            (0.015, 0.0050, 0.0055),
+            20,
+            10,
             head_yaw,
             head_pitch,
         )
-        dark.add_tube(
-            face_point(lateral - 0.045, 0.090, 0.222),
-            face_point(lateral + 0.038, 0.082, 0.228),
-            0.006,
-            7,
-        )
+        # Gently arched brow follows the three-quarter reference.
+        brow_inner = face_point(lateral - 0.046, 0.100, 0.211)
+        brow_peak = face_point(lateral - 0.006, 0.112, 0.216)
+        brow_outer = face_point(lateral + 0.050, 0.096, 0.209)
+        figure.add_tube(brow_inner, brow_peak, 0.0026, 10)
+        figure.add_tube(brow_peak, brow_outer, 0.0024, 10)
     for lateral in (-0.024, 0.024):
         add_smooth_ellipsoid(
             dark,
-            face_point(lateral, -0.025, 0.281),
-            (0.010, 0.006, 0.006),
+            face_point(lateral, -0.025, 0.250),
+            (0.008, 0.0045, 0.0045),
             12,
             6,
             head_yaw,
             head_pitch,
         )
-    add_smooth_ellipsoid(
-        figure,
-        face_point(0.0, -0.105, 0.243),
-        (0.062, 0.009, 0.010),
-        18,
-        9,
-        head_yaw,
-        head_pitch,
-    )
+    # Nose wings and a neutral two-part mouth preserve the continuous profile
+    # without reintroducing a cylindrical nose or a single horizontal lip bar.
+    for lateral in (-0.044, 0.044):
+        highlight.add_tube(
+            face_point(lateral * 0.55, -0.018, 0.241),
+            face_point(lateral, -0.036, 0.232),
+            0.0032,
+            10,
+        )
+    upper_lip_left = face_point(-0.054, -0.109, 0.224)
+    upper_lip_mid = face_point(0.0, -0.101, 0.234)
+    upper_lip_right = face_point(0.054, -0.109, 0.224)
+    lower_lip_mid = face_point(0.0, -0.123, 0.232)
+    dark.add_tube(upper_lip_left, upper_lip_mid, 0.0022, 10)
+    dark.add_tube(upper_lip_mid, upper_lip_right, 0.0022, 10)
+    highlight.add_tube(upper_lip_left, lower_lip_mid, 0.0018, 10)
+    highlight.add_tube(lower_lip_mid, upper_lip_right, 0.0018, 10)
 
     # Swept hair, separated fringe ridges and a long segmented braid.
     add_smooth_ellipsoid(
         dark,
         (head[0] - forward[0] * 0.055, head[1] + 0.105, head[2] - forward[2] * 0.055),
         (0.260, 0.230, 0.220),
-        72,
-        36,
+        96,
+        48,
         head_yaw,
         head_pitch,
     )
@@ -893,34 +970,44 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # rear scalp mass so the silhouette reads as hair instead of a bald cap.
     add_smooth_ellipsoid(
         dark,
-        face_point(0.0, 0.205, 0.105),
-        (0.215, 0.110, 0.135),
-        40,
-        20,
+        face_point(0.0, 0.245, 0.040),
+        (0.188, 0.060, 0.080),
+        56,
+        28,
         head_yaw,
         head_pitch,
     )
-    for lateral in (-0.19, -0.14, -0.09, -0.04, 0.01, 0.06, 0.11, 0.16):
-        strand = [
-            face_point(lateral, 0.155, 0.238),
-            face_point(lateral * 0.90, 0.225, 0.254),
-            face_point(lateral * 0.72, 0.298, 0.165),
-        ]
-        for start, end in zip(strand[:-1], strand[1:]):
-            dark.add_tube(start, end, 0.0045, 10)
-    braid_points = [
-        (-0.61, 2.24, 0.08),
-        (-0.69, 2.04, 0.18),
-        (-0.72, 1.84, 0.25),
-        (-0.70, 1.64, 0.29),
-        (-0.65, 1.46, 0.27),
-        (-0.58, 1.31, 0.22),
-    ]
+    # Individual photographed grooves are represented by the smooth raised
+    # fringe mass above.  Free-standing strand tubes read as spikes in AR and
+    # are intentionally omitted.
+    braid_points = []
+    for index in range(10):
+        t = index / 9.0
+        braid_points.append((
+            -0.61 - 0.085 * math.sin(math.pi * t) + 0.018 * (-1) ** index,
+            2.24 - 0.105 * index,
+            0.08 + 0.24 * math.sin(math.pi * t) + 0.012 * index,
+        ))
     for index, point in enumerate(braid_points):
-        radius = 0.090 - index * 0.008
-        add_smooth_ellipsoid(dark, point, (radius, radius * 1.16, radius), 24, 12)
+        radius = 0.090 - index * 0.0058
+        add_smooth_ellipsoid(
+            dark,
+            point,
+            (radius * 1.08, radius * 1.18, radius),
+            32,
+            16,
+            yaw_degrees=-18.0 if index % 2 else 18.0,
+        )
         if index:
-            dark.add_tube(braid_points[index - 1], point, radius * 0.62, 8)
+            dark.add_tube(braid_points[index - 1], point, radius * 0.58, 12)
+    for side in (-1.0, 1.0):
+        for start, end in zip(braid_points[:-1], braid_points[1:]):
+            highlight.add_tube(
+                (start[0] + side * 0.025, start[1], start[2] - 0.018),
+                (end[0] - side * 0.018, end[1], end[2] - 0.018),
+                0.0035,
+                8,
+            )
 
     # Large round period headphones, headband and the cable visible against the torso.
     ear_points = [face_point(-0.238, 0.01, 0.0), face_point(0.238, 0.01, 0.0)]
@@ -952,15 +1039,17 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     elbows = [(-0.83, 1.30, -0.38), (0.13, 1.31, -0.31)]
     hands = [(-0.23, 1.02, -1.12), (0.38, 1.02, -1.08)]
     for index, (shoulder, elbow, hand) in enumerate(zip(shoulders, elbows, hands)):
-        add_smooth_limb(figure, shoulder, elbow, 0.168, 0.145, 32, 10)
-        add_smooth_ellipsoid(figure, elbow, (0.17, 0.15, 0.16), 28, 14)
-        add_smooth_limb(figure, elbow, hand, 0.145, 0.102, 32, 10)
-        dark.add_tube(
-            (elbow[0] - 0.10, elbow[1] + 0.02, elbow[2] - 0.10),
-            (elbow[0] + 0.10, elbow[1] - 0.03, elbow[2] - 0.12),
-            0.020,
-            7,
-        )
+        add_smooth_limb(figure, shoulder, elbow, 0.168, 0.145, 40, 14)
+        add_smooth_ellipsoid(figure, elbow, (0.17, 0.15, 0.16), 36, 18)
+        add_smooth_limb(figure, elbow, hand, 0.145, 0.102, 40, 14)
+        # Three reference-confirmed cloth folds wrap each bent broad sleeve.
+        for fold_index, offset in enumerate((-0.065, 0.0, 0.065)):
+            dark.add_tube(
+                (elbow[0] - 0.11, elbow[1] + 0.035 + offset * 0.22, elbow[2] - 0.10 + offset),
+                (elbow[0] + 0.11, elbow[1] - 0.025 - offset * 0.18, elbow[2] - 0.12 - offset),
+                0.012 - fold_index * 0.001,
+                10,
+            )
 
     def add_hand(center: tuple[float, float, float], direction: tuple[float, float]) -> None:
         cx, cy, cz = center
@@ -968,7 +1057,7 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         length = math.hypot(dx, dz)
         dx, dz = dx / length, dz / length
         side_x, side_z = -dz, dx
-        add_smooth_ellipsoid(highlight, center, (0.130, 0.052, 0.112), 28, 14)
+        add_smooth_ellipsoid(highlight, center, (0.130, 0.052, 0.112), 40, 20)
         for finger, finger_length in enumerate((0.145, 0.172, 0.184, 0.160)):
             offset = (finger - 1.5) * 0.037
             start = (
@@ -976,12 +1065,19 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
                 cy - 0.004,
                 cz + dz * 0.060 + side_z * offset,
             )
+            joint = (
+                start[0] + dx * finger_length * 0.54,
+                cy - 0.010 - 0.003 * finger,
+                start[2] + dz * finger_length * 0.54,
+            )
             end = (
                 start[0] + dx * finger_length,
-                cy - 0.016,
+                cy - 0.018 - 0.002 * finger,
                 start[2] + dz * finger_length,
             )
-            add_smooth_limb(highlight, start, end, 0.012, 0.007, 12, 4)
+            add_smooth_limb(highlight, start, joint, 0.0125, 0.0100, 18, 5)
+            add_smooth_limb(highlight, joint, end, 0.0100, 0.0065, 18, 5)
+            add_smooth_ellipsoid(highlight, joint, (0.013, 0.009, 0.013), 12, 6)
         thumb_start = (
             cx + dx * 0.010 - side_x * 0.072,
             cy - 0.003,
@@ -992,7 +1088,13 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             cy - 0.020,
             thumb_start[2] + dz * 0.090 - side_z * 0.045,
         )
-        add_smooth_limb(highlight, thumb_start, thumb_end, 0.014, 0.008, 12, 4)
+        thumb_joint = (
+            (thumb_start[0] + thumb_end[0]) / 2.0,
+            cy - 0.010,
+            (thumb_start[2] + thumb_end[2]) / 2.0,
+        )
+        add_smooth_limb(highlight, thumb_start, thumb_joint, 0.0145, 0.011, 18, 5)
+        add_smooth_limb(highlight, thumb_joint, thumb_end, 0.011, 0.0075, 18, 5)
 
     add_hand(hands[0], (0.98, 0.10))
     add_hand(hands[1], (0.82, -0.36))
@@ -1016,6 +1118,7 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     for x in (0.20, 0.50, 0.80):
         highlight.add_tube((x, 1.37, -0.92), (x, 1.37, -1.01), 0.042, 9)
         dark.add_uv_sphere((x, 1.37, -1.02), (0.050, 0.035, 0.050), 9, 4)
+        patina.add_tube((x, 1.365, -0.92), (x, 1.365, -1.015), 0.017, 10)
     dark.add_tube((0.26, 1.41, -0.57), (0.74, 1.41, -0.57), 0.024, 8)
     dark.add_tube((0.26, 1.34, -0.57), (0.26, 1.41, -0.57), 0.024, 8)
     dark.add_tube((0.74, 1.34, -0.57), (0.74, 1.41, -0.57), 0.024, 8)
@@ -1026,6 +1129,10 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     highlight.add_uv_sphere((0.90, 1.16, -1.23), (0.060, 0.038, 0.058), 10, 5)
     for x in (0.50, 0.86):
         highlight.add_tube((x, 1.00, -1.07), (x, 1.11, -1.07), 0.034, 9)
+        dark.add_uv_sphere((x, 1.115, -1.07), (0.045, 0.026, 0.045), 16, 8)
+    # Cable terminals and small fastening bolts visible around the operating box.
+    for x, z in ((0.18, -0.52), (0.92, -0.52), (0.18, -0.98), (0.92, -0.98)):
+        patina.add_cylinder_y((x, 1.285, z), 0.021, 0.030, 12)
     # Paper/operation board.
     highlight.add_rbox_x((0.00, 0.96, -0.76), (0.58, 0.028, 0.38), -4.0)
     return model, ROOT / "lkivivube_delivery/scenes/S1_pingxi_intelligence_station/model/S1B_radio_operator_statue_v003.glb"
@@ -1140,6 +1247,20 @@ def build_s2(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # Sparse permanent roof rods only.
     for x in (-8.4, -6.0, -3.8, 3.8, 6.0, 8.4):
         dark.add_tube((x, 7.18, 0.80), (x, 8.05, 0.80), 0.022, 6)
+
+    # Oblique independent photographs confirm real side depth and repeated end
+    # windows.  These are confined to the two observed wing end walls.
+    for side in (-1.0, 1.0):
+        x = side * 9.47
+        for floor, y in enumerate((0.82, 1.70, 2.58, 3.46, 4.34, 5.22, 6.10)):
+            for z in (-1.36, 0.0, 1.36):
+                glass.add_box_center((x + side * 0.035, y, z), (0.045, 0.54, 0.82))
+                trim.add_box_center((x + side * 0.065, y - 0.30, z), (0.055, 0.055, 0.94))
+                trim.add_box_center((x + side * 0.065, y + 0.30, z), (0.055, 0.055, 0.94))
+                trim.add_box_center((x + side * 0.065, y, z - 0.47), (0.055, 0.65, 0.055))
+                trim.add_box_center((x + side * 0.065, y, z + 0.47), (0.055, 0.65, 0.055))
+                if floor >= 2:
+                    trim.add_box_center((x + side * 0.070, y, z), (0.060, 0.055, 0.82))
     return model, ROOT / "lkivivube_delivery/scenes/S2_telegraph_building/model/S2A_telegraph_building_v003.glb"
 
 
@@ -1164,6 +1285,9 @@ def build_s3_building(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     tower_center = (-1.15, -0.02)
     tower_radii = (2.10, 1.56)
     # Seven separate glazed floors: tangent panels, projecting slabs and mullions.
+    # Eighteen facets preserve the photographed rounded silhouette at close AR
+    # range without falsely inventing a perfectly cylindrical curtain wall.
+    tower_facets = 18
     for floor in range(7):
         floor_base = 2.18 + floor * 0.91
         add_arc_band_panels(
@@ -1174,7 +1298,7 @@ def build_s3_building(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             0.62,
             202,
             338,
-            9,
+            tower_facets,
             0.13,
             0.92,
         )
@@ -1186,7 +1310,7 @@ def build_s3_building(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             0.17,
             198,
             342,
-            9,
+            tower_facets,
             0.30,
             0.97,
         )
@@ -1199,12 +1323,12 @@ def build_s3_building(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             0.045,
             202,
             338,
-            9,
+            tower_facets,
             0.16,
             0.86,
         )
     # Vertical mullions at each facet boundary.
-    for degrees in [202 + index * (136 / 9) for index in range(10)]:
+    for degrees in [202 + index * (136 / tower_facets) for index in range(tower_facets + 1)]:
         angle = math.radians(degrees)
         x = tower_center[0] + tower_radii[0] * math.cos(angle)
         z = tower_center[1] + tower_radii[1] * math.sin(angle)
@@ -1218,23 +1342,32 @@ def build_s3_building(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         0.42,
         198,
         342,
-        9,
+        tower_facets,
         0.30,
         0.98,
     )
 
     # Distinct wing windows, entrance canopy and broad observed stairs.
     for x in (-6.10, -5.00, -3.90, 3.75, 4.85, 5.95):
-        add_front_window(
-            glass,
-            detail,
-            (x, 1.32, -1.31),
-            (0.72, 1.02),
-            0.052,
-            mullions=1,
-            transoms=1,
-            depth=0.075,
-        )
+        for y, height in ((0.83, 0.70), (1.78, 0.72)):
+            add_front_window(
+                glass,
+                detail,
+                (x, y, -1.31),
+                (0.72, height),
+                0.052,
+                mullions=1,
+                transoms=1,
+                depth=0.075,
+            )
+    # A few narrow openings are repeatedly visible on the exposed tall-wall
+    # side.  They are not mirrored to the unphotographed rear face.
+    for y in (3.10, 5.05, 7.00, 8.95):
+        glass.add_box_center((4.835, y, 0.78), (0.045, 0.72, 0.42))
+        for dy in (-0.40, 0.40):
+            detail.add_box_center((4.865, y + dy, 0.78), (0.055, 0.055, 0.50))
+        for dz in (-0.25, 0.25):
+            detail.add_box_center((4.865, y, 0.78 + dz), (0.055, 0.82, 0.055))
     trim.add_box_center((3.90, 2.56, -1.55), (3.70, 0.18, 1.10))
     add_approach_steps(wall, 3.90, -3.23, 6, 4.30, 0.24, 0.20, 0.20)
     # Roof-edge coping and a few supported permanent antenna rods.
@@ -1249,31 +1382,38 @@ def build_s3_antenna(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     model = Model("s3b_shortwave_antenna_array", [
         Material("steel", rgb("#454849"), metallic=0.72, roughness=0.68),
         Material("rust", rgb("#44352e"), metallic=0.55, roughness=0.78),
-        Material("cable", rgb("#1f2020"), metallic=0.48, roughness=0.72),
+        Material("cable_primary", rgb("#1f2020"), metallic=0.48, roughness=0.72),
+        Material("cable_secondary", rgb("#292827"), metallic=0.42, roughness=0.76),
+        Material("insulator", rgb("#171817"), metallic=0.18, roughness=0.66),
     ])
-    steel, rust, cable = (model.mesh(name) for name in ("steel", "rust", "cable"))
+    steel, rust, cable_primary, cable_secondary, insulator = (
+        model.mesh(name)
+        for name in ("steel", "rust", "cable_primary", "cable_secondary", "insulator")
+    )
 
-    # Four tapered legs, ten X-braced bays and horizontal ties reproduce the
+    # Four tapered legs, fourteen X-braced bays and horizontal ties reproduce the
     # photographed support tower without turning it into a generic power pylon.
     mast_h = 7.30
-    mast_levels = 10
+    mast_levels = 14
     for x in (-0.34, 0.34):
         for z in (-0.34, 0.34):
-            steel.add_tube((x, 0.0, z), (x * 0.48, mast_h, z * 0.48), 0.052, 7)
+            steel.add_tube((x, 0.0, z), (x * 0.48, mast_h, z * 0.48), 0.052, 10)
     for level in range(mast_levels):
         y0, y1 = level * mast_h / mast_levels, (level + 1) * mast_h / mast_levels
         width0 = 0.34 - 0.34 * 0.52 * level / mast_levels
         width1 = 0.34 - 0.34 * 0.52 * (level + 1) / mast_levels
         for zsign in (-1, 1):
-            steel.add_tube((-width0, y0, zsign * width0), (width1, y1, zsign * width1), 0.032, 6)
-            steel.add_tube((width0, y0, zsign * width0), (-width1, y1, zsign * width1), 0.032, 6)
+            steel.add_tube((-width0, y0, zsign * width0), (width1, y1, zsign * width1), 0.032, 8)
+            steel.add_tube((width0, y0, zsign * width0), (-width1, y1, zsign * width1), 0.032, 8)
         for xsign in (-1, 1):
-            steel.add_tube((xsign * width0, y0, -width0), (xsign * width1, y1, width1), 0.032, 6)
-            steel.add_tube((xsign * width0, y0, width0), (xsign * width1, y1, -width1), 0.032, 6)
+            steel.add_tube((xsign * width0, y0, -width0), (xsign * width1, y1, width1), 0.032, 8)
+            steel.add_tube((xsign * width0, y0, width0), (xsign * width1, y1, -width1), 0.032, 8)
         # Horizontal rings make the four-legged mast connection readable.
         for y, width in ((y0, width0), (y1, width1)):
-            steel.add_tube((-width, y, -width), (width, y, -width), 0.028, 6)
-            steel.add_tube((width, y, -width), (width, y, width), 0.028, 6)
+            steel.add_tube((-width, y, -width), (width, y, -width), 0.028, 8)
+            steel.add_tube((width, y, -width), (width, y, width), 0.028, 8)
+            steel.add_tube((width, y, width), (-width, y, width), 0.028, 8)
+            steel.add_tube((-width, y, width), (-width, y, -width), 0.028, 8)
 
     # Bearing stack and offset drive brace visible beside the top of the mast.
     steel.add_cylinder_y((0.0, 6.98, 0.0), 0.40, 0.52, 16)
@@ -1281,21 +1421,24 @@ def build_s3_antenna(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     steel.add_tube((0.18, 6.35, 0.18), (0.88, 7.12, 0.35), 0.055, 7)
     steel.add_tube((0.18, 6.35, -0.18), (0.88, 7.12, -0.35), 0.055, 7)
 
-    # Two opposing collinear pairs form a near-orthogonal plan cross.  Rotate
-    # the whole cross 18 degrees so the review view matches the photographed X.
+    # Two opposing collinear pairs form a near-orthogonal plan cross.  The
+    # structural angle is locked at 90 degrees; only the whole-array yaw is
+    # rotated so the review projection matches the photographed acute/obtuse X.
     hub_y = 6.92
     arm_len = 5.95
     arm_start = 0.30
+    structural_axis_angle_degrees = 90.0
+    assert abs(structural_axis_angle_degrees - 90.0) <= 5.0
     array_rotation = math.radians(18.0)
     directions = [
-        (math.cos(array_rotation + index * math.pi / 2.0),
-         math.sin(array_rotation + index * math.pi / 2.0))
+        (math.cos(array_rotation + math.radians(index * structural_axis_angle_degrees)),
+         math.sin(array_rotation + math.radians(index * structural_axis_angle_degrees)))
         for index in range(4)
     ]
     arm_endpoints = []
     for dx, dz in directions:
         side_x, side_z = -dz, dx
-        stations = 10
+        stations = 16
         for station in range(stations):
             a0 = arm_start + arm_len * station / stations
             a1 = arm_start + arm_len * (station + 1) / stations
@@ -1307,13 +1450,13 @@ def build_s3_antenna(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             p1b = (dx * a1 - side_x * half1, hub_y, dz * a1 - side_z * half1)
             p0top = (dx * a0, hub_y + 0.40, dz * a0)
             p1top = (dx * a1, hub_y + 0.40, dz * a1)
-            rust.add_tube(p0a, p1a, 0.045, 6)
-            rust.add_tube(p0b, p1b, 0.045, 6)
-            rust.add_tube(p0top, p1top, 0.040, 6)
-            rust.add_tube(p0a, p1b, 0.028, 6)
-            rust.add_tube(p0b, p1a, 0.028, 6)
-            rust.add_tube(p0a, p1top, 0.026, 6)
-            rust.add_tube(p0b, p1top, 0.026, 6)
+            rust.add_tube(p0a, p1a, 0.045, 8)
+            rust.add_tube(p0b, p1b, 0.045, 8)
+            rust.add_tube(p0top, p1top, 0.040, 8)
+            rust.add_tube(p0a, p1b, 0.028, 8)
+            rust.add_tube(p0b, p1a, 0.028, 8)
+            rust.add_tube(p0a, p1top, 0.026, 8)
+            rust.add_tube(p0b, p1top, 0.026, 8)
         endpoint = (dx * (arm_start + arm_len), hub_y, dz * (arm_start + arm_len))
         arm_endpoints.append(endpoint)
         # Triangular end frame and the main stay from the central upper node.
@@ -1321,58 +1464,74 @@ def build_s3_antenna(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         enda = (endpoint[0] + side_x * end_half, hub_y, endpoint[2] + side_z * end_half)
         endb = (endpoint[0] - side_x * end_half, hub_y, endpoint[2] - side_z * end_half)
         endtop = (endpoint[0], hub_y + 0.40, endpoint[2])
-        rust.add_tube(enda, endb, 0.036, 6)
-        rust.add_tube(enda, endtop, 0.034, 6)
-        rust.add_tube(endb, endtop, 0.034, 6)
-        add_catenary(cable, (0.0, 7.58, 0.0), endtop, 0.10, 0.020, 10)
-        cable.add_uv_sphere(endpoint, (0.09, 0.09, 0.09), 8, 4)
+        rust.add_tube(enda, endb, 0.036, 8)
+        rust.add_tube(enda, endtop, 0.034, 8)
+        rust.add_tube(endb, endtop, 0.034, 8)
+        add_catenary(cable_primary, (0.0, 7.58, 0.0), endtop, 0.10, 0.020, 16)
+        insulator.add_uv_sphere(endpoint, (0.09, 0.09, 0.09), 16, 8)
 
     # Hanging fan wires below each boom.  Their endpoints step downward toward
     # the outer edge instead of forming the old uniform vertical comb.
     for endpoint in arm_endpoints:
         ex, ey, ez = endpoint
-        for index in range(8):
-            factor = 0.16 + index * 0.105
+        for index in range(12):
+            factor = 0.12 + index * 0.071
             top = (ex * factor, ey - 0.02 * index, ez * factor)
-            lower_factor = factor + 0.055
+            lower_factor = factor + 0.043
             bottom = (
                 ex * lower_factor,
-                2.15 + 0.34 * index,
+                1.95 + 0.30 * index,
                 ez * lower_factor,
             )
-            add_catenary(cable, top, bottom, 0.08 + 0.012 * index, 0.014, 5)
-            if index in (2, 5, 7):
-                for bead in range(3):
+            target = cable_primary if index in (0, 3, 6, 9, 11) else cable_secondary
+            add_catenary(target, top, bottom, 0.08 + 0.010 * index, 0.013, 8)
+            if index in (2, 5, 8, 11):
+                for bead in range(4):
                     t = 0.42 + bead * 0.055
                     bx = top[0] + (bottom[0] - top[0]) * t
                     by = top[1] + (bottom[1] - top[1]) * t - 0.08
                     bz = top[2] + (bottom[2] - top[2]) * t
-                    cable.add_uv_sphere((bx, by, bz), (0.026, 0.040, 0.026), 8, 4)
+                    insulator.add_uv_sphere((bx, by, bz), (0.026, 0.040, 0.026), 12, 6)
 
-    # Seven nested catenaries in each quadrant establish the four triangular
+    # Twelve nested catenaries in each quadrant establish the four triangular
     # curtain planes seen in the photo and drawing.
     for pair_index in range(4):
         endpoint_a = arm_endpoints[pair_index]
         endpoint_b = arm_endpoints[(pair_index + 1) % 4]
-        for ring in range(1, 8):
-            factor = 0.20 + ring * 0.105
+        quadrant_rings = []
+        for ring in range(1, 13):
+            factor = 0.12 + ring * 0.068
             start = (endpoint_a[0] * factor, hub_y - 0.025 * ring, endpoint_a[2] * factor)
             end = (endpoint_b[0] * factor, hub_y - 0.025 * ring, endpoint_b[2] * factor)
-            sag = 0.16 + ring * 0.045
-            add_catenary(cable, start, end, sag, 0.013, 9)
-            if ring in (2, 4, 6):
+            sag = 0.14 + ring * 0.035
+            add_catenary(cable_secondary, start, end, sag, 0.012, 14)
+            quadrant_rings.append((start, end, sag))
+            if ring in (3, 6, 9, 12):
                 midpoint = (
                     (start[0] + end[0]) / 2.0,
                     (start[1] + end[1]) / 2.0 - sag,
                     (start[2] + end[2]) / 2.0,
                 )
-                for bead in (-0.055, 0.0, 0.055):
-                    cable.add_uv_sphere(
+                for bead in (-0.070, -0.023, 0.023, 0.070):
+                    insulator.add_uv_sphere(
                         (midpoint[0], midpoint[1] + bead, midpoint[2]),
                         (0.025, 0.035, 0.025),
-                        8,
-                        4,
+                        12,
+                        6,
                     )
+        # Radial linking wires turn the nested arcs into the observed diamond
+        # curtain instead of a set of disconnected parallel catenaries.
+        for fraction in (0.20, 0.40, 0.60, 0.80):
+            points = []
+            for start, end, sag in quadrant_rings:
+                points.append((
+                    start[0] + (end[0] - start[0]) * fraction,
+                    start[1] + (end[1] - start[1]) * fraction
+                    - 4.0 * sag * fraction * (1.0 - fraction),
+                    start[2] + (end[2] - start[2]) * fraction,
+                ))
+            for p0, p1 in zip(points[:-1], points[1:]):
+                cable_primary.add_tube(p0, p1, 0.010, 7)
     # Structural feet only, not a display disk.
     for x in (-0.52, 0.52):
         for z in (-0.52, 0.52):
@@ -1383,12 +1542,16 @@ def build_s3_antenna(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
 def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     model = Model("s4a_juyong_pass_tower", [
         Material("brick", rgb("#72736f"), roughness=0.98),
+        Material("mortar", rgb("#8b8b84"), roughness=0.98),
         Material("wood", rgb("#7a2925"), roughness=0.84),
         Material("roof", rgb("#4f675c"), roughness=0.90),
         Material("painted_trim", rgb("#33736f"), roughness=0.80),
         Material("signage", (1.0, 1.0, 1.0), roughness=0.74, texture_path=textures["juyong"]),
     ])
-    brick, wood, roof, painted, signage = (model.mesh(name) for name in ("brick", "wood", "roof", "painted_trim", "signage"))
+    brick, mortar, wood, roof, painted, signage = (
+        model.mesh(name)
+        for name in ("brick", "mortar", "wood", "roof", "painted_trim", "signage")
+    )
     # Wide city platform built around a deep, fully open arched passage.
     platform_width = 11.8
     platform_depth = 5.4
@@ -1413,8 +1576,8 @@ def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             )
     # Brick-course relief stays deliberately low frequency.
     for x0, x1 in ((-5.86, -2.00), (2.00, 5.86)):
-        add_brick_courses(roof, x0, x1, 0.25, 4.70, -2.73, 0.30, 0.025)
-    add_brick_courses(roof, -2.0, 2.0, 4.00, 4.74, -2.73, 0.30, 0.025)
+        add_brick_courses(mortar, x0, x1, 0.25, 4.70, -2.73, 0.30, 0.025)
+    add_brick_courses(mortar, -2.0, 2.0, 4.00, 4.74, -2.73, 0.30, 0.025)
 
     # Battlements with alternating openings and small shooting holes.
     for index in range(13):
@@ -1485,11 +1648,15 @@ def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
 def build_s5(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     model = Model("s5a_memorial_sculpture", [
         Material("stone", rgb("#c7c3b8"), roughness=0.97),
+        Material("stone_figures", rgb("#cbc7bc"), roughness=0.96),
         Material("shadow_stone", rgb("#9e9b93"), roughness=0.97),
         Material("bronze", rgb("#4a372b"), metallic=0.64, roughness=0.72),
         Material("plaque", (1.0, 1.0, 1.0), metallic=0.16, roughness=0.68, texture_path=textures["memorial"]),
     ])
-    stone, shadow, bronze, plaque = (model.mesh(name) for name in ("stone", "shadow_stone", "bronze", "plaque"))
+    stone, figures, shadow, bronze, plaque = (
+        model.mesh(name)
+        for name in ("stone", "stone_figures", "shadow_stone", "bronze", "plaque")
+    )
     # Five slightly folded panels with an irregular photographed top edge.
     panels = [
         (-4.45, 1.98, 2.15, 3.45, -10.0),
@@ -1533,11 +1700,11 @@ def build_s5(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     females = [False, True, False, False]
     scales = [1.23, 1.16, 1.25, 1.20]
     for index, (x, pose, female, scale) in enumerate(zip(positions, poses, females, scales)):
-        add_humanoid(stone, x, 0.38, -1.08, scale, pose, female)
+        add_humanoid(figures, x, 0.38, -1.08, scale, pose, female)
         # Irregular photographed stone support beside/behind each lower leg.
         support_x = x + (-0.28 if index % 2 == 0 else 0.28)
-        stone.add_uv_sphere((support_x, 0.52, -0.76), (0.34, 0.52, 0.26), 10, 5)
-        stone.add_box_center((x, 0.27, -1.00), (0.88, 0.26, 0.70))
+        figures.add_uv_sphere((support_x, 0.52, -0.76), (0.34, 0.52, 0.26), 16, 8)
+        figures.add_box_center((x, 0.27, -1.00), (0.88, 0.26, 0.70))
         # Clothing-specific front edges.
         if pose == "crossed":
             shadow.add_tube((x - 0.25, 1.68, -1.34), (x + 0.25, 1.52, -1.35), 0.030, 6)
@@ -1586,7 +1753,7 @@ def build_s6(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     for index, x in enumerate(bay_centers):
         width = 1.06 if index == 2 else 0.92
         front_z = -2.83 if index == 2 else -2.14
-        add_arch_window(glass, wood, x, 0.40, width, 0.95, front_z, 0.075, 10)
+        add_arch_window(glass, wood, x, 0.40, width, 0.95, front_z, 0.075, 16)
         # Lower timber panels below the glazing.
         wood.add_box_center((x, 0.54, front_z - 0.03), (width * 0.86, 0.26, 0.10))
         for mullion in (-0.24, 0.24):
@@ -1606,12 +1773,12 @@ def build_s6(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     for index, x in enumerate(bay_centers):
         width = 1.02 if index == 2 else 0.90
         front_z = -2.80 if index == 2 else -2.12
-        add_arch_window(glass, wood, x, 2.78, width, 0.86, front_z, 0.070, 10)
+        add_arch_window(glass, wood, x, 2.78, width, 0.86, front_z, 0.070, 16)
         if index != 2:
             x0 = bay_edges[index] + 0.22
             x1 = bay_edges[index + 1] - 0.22
-            add_balustrade(wood, x0, x1, 2.58, 3.18, -2.47, 0.20, 0.033)
-    add_balustrade(wood, -0.78, 0.78, 2.58, 3.22, -2.96, 0.18, 0.035)
+            add_balustrade(wood, x0, x1, 2.58, 3.18, -2.47, 0.14, 0.030)
+    add_balustrade(wood, -0.78, 0.78, 2.58, 3.22, -2.96, 0.13, 0.032)
 
     # Red/cream cornices and a low-pitched broad roof—no temple-style upturn.
     detail.add_box_center((0.0, 4.66, -2.06), (9.65, 0.22, 0.70))
@@ -1629,8 +1796,15 @@ def build_s6(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # Straight approach stairs aligned to the central entrance and rising inward.
     add_approach_steps(detail, 0.0, -4.82, 7, 2.55, 0.24, 0.20, 0.12)
     # Readable pale mortar on the central and outer pier faces.
-    for x0, x1 in ((-4.69, -4.41), (-0.94, 0.94), (4.41, 4.69)):
-        add_brick_courses(detail, x0, x1, 0.12, 4.58, -2.46 if abs(x0) < 1.0 else -2.45, 0.22, 0.022)
+    for x0, x1 in ((-4.69, -4.41), (4.41, 4.69)):
+        add_brick_courses(detail, x0, x1, 0.12, 4.58, -2.45, 0.22, 0.022)
+    # The central projection is closer to the viewer; the old relief sat behind
+    # its face and was invisible.  Place it on the observed front plane.
+    add_brick_courses(detail, -0.94, 0.94, 0.12, 4.58, -2.79, 0.22, 0.022)
+    # Mortar rhythm on the recessed front wall remains behind doors and columns,
+    # so it adds material scale without covering the timber openings.
+    for x0, x1 in ((-4.38, -2.82), (-2.58, -1.02), (1.02, 2.58), (2.82, 4.38)):
+        add_brick_courses(detail, x0, x1, 0.12, 4.45, -1.665, 0.23, 0.018)
     return model, ROOT / "lkivivube_delivery/scenes/S6_zhenfang_lou/model/S6A_zhenfang_lou_v003.glb"
 
 
@@ -1656,12 +1830,12 @@ def build_s7(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             height,
             184,
             356,
-            18,
+            36,
             0.20,
             0.94,
         )
     # Clear metal-panel seams across the drum.
-    for degrees in [184 + index * (172 / 18) for index in range(19)]:
+    for degrees in [184 + index * (172 / 36) for index in range(37)]:
         angle = math.radians(degrees)
         x = left_center[0] + 4.16 * math.cos(angle)
         z = left_center[1] + 2.79 * math.sin(angle)
@@ -1701,7 +1875,7 @@ def build_s7(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             height,
             186,
             354,
-            12,
+            24,
             0.18,
             0.94,
         )
@@ -1718,7 +1892,7 @@ def build_s7(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
             0.52,
             190,
             350,
-            5,
+            10,
             0.10,
             0.90,
         )
