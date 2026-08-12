@@ -897,12 +897,13 @@ def build_s1_gate(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Pat
             for x in [(-2.55 + index * 0.51) for index in range(11)]:
                 brick.add_box_center((x, y + 0.13, -depth / 2.0 - 0.05), (0.24, 0.18, 0.26))
 
-    # Thin grey-tile roof, individual visible tile ribs and low ridge.
+    # Thin grey-tile roof.  The ribs and ridge overlap the roof surface slightly
+    # so oblique AR views cannot expose a gap between the three meshes.
     roof.add_gable_roof((0.0, 4.54, 0.02), 6.45, 2.16, 0.68, 0.10)
-    add_roof_tile_ribs(roof, 6.20, 4.53, 2.02, 0.62, -1.05, 22, 0.032)
-    roof.add_tube((-3.20, 5.23, 0.02), (3.20, 5.23, 0.02), 0.085, 8)
-    for x in (-3.18, 3.18):
-        roof.add_uv_sphere((x, 5.23, 0.02), (0.13, 0.16, 0.12), 10, 5)
+    add_roof_tile_ribs(roof, 6.20, 4.53, 2.16, 0.645, -1.06, 22, 0.032)
+    roof.add_tube((-3.08, 5.175, 0.02), (3.08, 5.175, 0.02), 0.085, 8)
+    for x in (-3.08, 3.08):
+        roof.add_uv_sphere((x, 5.175, 0.02), (0.11, 0.135, 0.105), 10, 5)
 
     # Three photographed short timber brackets below the horizontal plaque.
     for x in (-0.92, 0.0, 0.92):
@@ -1782,9 +1783,10 @@ def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # Simplified repeated dougong color blocks.
     for x in [(-4.15 + index * 0.55) for index in range(16)]:
         painted.add_box_center((x, lower_base + lower_h + 0.18, -1.62), (0.30, 0.16, 0.38))
-    roof.add_gable_roof((0.0, lower_base + lower_h + 0.18, 0.0), 10.35, 3.85, 0.70, 0.10)
-    add_roof_tile_ribs(roof, 9.90, lower_base + lower_h + 0.18, 3.60, 0.64, -1.92, 30, 0.030)
-    roof.add_tube((-5.12, 7.24, 0.0), (5.12, 7.24, 0.0), 0.075, 8)
+    lower_roof_base = lower_base + lower_h + 0.18
+    roof.add_gable_roof((0.0, lower_roof_base, 0.0), 10.35, 3.85, 0.70, 0.10)
+    add_roof_tile_ribs(roof, 9.90, lower_roof_base, 3.85, 0.665, -1.925, 30, 0.030)
+    roof.add_tube((-5.05, lower_roof_base + 0.665, 0.0), (5.05, lower_roof_base + 0.665, 0.0), 0.075, 8)
 
     # Second storey with exterior gallery and red balustrade.
     upper_base = 7.12
@@ -1800,24 +1802,34 @@ def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     painted.add_box_center((0.0, upper_base + upper_h + 0.04, -1.36), (7.70, 0.18, 0.32))
     for x in [(-3.40 + index * 0.52) for index in range(14)]:
         painted.add_box_center((x, upper_base + upper_h + 0.16, -1.43), (0.29, 0.15, 0.34))
-    roof.add_gable_roof((0.0, upper_base + upper_h + 0.17, 0.0), 8.50, 3.30, 0.65, 0.10)
-    add_roof_tile_ribs(roof, 8.10, upper_base + upper_h + 0.17, 3.05, 0.59, -1.65, 26, 0.028)
-    roof.add_tube((-4.18, 9.28, 0.0), (4.18, 9.28, 0.0), 0.070, 8)
+    middle_roof_base = upper_base + upper_h + 0.17
+    roof.add_gable_roof((0.0, middle_roof_base, 0.0), 8.50, 3.30, 0.65, 0.10)
+    add_roof_tile_ribs(roof, 8.10, middle_roof_base, 3.30, 0.615, -1.65, 26, 0.028)
+    roof.add_tube((-4.15, middle_roof_base + 0.615, 0.0), (4.15, middle_roof_base + 0.615, 0.0), 0.070, 8)
 
     # Third eave sits over a short clerestory band, not a third full storey.
     painted.add_box_center((0.0, 9.18, -0.94), (5.55, 0.52, 1.65))
     for x in (-2.22, -1.11, 0.0, 1.11, 2.22):
         wood.add_tube((x, 8.96, -1.22), (x, 9.52, -1.22), 0.065, 8)
-    roof.add_gable_roof((0.0, 9.46, 0.0), 6.75, 2.80, 0.60, 0.10)
-    add_roof_tile_ribs(roof, 6.42, 9.46, 2.55, 0.55, -1.40, 22, 0.026)
-    roof.add_tube((-3.30, 10.65, 0.0), (3.30, 10.65, 0.0), 0.068, 8)
-    # Upturned end silhouettes on all three eaves.
-    for x, y, z in (
-        (-5.15, 7.08, -1.92), (5.15, 7.08, -1.92),
-        (-4.22, 9.12, -1.65), (4.22, 9.12, -1.65),
-        (-3.34, 10.49, -1.40), (3.34, 10.49, -1.40),
+    top_roof_base = 9.46
+    roof.add_gable_roof((0.0, top_roof_base, 0.0), 6.75, 2.80, 0.60, 0.10)
+    add_roof_tile_ribs(roof, 6.42, top_roof_base, 2.80, 0.565, -1.40, 22, 0.026)
+    roof.add_tube((-3.30, top_roof_base + 0.565, 0.0), (3.30, top_roof_base + 0.565, 0.0), 0.068, 8)
+
+    # Upturned front-eave tips begin inside each roof edge, instead of floating
+    # above it.  Values are derived from the matching roof base and half-width.
+    for half_width, base_y, front_z in (
+        (5.175, lower_roof_base, -1.925),
+        (4.250, middle_roof_base, -1.650),
+        (3.375, top_roof_base, -1.400),
     ):
-        roof.add_tube((x * 0.94, y - 0.10, z + 0.10), (x, y + 0.12, z), 0.050, 7)
+        for side in (-1.0, 1.0):
+            roof.add_tube(
+                (side * half_width * 0.92, base_y + 0.015, front_z + 0.12),
+                (side * half_width * 0.995, base_y + 0.12, front_z),
+                0.050,
+                7,
+            )
 
     signage.add_textured_quad(
         [(-1.52, 8.04, -1.47), (1.52, 8.04, -1.47), (1.52, 8.62, -1.47), (-1.52, 8.62, -1.47)]
