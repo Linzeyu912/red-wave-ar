@@ -1126,8 +1126,10 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
 
     # Broad sleeves bend toward the operating surface; raised seams read as folds.
     shoulders = [(-0.79, 1.69, -0.02), (-0.08, 1.66, -0.05)]
-    elbows = [(-0.83, 1.30, -0.38), (0.13, 1.31, -0.31)]
-    hands = [(-0.23, 1.02, -1.12), (0.38, 1.02, -1.08)]
+    elbows = [(-0.83, 1.30, -0.38), (-0.10, 1.31, -0.39)]
+    # The far forearm and wrist stay in front-left of the radio box.  Its old
+    # X=0.13 -> 0.38 path passed through the box volume (X=0.10 -> 1.02).
+    hands = [(-0.23, 1.02, -1.12), (-0.02, 1.02, -1.20)]
     for index, (shoulder, elbow, hand) in enumerate(zip(shoulders, elbows, hands)):
         add_smooth_limb(figure, shoulder, elbow, 0.168, 0.145, 40, 14)
         add_smooth_ellipsoid(figure, elbow, (0.17, 0.15, 0.16), 36, 18)
@@ -1187,7 +1189,7 @@ def build_s1_statue(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
         add_smooth_limb(highlight, thumb_joint, thumb_end, 0.011, 0.0075, 18, 5)
 
     add_hand(hands[0], (0.98, 0.10))
-    add_hand(hands[1], (0.82, -0.36))
+    add_hand(hands[1], (0.98, -0.08))
 
     # The rough timber table is layered but no longer shaped like a display plinth.
     dark.add_box_center((0.0, 0.82, -0.77), (2.30, 0.18, 0.94))
@@ -1665,25 +1667,93 @@ def build_s4(textures: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     # Wide city platform built around a deep, fully open arched passage.
     platform_width = 11.8
     platform_depth = 5.4
+    arch_spring_y = 2.42
+    arch_inner_radius = 1.52
+    arch_outer_radius = 2.06
+    arch_front_z = -2.86
+    arch_skin_back_z = -2.46
     for x in (-4.12, 4.12):
         brick.add_box_center((x, 2.45, 0.0), (3.56, 4.90, platform_depth))
-    brick.add_box_center((0.0, 4.25, 0.0), (4.72, 1.30, platform_depth))
-    # Recessed tunnel side and ceiling returns.
-    for x in (-1.82, 1.82):
-        brick.add_box_center((x, 2.05, 0.30), (0.36, 3.60, 4.70))
-    brick.add_box_center((0.0, 4.05, 0.30), (3.30, 0.34, 4.70))
+    # The header starts above the inner-arch crown; the former low rectangular
+    # lintel cut the opening flat even though decorative boxes suggested a curve.
+    brick.add_box_center((0.0, 4.62, 0.0), (4.72, 0.56, platform_depth))
+    # Continuous jambs and a 48-segment barrel establish the real tunnel void.
+    for x in (-(arch_inner_radius + 0.11), arch_inner_radius + 0.11):
+        brick.add_box_center((x, arch_spring_y / 2.0, 0.10), (0.22, arch_spring_y, 5.12))
+    brick.add_arch_ring_z(
+        0.0,
+        arch_spring_y,
+        arch_inner_radius,
+        arch_inner_radius + 0.22,
+        arch_skin_back_z,
+        2.66,
+        48,
+    )
 
-    # Two rings of visible wedge-like arch masonry.
-    for ring_radius, block_size, z in ((1.64, (0.36, 0.50, 0.30), -2.78), (1.94, (0.38, 0.52, 0.24), -2.82)):
-        for index in range(17):
-            angle = math.pi * index / 16.0
-            x = ring_radius * math.cos(angle)
-            y = 2.42 + ring_radius * math.sin(angle)
-            brick.add_box_rot_y(
-                (x, y, z),
-                block_size,
-                -math.degrees(angle) + 90.0,
-            )
+    # A sealed curved façade replaces the previous 17 rotated cuboids.  The
+    # spandrel follows the same sampled outer curve, so there are no pinholes
+    # between the arch ring and the wall above it.
+    brick.add_arch_ring_z(
+        0.0,
+        arch_spring_y,
+        arch_inner_radius,
+        arch_outer_radius,
+        arch_front_z,
+        arch_skin_back_z,
+        48,
+    )
+    brick.add_arch_spandrel_z(
+        0.0,
+        arch_spring_y,
+        arch_outer_radius,
+        2.36,
+        4.50,
+        arch_front_z,
+        arch_skin_back_z,
+        48,
+    )
+    for side in (-1.0, 1.0):
+        x0 = side * arch_inner_radius
+        x1 = side * 2.36
+        brick.add_box(
+            (min(x0, x1), 0.0, arch_front_z),
+            (max(x0, x1), arch_spring_y, arch_skin_back_z),
+        )
+    # Two continuous relief bands preserve the photographed nested arch rings.
+    mortar.add_arch_ring_z(
+        0.0, arch_spring_y, arch_inner_radius + 0.015,
+        arch_inner_radius + 0.105, arch_front_z - 0.015, arch_front_z + 0.025, 48,
+    )
+    mortar.add_arch_ring_z(
+        0.0, arch_spring_y, arch_outer_radius - 0.105,
+        arch_outer_radius - 0.015, arch_front_z - 0.018, arch_front_z + 0.022, 48,
+    )
+    # Fine radial joints read as masonry without reopening the structural ring.
+    for index in range(25):
+        angle = math.pi * index / 24.0
+        inner = arch_inner_radius + 0.11
+        outer = arch_outer_radius - 0.11
+        mortar.add_tube(
+            (inner * math.cos(angle), arch_spring_y + inner * math.sin(angle), arch_front_z - 0.024),
+            (outer * math.cos(angle), arch_spring_y + outer * math.sin(angle), arch_front_z - 0.024),
+            0.012,
+            6,
+        )
+    # Continue the adjacent wall's low-frequency bed joints across the new
+    # spandrel, stopping at the outer arch curve so the nested ring stays clear.
+    for course in range(15):
+        y = 0.24 + course * 0.28
+        if y <= arch_spring_y:
+            opening_half = arch_outer_radius
+        else:
+            dy = y - arch_spring_y
+            opening_half = math.sqrt(max(0.0, arch_outer_radius ** 2 - dy ** 2))
+        for x0, x1 in ((-2.34, -opening_half), (opening_half, 2.34)):
+            if x1 - x0 > 0.08:
+                mortar.add_box_center(
+                    ((x0 + x1) / 2.0, y, arch_front_z - 0.023),
+                    (x1 - x0, 0.026, 0.032),
+                )
     # Brick-course relief stays deliberately low frequency.
     for x0, x1 in ((-5.86, -2.00), (2.00, 5.86)):
         add_brick_courses(mortar, x0, x1, 0.25, 4.70, -2.73, 0.30, 0.025)
@@ -1903,8 +1973,9 @@ def build_s6(_: dict[str, pathlib.Path]) -> tuple[Model, pathlib.Path]:
     detail.add_polygon_prism_z(inner, -3.02, -2.97)
     add_star(wood, (0.0, 5.24, -3.08), 0.23, 0.08)
 
-    # Straight approach stairs aligned to the central entrance and rising inward.
-    add_approach_steps(detail, 0.0, -4.82, 7, 2.55, 0.24, 0.20, 0.12)
+    # The photographed approach has six shallow risers, not the previous
+    # 1.40-m-high stack that hid most of the central door.
+    add_approach_steps(detail, 0.0, -4.55, 6, 2.45, 0.30, 0.085, 0.06)
     # Readable pale mortar on the central and outer pier faces.
     for x0, x1 in ((-4.69, -4.41), (4.41, 4.69)):
         add_brick_courses(detail, x0, x1, 0.12, 4.58, -2.45, 0.22, 0.022)

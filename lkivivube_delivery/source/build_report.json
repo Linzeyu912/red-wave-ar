@@ -26,7 +26,7 @@
     {
       "asset_id": "s1b_radio_operator_statue",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1B_radio_operator_statue_v003.glb",
-      "size_bytes": 3072084,
+      "size_bytes": 3072080,
       "triangles": 119912,
       "vertices": 73342,
       "meshes": 4,
@@ -118,9 +118,9 @@
     {
       "asset_id": "s4a_juyong_pass_tower",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S4_juyong_pass\\model\\S4A_juyong_pass_tower_v003.glb",
-      "size_bytes": 598200,
-      "triangles": 8596,
-      "vertices": 15790,
+      "size_bytes": 758104,
+      "triangles": 10926,
+      "vertices": 20350,
       "meshes": 6,
       "materials": 6,
       "textures": 1,
@@ -128,7 +128,7 @@
       "bounds_min": [
         -5.900000095367432,
         0.0,
-        -3.044647693634033
+        -2.8989999294281006
       ],
       "bounds_max": [
         5.900000095367432,
@@ -164,9 +164,9 @@
     {
       "asset_id": "s6a_zhenfang_lou",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S6_zhenfang_lou\\model\\S6A_zhenfang_lou_v003.glb",
-      "size_bytes": 882644,
-      "triangles": 13094,
-      "vertices": 24926,
+      "size_bytes": 881804,
+      "triangles": 13082,
+      "vertices": 24902,
       "meshes": 5,
       "materials": 5,
       "textures": 0,
@@ -174,7 +174,7 @@
       "bounds_min": [
         -5.025000095367432,
         0.0,
-        -4.9496002197265625
+        -4.711999893188477
       ],
       "bounds_max": [
         5.025000095367432,
