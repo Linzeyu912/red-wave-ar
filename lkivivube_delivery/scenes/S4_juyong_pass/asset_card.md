@@ -10,7 +10,7 @@
 - 手绘触发图：`images/S4A_juyong_pass_tower_trigger_v001.jpg`，评分与印刷真机测试待完成。
 - 内部参考原图：`images/S4A_juyong_pass_tower_reference_reveal_v001.jpg`；原图已收到，来源与公开边界待确认，但不上传为 AR 展示对象。
 - 模型真实配色依据：主要照片已收到，不从红白触发图取色；不可见面标记 `INFERRED_LOW_DETAIL`。
-- GLB：`model/S4A_juyong_pass_tower_v003.glb`，598,200 B、6 网格、8,596 三角面、6 材质、1 贴图、保留 1 个历史 `photo_emerge` 动画但 V002 流程不播放；已校正为宽城台、两层木构和三重檐，并细化双层券门拱石、独立灰缝、垛口、柱列、彩画层级与三道瓦垄；匾额采用支持繁体“關”的楷体原创贴图，正面右起读作“天下第一雄關”。本地预算与 Blender 5.1.2 回读检查通过。
+- GLB：`model/S4A_juyong_pass_tower_v003.glb`，758,104 B、6 网格、10,926 三角面、6 材质、1 贴图、保留 1 个历史 `photo_emerge` 动画但 V002 流程不播放；已校正为宽城台、两层木构和三重檐。前侧券门不再用长方体拼弧，而是使用 48 段连续封闭半圆拱圈、连续弧形隧道内拱和贴合外弧的拱上墙，消除折角与孔洞，并补回低频砖缝、双层拱带和径向灰缝；匾额采用支持繁体“關”的楷体原创贴图，正面右起读作“天下第一雄關”。本地预算与 Blender 5.1.2 回读检查通过。
 - 可编辑源文件：`../../source/blend/S4A_juyong_pass_tower_v003_source.blend`。
 - V3 预览：`images/S4A_juyong_pass_tower_preview_v003.png`。
 - 地面与模型的静态位置、缩放和材质衔接：`../../source/presentation_handoff_report.json`。

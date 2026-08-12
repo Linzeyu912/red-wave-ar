@@ -254,6 +254,112 @@ class MeshBuilder:
                 [(0, 1, 2), (0, 2, 3)],
             )
 
+    def add_arch_ring_z(
+        self,
+        center_x: float,
+        spring_y: float,
+        inner_radius: float,
+        outer_radius: float,
+        z_front: float,
+        z_back: float,
+        segments: int = 32,
+    ) -> None:
+        """Add a closed semicircular annular prism with a smooth intrados.
+
+        Unlike a row of rotated boxes, adjacent sectors share the same exact
+        curve samples and therefore cannot open visible gaps around an arch.
+        """
+        if not 0.0 < inner_radius < outer_radius:
+            raise ValueError("arch radii must satisfy 0 < inner < outer")
+        if segments < 4 or z_front >= z_back:
+            raise ValueError("arch ring needs >=4 segments and front < back")
+
+        def point(radius: float, angle: float, z: float) -> tuple[float, float, float]:
+            return (
+                center_x + radius * math.cos(angle),
+                spring_y + radius * math.sin(angle),
+                z,
+            )
+
+        for index in range(segments):
+            a0 = math.pi * index / segments
+            a1 = math.pi * (index + 1) / segments
+            i0f, i1f = point(inner_radius, a0, z_front), point(inner_radius, a1, z_front)
+            o0f, o1f = point(outer_radius, a0, z_front), point(outer_radius, a1, z_front)
+            i0b, i1b = point(inner_radius, a0, z_back), point(inner_radius, a1, z_back)
+            o0b, o1b = point(outer_radius, a0, z_back), point(outer_radius, a1, z_back)
+            self._face([i0f, i1f, o1f, o0f], [(0, 1, 2), (0, 2, 3)], normal=(0.0, 0.0, -1.0))
+            self._face([i0b, o0b, o1b, i1b], [(0, 1, 2), (0, 2, 3)], normal=(0.0, 0.0, 1.0))
+            self._face([o0f, o1f, o1b, o0b], [(0, 1, 2), (0, 2, 3)])
+            self._face([i0f, i0b, i1b, i1f], [(0, 1, 2), (0, 2, 3)])
+
+        right_inner_f = point(inner_radius, 0.0, z_front)
+        right_outer_f = point(outer_radius, 0.0, z_front)
+        right_inner_b = point(inner_radius, 0.0, z_back)
+        right_outer_b = point(outer_radius, 0.0, z_back)
+        left_inner_f = point(inner_radius, math.pi, z_front)
+        left_outer_f = point(outer_radius, math.pi, z_front)
+        left_inner_b = point(inner_radius, math.pi, z_back)
+        left_outer_b = point(outer_radius, math.pi, z_back)
+        self._face([right_inner_f, right_outer_f, right_outer_b, right_inner_b], [(0, 1, 2), (0, 2, 3)])
+        self._face([left_outer_f, left_inner_f, left_inner_b, left_outer_b], [(0, 1, 2), (0, 2, 3)])
+
+    def add_arch_spandrel_z(
+        self,
+        center_x: float,
+        spring_y: float,
+        radius: float,
+        half_width: float,
+        top_y: float,
+        z_front: float,
+        z_back: float,
+        segments: int = 32,
+    ) -> None:
+        """Fill the wall above a semicircular arch with a closed curved soffit."""
+        if radius <= 0.0 or half_width < radius or top_y <= spring_y + radius:
+            raise ValueError("invalid arch spandrel dimensions")
+        if segments < 4 or z_front >= z_back:
+            raise ValueError("arch spandrel needs >=4 segments and front < back")
+
+        samples: list[tuple[float, float]] = []
+        for index in range(segments + 1):
+            x = center_x - radius + 2.0 * radius * index / segments
+            local_x = x - center_x
+            y = spring_y + math.sqrt(max(0.0, radius * radius - local_x * local_x))
+            samples.append((x, y))
+
+        for (x0, y0), (x1, y1) in zip(samples[:-1], samples[1:]):
+            self._face(
+                [(x0, y0, z_front), (x0, top_y, z_front),
+                 (x1, top_y, z_front), (x1, y1, z_front)],
+                [(0, 1, 2), (0, 2, 3)],
+                normal=(0.0, 0.0, -1.0),
+            )
+            self._face(
+                [(x0, y0, z_back), (x1, y1, z_back),
+                 (x1, top_y, z_back), (x0, top_y, z_back)],
+                [(0, 1, 2), (0, 2, 3)],
+                normal=(0.0, 0.0, 1.0),
+            )
+            self._face(
+                [(x0, y0, z_front), (x1, y1, z_front),
+                 (x1, y1, z_back), (x0, y0, z_back)],
+                [(0, 1, 2), (0, 2, 3)],
+            )
+
+        self._face(
+            [(center_x - half_width, top_y, z_front), (center_x - half_width, top_y, z_back),
+             (center_x + half_width, top_y, z_back), (center_x + half_width, top_y, z_front)],
+            [(0, 1, 2), (0, 2, 3)],
+            normal=(0.0, 1.0, 0.0),
+        )
+        # Rectangular shoulders join the curved spandrel to the existing side walls.
+        for side in (-1.0, 1.0):
+            x0 = center_x + side * radius
+            x1 = center_x + side * half_width
+            lo, hi = min(x0, x1), max(x0, x1)
+            self.add_box((lo, spring_y, z_front), (hi, top_y, z_back))
+
     def add_gable_roof(
         self,
         center: tuple[float, float, float],

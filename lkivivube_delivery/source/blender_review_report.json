@@ -157,7 +157,7 @@
       "blend": "lkivivube_delivery/source/blend/S4A_juyong_pass_tower_v003_source.blend",
       "preview": "lkivivube_delivery/scenes/S4_juyong_pass/images/S4A_juyong_pass_tower_preview_v003.png",
       "mesh_objects": 6,
-      "triangles": 8596,
+      "triangles": 10926,
       "materials": 6,
       "images": 1,
       "animations": 1,
@@ -172,12 +172,12 @@
       ],
       "bounds_max": [
         5.9,
-        3.0446,
+        2.899,
         10.718
       ],
       "dimensions": [
         11.8,
-        5.7446,
+        5.599,
         10.718
       ]
     },
@@ -217,7 +217,7 @@
       "blend": "lkivivube_delivery/source/blend/S6A_zhenfang_lou_v003_source.blend",
       "preview": "lkivivube_delivery/scenes/S6_zhenfang_lou/images/S6A_zhenfang_lou_preview_v003.png",
       "mesh_objects": 5,
-      "triangles": 13094,
+      "triangles": 13082,
       "materials": 5,
       "images": 0,
       "animations": 1,
@@ -232,12 +232,12 @@
       ],
       "bounds_max": [
         5.025,
-        4.9496,
+        4.712,
         5.9
       ],
       "dimensions": [
         10.05,
-        7.6246,
+        7.387,
         5.9
       ]
     },

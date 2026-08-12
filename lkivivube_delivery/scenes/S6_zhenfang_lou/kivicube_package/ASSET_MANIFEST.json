@@ -29,12 +29,12 @@
           "width": 1024,
           "height": 1024,
           "aspect_ratio": 1.0,
-          "bytes": 1200856
+          "bytes": 1200549
         },
         "ground_plane_position": [
           0.02,
           0.002,
-          -0.12185
+          -0.097735
         ],
         "ground_plane_size_target_units": [
           1.0,

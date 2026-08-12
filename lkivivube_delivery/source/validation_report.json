@@ -90,7 +90,7 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 3072084,
+          "value": 3072080,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -298,7 +298,7 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 598200,
+          "value": 758104,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -307,7 +307,7 @@
           "maximum": 10
         },
         "triangles": {
-          "value": 8596,
+          "value": 10926,
           "maximum": 120000
         },
         "materials": {
@@ -330,7 +330,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 6,
-        "triangles": 8596,
+        "triangles": 10926,
         "materials": 6,
         "images": 1
       }
@@ -402,7 +402,7 @@
       },
       "budgets": {
         "file_bytes": {
-          "value": 882644,
+          "value": 881804,
           "target": 5242880,
           "maximum": 10485760
         },
@@ -411,7 +411,7 @@
           "maximum": 10
         },
         "triangles": {
-          "value": 13094,
+          "value": 13082,
           "maximum": 100000
         },
         "materials": {
@@ -434,7 +434,7 @@
         "status": "PASS",
         "version": "5.1.2",
         "mesh_objects": 5,
-        "triangles": 13094,
+        "triangles": 13082,
         "materials": 5,
         "images": 0
       }
