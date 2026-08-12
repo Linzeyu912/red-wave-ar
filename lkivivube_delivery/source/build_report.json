@@ -3,7 +3,7 @@
     {
       "asset_id": "s1a_pingxi_gate",
       "file": "D:\\YH\\red-wave-ar\\lkivivube_delivery\\scenes\\S1_pingxi_intelligence_station\\model\\S1A_pingxi_gate_v003.glb",
-      "size_bytes": 467432,
+      "size_bytes": 467436,
       "triangles": 3756,
       "vertices": 7242,
       "meshes": 5,
@@ -17,7 +17,7 @@
       ],
       "bounds_max": [
         3.369999885559082,
-        5.389999866485596,
+        5.309999942779541,
         1.100000023841858
       ],
       "ground_normalization_offset": 0.0,
@@ -132,7 +132,7 @@
       ],
       "bounds_max": [
         5.900000095367432,
-        10.718000411987305,
+        10.093000411987305,
         2.700000047683716
       ],
       "ground_normalization_offset": 0.0,
