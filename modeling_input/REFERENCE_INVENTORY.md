@@ -4,7 +4,7 @@
 > 清点日期：2026-07-29
 > 原始素材根目录：`modeling_input/S?/local_reference/source_folder_20260727/`
 
-本清单登记受控输入的对应关系。用户已确认将 S1–S7 当前图片和 Word 上传到公开仓库，文件统一通过 Git LFS 存储；这项确认不替代摄影版权、隐私处理或其他公开用途许可。当前共有 7 个地点、9 个独立“触发图—真实照片（内部依据）—地面贴图—模型”单元：平西情报联络站和项目暂称“短波通信局”的 S3 各有两个触发图，必须分别制作两个模型。
+本清单登记受控输入的对应关系。用户已确认将 S1–S7 当前图片和 Word 上传到公开仓库，文件统一通过 Git LFS 存储；这项确认不替代摄影版权、隐私处理或其他公开用途许可。当前共有 7 个地点、9 个独立“触发图—真实照片（内部依据）—地面贴图—模型”单元：平西情报联络站和短波通信局旧址 S3 各有两个触发图，必须分别制作两个模型。
 
 62 张图片已经完成第一轮逐张特征提取。总索引见 [`VISUAL_CONSTRAINTS_INDEX.md`](VISUAL_CONSTRAINTS_INDEX.md)，每个地点的图片覆盖表、主体特征、推断边界和提示词片段见对应的 `S?/visual_constraints.md`。
 
@@ -15,8 +15,8 @@
 | S1A | 平西情报联络站入口门楼 | `S1/.../trigger_hand_drawn.jpg` | `S1/.../微信图片_20260712203953_1152_5130.jpg` | `S1A_pingxi_gate_v003.glb` | 尺寸可用；公开权待确认 |
 | S1B | 平西女报务员雕塑及发报设备 | `S1/.../S1B_radio_operator_trigger_hand_drawn.jpg` | `S1/.../微信图片_20260716203647_1419_5130.jpg` | `S1B_radio_operator_statue_v003.glb` | 触发图 1080×1080，原样复制；真实照片须缩至 ≤2048 长边，背景人物与公开权待处理 |
 | S2A | 电报大楼 | `S2/.../trigger_hand_drawn.jpg` | `S2/.../微信图片_20260727183423_918_1.jpg` | `S2A_telegraph_building_v003.glb` | 需压至 ≤5 MB，并裁除车牌等无关信息 |
-| S3A | S3 参考素材所示通信楼 | `S3/.../trigger_hand_drawn.jpg` | `S3/.../微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v003.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
-| S3B | S3 参考素材所示天线阵列 | `S3/.../短波通信局2.jpg` | `S3/.../微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v003.glb` | 尺寸与体积可用；具体台站身份与公开权待确认 |
+| S3A | 短波通信局旧址通信楼 | `S3/.../trigger_hand_drawn.jpg` | `S3/.../微信图片_20260727183421_916_1.jpg` | `S3A_shortwave_station_building_v003.glb` | 项目方确认地点；正式史料名称为北京国际电台中央发信台；照片公开权待确认 |
+| S3B | 短波通信局旧址天线阵列 | `S3/.../短波通信局2.jpg` | `S3/.../微信图片_20260727183422_917_1.jpg` | `S3B_shortwave_antenna_array_v003.glb` | 项目方确认地点；工信部核心物项包含 360 度旋转式对数周期天线；照片公开权待确认 |
 | S4A | 居庸关城楼 | `S4/.../trigger_hand_drawn.jpg` | `S4/.../微信图片_20260727183424_919_1.jpg` | `S4A_juyong_pass_tower_v003.glb` | 需压至 ≤5 MB；公开权待确认 |
 | S5A | 西山无名英雄纪念广场雕塑群 | `S5/.../trigger_hand_drawn.jpg` | `S5/.../18b017b5eb0df80ff4c70fc5991203b5.jpg` | `S5A_memorial_sculpture_v003.glb` | 图片带“百度百科”水印，不能直接公开展示 |
 | S6A | 香山镇芳楼 | `S6/.../trigger_hand_drawn.jpg` | `S6/.../a4c5a574525a3f829e286f6eea4b9e08.jpg` | `S6A_zhenfang_lou_v003.glb` | 尺寸可用；公开权待确认 |
@@ -45,8 +45,8 @@ S2 的 `e7014ebbe8b936c91c629951317c1fa2.jpg` 是补充的展陈参考，不替�
 
 | 场景 | 状态 | 说明 |
 |---|---|---|
-| S1 | `LOCAL_SOURCE_EXTRACTED / REVIEW_REQUIRED` | 已从 `平西情报联络站文字素材.docx` 整理到 [`S1/narration_reference.md`](S1/narration_reference.md)；原 Word 中具体史实仍待逐项审核 |
-| S2、S4–S7 | `RESEARCHED_DRAFT / OFFICIAL_SOURCES_LINKED / REVIEW_REQUIRED` | 已按平西的长短版结构整理研究稿，来源和禁写边界见各地点的 `narration_reference.md` |
-| S3 | `RESEARCHED_DRAFT / IDENTITY_PENDING / INTERNAL_TEST_ONLY` | 已提供技术与模型说明稿；没有书面地点身份前，不能形成具体台站历史旁白 |
+| S1 | `NARRATION_V001_CONTENT_CONFIRMED` | 已选定不含原 Word 高风险具体战例与引语的介绍段落 |
+| S2、S4–S7 | `NARRATION_V001_CONTENT_CONFIRMED` | 项目负责人已选定介绍音频正文；来源和禁写边界继续保留在各地点研究稿中 |
+| S3 | `IDENTITY_CONFIRMED / OFFICIAL_NAME_MATCHED / NARRATION_V001_CONTENT_CONFIRMED` | 项目方确认为短波通信局旧址；正式史料名称匹配北京国际电台中央发信台 |
 
-研究稿不替代旁白成稿。通过事实、版权和内容审核后，才可写入平台交付目录的 `narration/narration_v001.md` 并用于正式发布。
+最终正文已写入各地点平台交付目录的 `narration/narration_v001.md`，统一索引见 [`../lkivivube_delivery/NARRATION_FINAL_INDEX.md`](../lkivivube_delivery/NARRATION_FINAL_INDEX.md)。音频文件仍待录制、试听和平台导入。

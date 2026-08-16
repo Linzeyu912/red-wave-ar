@@ -1,8 +1,39 @@
 # Kivicube 平台素材交付
 
-> 状态：`NINE_MODELS_V3_DETAIL_STATIC_GROUND_V002_READY / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / PLATFORM_UPLOAD_PENDING`
+> 状态：`NINE_MODELS_V3_DETAIL_STATIC_GROUND_V002_READY / NARRATION_V001_CONTENT_CONFIRMED / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / PLATFORM_UPLOAD_PENDING`
 
 这是项目的主 AR 素材交付层。它包含可上传的地点模型、原手绘触发图、专属地面贴图、旁白与元数据；真实参考照片仅作为触发图和主体的内部核对副本，不配置为 AR 展示对象。原始参考图、未核验文字和带隐私的申报材料仍按受控输入与资产卡规则处理。
+
+七个地点的介绍音频文字已于 2026-08-16 确定，统一见 [`NARRATION_FINAL_INDEX.md`](NARRATION_FINAL_INDEX.md)；音频文件仍待录制、试听和导入 Kivicube。
+
+## 当前主线与调用流程
+
+本目录只交付 Kivicube 第三方平台版所需素材。当前统一调用逻辑为：
+
+```text
+扫描手绘触发图
+  → Kivicube 图像识别成功
+  → 对应 V002 地面贴图与静态 V3 GLB 出现
+  → 播放对应地点的介绍音频
+```
+
+- 手绘触发图是识别入口，不是识别后的展示平面。
+- 真实参考照片只用于核对触发图、主体和建模配色，不上传为 AR 展示对象。
+- 地面贴图与静态模型按各单元 `kivicube_setup.json` 配置；当前默认在识别后同时出现，随后开始旁白。
+- 七个地点拆成九个触发单元。S1A/S1B 共用一份介绍音频，S3A/S3B 共用一份，其余五个单元各使用一份。
+- 自研 Android、相机与投影仪适配属于另一条长期路线，不从本目录直接调用平台素材。
+
+## 当前文件完整性
+
+| 类型 | 数量 | 当前状态 | 位置 |
+|---|---:|---|---|
+| V3 GLB 模型 | 9/9 | 已存在；本地 GLB 与 Blender 回读校验通过 | `scenes/*/model/*_v003.glb` |
+| 手绘触发图 | 9/9 | 已存在；平台识别评分与印刷真机测试待完成 | `scenes/*/kivicube_package/*/*_trigger_v001.jpg` |
+| V002 地面贴图 | 9/9 | 已存在；均为 1024×1024 | `scenes/*/kivicube_package/*/*_ground_texture_v002.png` |
+| 介绍音频文字 | 7/7 | 已审核选定；S1、S3 各由两个单元共用 | `scenes/*/narration/narration_v001.md` |
+| 实际音频媒体 | 0/7 | 尚未录制或生成，不创建空音频占位文件 | 后续放入各地点 `narration/` |
+
+“介绍音频文字已存在”与“实际音频文件已存在”是两个不同状态。当前可以继续上传和整理触发图、地面贴图与模型；音频需在录制或生成、试听确认后再导入平台。
 
 平台技术约束统一见 [`../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../docs/KIVICUBE_ASSET_CONSTRAINTS.md)。本目录名 `lkivivube_delivery` 沿用早期拼写以保持路径稳定，正文中的平台正式名称统一为 Kivicube。
 
@@ -20,7 +51,7 @@ lkivivube_delivery/
         ├── asset_card.md               # 该地点的唯一交接与验收记录
         ├── model/                      # 最终 <asset_id>_<slug>_vNNN.glb
         ├── images/                     # 触发图、内部参考原图、预览/封面
-        ├── narration/                  # 旁白文字、事实来源与审核状态
+        ├── narration/                  # 旁白文字；后续存放录制完成的音频媒体
         └── upload/                     # 上传参数、检查记录与平台回执
 ```
 
@@ -64,7 +95,8 @@ lkivivube_delivery/
 | 内部绘制参考图 | `<asset_id>_<slug>_reference_reveal_vNNN.jpg` | `S3B_shortwave_antenna_array_reference_reveal_v001.jpg` |
 | 专属地面贴图 | `<asset_id>_<slug>_ground_texture_vNNN.png` | `S3B_shortwave_antenna_array_ground_texture_v002.png` |
 | 预览图 | `<asset_id>_<slug>_cover_vNNN.png` | `S3B_shortwave_antenna_array_cover_v001.png` |
-| 旁白 | `narration_vNNN.md` | `narration_v001.md` |
+| 旁白文字 | `narration_vNNN.md` | `narration_v001.md` |
+| 旁白音频 | `narration_vNNN.mp3` 或 `narration_vNNN.wav` | `narration_v001.mp3` |
 | 上传检查 | `upload_check_vNNN.md` | `upload_check_v001.md` |
 
 ## 开始一个地点的顺序

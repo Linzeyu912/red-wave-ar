@@ -25,8 +25,8 @@
 | S1A | 平西情报联络站入口门楼 | 灰砖单开间门楼、深红木框、横匾与两侧竖联、灰瓦檐口 | [`S1/visual_constraints.md`](S1/visual_constraints.md) |
 | S1B | 女报务员雕塑及发报设备 | 戴耳机的辫发女报务员、俯视操作姿态、报务机与电键、暖棕铜色 | [`S1/visual_constraints.md`](S1/visual_constraints.md) |
 | S2A | 电报大楼 | 长条对称楼体、橙褐墙面与白色结构网格、中央钟塔和细长天线 | [`S2/visual_constraints.md`](S2/visual_constraints.md) |
-| S3A | S3 参考素材所示通信楼（项目暂归“短波通信局”） | 多层圆角玻璃塔、连续水平挑檐、右后方高直墙体、老旧灰白外观 | [`S3/visual_constraints.md`](S3/visual_constraints.md) |
-| S3B | S3 参考素材所示天线阵列（项目暂归“短波通信局”） | 中央钢桁架塔、四向交叉长桁架臂、悬挂式网状细线阵列 | [`S3/visual_constraints.md`](S3/visual_constraints.md) |
+| S3A | 短波通信局旧址通信楼 | 多层圆角玻璃塔、连续水平挑檐、右后方高直墙体、老旧灰白外观 | [`S3/visual_constraints.md`](S3/visual_constraints.md) |
+| S3B | 短波通信局旧址天线阵列 | 中央钢桁架塔、四向交叉长桁架臂、悬挂式网状细线阵列 | [`S3/visual_constraints.md`](S3/visual_constraints.md) |
 | S4A | 居庸关城楼 | 灰砖券门城台、垛口、三道明显檐线、红柱、青绿彩画与繁体楷书“天下第一雄關”匾 | [`S4/visual_constraints.md`](S4/visual_constraints.md) |
 | S5A | 西山无名英雄纪念广场雕塑群 | 四尊浅灰石雕、宽幅人物浮雕墙、前置斜面《家国》铜牌 | [`S5/visual_constraints.md`](S5/visual_constraints.md) |
 | S6A | 香山镇芳楼 | 两层灰砖小楼、环廊、中央凸出门廊、三角山花与五角星、深红木构 | [`S6/visual_constraints.md`](S6/visual_constraints.md) |
@@ -58,7 +58,7 @@
 | 单元 | 待确认项 | V1 默认建议 |
 |---|---|---|
 | S2A | 不同年代照片中的屋顶红旗和附属设备不一致 | 不建旗帜；只简化保留钟塔、天线和主要屋顶构件 |
-| S3A / S3B | 公开资料尚不能把照片与“第三电台”“五六四台”等具体身份对应 | 保留稳定的 S3 项目 ID；模型和旁白不写死具体台站身份 |
+| S3A / S3B | 项目方确认“短波通信局旧址”，正式史料名称为“北京国际电台中央发信台”；照片细部仍非测绘资料 | 保留稳定的 S3 项目 ID；旁白采用已确认名称，不扩写照片不可见的设施细节 |
 | S3A | 左侧现代通信杆是否属于历史主体 | 默认不并入楼体；若保留，作为可删除附件且不带运营商标识 |
 | S3B | 现场可能有多套相邻阵列 | 每个触发图只建一套完整代表性阵列 |
 | S4A | 匾额和砖墙小石牌文字需要最终校对 | 只锁定清晰可辨的繁体“天下第一雄關”并使用支持“關”的楷体；其他小字暂不制作 |

@@ -1,6 +1,6 @@
 # S6 香山镇芳楼：Kivicube 资产卡
 
-> 状态：`MODEL_V3_DETAIL_STATIC_GROUND_V002_READY / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / NARRATION_PENDING / RIGHTS_PENDING / PLATFORM_UPLOAD_PENDING`
+> 状态：`MODEL_V3_DETAIL_STATIC_GROUND_V002_READY / NARRATION_TEXT_CONFIRMED / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / RIGHTS_PENDING / PLATFORM_UPLOAD_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 - 当前输入入口：[`../../../modeling_input/S6/00_START_HERE.md`](../../../modeling_input/S6/00_START_HERE.md)。
@@ -15,6 +15,6 @@
 - V3 预览：`images/S6A_zhenfang_lou_preview_v003.png`。
 - 地面与模型的静态位置、缩放和材质衔接：`../../source/presentation_handoff_report.json`。
 - 受控输入：`../../../modeling_input/S6/local_reference/`。
-- 旁白文字：待补充后放 `narration/narration_v001.md`。
+- 介绍音频文字：已于 2026-08-16 确定并写入 `narration/narration_v001.md`；音频文件待制作。
 - 上传记录放 `upload/`；参考图仅作内部依据，不得配置为展示对象。
 - 网页端与微信小程序端完整流程：待验证。

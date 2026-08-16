@@ -1,6 +1,6 @@
-# S3 “短波通信局”（项目暂定名）：Kivicube 资产卡
+# S3 短波通信局旧址：Kivicube 资产卡
 
-> 状态：`TWO_MODEL_UNITS / MODEL_V3_DETAIL_STATIC_GROUND_V002_READY / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / IDENTITY_PENDING / NARRATION_PENDING / RIGHTS_PENDING / PLATFORM_UPLOAD_PENDING`
+> 状态：`TWO_MODEL_UNITS / MODEL_V3_DETAIL_STATIC_GROUND_V002_READY / IDENTITY_CONFIRMED / NARRATION_TEXT_CONFIRMED / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / RIGHTS_PENDING / PLATFORM_UPLOAD_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 - 当前输入入口：[`../../../modeling_input/S3/00_START_HERE.md`](../../../modeling_input/S3/00_START_HERE.md)。
@@ -19,8 +19,8 @@
 - 两个单元的地面/模型静态位置、缩放和材质衔接：`../../source/presentation_handoff_report.json`。
 - 两个 GLB 均通过本地预算与 Blender 5.1.2 回读检查。
 - S3A 不可见建筑面标记 `INFERRED_LOW_DETAIL`；S3B 次级线缆按性能预算简化。
-- “短波通信局”仅为当前项目名；不得把“第三电台”“五六四台”等未证实身份写入模型文字、上传标题或旁白。核验依据：[`../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。
+- 项目负责人于 2026-08-16 确认 S3 为“短波通信局旧址”；正式史料名称记录为“北京国际电台中央发信台”。“第三电台”“五六四台”等未匹配线索不进入模型文字、上传标题或旁白。核验依据：[`../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md`](../../../modeling_input/SUBJECT_IDENTITY_VERIFICATION.md)。
 - 受控输入：`../../../modeling_input/S3/local_reference/`。
-- 旁白文字：待补充后放 `narration/narration_v001.md`。
+- 介绍音频文字：已于 2026-08-16 确定，S3A/S3B 共用 `narration/narration_v001.md`；音频文件待制作。
 - 上传记录放 `upload/`；参考图仅作内部依据，不得配置为展示对象。
 - 网页端与微信小程序端完整流程：待验证。
