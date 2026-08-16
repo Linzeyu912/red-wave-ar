@@ -1,6 +1,6 @@
 # S1 平西情报联络站：Kivicube 资产卡
 
-> 状态：`TWO_MODEL_UNITS / MODEL_V3_DETAIL_STATIC_GROUND_V002_READY / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / RIGHTS_PENDING / PLATFORM_UPLOAD_PENDING`
+> 状态：`TWO_MODEL_UNITS / MODEL_V3_DETAIL_STATIC_GROUND_V002_READY / NARRATION_TEXT_CONFIRMED / BLENDER_5_1_2_REVIEWED / LOCAL_VALIDATION_PASS / RIGHTS_PENDING / PLATFORM_UPLOAD_PENDING`
 > 平台规范：[`../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md`](../../../docs/KIVICUBE_ASSET_CONSTRAINTS.md)
 
 ## 模型范围
@@ -39,7 +39,7 @@
 - 上传策略：S1B 使用一个完整 `S1B_radio_operator_statue_v003.glb`；人物、头发、设备与细节仅在 GLB 内部合并为 4 个材质网格，不拆成多个平台对象。
 - GLB 性能：两个模型均通过 `../../source/validation_report.json`，并经 Blender 5.1.2 实际导入。
 - 地面与模型的静态位置/缩放：以 `../../source/presentation_handoff_report.json` 为准；S1B 的原图包含讲解员，仍需完成隐私与来源审核，但不会上传为展示平面。
-- 旁白文字参考：已收到、待审核；成稿放 `narration/narration_v001.md`。
+- 介绍音频文字：已于 2026-08-16 确定，S1A/S1B 共用 `narration/narration_v001.md`；音频文件待制作。
 - 平台预览图：两张 V3 预览已生成，见上表。
 - “触发图—V002 地面贴图＋静态模型—旁白”流程：网页端与微信小程序端均待验证。
 - 上传字段和平台回执：记录到 `upload/`。

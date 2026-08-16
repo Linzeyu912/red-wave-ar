@@ -1,10 +1,10 @@
-# S3 “短波通信局”（项目暂定名）：图像特征提取
+# S3 短波通信局旧址：图像特征提取
 
-> 状态：`IMAGE_REVIEWED / TWO_MODEL_UNITS / IDENTITY_PENDING / V2.1_CORRECTIONS_APPLIED`
+> 状态：`IMAGE_REVIEWED / TWO_MODEL_UNITS / IDENTITY_CONFIRMED / V2.2_CORRECTIONS_APPLIED`
 > 图片覆盖：9 张，8 个独立画面
 > 用途：S3A、S3B 建模提示词与人工验收依据
 
-> 外部身份边界：现有图片内部可稳定归并为一座通信楼和一套代表性天线阵列，但公开资料尚不能证明其确切台站名称。“短波通信局”只作为项目暂定名；不得把“第三电台”“五六四台”等搜索线索写入模型或旁白。详见 [`../SUBJECT_IDENTITY_VERIFICATION.md`](../SUBJECT_IDENTITY_VERIFICATION.md)。
+> 外部身份边界：项目负责人已确认 S3 为“短波通信局旧址”，正式史料名称记录为“北京国际电台中央发信台”。建筑形态仍只按受控照片提取；“第三电台”“五六四台”等未匹配搜索线索不进入模型或旁白。详见 [`../SUBJECT_IDENTITY_VERIFICATION.md`](../SUBJECT_IDENTITY_VERIFICATION.md)。
 
 ## 1. 图片逐张覆盖
 
