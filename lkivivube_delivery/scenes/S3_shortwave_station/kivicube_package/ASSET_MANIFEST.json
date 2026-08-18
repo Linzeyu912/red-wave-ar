@@ -31,6 +31,14 @@
           "aspect_ratio": 1.0,
           "bytes": 1152223
         },
+        "model_glb": {
+          "file": "S3A_shortwave_station_building_model_v003.glb",
+          "bytes": 549692
+        },
+        "narration_audio": {
+          "file": "S3A_shortwave_station_building_narration_v003.m4a",
+          "bytes": 365785
+        },
         "ground_plane_position": [
           0.04,
           0.002,
@@ -75,6 +83,14 @@
           "height": 1024,
           "aspect_ratio": 1.0,
           "bytes": 1388913
+        },
+        "model_glb": {
+          "file": "S3B_shortwave_antenna_array_model_v003.glb",
+          "bytes": 4242044
+        },
+        "narration_audio": {
+          "file": "S3B_shortwave_antenna_array_narration_v003.m4a",
+          "bytes": 365785
         },
         "ground_plane_position": [
           0.02,

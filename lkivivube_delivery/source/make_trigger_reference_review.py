@@ -36,7 +36,7 @@ ASSETS = [
     },
     {
         "asset_id": "S1B",
-        "display_name_zh": "平西情报联络站：女报务员雕塑",
+        "display_name_zh": "平西情报联络站：女报务员与设备",
         "trigger": source("S1", "S1B_radio_operator_trigger_hand_drawn.jpg"),
         "reference": source("S1", "微信图片_20260716203647_1419_5130.jpg"),
     },
@@ -48,13 +48,13 @@ ASSETS = [
     },
     {
         "asset_id": "S3A",
-        "display_name_zh": "短波通信局：通信楼",
+        "display_name_zh": "短波通信局旧址：通信楼",
         "trigger": source("S3", "trigger_hand_drawn.jpg"),
         "reference": source("S3", "微信图片_20260727183421_916_1.jpg"),
     },
     {
         "asset_id": "S3B",
-        "display_name_zh": "短波通信局：天线阵列",
+        "display_name_zh": "短波通信局旧址：天线阵列",
         "trigger": source("S3", "短波通信局2.jpg"),
         "reference": source("S3", "微信图片_20260727183422_917_1.jpg"),
     },
@@ -66,7 +66,7 @@ ASSETS = [
     },
     {
         "asset_id": "S5A",
-        "display_name_zh": "西山无名英雄纪念广场",
+        "display_name_zh": "西山无名英雄纪念广场：雕塑群",
         "trigger": source("S5", "trigger_hand_drawn.jpg"),
         "reference": source("S5", "18b017b5eb0df80ff4c70fc5991203b5.jpg"),
     },
@@ -94,6 +94,18 @@ GROUND_BY_ID = {
     "S5A": ROOT / "lkivivube_delivery/scenes/S5_memorial_plaza/kivicube_package/S5A_memorial_sculpture/S5A_memorial_sculpture_ground_texture_v002.png",
     "S6A": ROOT / "lkivivube_delivery/scenes/S6_zhenfang_lou/kivicube_package/S6A_zhenfang_lou/S6A_zhenfang_lou_ground_texture_v002.png",
     "S7A": ROOT / "lkivivube_delivery/scenes/S7_telecom_museum/kivicube_package/S7A_telecom_museum/S7A_telecom_museum_ground_texture_v002.png",
+}
+
+DELIVERY_PREFIX_BY_ID = {
+    "S1A": "S1A_pingxi_gate",
+    "S1B": "S1B_radio_operator_statue",
+    "S2A": "S2A_telegraph_building",
+    "S3A": "S3A_shortwave_station_building",
+    "S3B": "S3B_shortwave_antenna_array",
+    "S4A": "S4A_juyong_pass_tower",
+    "S5A": "S5A_memorial_sculpture",
+    "S6A": "S6A_zhenfang_lou",
+    "S7A": "S7A_telecom_museum",
 }
 
 GRID = 3
@@ -143,11 +155,19 @@ def make_sheet(kind: str, title: str, output: Path) -> None:
         source_image = asset[kind]
         with Image.open(source_image) as opened:
             image = ImageOps.exif_transpose(opened).convert("RGB")
-            image.thumbnail((CELL_W - 28, CELL_H - 92), Image.Resampling.LANCZOS)
+            image.thumbnail((CELL_W - 28, CELL_H - 116), Image.Resampling.LANCZOS)
             image_x = x + (CELL_W - image.width) // 2
-            image_y = y + 58 + ((CELL_H - 70 - image.height) // 2)
+            image_y = y + 76 + ((CELL_H - 94 - image.height) // 2)
             canvas.paste(image, (image_x, image_y))
         draw.text((x + 16, y + 14), f"{asset['asset_id']}  {asset['display_name_zh']}", fill="#1b1b1b", font=font(20))
+        prefix = DELIVERY_PREFIX_BY_ID[asset["asset_id"]]
+        if kind == "trigger":
+            delivery_name = f"{prefix}_trigger_v001.jpg"
+        elif kind == "reference":
+            delivery_name = f"{prefix}_reference_reveal_v001.jpg"
+        else:
+            delivery_name = asset["ground"].name
+        draw.text((x + 16, y + 42), delivery_name, fill="#766f65", font=font(13))
         metadata = image_metadata(source_image)
         draw.text(
             (x + 16, y + CELL_H - 28),
@@ -167,7 +187,7 @@ def main() -> None:
     if missing:
         raise FileNotFoundError("Missing controlled input:\n" + "\n".join(missing))
     make_sheet("trigger", "原手绘触发图｜9 个模型", OUT / "trigger_images_3x3.png")
-    make_sheet("reference", "绘制触发图的参考原图｜9 个模型", OUT / "trigger_reference_images_3x3.png")
+    make_sheet("reference", "内部参考原图｜不要上传｜9 个模型", OUT / "trigger_reference_images_3x3.png")
     make_sheet("ground", "模型静态摆放的地面贴图 v002｜9 个模型", OUT / "ground_textures_3x3.png")
     PUBLISHED.mkdir(parents=True, exist_ok=True)
     for review_name, published_name in (

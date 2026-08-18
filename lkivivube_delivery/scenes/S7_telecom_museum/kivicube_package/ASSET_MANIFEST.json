@@ -31,6 +31,14 @@
           "aspect_ratio": 1.0,
           "bytes": 586024
         },
+        "model_glb": {
+          "file": "S7A_telecom_museum_model_v003.glb",
+          "bytes": 664860
+        },
+        "narration_audio": {
+          "file": "S7A_telecom_museum_narration_v003.m4a",
+          "bytes": 280987
+        },
         "ground_plane_position": [
           0.02,
           0.002,

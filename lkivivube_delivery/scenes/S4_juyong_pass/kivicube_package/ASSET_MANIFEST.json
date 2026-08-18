@@ -31,6 +31,14 @@
           "aspect_ratio": 1.0,
           "bytes": 1187931
         },
+        "model_glb": {
+          "file": "S4A_juyong_pass_tower_model_v003.glb",
+          "bytes": 758104
+        },
+        "narration_audio": {
+          "file": "S4A_juyong_pass_tower_narration_v003.m4a",
+          "bytes": 423480
+        },
         "ground_plane_position": [
           0.0,
           0.002,

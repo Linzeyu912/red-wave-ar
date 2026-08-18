@@ -186,6 +186,10 @@ def file_info(path: Path) -> dict[str, object]:
         }
 
 
+def binary_info(path: Path) -> dict[str, object]:
+    return {"file": path.name, "bytes": path.stat().st_size}
+
+
 def copy_trigger(source: Path, destination: Path) -> dict[str, object]:
     """Copy, never redraw/crop/resave, the user-provided trigger image."""
     shutil.copy2(source, destination)
@@ -282,7 +286,7 @@ def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
     )
     readme = f"""# Kivicube 素材包｜{assets[0]['scene']}
 
-本目录按模型单元分包。每个子目录都有：原手绘触发图、绘制触发图的内部参考原图副本、独立地面贴图、`kivicube_setup.json`。
+本目录按模型单元分包。每个子目录都有一套文件名唯一、可直接辨认的 Kivicube 素材：原手绘触发图、独立地面贴图、V3 GLB 模型、用户选定的介绍音频，以及场景专属设置文件。内部参考图只用于核对，不上传。
 
 | 单元 | 中文名称 | 子目录 |
 |---|---|---|
@@ -292,8 +296,9 @@ def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
 
 1. 将 `*_trigger_v001.jpg` 作为图片识别图；它是原手绘文件的未修改副本。
 2. 识别稳定后立即显示 `*_ground_texture_v002.png`，作为独立、无光照的方形地面平面。
-3. 同时显示 GLB，**不**自动播放 `photo_emerge` 或其他入场动画；模型静态贴地摆放。
+3. 同时显示 `*_model_v003.glb`，**不**自动播放 `photo_emerge` 或其他入场动画；模型静态贴地摆放。
 4. 地面平面在 `Y=0.002`，模型最低点在 `Y=0.004`；地面中心等于模型转换后占地中心，因此模型位于地面图中间上方。带台阶的单元把真实踏步保留在 GLB 内，正面（`-Z`）外侧地面只承接铺装，不以贴图伪造立体台阶。
+5. 约 `0.80s` 播放该场景的 `*_narration_v003.m4a`。S1A/S1B 的音频内容相同、S3A/S3B 的音频内容相同，但交付文件名按场景分别命名，上传素材库后不会混淆。
 
 ## 尺寸约束
 
@@ -309,7 +314,18 @@ def write_scene_readme(package: Path, assets: list[dict[str, object]]) -> None:
 def main() -> None:
     handoff = json.loads(HANDOFF.read_text(encoding="utf-8"))
     layouts = {asset["asset_id"]: asset for asset in handoff["assets"]}
-    missing = [str(path) for asset in ASSETS for path in (asset["trigger"], asset["reference"], GROUND_INPUTS / f"{asset['asset_id']}_{GROUND_VERSION}.png") if not path.exists()]
+    missing = [
+        str(path)
+        for asset in ASSETS
+        for path in (
+            asset["trigger"],
+            asset["reference"],
+            GROUND_INPUTS / f"{asset['asset_id']}_{GROUND_VERSION}.png",
+            ROOT / "lkivivube_delivery" / "scenes" / asset["scene"] / "model" / asset["model"],
+            ROOT / "lkivivube_delivery" / "scenes" / asset["scene"] / "narration" / "narration_v003.m4a",
+        )
+        if not path.exists()
+    ]
     if missing:
         raise FileNotFoundError("Missing required package inputs:\n" + "\n".join(missing))
 
@@ -323,9 +339,13 @@ def main() -> None:
         trigger_path = unit / f"{prefix}_trigger_v001.jpg"
         reference_path = unit / f"{prefix}_reference_reveal_v001.jpg"
         ground_path = unit / f"{prefix}_ground_texture_{GROUND_VERSION}.png"
+        model_path = unit / f"{prefix}_model_v003.glb"
+        narration_path = unit / f"{prefix}_narration_v003.m4a"
 
         trigger_info = copy_trigger(asset["trigger"], trigger_path)
         reference_info = save_reference(asset["reference"], reference_path)
+        shutil.copy2(scene / "model" / asset["model"], model_path)
+        shutil.copy2(scene / "narration" / "narration_v003.m4a", narration_path)
         handoff_asset = layouts[asset["asset_id"]]
         footprint = handoff_asset["target_footprint"]
         ground = handoff_asset["ground_texture"]
@@ -359,7 +379,8 @@ def main() -> None:
                 "image_target": trigger_path.name,
                 "drawing_reference_internal": reference_path.name,
                 "ground_texture": ground_path.name,
-                "model_glb": f"../../model/{asset['model']}",
+                "model_glb": model_path.name,
+                "narration_audio": narration_path.name,
             },
             "display_sequence": [
                 {"start_seconds": 0.0, "action": "recognize_original_hand_drawn_image_target"},
@@ -385,9 +406,10 @@ def main() -> None:
                 "entry_animation": "none", "auto_play": False, "target_footprint": footprint,
             },
         }
-        write_json(unit / "kivicube_setup.json", setup)
+        write_json(unit / f"{prefix}_kivicube_setup_v001.json", setup)
         asset["delivery"] = {
             "trigger": trigger_info, "drawing_reference_internal": reference_info, "ground_texture": ground_info,
+            "model_glb": binary_info(model_path), "narration_audio": binary_info(narration_path),
             "ground_plane_position": ground_position, "ground_plane_size_target_units": ground_size,
         }
         by_scene.setdefault(asset["scene"], []).append(asset)
