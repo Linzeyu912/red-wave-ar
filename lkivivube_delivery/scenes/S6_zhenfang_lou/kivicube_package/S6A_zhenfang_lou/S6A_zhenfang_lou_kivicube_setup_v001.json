@@ -1,23 +1,24 @@
 {
   "schema": "red-wave-ar.kivicube-static-ground-package.v3",
-  "asset_id": "S4A",
-  "display_name_zh": "居庸关城楼",
+  "asset_id": "S6A",
+  "display_name_zh": "香山镇芳楼",
   "source_integrity": {
     "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
   "reference_derived_surface_contract": {
-    "constraint_file": "modeling_input/S4/visual_constraints.md",
-    "front_evidence": "微信图片_20260727183424_919_1.jpg; 032E63AF42302FFB028EAA84B418AC8DF7D70A29_size41_w640_h444.jpeg; central arch",
-    "model_surface_evidence_zh": "灰旧砖城台、红柱和深红墙体、绿灰瓦与彩画。",
-    "ground_scope_zh": "只保留与城台同调的中灰旧石材接触面；不重建山体、长城或游客环境。"
+    "constraint_file": "modeling_input/S6/visual_constraints.md",
+    "front_evidence": "a4c5a574525a3f829e286f6eea4b9e08.jpg; 0b18-iepyyhi6452074.jpg; central stair and five-bay front",
+    "model_surface_evidence_zh": "浅中灰旧砖、旧白构件、枣红木构与中深灰石台阶/勒脚。",
+    "ground_scope_zh": "仅作中性灰石/混凝土接触面；不加入树木、竹林、花坛或相邻建筑。"
   },
   "files": {
-    "image_target": "S4A_juyong_pass_tower_trigger_v001.jpg",
-    "drawing_reference_internal": "S4A_juyong_pass_tower_reference_reveal_v001.jpg",
-    "ground_texture": "S4A_juyong_pass_tower_ground_texture_v002.png",
-    "model_glb": "../../model/S4A_juyong_pass_tower_v003.glb"
+    "image_target": "S6A_zhenfang_lou_trigger_v001.jpg",
+    "drawing_reference_internal": "S6A_zhenfang_lou_reference_reveal_v001.jpg",
+    "ground_texture": "S6A_zhenfang_lou_ground_texture_v002.png",
+    "model_glb": "S6A_zhenfang_lou_model_v003.glb",
+    "narration_audio": "S6A_zhenfang_lou_narration_v003.m4a"
   },
   "display_sequence": [
     {
@@ -41,9 +42,9 @@
   ],
   "ground_texture_plane": {
     "position": [
-      0.0,
+      0.02,
       0.002,
-      0.202123
+      -0.097735
     ],
     "rotation_degrees": [
       0.0,
@@ -51,50 +52,50 @@
       0.0
     ],
     "size_target_units": [
-      0.94,
-      0.94
+      1.0,
+      1.0
     ],
     "y_offset": 0.002,
     "material_mode": "unlit",
-    "surface_family": "historic_slate_flagstone",
+    "surface_family": "heritage_courtyard_stone",
     "model_material_bridge_rgb": [
-      114,
-      115,
-      111
+      136,
+      137,
+      134
     ],
     "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
-    "perimeter_clearance_target_units": 0.12,
+    "perimeter_clearance_target_units": 0.16,
     "front_axis": "-Z",
     "stair_transition": {
-      "has_front_landing": false,
-      "landing_width_ratio": 0.0,
-      "stair_geometry_zh": "城台、券门和城楼基座为 GLB 几何；无资料支持时不伪造入口台阶。",
-      "ground_approach_zh": "中灰旧石接触面包围居中的城台，避免用平面贴图绘制假台阶。"
+      "has_front_landing": true,
+      "landing_width_ratio": 0.34,
+      "stair_geometry_zh": "GLB 内保留中央直跑中深灰石阶，正面朝 -Z 并向门廊逐级升高。",
+      "ground_approach_zh": "台阶前以居中的中性灰石/混凝土接触区收口，不扩展到园林。"
     },
     "notes_zh": "模型转换后占地中心与方形地面中心重合；真实台阶留在 GLB 内，正面地面仅以同材质铺装和轻微接触阴影承接，不添加独立展台。"
   },
   "model": {
     "position": [
-      0.0,
+      0.02,
       0.004,
-      0.208025
+      -0.028822
     ],
     "rotation_degrees": [
       0.0,
       0.0,
       0.0
     ],
-    "uniform_scale_after_kivicube_auto_fit": 0.7,
+    "uniform_scale_after_kivicube_auto_fit": 0.68,
     "entry_animation": "none",
     "auto_play": false,
     "target_footprint": {
       "x": [
-        -0.35,
-        0.35
+        -0.32,
+        0.36
       ],
       "z": [
-        0.036051,
-        0.368195
+        -0.347644,
+        0.152173
       ],
       "inside_square_target": true
     }

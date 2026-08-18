@@ -26,25 +26,26 @@ Kivicube 当前统一体验流程为：
 
 | 素材 | 应有数量 | 当前数量 | 状态 |
 |---|---:|---:|---|
-| 最终三维模型 `*_v003.glb` | 9 | 9 | 已存在并通过本地校验，尚未完成平台上传与真机验证 |
+| Kivicube 上传模型 `*_model_v003.glb` | 9 | 9 | 已按场景唯一命名并通过本地校验，尚未完成平台上传与真机验证 |
 | 手绘触发图 `*_trigger_v001.jpg` | 9 | 9 | 已存在，仍需在 Kivicube 完成识别评分和印刷真机测试 |
 | 专属地面贴图 `*_ground_texture_v002.png` | 9 | 9 | 已存在，均为 1024×1024 |
 | 介绍音频文字 `narration_v001.md` | 7 | 7 | 已从长版、短版研究稿中审核选定，可用于录音或语音合成 |
-| 实际音频文件 `.mp3/.wav` | 7 | 0 | 尚未录制或生成，后续补入并映射到九个触发单元 |
+| Kivicube 上传音频 `*_narration_v003.m4a` | 9 | 9 | 源自用户指定的七条录音，已按九个场景分别命名，待平台导入 |
+| 历史音频 `narration_v001.wav` / `v002.mp3` | 14 | 14 | 已保留，不参与当前平台导入 |
 
-七份已选定文字的统一入口为 [`lkivivube_delivery/NARRATION_FINAL_INDEX.md`](lkivivube_delivery/NARRATION_FINAL_INDEX.md)。这里的“文字已定稿”只表示朗读内容已经选定，不表示实际音频已经生成。
+七份已选定文字和对应音频的统一入口为 [`lkivivube_delivery/NARRATION_FINAL_INDEX.md`](lkivivube_delivery/NARRATION_FINAL_INDEX.md)。当前使用用户提供并明确选定的 `v003.m4a`；七条源录音已生成九个带场景唯一名称的上传副本，S1A/S1B 与 S3A/S3B 虽内容相同但文件名不同。`v001.wav` 与 `v002.mp3` 仅保留为历史版本。
 
 ## Kivicube 九宫格预览
 
-以下图片会随建模与素材打包流程自动更新；完整的文件定位、Kivicube 上传参数和逐单元素材包见 [`lkivivube_delivery/KIVICUBE_PACKAGE_INDEX.md`](lkivivube_delivery/KIVICUBE_PACKAGE_INDEX.md)。
+以下五张九宫格已于 2026-08-18 按当前九场景上传包重新生成。图内场景编号、地点名称和文件名与 Kivicube 上传版一致；完整的文件定位、上传参数和逐单元素材包见 [`lkivivube_delivery/KIVICUBE_PACKAGE_INDEX.md`](lkivivube_delivery/KIVICUBE_PACKAGE_INDEX.md)。
 
-![九个模型预览](lkivivube_delivery/images/kivicube_model_previews_3x3.png)
+![九个场景专属上传模型预览](lkivivube_delivery/images/kivicube_model_previews_3x3.png)
 
-![九张原手绘触发图](lkivivube_delivery/images/kivicube_trigger_images_3x3.png)
+![九张带唯一场景文件名的原手绘触发图](lkivivube_delivery/images/kivicube_trigger_images_3x3.png)
 
-![九张触发图参考原图](lkivivube_delivery/images/kivicube_trigger_reference_images_3x3.png)
+![九张内部参考原图｜不要上传](lkivivube_delivery/images/kivicube_trigger_reference_images_3x3.png)
 
-![九张模型地面贴图](lkivivube_delivery/images/kivicube_ground_textures_3x3.png)
+![九张带唯一场景文件名的模型地面贴图](lkivivube_delivery/images/kivicube_ground_textures_3x3.png)
 
 ![九个模型与地面贴图的静态贴地预览](lkivivube_delivery/images/kivicube_model_ground_contact_3x3.png)
 
@@ -52,6 +53,7 @@ Kivicube 当前统一体验流程为：
 
 | 你要做的事 | 唯一入口 |
 |---|---|
+| 开始 Kivicube 九场景适配，逐项点击触发图、模型、地面和音频 | [`lkivivube_delivery/KIVICUBE_ADAPTATION_INDEX.md`](lkivivube_delivery/KIVICUBE_ADAPTATION_INDEX.md) |
 | 查看当前项目范围与双线边界 | [`docs/PROJECT_DIRECTION.md`](docs/PROJECT_DIRECTION.md) |
 | 了解目录职责、资料流向与可安全清理的本地文件 | [`docs/REPOSITORY_LAYOUT.md`](docs/REPOSITORY_LAYOUT.md) |
 | 查看 Kivicube 建模、触发图和素材约束 | [`docs/KIVICUBE_ASSET_CONSTRAINTS.md`](docs/KIVICUBE_ASSET_CONSTRAINTS.md) |

@@ -1,23 +1,24 @@
 {
   "schema": "red-wave-ar.kivicube-static-ground-package.v3",
-  "asset_id": "S5A",
-  "display_name_zh": "西山无名英雄纪念广场雕塑群",
+  "asset_id": "S3A",
+  "display_name_zh": "短波通信局：通信楼",
   "source_integrity": {
     "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
     "ground": "separate_1024_square_unlit_image_plane_with_model_contact_bridge"
   },
   "reference_derived_surface_contract": {
-    "constraint_file": "modeling_input/S5/visual_constraints.md",
-    "front_evidence": "18b017b5eb0df80ff4c70fc5991203b5.jpg; front four figures, relief wall and oblique bronze plaque",
-    "model_surface_evidence_zh": "暖浅灰石质人物/浮雕/支撑，铜牌为深棕铜色。",
-    "ground_scope_zh": "仅以浅暖灰石材衔接人物石质支撑和台阶；明确不重建大面积纪念广场铺装。"
+    "constraint_file": "modeling_input/S3/visual_constraints.md",
+    "front_evidence": "899.jpg; d71e2294ec93c25f3505af46eba879d6.jpg; front tower and entrance steps",
+    "model_surface_evidence_zh": "灰白旧砖/抹灰、褪色粉橙楼板带、深灰绿玻璃与宽台阶。",
+    "ground_scope_zh": "以低对比旧混凝土/浅石材承接入口基座；不重建水池、车辆、旗帜和场地。"
   },
   "files": {
-    "image_target": "S5A_memorial_sculpture_trigger_v001.jpg",
-    "drawing_reference_internal": "S5A_memorial_sculpture_reference_reveal_v001.jpg",
-    "ground_texture": "S5A_memorial_sculpture_ground_texture_v002.png",
-    "model_glb": "../../model/S5A_memorial_sculpture_v003.glb"
+    "image_target": "S3A_shortwave_station_building_trigger_v001.jpg",
+    "drawing_reference_internal": "S3A_shortwave_station_building_reference_reveal_v001.jpg",
+    "ground_texture": "S3A_shortwave_station_building_ground_texture_v002.png",
+    "model_glb": "S3A_shortwave_station_building_model_v003.glb",
+    "narration_audio": "S3A_shortwave_station_building_narration_v003.m4a"
   },
   "display_sequence": [
     {
@@ -41,9 +42,9 @@
   ],
   "ground_texture_plane": {
     "position": [
-      -0.0,
+      0.04,
       0.002,
-      -0.102508
+      0.154748
     ],
     "rotation_degrees": [
       0.0,
@@ -51,50 +52,50 @@
       0.0
     ],
     "size_target_units": [
-      1.02,
-      1.02
+      1.04,
+      1.04
     ],
     "y_offset": 0.002,
     "material_mode": "unlit",
-    "surface_family": "restrained_memorial_stone",
+    "surface_family": "aged_service_concrete",
     "model_material_bridge_rgb": [
-      199,
-      195,
-      184
+      126,
+      124,
+      117
     ],
     "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
-    "perimeter_clearance_target_units": 0.14,
+    "perimeter_clearance_target_units": 0.16,
     "front_axis": "-Z",
     "stair_transition": {
-      "has_front_landing": false,
-      "landing_width_ratio": 0.0,
-      "stair_geometry_zh": "人物石质支撑、斜置铜牌石座和层级关系均由 GLB 几何表达。",
-      "ground_approach_zh": "浅暖灰石材只承接局部石座，不把平面图做成大面积广场或假台阶。"
+      "has_front_landing": true,
+      "landing_width_ratio": 0.56,
+      "stair_geometry_zh": "GLB 内保留低层翼楼前的宽台阶，正面朝 -Z。",
+      "ground_approach_zh": "宽台阶外侧以低对比旧混凝土/浅石材过渡，不加入水池、车辆或道路。"
     },
     "notes_zh": "模型转换后占地中心与方形地面中心重合；真实台阶留在 GLB 内，正面地面仅以同材质铺装和轻微接触阴影承接，不添加独立展台。"
   },
   "model": {
     "position": [
-      -0.004959,
+      0.043035,
       0.004,
-      -0.002944
+      0.176836
     ],
     "rotation_degrees": [
       0.0,
       0.0,
       0.0
     ],
-    "uniform_scale_after_kivicube_auto_fit": 0.74,
+    "uniform_scale_after_kivicube_auto_fit": 0.72,
     "entry_animation": "none",
     "auto_play": false,
     "target_footprint": {
       "x": [
-        -0.37,
-        0.37
+        -0.32,
+        0.4
       ],
       "z": [
-        -0.265887,
-        0.060872
+        0.013671,
+        0.295824
       ],
       "inside_square_target": true
     }

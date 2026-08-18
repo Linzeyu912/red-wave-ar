@@ -99,17 +99,48 @@ def validate_setup(path: pathlib.Path) -> dict[str, object]:
             if image.size != (1024, 1024):
                 errors.append(f"ground texture is {image.size}, expected 1024×1024")
 
+    trigger = path.parent / str(files.get("image_target", ""))
+    if not trigger.exists():
+        errors.append("trigger image file is missing")
+
+    drawing_reference = path.parent / str(files.get("drawing_reference_internal", ""))
+    if not drawing_reference.exists():
+        errors.append("internal drawing reference file is missing")
+
+    model = (path.parent / str(files.get("model_glb", ""))).resolve()
+    expected_model_name = f"{path.parent.name}_model_v003.glb"
+    if model.parent != path.parent.resolve():
+        errors.append("model GLB escapes the scene upload package")
+    elif model.name != expected_model_name:
+        errors.append(f"model GLB must be named {expected_model_name}")
+    elif not model.exists():
+        errors.append("model GLB file is missing")
+
+    narration_ref = files.get("narration_audio")
+    expected_narration_ref = f"{path.parent.name}_narration_v003.m4a"
+    if narration_ref != expected_narration_ref:
+        errors.append(f"narration audio must be {expected_narration_ref}")
+    narration = (path.parent / str(narration_ref or "")).resolve()
+    if narration.parent != path.parent.resolve():
+        errors.append("narration audio escapes the scene upload package")
+    elif not narration.exists():
+        errors.append("narration audio file is missing")
+
     return {
         "asset_id": asset_id,
         "setup": path.relative_to(ROOT).as_posix(),
+        "trigger": trigger.relative_to(ROOT).as_posix() if trigger.exists() else str(trigger),
         "ground_texture": texture.relative_to(ROOT).as_posix() if texture.exists() else str(texture),
+        "model_glb": model.relative_to(ROOT).as_posix() if model.exists() else str(model),
+        "narration_audio": narration.relative_to(ROOT).as_posix() if narration.exists() else str(narration),
+        "drawing_reference_internal": drawing_reference.relative_to(ROOT).as_posix() if drawing_reference.exists() else str(drawing_reference),
         "status": "PASS" if not errors else "FAIL",
         "errors": errors,
     }
 
 
 def main() -> None:
-    setups = sorted(ROOT.glob("lkivivube_delivery/scenes/*/kivicube_package/*/kivicube_setup.json"))
+    setups = sorted(ROOT.glob("lkivivube_delivery/scenes/*/kivicube_package/*/*_kivicube_setup_v001.json"))
     results = [validate_setup(path) for path in setups]
     model_report = json.loads(MODEL_VALIDATION.read_text(encoding="utf-8"))
     model_bottoms = [entry.get("ground_plane", {}).get("status") for entry in model_report.get("assets", [])]

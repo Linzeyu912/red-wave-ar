@@ -18,8 +18,8 @@ DISPLAY_LABELS = {
     "s1a_pingxi_gate": "S1A 平西情报联络站｜入口门楼",
     "s1b_radio_operator_statue": "S1B 平西情报联络站｜女报务员与报务设备",
     "s2a_telegraph_building": "S2A 电报大楼｜主楼与钟塔",
-    "s3a_shortwave_station_building": "S3A 短波通信局（暂定）｜通信楼",
-    "s3b_shortwave_antenna_array": "S3B 短波通信局（暂定）｜四臂天线阵列",
+    "s3a_shortwave_station_building": "S3A 短波通信局旧址｜通信楼",
+    "s3b_shortwave_antenna_array": "S3B 短波通信局旧址｜天线阵列",
     "s4a_juyong_pass_tower": "S4A 居庸关｜城台与城楼",
     "s5a_memorial_sculpture": "S5A 西山无名英雄纪念广场｜雕塑群",
     "s6a_zhenfang_lou": "S6A 香山镇芳楼｜主体建筑",
@@ -51,7 +51,7 @@ def main() -> None:
         sheet.paste(image, (x, y))
         label_y = top + 515
         label = DISPLAY_LABELS.get(item["asset_id"], item["asset_id"])
-        filename = pathlib.PurePosixPath(item["glb"]).name
+        filename = pathlib.PurePosixPath(item["glb"]).name.replace("_v003.glb", "_model_v003.glb")
         draw.text((left + 14, label_y), label, font=title_font, fill=(235, 237, 240))
         draw.text((left + 14, label_y + 36), filename, font=filename_font, fill=(194, 199, 205))
         stats = (

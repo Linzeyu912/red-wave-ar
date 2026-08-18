@@ -1,7 +1,9 @@
 # S6 香山镇芳楼：介绍音频文稿 v001
 
-> 状态：`CONTENT_CONFIRMED / READY_FOR_RECORDING / AUDIO_NOT_YET_PRODUCED`
+> 状态：`CONTENT_CONFIRMED / AUDIO_GENERATED / LISTENING_REVIEW_REQUIRED`
 > 定稿日期：2026-08-16
+> 音频文件：`narration_v001.wav`
+> 生成日期：2026-08-18；Microsoft Huihui Desktop；语速 `-1`
 > 对应单元：S6A 镇芳楼
 
 ## 朗读正文
@@ -11,4 +13,5 @@
 ## 使用记录
 
 - 录音、配音或语音合成时只朗读“朗读正文”，不朗读标题和使用记录。
+- 当前 WAV 为合成试听版，人工试听通过后再导入 Kivicube。
 - 如需修改正文，新增版本，不覆盖本文件。

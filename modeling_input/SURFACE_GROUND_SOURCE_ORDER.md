@@ -26,6 +26,6 @@
 
 ## 执行落点
 
-- 机器可读的同一份结论写入每个 `kivicube_setup.json` 的 `reference_derived_surface_contract`，由 `lkivivube_delivery/source/prepare_all_kivicube_packages.py` 生成。
+- 机器可读的同一份结论写入每个 `*_kivicube_setup_v001.json` 的 `reference_derived_surface_contract`，由 `lkivivube_delivery/source/prepare_all_kivicube_packages.py` 生成。
 - `lkivivube_delivery/source/validate_static_ground_packages.py` 会拒绝缺少该来源合同的九单元素材包。
 - 九宫格“模型 + 地面”预览只作正面和贴地 QA，不是新的建模参考；其相机必须从 Blender `+Y` 看向模型，以对应程序坐标的 `-Z` 正面。

@@ -24,7 +24,7 @@
 
 表中 `S?/.../` 均指对应的 `modeling_input/S?/local_reference/source_folder_20260727/`。真实照片可作为内部建模与手绘图对应依据；其派生 `*_reference_reveal_v001.*` 仅保留为内部核对文件，当前不配置为 Kivicube AR 展示图。
 
-九个单元的 Kivicube 正式素材包已经放在各自场景目录的 `kivicube_package/`：原手绘触发图保持 `1080×1080`、不重绘不裁切；绘制参考原图保留画幅比例并仅在长边大于 `2048px` 时下采样；每个模型均有独立 `1024×1024` 地面贴图和对应的 `kivicube_setup.json`。
+九个单元的 Kivicube 正式素材包已经放在各自场景目录的 `kivicube_package/`：原手绘触发图保持 `1080×1080`、不重绘不裁切；绘制参考原图保留画幅比例并仅在长边大于 `2048px` 时下采样；每个模型均有独立 `1024×1024` 地面贴图、`*_model_v003.glb`、`*_narration_v003.m4a` 和对应的 `*_kivicube_setup_v001.json`。所有平台上传文件均带场景唯一前缀。
 
 S2 的 `e7014ebbe8b936c91c629951317c1fa2.jpg` 是补充的展陈参考，不替代 S2A 的主要真实照片。
 
@@ -49,4 +49,4 @@ S2 的 `e7014ebbe8b936c91c629951317c1fa2.jpg` 是补充的展陈参考，不替�
 | S2、S4–S7 | `NARRATION_V001_CONTENT_CONFIRMED` | 项目负责人已选定介绍音频正文；来源和禁写边界继续保留在各地点研究稿中 |
 | S3 | `IDENTITY_CONFIRMED / OFFICIAL_NAME_MATCHED / NARRATION_V001_CONTENT_CONFIRMED` | 项目方确认为短波通信局旧址；正式史料名称匹配北京国际电台中央发信台 |
 
-最终正文已写入各地点平台交付目录的 `narration/narration_v001.md`，统一索引见 [`../lkivivube_delivery/NARRATION_FINAL_INDEX.md`](../lkivivube_delivery/NARRATION_FINAL_INDEX.md)。音频文件仍待录制、试听和平台导入。
+最终正文已写入各地点平台交付目录的 `narration/narration_v001.md`，统一索引见 [`../lkivivube_delivery/NARRATION_FINAL_INDEX.md`](../lkivivube_delivery/NARRATION_FINAL_INDEX.md)。用户提供并明确选定的七条源 `narration_v003.m4a` 已完成文件校验，并生成九个场景专属 `*_narration_v003.m4a` 上传副本；`v001.wav` 与 `v002.mp3` 保留为历史版本。

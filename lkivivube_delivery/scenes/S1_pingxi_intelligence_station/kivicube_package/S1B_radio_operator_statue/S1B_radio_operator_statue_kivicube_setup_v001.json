@@ -1,7 +1,7 @@
 {
   "schema": "red-wave-ar.kivicube-static-ground-package.v3",
-  "asset_id": "S1A",
-  "display_name_zh": "平西情报联络站：入口门楼",
+  "asset_id": "S1B",
+  "display_name_zh": "平西情报联络站：女报务员雕塑及发报设备",
   "source_integrity": {
     "trigger": "original_hand_drawn_file_copied_without_redraw_or_crop",
     "drawing_reference": "internal_original_aspect_preserved_not_used_for_ar_display",
@@ -9,15 +9,16 @@
   },
   "reference_derived_surface_contract": {
     "constraint_file": "modeling_input/S1/visual_constraints.md",
-    "front_evidence": "USER-VIS-001_current_entrance.jpg; USER-VIS-007_gate_front_full.png; program front=-Z",
-    "model_surface_evidence_zh": "中深灰旧砖、酒红木框与牌匾、灰瓦、灰石门槛和正面台阶。",
-    "ground_scope_zh": "仅以门槛和台阶同系的低对比灰石作局部支撑；不重建街面、院落或旗杆设施。"
+    "front_evidence": "69e9b8c5d5de886d89e76e65.jpg; person left-back and equipment right-front; front-left three-quarter review",
+    "model_surface_evidence_zh": "人物、桌面与设备为暖棕青铜，凹部和衣褶为深褐/近黑铜锈。",
+    "ground_scope_zh": "照片未提供可独立建模的展厅地面；仅用克制的深棕木质中性支撑，避免添加展墙或展台。"
   },
   "files": {
-    "image_target": "S1A_pingxi_gate_trigger_v001.jpg",
-    "drawing_reference_internal": "S1A_pingxi_gate_reference_reveal_v001.jpg",
-    "ground_texture": "S1A_pingxi_gate_ground_texture_v002.png",
-    "model_glb": "../../model/S1A_pingxi_gate_v003.glb"
+    "image_target": "S1B_radio_operator_statue_trigger_v001.jpg",
+    "drawing_reference_internal": "S1B_radio_operator_statue_reference_reveal_v001.jpg",
+    "ground_texture": "S1B_radio_operator_statue_ground_texture_v002.png",
+    "model_glb": "S1B_radio_operator_statue_model_v003.glb",
+    "narration_audio": "S1B_radio_operator_statue_narration_v003.m4a"
   },
   "display_sequence": [
     {
@@ -41,9 +42,9 @@
   ],
   "ground_texture_plane": {
     "position": [
-      0.0,
+      -0.12,
       0.002,
-      0.03776
+      0.04336
     ],
     "rotation_degrees": [
       0.0,
@@ -51,50 +52,50 @@
       0.0
     ],
     "size_target_units": [
-      1.08,
-      1.08
+      0.6,
+      0.6
     ],
     "y_offset": 0.002,
     "material_mode": "unlit",
-    "surface_family": "courtyard_grey_flagstone",
+    "surface_family": "warm_dark_hardwood",
     "model_material_bridge_rgb": [
-      119,
-      117,
-      110
+      59,
+      36,
+      22
     ],
     "model_center_policy": "ground_plane_center_equals_transformed_model_footprint_center",
-    "perimeter_clearance_target_units": 0.18,
+    "perimeter_clearance_target_units": 0.12,
     "front_axis": "-Z",
     "stair_transition": {
-      "has_front_landing": true,
-      "landing_width_ratio": 0.62,
-      "stair_geometry_zh": "GLB 内保留正面 6–7 级灰石直跑台阶；外侧最低，向门洞逐级升高。",
-      "ground_approach_zh": "台阶外侧以居中的低对比灰石铺装承接，不在平面贴图中伪造立体踏步。"
+      "has_front_landing": false,
+      "landing_width_ratio": 0.0,
+      "stair_geometry_zh": "人物、桌台和设备为完整 GLB 组合，无外部台阶。",
+      "ground_approach_zh": "深棕木质地面仅作居中展陈组合的接触面，不添加虚构台阶或展台。"
     },
     "notes_zh": "模型转换后占地中心与方形地面中心重合；真实台阶留在 GLB 内，正面地面仅以同材质铺装和轻微接触阴影承接，不添加独立展台。"
   },
   "model": {
     "position": [
-      0.0,
+      -0.12,
       0.004,
-      0.112671
+      0.113032
     ],
     "rotation_degrees": [
       0.0,
       0.0,
       0.0
     ],
-    "uniform_scale_after_kivicube_auto_fit": 0.72,
+    "uniform_scale_after_kivicube_auto_fit": 0.393507,
     "entry_animation": "none",
     "auto_play": false,
     "target_footprint": {
       "x": [
-        -0.36,
-        0.36
+        -0.3,
+        0.06
       ],
       "z": [
-        -0.154659,
-        0.230178
+        -0.093935,
+        0.180655
       ],
       "inside_square_target": true
     }
