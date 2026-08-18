@@ -31,6 +31,14 @@
           "aspect_ratio": 1.0,
           "bytes": 1151956
         },
+        "model_glb": {
+          "file": "S5A_memorial_sculpture_model_v003.glb",
+          "bytes": 1339648
+        },
+        "narration_audio": {
+          "file": "S5A_memorial_sculpture_narration_v003.m4a",
+          "bytes": 257578
+        },
         "ground_plane_position": [
           -0.0,
           0.002,

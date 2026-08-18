@@ -17,7 +17,8 @@
     "image_target": "S3B_shortwave_antenna_array_trigger_v001.jpg",
     "drawing_reference_internal": "S3B_shortwave_antenna_array_reference_reveal_v001.jpg",
     "ground_texture": "S3B_shortwave_antenna_array_ground_texture_v002.png",
-    "model_glb": "../../model/S3B_shortwave_antenna_array_v003.glb"
+    "model_glb": "S3B_shortwave_antenna_array_model_v003.glb",
+    "narration_audio": "S3B_shortwave_antenna_array_narration_v003.m4a"
   },
   "display_sequence": [
     {

@@ -8,12 +8,12 @@
 - `glbkit.py`：本项目的轻量 glTF 2.0/GLB 写出器，使用米制单位、Y 轴向上、正面朝 -Z。
 - `blender_review.py`：用 Blender 5.1.2 逐个导入 GLB，保存可编辑 `.blend`，并渲染预览。
 - `validate_models.py`：检查 GLB 结构、嵌入资源与 Kivicube 文件/网格/三角面/材质/贴图预算。
-- `make_contact_sheet.py`：把九张预览合成总览，并同步到 `../images/kivicube_model_previews_3x3.png`，供 Kivicube 素材包索引 README 直接展示。
+- `make_contact_sheet.py`：把九张预览合成总览，以场景专属 `*_model_v003.glb` 上传名称标注，并同步到 `../images/kivicube_model_previews_3x3.png`，供 README 直接展示。
 - `presentation_profiles.json`：九个模型的触发图、内部参考来源、V002 地面材料族、尺寸与静态位置交接参数。
 - `make_presentation_handoff.py`：结合最终 GLB 包围盒计算 Kivicube 正方形地面、精确位置与自动适配后的缩放值。
 - `presentation_handoff_report.json`：可直接照录到场景编辑器的静态地面与模型布局结果。
 - `ground_contact_contracts.py`：九个模型的居中摆放、正面方向、台阶几何与地面承接合同；台阶绝不由二维地面贴图伪造。
-- `prepare_all_kivicube_packages.py`：复制原手绘触发图，生成九个 V002 地面贴图与静态 Kivicube 包配置。
+- `prepare_all_kivicube_packages.py`：复制原手绘触发图，生成九个 V002 地面贴图，并把模型、用户音频和配置整理为带场景唯一前缀的 Kivicube 上传包。
 - `ground_texture_inputs/`：九张可追踪的 V002 地面材质源；由生成脚本统一归一到 `1024×1024` 并按模型足迹叠加轻微接触阴影。
 - `validate_static_ground_packages.py`：验证九个 GLB 的本地 `Y=0` 基线、`Y=0.002/0.004` 摆放间距、正方形地面边界、V002 尺寸、无光照材质和关闭动画；输出 `static_ground_validation_report.json`。
 - `blender_ground_contact_review.py`：按 Kivicube 的静态摆放参数渲染九个“V002 地面＋完整 GLB”贴地预览。
